@@ -1,5 +1,4 @@
 android_chat_client
 ===================
 
-test project , android chat client.
-new commit
+testing if i am added or not 
