@@ -19,6 +19,5 @@ public class MessageTag extends Tag{
         childTags = new ArrayList<Tag>();
         childTags.add(new BodyTag(body));
         content=null;
-
     }
 }

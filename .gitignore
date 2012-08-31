@@ -1,5 +1,6 @@
 bin/
 android_chat_client.iml
+AndroidManifest.xml
 ant.properties
 build.xml
 local.properties
