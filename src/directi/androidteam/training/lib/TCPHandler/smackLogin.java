@@ -1,15 +1,7 @@
 package directi.androidteam.training.lib.TCPHandler;
 
-import android.util.Log;
-import directi.androidteam.training.StanzaStore.MessageStanza;
-import directi.androidteam.training.lib.xml.XMLHelper;
-import org.jivesoftware.smack.*;
-import org.jivesoftware.smack.packet.Message;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
+//import org.jivesoftware.smack.*;
+//import org.jivesoftware.smack.packet.Message;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +11,7 @@ import java.net.Socket;
  * To change this template use File | Settings | File Templates.
  */
 public class smackLogin {
+    /*
     String pass = "androidchat";
     public void execute(){
         ConnectionConfiguration config = new ConnectionConfiguration("talk.google.com", 5222,"gmail.com");
@@ -86,5 +79,5 @@ public class smackLogin {
 
 // Log into the server
 
-    }
+    } */
 }
