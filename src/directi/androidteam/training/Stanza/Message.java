@@ -1,4 +1,7 @@
-package directi.androidteam.training.TagStore;
+package directi.androidteam.training.Stanza;
+
+import directi.androidteam.training.TagStore.MessageTag;
+import directi.androidteam.training.TagStore.Tag;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,12 +10,12 @@ package directi.androidteam.training.TagStore;
  * Time: 6:13 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MessageStanza {
-    private  Tag tag;
-    public MessageStanza(String to , String body , String from){
+public class Message {
+    private Tag tag;
+    public Message(String to, String body, String from){
         tag = new MessageTag(to,body,from);
     }
-    public MessageStanza(Tag tag) {
+    public Message(Tag tag) {
         this.tag = tag;
     }
     public Tag getTag(){
