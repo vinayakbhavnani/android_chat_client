@@ -1,13 +1,7 @@
 package directi.androidteam.training.chatclient;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import directi.androidteam.training.StanzaStore.MessageStanza;
-import directi.androidteam.training.lib.TCPHandler.Dum;
-import directi.androidteam.training.lib.TCPHandler.smackLogin;
-import directi.androidteam.training.lib.xml.XMLHelper;
 
 
 public class activitytest extends Activity {
@@ -19,7 +13,7 @@ public class activitytest extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     /*    XMLHelper xml = new XMLHelper();
-        String xmlstring = xml.buildPacket(new MessageStanza("vinayak","heytest","sumit").getTag());
+        String xmlstring = xml.buildPacket(new Message("vinayak","heytest","sumit").getTag());
 
         xml.tearPacket(xmlstring);
         new testtask().execute();

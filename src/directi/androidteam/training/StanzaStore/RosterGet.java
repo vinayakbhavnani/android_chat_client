@@ -1,4 +1,4 @@
-package directi.androidteam.training.Stanza;
+package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.IQTag;
 

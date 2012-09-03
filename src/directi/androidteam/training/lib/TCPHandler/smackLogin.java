@@ -44,7 +44,7 @@ public class smackLogin {
         final String str1 = "<message to=\"vinayak.bhavnani@gmail.com\" type=\"chat\"><body>testhi</body></message>";
 
         final XMLHelper xml = new XMLHelper();
-        String xmlstring = xml.buildPacket(new MessageStanza("vinayak.bhavnani@gmail.com","talk.to","vinayak.bhavnani@gmail.com").getTag());
+        String xmlstring = xml.buildPacket(new Message("vinayak.bhavnani@gmail.com","talk.to","vinayak.bhavnani@gmail.com").getTag());
         xmpp.writexmlMessage(xmlstring);
         Thread t = new Thread(){
             public void run(){
