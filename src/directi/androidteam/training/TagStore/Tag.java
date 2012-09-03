@@ -17,7 +17,6 @@ public class Tag {
     protected String content;
 
     public Tag(String tagname, HashMap<String, String> attributes, ArrayList<Tag> childTags,String content) {
-
         this.tagname = tagname;
         this.attributes = attributes;
         this.childTags = childTags;
@@ -69,5 +68,10 @@ public class Tag {
         if(childTags==null)
             childTags = new ArrayList<Tag>();
         childTags.add(tag);
+    }
+    public String getAttribute(String key){
+        if(attributes==null)
+            return null;
+        return attributes.get(key);
     }
 }
