@@ -1,5 +1,6 @@
 package directi.androidteam.training.TagStore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -15,5 +16,9 @@ public class ItemTag extends Tag {
         HashMap<String,String> temp = new HashMap<String, String>();
         temp.put("jid", query);
         setAttributes(temp);
+    }
+
+    public ItemTag(HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
+        super("item", attributes, childTags, content);
     }
 }

@@ -14,4 +14,7 @@ public class Group extends Tag{
     public Group(HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
         super("group", attributes, childTags, content);
     }
+    public Group(String content){
+        super("group",null,null,content);
+    }
 }

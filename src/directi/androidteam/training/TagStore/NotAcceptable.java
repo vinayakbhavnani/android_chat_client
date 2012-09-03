@@ -14,4 +14,7 @@ public class NotAcceptable extends Tag{
     public NotAcceptable(HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
         super("not-acceptable", attributes, childTags, content);
     }
+    public NotAcceptable(){
+        super("non-acceptable",null,null,null);
+    }
 }
