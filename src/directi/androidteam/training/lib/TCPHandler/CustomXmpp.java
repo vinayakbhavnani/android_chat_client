@@ -4,6 +4,8 @@ import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 
 import java.io.IOException;
+import java.io.Reader;
+import java.net.Socket;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,5 +25,11 @@ public class CustomXmpp extends XMPPConnection {
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
+    }
+    public Reader getreader(){
+        return reader;
+    }
+    public Socket getSock(){
+        return socket;
     }
 }

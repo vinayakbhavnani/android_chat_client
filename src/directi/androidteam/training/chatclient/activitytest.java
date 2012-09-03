@@ -4,9 +4,8 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import directi.androidteam.training.TagStore.MessageStanza;
 
-import directi.androidteam.training.lib.TCPHandler.customConnection;
+import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.lib.TCPHandler.smackLogin;
 
 import directi.androidteam.training.lib.xml.XMLHelper;
@@ -26,7 +25,7 @@ public class activitytest extends Activity {
         new testtask().execute();
         //new customConnection();
 
-        Log.d("msg123",xml.buildPacket(xml.tearPacket(xmlstring)));
+       // Log.d("msg123",xml.buildPacket(xml.tearPacket(xmlstring)));
 
         setContentView(R.layout.main);
 

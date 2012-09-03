@@ -15,6 +15,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -123,6 +124,23 @@ public class XMLHelper {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser xpp = factory.newPullParser();
             xpp.setInput(new StringReader(xml));
+            int event = xpp.getEventType();
+            while (event !=XmlPullParser.END_DOCUMENT){
+                if(event==XmlPullParser.START_TAG){
+                    temptag =  tearTag(xpp);
+                }
+                event=xpp.next();
+            }
+        }
+        catch (Exception e){e.printStackTrace(); return null;}
+        return temptag;
+    }
+    public Tag tearxmlPacket(Reader reader){
+        Tag temptag=null;
+        try{
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser xpp = factory.newPullParser();
+            xpp.setInput(reader);
             int event = xpp.getEventType();
             while (event !=XmlPullParser.END_DOCUMENT){
                 if(event==XmlPullParser.START_TAG){

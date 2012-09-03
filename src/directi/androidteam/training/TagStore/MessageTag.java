@@ -11,11 +11,13 @@ import java.util.HashMap;
  * To change this template use File | Settings | File Templates.
  */
 public class MessageTag extends Tag{
-    public MessageTag(String to , String body , String from){
+    public MessageTag(String to , String body ,String subject){
         tagname="message";
         attributes = new HashMap<String, String>();
         attributes.put("type","chat");
         attributes.put("to",to);
+        if(subject!=null)
+            attributes.put("subject",subject);
         childTags = new ArrayList<Tag>();
         childTags.add(new BodyTag(body));
         content=null;
