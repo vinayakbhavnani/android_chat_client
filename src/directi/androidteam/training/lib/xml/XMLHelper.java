@@ -111,7 +111,7 @@ public class XMLHelper {
             //System.out.println(xmlString);
             Log.d("msg123",xmlString);
             //Log.d("msg123","heyhey");
-            return xmlString;
+            return xmlString.split("/?>")[1];
 
 
         } catch (Exception e) {

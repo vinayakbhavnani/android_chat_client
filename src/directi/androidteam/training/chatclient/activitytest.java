@@ -1,9 +1,12 @@
 package directi.androidteam.training.chatclient;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import directi.androidteam.training.TagStore.MessageStanza;
-import directi.androidteam.training.TagStore.MessageTag;
+import directi.androidteam.training.lib.TCPHandler.customConnection;
+import directi.androidteam.training.lib.TCPHandler.smackLogin;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 
@@ -17,7 +20,19 @@ public class activitytest extends Activity {
         XMLHelper xml = new XMLHelper();
         String xmlstring = xml.buildPacket(new MessageStanza("vinayak","heytest","sumit").getTag());
         xml.tearPacket(xmlstring);
+        new testtask().execute();
+        //new customConnection();
         setContentView(R.layout.main);
 
+    }
+}
+class testtask extends AsyncTask {
+
+    @Override
+    protected Object doInBackground(Object... objects) {
+        Log.d("execute","background");
+        //new customConnection();
+        new smackLogin().execute();
+        return null;
     }
 }
