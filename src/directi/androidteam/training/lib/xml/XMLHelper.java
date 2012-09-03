@@ -9,7 +9,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -19,7 +18,6 @@ import java.io.OutputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -33,32 +31,28 @@ public class XMLHelper {
 
 
     public Element buildElement(Document document,Tag tag){
-
         try {
-
-        Element rootelem = document.createElement(tag.getTagname());
-        HashMap<String,String> attrmap = tag.getAttributes();
-        if(attrmap!=null){
-        Set<String> attr =  tag.getAttributes().keySet();
-
-        for (String key : attr) {
-            rootelem.setAttribute(key,attrmap.get(key));
-        }
-        }
-        ArrayList<Tag> childT = tag.getChildTags();
-        if(childT!=null)
-        for (Tag tag1 : childT) {
-            rootelem.appendChild(buildElement(document,tag1));
-            Log.d("contentb", tag1.getContent());
-        }
-        if(tag.getContent()!=null)
-        rootelem.setTextContent(tag.getContent());
-        return rootelem;
+            Element rootelem = document.createElement(tag.getTagname());
+            HashMap<String,String> attrmap = tag.getAttributes();
+            if(attrmap!=null){
+            Set<String> attr =  tag.getAttributes().keySet();
+                for (String key : attr) {
+                    rootelem.setAttribute(key,attrmap.get(key));
+                }
+            }
+            ArrayList<Tag> childT = tag.getChildTags();
+            if(childT!=null)
+                for (Tag tag1 : childT) {
+                    rootelem.appendChild(buildElement(document,tag1));
+                }
+            if(tag.getContent()!=null)
+                rootelem.setTextContent(tag.getContent());
+            return rootelem;
         }
         catch (Exception e){e.printStackTrace();return  null;}
-
     }
     public  String buildPacket(Tag tag){
+
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -88,46 +82,12 @@ public class XMLHelper {
         return null;
 
     }
-    public String buildChatPacket(){
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document document = documentBuilder.newDocument();
-            Element rootelem = document.createElement("root");
-            rootelem.setAttribute("name","testname");
-            rootelem.setAttribute("subject","testsubject");
-            document.appendChild(rootelem);
-            Element elem = document.createElement("elem");
-            elem.appendChild(document.createTextNode("this is an element"));
-            rootelem.appendChild(elem);
-            TransformerFactory factory = TransformerFactory.newInstance();
-            Transformer transformer = factory.newTransformer();
-
-            DOMSource domSource = new DOMSource(document.getDocumentElement());
-            OutputStream output = new ByteArrayOutputStream();
-            StreamResult result = new StreamResult(output);
-            transformer.transform(domSource, result);
-            String xmlString = output.toString();
-            //System.out.println(xmlString);
-            Log.d("msg123",xmlString);
-            //Log.d("msg123","heyhey");
-            return xmlString.split("/?>")[1];
-
-
-        } catch (Exception e) {
-            Log.d("msg123","error happeneing");
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        return null;
-    }
 
     public Tag tearTag(XmlPullParser xpp){
 
         int event;
             try{
             String name = xpp.getName();
-                Log.d("starttag",xpp.getName());
             String content = null;
             HashMap<String,String> map = null;
             if(xpp.getAttributeCount()!=0){
@@ -151,51 +111,27 @@ public class XMLHelper {
                 event=xpp.next();
 
             if(event==XmlPullParser.END_TAG){
-                Log.d("endtag",xpp.getName());
                 return new Tag(name,map,childlist,content);
             }
             }
             catch (Exception e){e.printStackTrace();return  null;}
-            Log.d("hell","hell");
             return null;
     }
-
-    public void tearPacket(String xml){
-        try{
-            Tag temptag=null;
-            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-            XmlPullParser xpp = factory.newPullParser();
-            xpp.setInput(new StringReader(xml));
-
-
-            int event = xpp.getEventType();
-
-            while (event !=XmlPullParser.END_DOCUMENT){
-                if(event==XmlPullParser.START_TAG){
-
-                   temptag =  tearTag(xpp);
-                }
-                event=xpp.next();
-            }
-            Log.d("taginxml",buildPacket(temptag));
-        }
-        catch (Exception e){e.printStackTrace();}
-    }
-    public void tearMessagePacket(String xml){
+    public Tag tearPacket(String xml){
+        Tag temptag=null;
         try{
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser xpp = factory.newPullParser();
             xpp.setInput(new StringReader(xml));
             int event = xpp.getEventType();
-
             while (event !=XmlPullParser.END_DOCUMENT){
                 if(event==XmlPullParser.START_TAG){
-                    Log.d("tagname",xpp.getName());
-                    Log.d("tagattribute",xpp.getAttributeName(0)+":"+xpp.getAttributeValue(0));
+                    temptag =  tearTag(xpp);
                 }
                 event=xpp.next();
             }
         }
-        catch (Exception e){}
+        catch (Exception e){e.printStackTrace(); return null;}
+        return temptag;
     }
 }

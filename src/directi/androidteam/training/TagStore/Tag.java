@@ -16,6 +16,17 @@ public class Tag {
     protected ArrayList<Tag> childTags;
     protected String content;
 
+    public Tag(String tagname, HashMap<String, String> attributes, ArrayList<Tag> childTags,String content) {
+
+        this.tagname = tagname;
+        this.attributes = attributes;
+        this.childTags = childTags;
+        this.content=content;
+    }
+
+    public Tag(){
+    }
+
     public void setTagname(String tagname) {
         this.tagname = tagname;
     }
@@ -39,18 +50,6 @@ public class Tag {
 
     public ArrayList<Tag> getChildTags() {
         return childTags;
-    }
-
-    public Tag(String tagname, HashMap<String, String> attributes, ArrayList<Tag> childTags,String content) {
-
-        this.tagname = tagname;
-        this.attributes = attributes;
-        this.childTags = childTags;
-        this.content=content;
-    }
-
-    public Tag(){
-
     }
 
     public String getContent() {

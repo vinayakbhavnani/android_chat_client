@@ -1,8 +1,5 @@
 package directi.androidteam.training.TagStore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 /**
  * Created with IntelliJ IDEA.
  * User: vinayak
@@ -14,6 +11,9 @@ public class MessageStanza {
     private  Tag tag;
     public MessageStanza(String to , String body , String from){
         tag = new MessageTag(to,body,from);
+    }
+    public MessageStanza(Tag tag) {
+        this.tag = tag;
     }
     public Tag getTag(){
         return tag;

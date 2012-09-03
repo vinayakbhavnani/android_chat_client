@@ -5,8 +5,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import directi.androidteam.training.TagStore.MessageStanza;
+
 import directi.androidteam.training.lib.TCPHandler.customConnection;
 import directi.androidteam.training.lib.TCPHandler.smackLogin;
+
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 
@@ -19,9 +21,13 @@ public class activitytest extends Activity {
         super.onCreate(savedInstanceState);
         XMLHelper xml = new XMLHelper();
         String xmlstring = xml.buildPacket(new MessageStanza("vinayak","heytest","sumit").getTag());
+
         xml.tearPacket(xmlstring);
         new testtask().execute();
         //new customConnection();
+
+        Log.d("msg123",xml.buildPacket(xml.tearPacket(xmlstring)));
+
         setContentView(R.layout.main);
 
     }
