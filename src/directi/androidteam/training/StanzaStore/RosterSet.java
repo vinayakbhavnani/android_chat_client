@@ -14,6 +14,9 @@ public class RosterSet implements ITagWrapper {
     private IQTag tag;
 
     public RosterSet(String from, String id, String query) {
-        tag = new IQTag(from,id,"set",query);
+        tag = new IQTag();
+        tag.addAttribute("from",from);
+        tag.addAttribute("id",id);
+        tag.addAttribute("type","set");
     }
 }
