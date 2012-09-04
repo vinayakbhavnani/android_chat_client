@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
-import directi.androidteam.training.lib.TCPHandler.smackLogin;
+//import directi.androidteam.training.lib.TCPHandler.smackLogin;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 
@@ -42,7 +42,7 @@ class testtask extends AsyncTask {
     protected Object doInBackground(Object... objects) {
         Log.d("execute", "background");
         //new customConnection();
-        new smackLogin().execute();
+//        new smackLogin().execute();
         return null;
     }
 }

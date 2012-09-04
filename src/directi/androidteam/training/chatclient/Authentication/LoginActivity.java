@@ -29,8 +29,7 @@ public class LoginActivity extends Activity {
         String username = username_edit_text.getText().toString();
         String password = password_edit_text.getText().toString();
         intent.putExtra(USERNAME, username);
-        ConnectGTalk connectGTalk = new ConnectGTalk();
-        (new Test()).execute(username, password);
+        (new ConnectGTalk()).execute(username, password);
         startActivity(intent);
     }
 }
