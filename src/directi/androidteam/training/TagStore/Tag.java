@@ -52,6 +52,7 @@ public class Tag {
         return attributes;
     }
 
+
     public ArrayList<Tag> getChildTags() {
         return childTags;
     }
