@@ -11,13 +11,9 @@ import java.util.HashMap;
  * To change this template use File | Settings | File Templates.
  */
 public class ItemTag extends Tag {
-    public ItemTag(String query) {
+    public ItemTag(){
         super("item", null, null, null);
-        HashMap<String,String> temp = new HashMap<String, String>();
-        temp.put("jid", query);
-        setAttributes(temp);
     }
-
     public ItemTag(HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
         super("item", attributes, childTags, content);
     }
