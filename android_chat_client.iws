@@ -11,12 +11,14 @@
       </GlobalState>
     </option>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="75ccb3de-890e-4e12-9ecf-49698030e875" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/DoNotDelete" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/android_chat_client.iws" afterPath="$PROJECT_DIR$/android_chat_client.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/AuthTag.java" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/AuthTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/BindTag.java" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/BindTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/SessionTag.java" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/SessionTag.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/ConnectGTalk.java" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/ConnectGTalk.java" />
     </list>
     <ignored path="android_chat_client.iws" />
@@ -96,10 +98,10 @@
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/Test.java" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/LoginActivity.java" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/StreamTag.java" />
-        <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/ConnectGTalk.java" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/AuthTag.java" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/BindTag.java" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/SessionTag.java" />
+        <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/ConnectGTalk.java" />
       </list>
     </option>
   </component>
@@ -182,6 +184,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="training" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android_chat_client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android_chat_client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="training" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="chatclient" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -512,39 +536,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/layout/chat.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Chat/ChatBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="329" selection-end="329" vertical-scroll-proportion="0.46089387">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/DisplayRosterActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="34" selection-start="664" selection-end="664" vertical-scroll-proportion="0.45530728" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="108" selection-start="414" selection-end="414" vertical-scroll-proportion="0.20949721">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/lib/TCPHandler/ChatSocket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="274" selection-end="274" vertical-scroll-proportion="0.07821229">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/lib/TCPHandler/customConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="13" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0">
@@ -580,22 +571,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/StanzaStore/RosterSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="30" selection-start="544" selection-end="544" vertical-scroll-proportion="0.7067039">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/ConnectGTalk.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#998#1050#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/AuthTag.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="32" selection-start="232" selection-end="232" vertical-scroll-proportion="0.37709498">
@@ -623,6 +598,57 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="36" selection-start="236" selection-end="236" vertical-scroll-proportion="0.37709498">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/StanzaStore/RosterGet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="13" selection-start="322" selection-end="322" vertical-scroll-proportion="0.20391062">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/StanzaStore/RosterResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="407" selection-end="407" vertical-scroll-proportion="0.03631285">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/StanzaStore/RosterSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="30" selection-start="580" selection-end="580" vertical-scroll-proportion="0.2877095">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/StanzaStore/MessageStanza.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="13" selection-start="326" selection-end="326" vertical-scroll-proportion="0.07821229">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/DisplayRosterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="399" selection-end="399" vertical-scroll-proportion="0.20391062">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/DoNotDelete">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="147" selection-end="147" vertical-scroll-proportion="0.04347826">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/ConnectGTalk.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

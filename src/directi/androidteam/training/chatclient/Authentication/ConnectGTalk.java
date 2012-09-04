@@ -17,6 +17,43 @@ import java.net.Socket;
  * To change this template use File | Settings | File Templates.
  */
 public class ConnectGTalk extends AsyncTask<String, Void, String> {
+    private String getOpenStreamStanza() {
+        return "<stream:stream" +
+                " to='gmail.com'" +
+                " xmlns='jabber:client'" +
+                " xmlns:stream='http://etherx.jabber.org/streams'" +
+                " version='1.0'>";
+    }
+
+    private String getAuthStanza(String auth) {
+        return "<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='PLAIN'>" + Base64.encodeBytes(auth.getBytes()) + "</auth>";
+    }
+
+    private String getResourcePartStanza() {
+        return "<iq id='tn281v37' type='set'>" +
+                " <bind xmlns='urn:ietf:params:xml:ns:xmpp-bind'/>" +
+                " </iq>";
+    }
+
+    private String getStartSessionStanza() {
+        return "<iq to='talk.google.com'" +
+                " type='set'" +
+                " id='sess_1'>" +
+                " <session xmlns='urn:ietf:params:xml:ns:xmpp-session'/>" +
+                "</iq>";
+    }
+
+    private void readWhile(String endsWith, BufferedReader reader) throws IOException {
+        String response = "";
+        int c;
+        while (!(response.contains("</stream:features>"))) {
+            c = reader.read();
+            response = response + (char)c;
+            System.out.print((char)c);
+        }
+        System.out.println();
+    }
+
     @Override
     public String doInBackground (String ...params) {
         try {
@@ -29,92 +66,27 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
             socket.setKeepAlive(true);
 
             PrintWriter out = new PrintWriter(socket.getOutputStream());
-//            XMLHelper xmlHelper = new XMLHelper();
-//            StreamTag streamTag = new StreamTag("stream:stream", "gmail.com", "jabber:client", "http://etherx.jabber.org/streams", "1.0");
-//            System.out.println("checking xml library\n\n"+xmlHelper.buildPacket(streamTag)+"\n\n");
-            String OpenStreamStanza = "<stream:stream" +
-                    " to='gmail.com'" +
-                    " xmlns='jabber:client'" +
-                    " xmlns:stream='http://etherx.jabber.org/streams'" +
-                    " version='1.0'>";
-            out.print(OpenStreamStanza);
-            out.flush();
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            int c;
-            String response = "";
-            while (!(response.endsWith("</stream:features>"))) {
-                c = reader.read();
-                response = response + (char)c;
-                System.out.print((char)c);
-            }
-            System.out.println();
 
-            String auth = '\0' + username + '\0' + password;
-            String AuthStanza = "<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='PLAIN'>" + Base64.encodeBytes(auth.getBytes()) + "</auth>";
-            out.print(AuthStanza);
+            out.print(getOpenStreamStanza());
             out.flush();
-            response = "";
-            while (!(response.endsWith("sasl\"/>"))) {
-                c = reader.read();
-                response = response + (char)c;
-                System.out.print((char)c);
-            }
-            System.out.println();
+            readWhile("</stream:features>", reader);
 
-            out.print(OpenStreamStanza);
+            out.print(getAuthStanza('\0' + username + '\0' + password));
             out.flush();
-            response = "";
-            while (!(response.contains("</stream:features>"))) {
-                c = reader.read();
-                response = response + (char)c;
-                System.out.print((char)c);
-            }
-            System.out.println();
+            readWhile("sasl\"/>", reader);
 
-            String RequestResourcePartStanza = "<iq id='tn281v37' type='set'>" +
-                    " <bind xmlns='urn:ietf:params:xml:ns:xmpp-bind'/>" +
-                    " </iq>";
-            out.print(RequestResourcePartStanza);
+            out.print(getOpenStreamStanza());
             out.flush();
-            response = "";
-            while (!(response.contains("</iq>"))) {
-                c = reader.read();
-                response = response + (char)c;
-                System.out.print((char)c);
-            }
-            System.out.println();
+            readWhile("</stream:features>", reader);
 
-            String StartSessionStanza = "<iq to='talk.google.com'" +
-                    " type='set'" +
-                    " id='sess_1'>" +
-                    " <session xmlns='urn:ietf:params:xml:ns:xmpp-session'/>" +
-                    "</iq>";
-            out.print(StartSessionStanza);
+            out.print(getResourcePartStanza());
             out.flush();
-            response = "";
-            while (!(response.contains("/>"))) {
-                c = reader.read();
-                response = response + (char)c;
-                System.out.print((char)c);
-            }
-            System.out.println();
+            readWhile("</iq>", reader);
 
-//            String TestMessageStanza = "<message to='vinayak.bhavnani@gmail.com'>" +
-//                    " <body>Art thou not Romeo, and a Montague?</body>" +
-//                    "</message>";
-//            out.print(TestMessageStanza);
-//            out.flush();
-//            response = "";
-//            while (!(response.contains("/>"))) {
-//                c = reader.read();
-//                response = response + (char)c;
-//                System.out.print((char)c);
-//            }
-//            System.out.println();
-//
-//            out.println("</stream>");
-//            out.close();
-//            socket.close();
+            out.print(getStartSessionStanza());
+            out.flush();
+            readWhile("/>", reader);
         } catch (IOException e) {
             e.printStackTrace();
         }
