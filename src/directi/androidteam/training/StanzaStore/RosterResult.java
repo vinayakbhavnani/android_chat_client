@@ -24,6 +24,4 @@ public class RosterResult implements ITagWrapper {
     public ArrayList<String> getListOfRosters(){
         return tag.getListOfRosters();
     }
-
-
 }
