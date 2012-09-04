@@ -11,3 +11,6 @@ project.properties
 out/
 .gitignore~
 README.md~
+src/directi/androidteam/training/chatclient/activitytest.java
+src/directi/androidteam/training/lib/TCPHandler/CustomXmpp.java
+src/directi/androidteam/training/lib/TCPHandler/smackLogin.java

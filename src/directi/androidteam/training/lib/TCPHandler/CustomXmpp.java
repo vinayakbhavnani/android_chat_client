@@ -1,5 +1,12 @@
 package directi.androidteam.training.lib.TCPHandler;
 
+import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.XMPPConnection;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.net.Socket;
+
 /**
  * Created with IntelliJ IDEA.
  * User: vinayak
@@ -8,9 +15,7 @@ package directi.androidteam.training.lib.TCPHandler;
  * To change this template use File | Settings | File Templates.
  */
 
-public class CustomXmpp {
-
-}/*extends XMPPConnection {
+public class CustomXmpp extends XMPPConnection {
     public CustomXmpp(ConnectionConfiguration connectionConfiguration) {
         super(connectionConfiguration);
     }
@@ -29,4 +34,3 @@ public class CustomXmpp {
         return socket;
     }
 }
-    */

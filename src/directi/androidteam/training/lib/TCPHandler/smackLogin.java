@@ -3,6 +3,19 @@ package directi.androidteam.training.lib.TCPHandler;
 //import org.jivesoftware.smack.*;
 //import org.jivesoftware.smack.packet.Message;
 
+import android.util.Log;
+import directi.androidteam.training.StanzaStore.MessageStanza;
+import directi.androidteam.training.lib.xml.XMLHelper;
+import org.jivesoftware.smack.Connection;
+import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Message;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
 /**
  * Created with IntelliJ IDEA.
  * User: vinayak
@@ -11,7 +24,7 @@ package directi.androidteam.training.lib.TCPHandler;
  * To change this template use File | Settings | File Templates.
  */
 public class smackLogin {
-    /*
+
     String pass = "androidchat";
     public void execute(){
         ConnectionConfiguration config = new ConnectionConfiguration("talk.google.com", 5222,"gmail.com");
@@ -31,7 +44,7 @@ public class smackLogin {
         Message message = new Message("vinayak.bhavnani@gmail.com",Message.Type.chat);
         message.setBody("newtest");
         //connection.sendPacket(message);
-        Log.d("packetxml",message.toXML());
+        Log.d("packetxml", message.toXML());
         final CustomXmpp xmpp = (CustomXmpp)connection;
         String str = "<message\n" +
                 "    from='vinayak.bhavnani@gmail.com'\n" +
@@ -44,7 +57,7 @@ public class smackLogin {
         final String str1 = "<message to=\"vinayak.bhavnani@gmail.com\" type=\"chat\"><body>testhi</body></message>";
 
         final XMLHelper xml = new XMLHelper();
-        String xmlstring = xml.buildPacket(new Message("vinayak.bhavnani@gmail.com","talk.to","vinayak.bhavnani@gmail.com").getTag());
+        String xmlstring = xml.buildPacket(new MessageStanza("vinayak.bhavnani@gmail.com","talk.to","vinayak.bhavnani@gmail.com").getTag());
         xmpp.writexmlMessage(xmlstring);
         Thread t = new Thread(){
             public void run(){
@@ -79,5 +92,5 @@ public class smackLogin {
 
 // Log into the server
 
-    } */
+    }
 }
