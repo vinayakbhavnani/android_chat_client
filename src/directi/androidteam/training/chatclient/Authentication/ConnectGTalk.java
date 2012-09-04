@@ -1,4 +1,4 @@
-package com.example;
+package directi.androidteam.training.chatclient.Authentication;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;

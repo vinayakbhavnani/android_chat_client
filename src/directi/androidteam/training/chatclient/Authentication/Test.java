@@ -1,4 +1,4 @@
-package com.example;
+package directi.androidteam.training.chatclient.Authentication;
 
 import android.os.AsyncTask;
 

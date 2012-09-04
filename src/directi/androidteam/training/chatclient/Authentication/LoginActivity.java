@@ -1,10 +1,11 @@
-package com.example;
+package directi.androidteam.training.chatclient.Authentication;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import directi.androidteam.training.chatclient.R;
 
 public class LoginActivity extends Activity {
     public static final String USERNAME = "com.example.LoginActivity.USERNAME";

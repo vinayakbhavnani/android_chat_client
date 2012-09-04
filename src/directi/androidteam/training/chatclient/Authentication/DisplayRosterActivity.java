@@ -1,9 +1,10 @@
-package com.example;
+package directi.androidteam.training.chatclient.Authentication;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import directi.androidteam.training.chatclient.R;
 
 /**
  * Created with IntelliJ IDEA.
