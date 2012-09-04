@@ -8,7 +8,7 @@ import android.widget.EditText;
 import directi.androidteam.training.chatclient.R;
 
 public class LoginActivity extends Activity {
-    public static final String USERNAME = "com.example.LoginActivity.USERNAME";
+    public static final String USERNAME = "directi.androidteam.training.chatclient.Authentication.LoginActivity.USERNAME";
 
     /**
      * Called when the activity is first created.

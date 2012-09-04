@@ -96,22 +96,22 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
             }
             System.out.println();
 
-            String TestMessageStanza = "<message to='guptarajat1631990@gmail.com'>" +
-                    " <body>Art thou not Romeo, and a Montague?</body>" +
-                    "</message>";
-            out.print(TestMessageStanza);
-            out.flush();
-            response = "";
-            while (!(response.contains("/>"))) {
-                c = reader.read();
-                response = response + (char)c;
-                System.out.print((char)c);
-            }
-            System.out.println();
-
-            out.println("</stream>");
-            out.close();
-            socket.close();
+//            String TestMessageStanza = "<message to='vinayak.bhavnani@gmail.com'>" +
+//                    " <body>Art thou not Romeo, and a Montague?</body>" +
+//                    "</message>";
+//            out.print(TestMessageStanza);
+//            out.flush();
+//            response = "";
+//            while (!(response.contains("/>"))) {
+//                c = reader.read();
+//                response = response + (char)c;
+//                System.out.print((char)c);
+//            }
+//            System.out.println();
+//
+//            out.println("</stream>");
+//            out.close();
+//            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
