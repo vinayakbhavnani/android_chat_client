@@ -1,10 +1,5 @@
 package directi.androidteam.training.lib.TCPHandler;
 
-import android.util.Log;
-
-import java.io.*;
-import java.net.Socket;
-
 /**
  * Created with IntelliJ IDEA.
  * User: vinayak
@@ -13,7 +8,7 @@ import java.net.Socket;
  * To change this template use File | Settings | File Templates.
  */
 public class customConnection {
-    Socket tcpsocket;
+    /*Socket tcpsocket;
     DataOutputStream out;
     DataInputStream in;
     public customConnection(){
@@ -35,5 +30,5 @@ public class customConnection {
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-    }
+    } */
 }

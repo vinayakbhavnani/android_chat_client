@@ -20,20 +20,18 @@ public class IQTag extends Tag{
     public IQTag(String tagname, HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
         super(tagname, attributes, childTags, content);
     }
-    public boolean isError() {
-        if(attributes.get("type").equals("error"))
-            return true;
-        else return false;
-    }
     public void addAttribute(String attributeName,String attributeVal){
         attributes.put(attributeName,attributeVal);
     }
-    public ArrayList<String> getListOfRosters() {
-        ArrayList<String> rosterList = new ArrayList<String>();
-        if(!isError())
+    public ArrayList<String> getResult() {
+        if(childTags==null)
             return null;
-        Tag query = this.childTags.get(0);
-        for (Tag childTag : query.childTags) {
+        Tag resultTag = childTags.get(0);
+        if(resultTag.childTags==null)
+            return null;
+        ArrayList<String> rosterList = new ArrayList<String>();
+
+        for (Tag childTag : resultTag.childTags) {
             rosterList.add(childTag.attributes.get("jid"));
         }
         return rosterList;
