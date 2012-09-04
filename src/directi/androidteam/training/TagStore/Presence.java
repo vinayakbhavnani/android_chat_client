@@ -15,6 +15,7 @@ public class Presence extends Tag {
         super("presence", attributes, childTags, content);
     }
     public Presence() {
+        super("presence",null,null,null);
     }
     public Presence(String from, String id, String to, String type) {
         super("presence",null,null,null);

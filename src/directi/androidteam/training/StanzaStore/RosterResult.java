@@ -25,7 +25,7 @@ public class RosterResult implements ITagWrapper {
         else return false;
     }
     public ArrayList<String> getListOfRosters(){
-        if (isError())
+        if (isError() || !tag.getAttribute("type").equals("result"))
             return null;
         return tag.getResult();
     }

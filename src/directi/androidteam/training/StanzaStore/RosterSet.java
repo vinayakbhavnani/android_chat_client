@@ -21,6 +21,7 @@ public class RosterSet implements ITagWrapper {
         tag.addAttribute("id",id);
         tag.addAttribute("type","set");
         Query query1 = new Query();
+        query1.addAttribute("xmlns","jabber:iq:roster");
         ItemTag itemTag = new ItemTag();
         itemTag.addAttribute("jid",query);
         query1.addChildTag(itemTag);
