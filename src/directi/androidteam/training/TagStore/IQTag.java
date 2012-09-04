@@ -11,17 +11,8 @@ import java.util.HashMap;
  * To change this template use File | Settings | File Templates.
  */
 public class IQTag extends Tag{
-    public IQTag(String from, String id, String type, String childTagName){
-        attributes = new HashMap<String, String>();
-        attributes.put("from",from);
-        attributes.put("id",id);
-        attributes.put("type",type);
-        if(childTagName!=null){
-            childTags = new ArrayList<Tag>();
-            childTags.add(new ItemTag(childTagName));
-        }
-        else childTags = null;
-        content = null;
+    public IQTag(){
+        super("iq",null,null,null);
     }
     public IQTag(Tag tag){
         super(tag.tagname, tag.attributes, tag.childTags, tag.content);

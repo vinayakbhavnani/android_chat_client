@@ -14,4 +14,7 @@ public class Query extends Tag{
     public Query(HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
         super("query", attributes, childTags, content);
     }
+    public Query(){
+        super("query",null,null,null);
+    }
 }
