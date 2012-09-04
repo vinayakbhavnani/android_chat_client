@@ -13,11 +13,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75ccb3de-890e-4e12-9ecf-49698030e875" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/AuthTag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/BindTag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/SessionTag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/StreamTag.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/android_chat_client.iws" afterPath="$PROJECT_DIR$/android_chat_client.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/AuthTag.java" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/AuthTag.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/BindTag.java" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/BindTag.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/SessionTag.java" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/SessionTag.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/ConnectGTalk.java" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/ConnectGTalk.java" />
     </list>
     <ignored path="android_chat_client.iws" />
@@ -75,55 +74,7 @@
     <favorites_list name="android_chat_client" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="StreamTag.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/StreamTag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="0" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuthTag.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/AuthTag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="20" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConnectGTalk.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/ConnectGTalk.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="52" selection-start="1359" selection-end="1359" vertical-scroll-proportion="0.6086956">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BindTag.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/BindTag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="20" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SessionTag.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/SessionTag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="7" selection-start="207" selection-end="207" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -146,6 +97,9 @@
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/LoginActivity.java" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/StreamTag.java" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/ConnectGTalk.java" />
+        <option value="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/AuthTag.java" />
+        <option value="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/BindTag.java" />
+        <option value="$PROJECT_DIR$/src/directi/androidteam/training/TagStore/SessionTag.java" />
       </list>
     </option>
   </component>
@@ -228,28 +182,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="training" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android_chat_client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android_chat_client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="StanzaStore" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -506,8 +438,8 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -620,30 +552,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/BindTag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="20" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gen/directi/androidteam/training/chatclient/R.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="19" selection-start="251" selection-end="251" vertical-scroll-proportion="0.16759777">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/SessionTag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="7" selection-start="207" selection-end="207" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/AuthTag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="20" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -662,15 +573,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/StreamTag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/IQTag.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="13" selection-start="269" selection-end="269" vertical-scroll-proportion="0.48961425">
@@ -680,14 +582,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/StanzaStore/RosterSet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="30" selection-start="501" selection-end="501" vertical-scroll-proportion="0.7067039">
+        <state line="18" column="30" selection-start="544" selection-end="544" vertical-scroll-proportion="0.7067039">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/ConnectGTalk.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="52" selection-start="1359" selection-end="1359" vertical-scroll-proportion="0.6086956">
+        <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#998#1050#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/AuthTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="32" selection-start="232" selection-end="232" vertical-scroll-proportion="0.37709498">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/StreamTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="0" selection-start="436" selection-end="436" vertical-scroll-proportion="0.5027933">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/BindTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="32" selection-start="232" selection-end="232" vertical-scroll-proportion="0.37709498">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/TagStore/SessionTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="36" selection-start="236" selection-end="236" vertical-scroll-proportion="0.37709498">
           <folding />
         </state>
       </provider>

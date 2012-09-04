@@ -7,5 +7,5 @@ package directi.androidteam.training.TagStore;
  * Time: 1:42 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AuthTag {
+public class AuthTag extends Tag {
 }

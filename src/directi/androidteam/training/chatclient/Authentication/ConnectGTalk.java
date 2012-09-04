@@ -1,8 +1,6 @@
 package directi.androidteam.training.chatclient.Authentication;
 
 import android.os.AsyncTask;
-import directi.androidteam.training.TagStore.StreamTag;
-import directi.androidteam.training.lib.xml.XMLHelper;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
@@ -31,9 +29,9 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
             socket.setKeepAlive(true);
 
             PrintWriter out = new PrintWriter(socket.getOutputStream());
-            XMLHelper xmlHelper = new XMLHelper();
-            StreamTag streamTag = new StreamTag("stream:stream", "'gmail.com'", "'jabber:client'", "'http://etherx.jabber.org/streams'", "'1.0'");
-            System.out.println("checking xml library\n\n"+xmlHelper.buildPacket(streamTag)+"\n\n");
+//            XMLHelper xmlHelper = new XMLHelper();
+//            StreamTag streamTag = new StreamTag("stream:stream", "gmail.com", "jabber:client", "http://etherx.jabber.org/streams", "1.0");
+//            System.out.println("checking xml library\n\n"+xmlHelper.buildPacket(streamTag)+"\n\n");
             String OpenStreamStanza = "<stream:stream" +
                     " to='gmail.com'" +
                     " xmlns='jabber:client'" +

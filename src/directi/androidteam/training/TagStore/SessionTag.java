@@ -7,5 +7,5 @@ package directi.androidteam.training.TagStore;
  * Time: 1:43 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SessionTag {
+public class SessionTag extends Tag {
 }
