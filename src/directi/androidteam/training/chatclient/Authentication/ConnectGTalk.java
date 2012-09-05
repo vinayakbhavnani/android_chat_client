@@ -1,5 +1,7 @@
 package directi.androidteam.training.chatclient.Authentication;
 
+import directi.androidteam.training.lib.xml.XMLHelper;
+
 import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +17,7 @@ import java.net.Socket;
  * To change this template use File | Settings | File Templates.
  */
 public class ConnectGTalk {
-    public boolean authenticate (String username, String password) {
+    public Socket authenticate (String username, String password) {
         try {
             SSLSocketFactory sslsocketfactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
             Socket socket = sslsocketfactory.createSocket("talk.google.com", 5223);
@@ -90,25 +92,27 @@ public class ConnectGTalk {
             }
             System.out.println();
 
-            String TestMessageStanza = "<message to='guptarajat1631990@gmail.com'>" +
+            String TestMessageStanza = "<message to='vinayak.bhavnani@gmail.com'>" +
                     " <body>Art thou not Romeo, and a Montague?</body>" +
                     "</message>";
             out.print(TestMessageStanza);
             out.flush();
             response = "";
-            while (!(response.contains("/>"))) {
+            /*while (!(response.contains("/>"))) {
                 c = reader.read();
                 response = response + (char)c;
                 System.out.print((char)c);
-            }
-            System.out.println();
-
-            out.println("</stream>");
-            out.close();
-            socket.close();
+            } */
+           // XMLHelper xmlHelper = new XMLHelper();
+            //xmlHelper.tearxmlPacket(reader);
+            //System.out.println();
+            return socket;
+            //out.println("</stream>");
+            //out.close();
+            //socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return true;
+        return null;
     }
 }
