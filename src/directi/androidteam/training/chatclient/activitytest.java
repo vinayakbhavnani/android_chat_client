@@ -50,8 +50,8 @@ class testtask extends AsyncTask {
         //new customConnection();
        // new smackLogin().execute();
         ConnectGTalk conn  = new ConnectGTalk();
-        Socket sock = conn.authenticate("brian.gingers", "androidchat");
-        PacketReader pr = new PacketReader(sock);
+        //Socket sock = conn.authenticate("brian.gingers", "androidchat");
+        //PacketReader pr = new PacketReader(sock);
         return null;
     }
 }
