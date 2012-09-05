@@ -2,6 +2,8 @@ package directi.androidteam.training.chatclient.Authentication;
 
 import android.os.AsyncTask;
 
+
+
 import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.net.Socket;
  * Time: 12:22 PM
  * To change this template use File | Settings | File Templates.
  */
+
 public class ConnectGTalk extends AsyncTask<String, Void, String> {
     private String getOpenStreamStanza() {
         return "<stream:stream" +
@@ -56,6 +59,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
 
     @Override
     public String doInBackground (String ...params) {
+
         try {
             String username = params[0];
             String password = params[1];
@@ -84,9 +88,11 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
             out.flush();
             readWhile("</iq>", reader);
 
+
             out.print(getStartSessionStanza());
             out.flush();
             readWhile("/>", reader);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -71,9 +71,9 @@ public class XMLHelper {
             transformer.transform(domSource, result);
             String xmlString = output.toString();
             //System.out.println(xmlString);
-            Log.d("msg123",xmlString);
+            //Log.d("msg123",xmlString);
             //Log.d("msg123","heyhey");
-            return xmlString;
+            return xmlString.split("\\?>")[1];
 
 
         } catch (Exception e) {
@@ -145,6 +145,7 @@ public class XMLHelper {
             while (event !=XmlPullParser.END_DOCUMENT){
                 if(event==XmlPullParser.START_TAG){
                     temptag =  tearTag(xpp);
+                    Log.d("packetxml",buildPacket(temptag));
                 }
                 event=xpp.next();
             }

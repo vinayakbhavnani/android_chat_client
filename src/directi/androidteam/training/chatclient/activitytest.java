@@ -5,8 +5,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
-//import directi.androidteam.training.lib.TCPHandler.smackLogin;
+import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
+import directi.androidteam.training.chatclient.Util.PacketReader;
+import directi.androidteam.training.lib.TCPHandler.smackLogin;
 import directi.androidteam.training.lib.xml.XMLHelper;
+
+import java.net.Socket;
 
 
 public class activitytest extends Activity {
@@ -22,6 +26,8 @@ public class activitytest extends Activity {
 
         xml.tearPacket(xmlstring);
         new testtask().execute();
+
+
         //new customConnection();
 
        // Log.d("msg123",xml.buildPacket(xml.tearPacket(xmlstring)));
@@ -42,7 +48,10 @@ class testtask extends AsyncTask {
     protected Object doInBackground(Object... objects) {
         Log.d("execute", "background");
         //new customConnection();
-//        new smackLogin().execute();
+       // new smackLogin().execute();
+        ConnectGTalk conn  = new ConnectGTalk();
+        //Socket sock = conn.authenticate("brian.gingers", "androidchat");
+        //PacketReader pr = new PacketReader(sock);
         return null;
     }
 }
