@@ -19,11 +19,14 @@ public class RosterResult implements ITagWrapper {
         this.tag = new IQTag(tag);
     }
     public boolean isError() {
-        return tag.isError();
+        String attr = tag.getAttribute("type");
+        if(attr==null || attr.equals("error"))
+            return true;
+        else return false;
     }
     public ArrayList<String> getListOfRosters(){
-        return tag.getListOfRosters();
+        if (isError() || !tag.getAttribute("type").equals("result"))
+            return null;
+        return tag.getResult();
     }
-
-
 }

@@ -8,7 +8,7 @@ import android.widget.EditText;
 import directi.androidteam.training.chatclient.R;
 
 public class LoginActivity extends Activity {
-    public static final String USERNAME = "com.example.LoginActivity.USERNAME";
+    public static final String USERNAME = "directi.androidteam.training.chatclient.Authentication.LoginActivity.USERNAME";
 
     /**
      * Called when the activity is first created.
@@ -29,8 +29,7 @@ public class LoginActivity extends Activity {
         String username = username_edit_text.getText().toString();
         String password = password_edit_text.getText().toString();
         intent.putExtra(USERNAME, username);
-        ConnectGTalk connectGTalk = new ConnectGTalk();
-        (new Test()).execute(username, password);
+        (new ConnectGTalk()).execute(username, password);
         startActivity(intent);
     }
 }
