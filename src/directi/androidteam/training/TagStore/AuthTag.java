@@ -1,5 +1,8 @@
 package directi.androidteam.training.TagStore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rajat
@@ -8,4 +11,12 @@ package directi.androidteam.training.TagStore;
  * To change this template use File | Settings | File Templates.
  */
 public class AuthTag extends Tag {
+    public AuthTag(String XMLNameSpace, String mechanism, String content) {
+        this.tagname = "auth";
+        attributes = new HashMap<String, String>();
+        attributes.put("xmlns", XMLNameSpace);
+        attributes.put("mechanism", mechanism);
+        childTags = new ArrayList<Tag>();
+        this.content = content;
+    }
 }

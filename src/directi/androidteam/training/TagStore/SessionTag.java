@@ -1,5 +1,8 @@
 package directi.androidteam.training.TagStore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rajat
@@ -8,4 +11,11 @@ package directi.androidteam.training.TagStore;
  * To change this template use File | Settings | File Templates.
  */
 public class SessionTag extends Tag {
+    public SessionTag(String XMLNameSpace) {
+        this.tagname = "session";
+        this.attributes = new HashMap<String, String>();
+        attributes.put("xmlns", XMLNameSpace);
+        this.childTags = new ArrayList<Tag>();
+        this.content = null;
+    }
 }
