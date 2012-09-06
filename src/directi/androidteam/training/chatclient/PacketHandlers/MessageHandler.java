@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public class MessageHandler implements Handler{
 
-    HashMap<String,ChatBox> chatpanes;
+    private HashMap<String,ChatBox> chatpanes;
     private static final MessageHandler messageHandler = new MessageHandler();
     private MessageHandler(){
 

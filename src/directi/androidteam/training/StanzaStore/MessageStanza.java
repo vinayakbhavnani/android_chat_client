@@ -25,4 +25,8 @@ public class MessageStanza {
         return tag;
     }
 
+    public String getBody(){
+        return tag.getChildTags().get(0).getContent();
+    }
+
 }
