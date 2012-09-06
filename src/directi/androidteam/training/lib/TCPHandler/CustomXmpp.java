@@ -8,12 +8,12 @@ import java.io.Reader;
 import java.net.Socket;
 
 /**
- * Created with IntelliJ IDEA.
- * User: vinayak
- * Date: 31/8/12
- * Time: 6:59 PM
- * To change this template use File | Settings | File Templates.
- */
+* Created with IntelliJ IDEA.
+* User: vinayak
+* Date: 31/8/12
+* Time: 6:59 PM
+* To change this template use File | Settings | File Templates.
+*/
 
 public class CustomXmpp extends XMPPConnection {
     public CustomXmpp(ConnectionConfiguration connectionConfiguration) {

@@ -6,11 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
-import directi.androidteam.training.chatclient.Util.PacketReader;
-import directi.androidteam.training.lib.TCPHandler.smackLogin;
 import directi.androidteam.training.lib.xml.XMLHelper;
-
-import java.net.Socket;
 
 
 public class activitytest extends Activity {
@@ -34,7 +30,7 @@ public class activitytest extends Activity {
 
   //      String xmlstring = xml.buildPacket(new Message("vinayak","heytest","sumit").getTag());
         Log.d("msg123",xml.buildPacket(xml.tearPacket(xmlstring)));
-        setContentView(R.layout.main);
+        setContentView(R.layout.chat);
         //SocketReader.getInstance().getMessage();
 
          //String initiate_conn="<stream:stream to=\"gmail.com\" version=\"1.0\" xmlns=\"jabber:client\" xmlns:stream=\"http://etherx.jabber.org/streams\">";

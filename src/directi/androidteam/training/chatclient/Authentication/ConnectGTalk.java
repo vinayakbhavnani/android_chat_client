@@ -1,8 +1,7 @@
 package directi.androidteam.training.chatclient.Authentication;
 
 import android.os.AsyncTask;
-
-
+import directi.androidteam.training.chatclient.Util.ConnectionHandler;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
@@ -49,7 +48,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
     private void readWhile(String endsWith, BufferedReader reader) throws IOException {
         String response = "";
         int c;
-        while (!(response.contains("</stream:features>"))) {
+        while (!(response.contains(endsWith))) {
             c = reader.read();
             response = response + (char)c;
             System.out.print((char)c);
@@ -88,11 +87,15 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
             out.flush();
             readWhile("</iq>", reader);
 
-
             out.print(getStartSessionStanza());
             out.flush();
             readWhile("/>", reader);
 
+            ConnectionHandler connectionHandler = new ConnectionHandler();
+            connectionHandler.setSocket(socket);
+            connectionHandler.setReader(reader);
+            connectionHandler.setWriter(out);
+//            connectionHandler.sendMessage();
         } catch (IOException e) {
             e.printStackTrace();
         }

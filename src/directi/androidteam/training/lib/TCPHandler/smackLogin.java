@@ -17,12 +17,12 @@ import java.io.IOException;
 import java.net.Socket;
 
 /**
- * Created with IntelliJ IDEA.
- * User: vinayak
- * Date: 31/8/12
- * Time: 5:18 PM
- * To change this template use File | Settings | File Templates.
- */
+* Created with IntelliJ IDEA.
+* User: vinayak
+* Date: 31/8/12
+* Time: 5:18 PM
+* To change this template use File | Settings | File Templates.
+*/
 public class smackLogin {
 
     String pass = "androidchat";
