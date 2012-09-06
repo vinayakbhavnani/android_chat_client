@@ -1,7 +1,11 @@
 package directi.androidteam.training.chatclient.Authentication;
 
 import android.os.AsyncTask;
+import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.Util.ConnectionHandler;
+import directi.androidteam.training.chatclient.Util.PacketReader;
+import directi.androidteam.training.lib.xml.XMLHelper;
+import org.jivesoftware.smack.packet.Packet;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
@@ -91,10 +95,14 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
             out.flush();
             readWhile("/>", reader);
 
-            ConnectionHandler connectionHandler = new ConnectionHandler();
-            connectionHandler.setSocket(socket);
-            connectionHandler.setReader(reader);
-            connectionHandler.setWriter(out);
+
+            ConnectionHandler.socket=socket;
+            ConnectionHandler.reader=reader;
+            ConnectionHandler.writer=out;
+            XMLHelper xml = new XMLHelper();
+            out.write(xml.buildPacket(new MessageStanza("vinayak.bhavnani@gmail.com", "newtest").getTag()));
+            out.flush();
+            new PacketReader(socket);
         } catch (IOException e) {
             e.printStackTrace();
         }

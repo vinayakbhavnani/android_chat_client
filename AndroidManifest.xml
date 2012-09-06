@@ -9,10 +9,7 @@
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
         <activity android:name="directi.androidteam.training.chatclient.Authentication.LoginActivity"
                   android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
         <activity android:name="directi.androidteam.training.chatclient.Authentication.DisplayRosterActivity"
                   android:label="@string/app_name">
@@ -22,10 +19,16 @@
         </activity>
         <activity android:name="directi.androidteam.training.chatclient.activitytest"
                   android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
 <!--            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>     -->
         </activity>
+        <service android:name=".testtask" />
+
     </application>
 </manifest>
