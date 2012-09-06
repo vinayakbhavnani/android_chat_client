@@ -90,7 +90,7 @@
  *  <li>v2.2.1 - Fixed bug using URL_SAFE and ORDERED encodings. Fixed bug
  *   when using very small files (~&lt; 40 bytes).</li>
  *  <li>v2.2 - Added some helper methods for encoding/decoding directly from
- *   one file to the next. Also added a main() method to support command line
+ *   one file to the next. Also added a login() method to support command line
  *   encoding/decoding from one file to the next. Also added these Base64 dialects:
  *   <ol>
  *   <li>The default is RFC3548 format.</li>
