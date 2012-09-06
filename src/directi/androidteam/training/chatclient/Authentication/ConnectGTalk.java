@@ -95,7 +95,6 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
             connectionHandler.setSocket(socket);
             connectionHandler.setReader(reader);
             connectionHandler.setWriter(out);
-//            connectionHandler.sendMessage();
         } catch (IOException e) {
             e.printStackTrace();
         }
