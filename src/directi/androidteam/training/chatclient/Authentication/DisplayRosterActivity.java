@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.R;
 
 /**
@@ -19,10 +20,11 @@ public class DisplayRosterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.roster);
         Intent intent = getIntent();
-        String username = intent.getStringExtra(LoginActivity.USERNAME);
+        String username = intent.getStringExtra(Constants.USERNAME_KEY);
         TextView textView = new TextView(this);
         textView.setTextSize(40);
         textView.setText("Welcome " + username);
-        setContentView(textView);
+        setContentView(R.layout.roster);
+//        setContentView(textView);
     }
 }
