@@ -16,19 +16,19 @@ import java.net.Socket;
  * To change this template use File | Settings | File Templates.
  */
 public class ConnectionHandler {
-    public static Socket socket;
-    public static BufferedReader reader;
-    public static PrintWriter writer;
+    private static Socket socket;
+    private static BufferedReader reader;
+    private static PrintWriter writer;
 
-    public void setSocket(Socket socket) {
+    private void setSocket(Socket socket) {
         this.socket = socket;
     }
 
-    public void setReader(BufferedReader reader) {
+    private void setReader(BufferedReader reader) {
         this.reader = reader;
     }
 
-    public void setWriter(PrintWriter writer) {
+    private void setWriter(PrintWriter writer) {
         this.writer = writer;
     }
 
@@ -36,13 +36,13 @@ public class ConnectionHandler {
         return writer;
     }
 
-    public static void init(Socket sock,PrintWriter out,BufferedReader in){
-        socket=sock;
-        writer=out;
-        reader=in;
+    public static void init(Socket s, PrintWriter w, BufferedReader r) {
+        socket = s;
+        writer = w;
+        reader = r;
         XMLHelper xml = new XMLHelper();
-        out.write(xml.buildPacket(new MessageStanza("vinayak.bhavnani@gmail.com", "newtest").getTag()));
-        out.flush();
+        w.write(xml.buildPacket(new MessageStanza("vinayak.bhavnani@gmail.com", "newtest").getTag()));
+        w.flush();
         new PacketReader(socket);
     }
 }

@@ -5,5 +5,7 @@
     <string name="password">Password</string>
     <string name="button_login">Login via Gtalk</string>
     <string name="start_chatting">Chat </string>
+    <string name="login_error">Username does not match password. Try Again.</string>
+    <string name="button_try_again">Try Again</string>
 </resources>
 
