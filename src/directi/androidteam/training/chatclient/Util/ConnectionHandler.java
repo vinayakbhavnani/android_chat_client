@@ -35,6 +35,7 @@ public class ConnectionHandler {
     public Writer getWriter(){
         return writer;
     }
+
     public static void init(Socket sock,PrintWriter out,BufferedReader in){
         socket=sock;
         writer=out;

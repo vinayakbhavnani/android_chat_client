@@ -96,9 +96,9 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
             readWhile("/>", reader);
 
 
+
             ConnectionHandler.init(socket,out,reader);
 
-            new PacketReader(socket);
         } catch (IOException e) {
             e.printStackTrace();
         }
