@@ -3,7 +3,11 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.Util.ConnectionHandler;
+import directi.androidteam.training.chatclient.Util.PacketReader;
+import directi.androidteam.training.lib.xml.XMLHelper;
+import org.jivesoftware.smack.packet.Packet;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;

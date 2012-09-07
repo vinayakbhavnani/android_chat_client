@@ -1,7 +1,11 @@
 package directi.androidteam.training.chatclient.Util;
 
+import directi.androidteam.training.StanzaStore.MessageStanza;
+import directi.androidteam.training.lib.xml.XMLHelper;
+
 import java.io.BufferedReader;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.net.Socket;
 
 /**
@@ -28,9 +32,17 @@ public class ConnectionHandler {
         this.writer = writer;
     }
 
+    public Writer getWriter(){
+        return writer;
+    }
+
     public static void init(Socket s, PrintWriter w, BufferedReader r) {
         socket = s;
         writer = w;
         reader = r;
+        XMLHelper xml = new XMLHelper();
+        w.write(xml.buildPacket(new MessageStanza("vinayak.bhavnani@gmail.com", "newtest").getTag()));
+        w.flush();
+        new PacketReader(socket);
     }
 }

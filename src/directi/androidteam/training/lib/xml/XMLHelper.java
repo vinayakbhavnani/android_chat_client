@@ -2,6 +2,7 @@ package directi.androidteam.training.lib.xml;
 
 import android.util.Log;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.PacketStore.MessageQueue;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xmlpull.v1.XmlPullParser;
@@ -128,6 +129,7 @@ public class XMLHelper {
             while (event !=XmlPullParser.END_DOCUMENT){
                 if(event==XmlPullParser.START_TAG){
                     temptag =  tearTag(xpp);
+
                 }
                 event=xpp.next();
             }
@@ -146,6 +148,8 @@ public class XMLHelper {
                 if(event==XmlPullParser.START_TAG){
                     temptag =  tearTag(xpp);
                     Log.d("packetxml",buildPacket(temptag));
+                    MessageQueue.getInstance().pushPacket(temptag);
+                    Log.d("packet","packetpushed");
                 }
                 event=xpp.next();
             }
