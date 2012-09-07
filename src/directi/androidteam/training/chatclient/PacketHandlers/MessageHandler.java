@@ -16,8 +16,12 @@ import java.util.HashMap;
  */
 public class MessageHandler implements Handler{
 
-    HashMap<String,ChatBox> chatpanes;
     private static final MessageHandler messageHandler = new MessageHandler();
+
+
+
+    private HashMap<String,ChatBox> chatpanes;
+
     private MessageHandler(){
 
     }
@@ -25,6 +29,7 @@ public class MessageHandler implements Handler{
     public static MessageHandler getInstance(){
         return messageHandler;
     }
+
 
     @Override
     public void processPacket(Tag tag){

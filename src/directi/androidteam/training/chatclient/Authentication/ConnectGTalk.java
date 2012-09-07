@@ -96,13 +96,9 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
             readWhile("/>", reader);
 
 
-            ConnectionHandler.socket=socket;
-            ConnectionHandler.reader=reader;
-            ConnectionHandler.writer=out;
-            XMLHelper xml = new XMLHelper();
-            out.write(xml.buildPacket(new MessageStanza("vinayak.bhavnani@gmail.com", "newtest").getTag()));
-            out.flush();
-            new PacketReader(socket);
+
+            ConnectionHandler.init(socket,out,reader);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
