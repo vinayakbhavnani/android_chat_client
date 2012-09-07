@@ -24,4 +24,22 @@ public class Presence extends Tag {
         addAttribute("to",to);
         addAttribute("type",type);
     }
+
+    public Presence(Tag tag) {
+        super("presence",tag.attributes,tag.childTags,tag.content);
+    }
+    public void addShow(String showState){
+        Show show = new Show(showState);
+        addChildTag(show);
+    }
+    public void addStatus(String status){
+        Status status1 = new Status();
+        status1.setStatus(status);
+        addChildTag(status1);
+    }
+    public void addPriority(int val){
+        Priority priority = new Priority(val);
+        addChildTag(priority);
+    }
 }
+
