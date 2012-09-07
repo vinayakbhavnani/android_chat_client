@@ -21,7 +21,7 @@ public class MessageQueue {
 
     private MessageQueue(){
         tagQueue = new ArrayList<Tag>();
-        mhandler = new MessageHandler();
+        mhandler = MessageHandler.getInstance();
     }
 
     public static MessageQueue getInstance(){
