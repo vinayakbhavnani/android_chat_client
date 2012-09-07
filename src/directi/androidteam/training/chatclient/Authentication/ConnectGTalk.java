@@ -3,11 +3,7 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.Util.ConnectionHandler;
-import directi.androidteam.training.chatclient.Util.PacketReader;
-import directi.androidteam.training.lib.xml.XMLHelper;
-import org.jivesoftware.smack.packet.Packet;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
@@ -28,6 +24,9 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
     private static String username;
     private static String password;
     private Context context;
+    private Socket s;
+    private PrintWriter w;
+    private BufferedReader r;
 
     public ConnectGTalk(Context context) {
         this.context = context;
@@ -124,7 +123,9 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
             out.flush();
             readWhile("/>", reader);
 
-            ConnectionHandler.init(socket, out, reader);
+            this.s = socket;
+            this.r = reader;
+            this.w = out;
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -136,11 +137,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
     public Boolean doInBackground (String ...params) {
         username = params[0];
         password = params[1];
-        return authenticate(username, password);
-    }
-
-    @Override
-    public void onPostExecute(Boolean result) {
+        Boolean result = authenticate(username, password);
         Intent intent;
         if (result == true) {
             intent = new Intent(this.context, DisplayRosterActivity.class);
@@ -149,5 +146,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
             intent = new Intent(this.context, LoginErrorActivity.class);
         }
         context.startActivity(intent);
+        ConnectionHandler.init(this.s, this.w, this.r);
+        return null;
     }
 }
