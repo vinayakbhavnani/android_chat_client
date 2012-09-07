@@ -17,7 +17,13 @@ public class Status extends Tag{
     public Status(HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
         super("status", attributes, childTags, content);
     }
+    public Status(Tag tag){
+        super(tag.tagname,tag.attributes,tag.childTags,tag.content);
+    }
     public void setStatus(String status){
         content = status;
+    }
+    public String getstatus(){
+        return content;
     }
 }

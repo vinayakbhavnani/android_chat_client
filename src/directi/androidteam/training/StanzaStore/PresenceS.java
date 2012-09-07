@@ -2,7 +2,10 @@ package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.ITagWrapper;
 import directi.androidteam.training.TagStore.Presence;
+import directi.androidteam.training.TagStore.Status;
 import directi.androidteam.training.TagStore.Tag;
+
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -40,5 +43,14 @@ public class PresenceS  implements ITagWrapper {
     }
     public String getType() {
         return presence.getAttribute("type");
+    }
+    public String getStatus(){
+        ArrayList<Tag> childlist = presence.getChildTags();
+        for (Tag tag : childlist) {
+            if(tag.getTagname().equals("status")){
+                return new Status(tag).getstatus();
+            }
+        }
+        return null;
     }
 }

@@ -16,12 +16,15 @@ public class Show extends Tag{
     }
     public Show(String showState){
         super("show",null,null,null);
-        setShow(showState);
+        setShowState(showState);
     }
     public Show(Tag tag) {
         super(tag.tagname,tag.attributes,tag.childTags,tag.content);
     }
-    public void setShow(String state) {
+    public void setShowState(String state) {
         content=state;
+    }
+    public String getShowState(){
+        return content;
     }
 }
