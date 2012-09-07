@@ -1,5 +1,7 @@
 package directi.androidteam.training.chatclient.Authentication;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import directi.androidteam.training.chatclient.Util.ConnectionHandler;
 
@@ -18,7 +20,15 @@ import java.net.Socket;
  * To change this template use File | Settings | File Templates.
  */
 
-public class ConnectGTalk extends AsyncTask<String, Void, String> {
+public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
+    private static String username;
+    private static String password;
+    private Context context;
+
+    public ConnectGTalk(Context context) {
+        this.context = context;
+    }
+
     private String getOpenStreamStanza() {
         return "<stream:stream" +
                 " to='gmail.com'" +
@@ -56,13 +66,28 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
         System.out.println();
     }
 
-    @Override
-    public String doInBackground (String ...params) {
+    private String readWhileOr(String endsWith1, String endsWith2, BufferedReader reader) throws IOException {
+        String response = "";
+        int c;
+        while (!(response.contains(endsWith1) || response.contains(endsWith2))) {
+            c = reader.read();
+            response = response + (char)c;
+            System.out.print((char)c);
+        }
+        System.out.println();
+        return response;
+    }
 
+    private boolean checkSASLSuccess(String response) {
+        return response.substring(1, 8).equals("success");
+    }
+
+    private boolean checkSASLFailure(String response) {
+        return response.substring(1, 8).equals("failure");
+    }
+
+    public boolean authenticate(String username, String password) {
         try {
-            String username = params[0];
-            String password = params[1];
-
             SSLSocketFactory sslsocketfactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
             Socket socket = sslsocketfactory.createSocket("talk.google.com", 5223);
             socket.setSoTimeout(0);
@@ -77,7 +102,11 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
 
             out.print(getAuthStanza('\0' + username + '\0' + password));
             out.flush();
-            readWhile("sasl\"/>", reader);
+            String response = readWhileOr("sasl\"/>", "</failure>", reader);
+            if (checkSASLSuccess(response) == true) {
+            } else if (checkSASLFailure(response) == true) {
+                return false;
+            }
 
             out.print(getOpenStreamStanza());
             out.flush();
@@ -91,13 +120,30 @@ public class ConnectGTalk extends AsyncTask<String, Void, String> {
             out.flush();
             readWhile("/>", reader);
 
-            ConnectionHandler connectionHandler = new ConnectionHandler();
-            connectionHandler.setSocket(socket);
-            connectionHandler.setReader(reader);
-            connectionHandler.setWriter(out);
+            ConnectionHandler.init(socket, out, reader);
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
-        return null;
+    }
+
+    @Override
+    public Boolean doInBackground (String ...params) {
+        username = params[0];
+        password = params[1];
+        return authenticate(username, password);
+    }
+
+    @Override
+    public void onPostExecute(Boolean result) {
+        Intent intent;
+        if (result == true) {
+            intent = new Intent(this.context, DisplayRosterActivity.class);
+            intent.putExtra(LoginActivity.USERNAME, username);
+        } else {
+            intent = new Intent(this.context, LoginErrorActivity.class);
+        }
+        context.startActivity(intent);
     }
 }

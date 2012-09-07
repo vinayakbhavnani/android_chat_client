@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
-import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 
@@ -45,7 +44,7 @@ class testtask extends AsyncTask {
         Log.d("execute", "background");
         //new customConnection();
        // new smackLogin().execute();
-        ConnectGTalk conn  = new ConnectGTalk();
+        //ConnectGTalk conn  = new ConnectGTalk();
         //Socket sock = conn.authenticate("brian.gingers", "androidchat");
         //PacketReader pr = new PacketReader(sock);
         return null;

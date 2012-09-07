@@ -12,19 +12,25 @@ import java.net.Socket;
  * To change this template use File | Settings | File Templates.
  */
 public class ConnectionHandler {
-    private Socket socket;
-    private BufferedReader reader;
-    private PrintWriter writer;
+    private static Socket socket;
+    private static BufferedReader reader;
+    private static PrintWriter writer;
 
-    public void setSocket(Socket socket) {
+    private void setSocket(Socket socket) {
         this.socket = socket;
     }
 
-    public void setReader(BufferedReader reader) {
+    private void setReader(BufferedReader reader) {
         this.reader = reader;
     }
 
-    public void setWriter(PrintWriter writer) {
+    private void setWriter(PrintWriter writer) {
         this.writer = writer;
+    }
+
+    public static void init(Socket s, PrintWriter w, BufferedReader r) {
+        socket = s;
+        writer = w;
+        reader = r;
     }
 }
