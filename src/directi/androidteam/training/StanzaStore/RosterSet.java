@@ -9,8 +9,7 @@ import directi.androidteam.training.TagStore.*;
  * Time: 2:32 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RosterSet implements ITagWrapper {
-    private IQTag tag;
+public class RosterSet extends TagWrapper {
 
     public RosterSet(String from, String id, String jid) {
         tag = new IQTag();
@@ -33,5 +32,4 @@ public class RosterSet implements ITagWrapper {
         Group group = new Group(groupName);
         itemTag.addChildTag(group);
     }
-
 }

@@ -10,8 +10,7 @@ import directi.androidteam.training.TagStore.Query;
  * Time: 4:33 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RosterGet {
-    private IQTag tag;
+public class RosterGet extends TagWrapper {
 
     public RosterGet(String from, String id) {
         tag = new IQTag();
@@ -22,4 +21,5 @@ public class RosterGet {
         query.addAttribute("xmlns","jabber:iq:roster");
         tag.addChildTag(query);
     }
+
 }
