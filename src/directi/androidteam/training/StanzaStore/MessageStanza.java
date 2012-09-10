@@ -10,8 +10,7 @@ import directi.androidteam.training.TagStore.Tag;
  * Time: 6:22 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MessageStanza {
-    private Tag tag;
+public class MessageStanza extends TagWrapper{
     public MessageStanza(String to, String body){
         tag = new MessageTag(to,body,null);
     }
@@ -21,12 +20,11 @@ public class MessageStanza {
     public MessageStanza(Tag tag) {
         this.tag = tag;
     }
-    public Tag getTag(){
-        return tag;
-    }
-
     public String getBody(){
         return tag.getChildTags().get(0).getContent();
+    }
+    public Tag getTag(){
+        return tag;
     }
 
 }

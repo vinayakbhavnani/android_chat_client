@@ -1,7 +1,6 @@
 package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.IQTag;
-import directi.androidteam.training.TagStore.ITagWrapper;
 import directi.androidteam.training.TagStore.Tag;
 
 /**
@@ -11,8 +10,7 @@ import directi.androidteam.training.TagStore.Tag;
  * Time: 3:16 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RosterPush implements ITagWrapper {
-    private IQTag tag;
+public class RosterPush extends TagWrapper {
 
     public RosterPush(Tag tag) {
         this.tag = new IQTag(tag);
@@ -29,4 +27,6 @@ public class RosterPush implements ITagWrapper {
         }
         return jid;
     }
+
+
 }

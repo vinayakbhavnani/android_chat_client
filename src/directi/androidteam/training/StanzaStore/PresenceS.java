@@ -1,6 +1,5 @@
 package directi.androidteam.training.StanzaStore;
 
-import directi.androidteam.training.TagStore.ITagWrapper;
 import directi.androidteam.training.TagStore.Presence;
 import directi.androidteam.training.TagStore.Status;
 import directi.androidteam.training.TagStore.Tag;
@@ -14,38 +13,37 @@ import java.util.ArrayList;
  * Time: 4:25 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PresenceS  implements ITagWrapper {
-    private Presence presence;
+public class PresenceS  extends TagWrapper {
     public PresenceS() {
-        presence = new Presence();
+        tag = new Presence();
     }
     public PresenceS(Tag tag){
-        presence = new Presence(tag);
+        this.tag = new Presence(tag);
     }
     public PresenceS(String sender,String receiver,String id,String type){
-        presence = new Presence();
+        tag = new Presence();
         addSender(sender);
         addReceiver(receiver);
         addID(id);
         addType(type);
     }
     public void addSender(String sender){
-        presence.addAttribute("from",sender);
+        tag.addAttribute("from", sender);
     }
     public void addID(String id){
-        presence.addAttribute("id",id);
+        tag.addAttribute("id", id);
     }
     public void addReceiver(String receiver){
-        presence.addAttribute("to",receiver);
+        tag.addAttribute("to", receiver);
     }
     public void addType(String type){
-        presence.addAttribute("type",type);
+        tag.addAttribute("type", type);
     }
     public String getType() {
-        return presence.getAttribute("type");
+        return tag.getAttribute("type");
     }
     public String getStatus(){
-        ArrayList<Tag> childlist = presence.getChildTags();
+        ArrayList<Tag> childlist = tag.getChildTags();
         for (Tag tag : childlist) {
             if(tag.getTagname().equals("status")){
                 return new Status(tag).getstatus();

@@ -3,9 +3,9 @@ package directi.androidteam.training.chatclient.PacketStore;
 import android.util.Log;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
+import directi.androidteam.training.chatclient.PacketHandlers.RosterHandler;
 
 import java.util.ArrayList;
-import java.util.Queue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,12 +16,14 @@ import java.util.Queue;
  */
 public class MessageQueue {
     MessageHandler mhandler;
+    RosterHandler rhandler;
     private final ArrayList<Tag> tagQueue;
     private static final MessageQueue mqueue = new MessageQueue();
 
     private MessageQueue(){
         tagQueue = new ArrayList<Tag>();
         mhandler = MessageHandler.getInstance();
+        rhandler = RosterHandler.getInstance();
     }
 
     public static MessageQueue getInstance(){
@@ -39,8 +41,8 @@ public class MessageQueue {
                 Log.d("packet","packetprocessed");
                 if(temp.getTagname().equals("message")){
                       mhandler.processPacket(temp);
-
                 }
+                else rhandler.processPacket(temp);
             }
         }
     }

@@ -1,10 +1,11 @@
 package directi.androidteam.training.chatclient.Util;
 
-import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.lib.xml.XMLHelper;
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
 
-import java.io.*;
-import java.net.Socket;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,29 +14,30 @@ import java.net.Socket;
  * Time: 2:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PacketWriter {
-    private Socket socket;
-    private PrintWriter writer;
+public class PacketWriter extends Service {
+    private static PrintWriter writer =  ConnectionHandler.getWriter();
+    private static ArrayList<String> list =  new ArrayList<String>();
 
-    public PacketWriter(Socket sock)  {
-        this.socket = sock;
-        try {
-            this.writer =  new PrintWriter(socket.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+    public static void addToWriteQueue(String msg){
+        list.add(msg);
     }
 
-    public void write(Tag tag){
-        XMLHelper helper = new XMLHelper();
-        String tagxml = helper.buildPacket(tag);
-        writer.write(tagxml);
-        writer.flush();
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void write(String str){
         writer.write(str);
         writer.flush();
+    }
+    public void onCreate() {
+        while(true){
+            if(!list.isEmpty()){
+                String str = list.remove(0);
+                write(str);
+            }
+        }
     }
 
 

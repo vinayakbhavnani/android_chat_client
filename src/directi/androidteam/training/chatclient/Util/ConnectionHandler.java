@@ -5,7 +5,6 @@ import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.net.Socket;
 
 /**
@@ -32,7 +31,7 @@ public class ConnectionHandler {
         this.writer = writer;
     }
 
-    public Writer getWriter(){
+    public static PrintWriter getWriter(){
         return writer;
     }
 
