@@ -22,4 +22,8 @@ public class Roster {
             Log.d("Roster : ", listOfRoster);
         }
     }
+/*    public void addRosterEntry(String[] groups){
+        RosterSet rosterSet = new RosterSet();
+    } */
+
 }
