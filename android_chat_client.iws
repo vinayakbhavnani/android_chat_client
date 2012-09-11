@@ -16,10 +16,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75ccb3de-890e-4e12-9ecf-49698030e875" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable/facebook_icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable/gtalk_icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable/yahoo_icon.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Constants.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/android_chat_client.iws" afterPath="$PROJECT_DIR$/android_chat_client.iws" />
     </list>
     <ignored path="android_chat_client.iws" />
