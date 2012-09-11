@@ -143,7 +143,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
             intent = new Intent(this.context, DisplayRosterActivity.class);
             intent.putExtra(LoginActivity.USERNAME, username);
             context.startActivity(intent);
-            ConnectionHandler.init(this.s, this.w, this.r);
+            ConnectionHandler.init(this.s, this.w, this.r,this.context);
         } else {
             intent = new Intent(this.context, LoginErrorActivity.class);
             context.startActivity(intent);

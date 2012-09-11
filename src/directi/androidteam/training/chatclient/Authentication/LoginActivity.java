@@ -26,6 +26,6 @@ public class LoginActivity extends Activity {
         EditText password_edit_text = (EditText) findViewById(R.id.password);
         String username = username_edit_text.getText().toString();
         String password = password_edit_text.getText().toString();
-        (new ConnectGTalk(this)).execute(username, password);
+        (new ConnectGTalk(this)).execute("brian.gingers","androidchat");
     }
 }

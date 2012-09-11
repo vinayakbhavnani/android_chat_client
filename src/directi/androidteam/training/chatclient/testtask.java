@@ -1,13 +1,21 @@
 package directi.androidteam.training.chatclient;
 
+import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 import directi.androidteam.training.chatclient.PacketStore.MessageQueue;
 
-public class testtask extends Service {
-    public testtask() {
+public class testtask extends IntentService {
+
+
+    public testtask(String name) {
+        super(name);
+    }
+
+    public testtask(){
+        super("abc");
     }
 
     protected Object doInBackground(Object... objects) {
@@ -26,12 +34,17 @@ public class testtask extends Service {
 
     @Override
     public void onCreate() {
-        Log.d("execute123", "background");
+        Log.d("executetestservice", "background");
         MessageQueue.getInstance().processPacket();
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }
