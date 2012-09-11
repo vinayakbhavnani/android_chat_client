@@ -35,7 +35,6 @@ public class MessageQueue {
 
     public void processPacket(){
         while(true){
-           // Log.d("tester","tester");
             if(tagQueue.size()!=0){
                 Tag temp = tagQueue.remove(0);
                 Log.d("packet","packetprocessed");
