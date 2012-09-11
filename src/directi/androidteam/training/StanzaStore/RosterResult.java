@@ -1,7 +1,6 @@
 package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.IQTag;
-import directi.androidteam.training.TagStore.ITagWrapper;
 import directi.androidteam.training.TagStore.Tag;
 
 import java.util.ArrayList;
@@ -13,8 +12,7 @@ import java.util.ArrayList;
  * Time: 2:02 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RosterResult implements ITagWrapper {
-    private IQTag tag;
+public class RosterResult extends TagWrapper {
     public RosterResult(Tag tag) {
         this.tag = new IQTag(tag);
     }
@@ -27,6 +25,6 @@ public class RosterResult implements ITagWrapper {
     public ArrayList<String> getListOfRosters(){
         if (isError() || !tag.getAttribute("type").equals("result"))
             return null;
-        return tag.getResult();
+        return ((IQTag)tag).getResult();
     }
 }

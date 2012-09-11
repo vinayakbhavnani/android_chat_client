@@ -1,7 +1,7 @@
 package directi.androidteam.training.lib.TCPHandler;
 
 import android.util.Log;
-import directi.androidteam.training.TagStore.ITagWrapper;
+import directi.androidteam.training.StanzaStore.TagWrapper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class SocketReader {
     public static SocketReader getInstance(){
         return socketReader;
     }
-    public ITagWrapper getMessage() {
+    public TagWrapper getMessage() {
         Socket socket = ChatSocket.getSocket();
         BufferedReader bufferedReader = null;
         try {

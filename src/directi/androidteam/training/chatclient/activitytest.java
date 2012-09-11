@@ -34,7 +34,7 @@ public class activitytest extends Activity {
 
   //      String xmlstring = xml.buildPacket(new Message("vinayak","heytest","sumit").getTag());
         Log.d("msg123456",xml.buildPacket(xml.tearPacket(xmlstring)));
-        setContentView(R.layout.main);
+        setContentView(R.layout.chat);
         //SocketReader.getInstance().getMessage();
 
          //String initiate_conn="<stream:stream to=\"gmail.com\" version=\"1.0\" xmlns=\"jabber:client\" xmlns:stream=\"http://etherx.jabber.org/streams\">";

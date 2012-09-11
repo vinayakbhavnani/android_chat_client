@@ -21,6 +21,8 @@ public class IQTag extends Tag{
         super(tagname, attributes, childTags, content);
     }
     public void addAttribute(String attributeName,String attributeVal){
+        if(attributes==null)
+            attributes = new HashMap<String, String>();
         attributes.put(attributeName,attributeVal);
     }
     public ArrayList<String> getResult() {
@@ -37,6 +39,8 @@ public class IQTag extends Tag{
         return rosterList;
     }
     public String getType(){
+        if(attributes==null)
+            return null;
         return attributes.get("type");
     }
 }

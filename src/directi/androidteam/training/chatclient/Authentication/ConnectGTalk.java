@@ -138,16 +138,28 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         username = params[0];
         password = params[1];
         Boolean result = authenticate(username, password);
+        if (result) {
+             ConnectionHandler.init(this.s, this.w, this.r);
+        }
+        return result;
+    }
+
+    @Override
+    protected void onPostExecute(Boolean result) {
         Intent intent;
-        if (result == true) {
+        if(result)   {
+            Intent serviceIntent = new Intent(context,MyService.class);
+            context.startService(serviceIntent);
+
             intent = new Intent(this.context, DisplayRosterActivity.class);
             intent.putExtra(LoginActivity.USERNAME, username);
             context.startActivity(intent);
-            ConnectionHandler.init(this.s, this.w, this.r);
-        } else {
+        }
+        else {
             intent = new Intent(this.context, LoginErrorActivity.class);
             context.startActivity(intent);
         }
-        return null;
     }
+
+
 }

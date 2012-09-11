@@ -1,8 +1,6 @@
 bin/
-Android_chat_client.iml
-android_chat_client.iml
-android_chat_client.ipr
-android_chat_client.iws
+Android_chat_client.*
+android_chat_client.*
 AndroidManifest.xml
 ant.properties
 build.xml

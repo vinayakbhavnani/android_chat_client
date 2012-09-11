@@ -1,10 +1,10 @@
 package directi.androidteam.training.chatclient.Util;
 
-import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.lib.xml.XMLHelper;
+import android.util.Log;
+import directi.androidteam.training.chatclient.Authentication.ServiceThread;
 
-import java.io.*;
-import java.net.Socket;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,29 +13,28 @@ import java.net.Socket;
  * Time: 2:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PacketWriter {
-    private Socket socket;
-    private PrintWriter writer;
+public class PacketWriter implements ServiceThread{
+    private static PrintWriter writer =  ConnectionHandler.getWriter();
+    private static ArrayList<String> list =  new ArrayList<String>();
 
-    public PacketWriter(Socket sock)  {
-        this.socket = sock;
-        try {
-            this.writer =  new PrintWriter(socket.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-    }
-
-    public void write(Tag tag){
-        XMLHelper helper = new XMLHelper();
-        String tagxml = helper.buildPacket(tag);
-        writer.write(tagxml);
-        writer.flush();
+    public static void addToWriteQueue(String msg){
+        list.add(msg);
     }
 
     public void write(String str){
         writer.write(str);
         writer.flush();
+    }
+    @Override
+    public void execute() {
+        Log.d("Service Thread : ", "I am PacketWriter");
+        while(true){
+            if(!list.isEmpty()){
+                String str = list.remove(0);
+                Log.d("PacketWriter",str);
+                write(str);
+            }
+        }
     }
 
 
