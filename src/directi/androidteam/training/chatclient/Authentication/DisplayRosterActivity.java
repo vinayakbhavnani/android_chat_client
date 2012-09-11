@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
@@ -27,12 +28,20 @@ public class DisplayRosterActivity extends Activity {
         textView.setTextSize(40);
         textView.setText("Welcome " + username);
         setContentView(textView);
-        requestForRosters(username);
+        requestForServices();
+        requestForRosters();
     }
 
-    private void requestForRosters(String username) {
+    private void requestForRosters() {
         Log.d("DEBUG :","entered request for roster");
-        RosterGet rosterGet = new RosterGet(username+"@gmail.com","roster_1");
+        RosterGet rosterGet = new RosterGet();
+        rosterGet.setSender(JID.jid).setID("google-roster-1").setQueryAttribute("xmlns","jabber:iq:roster");
+        PacketWriter.addToWriteQueue(rosterGet.getXml());
+    }
+    private void requestForServices(){
+        Log.d("DEBUG :","entered request for services");
+        RosterGet rosterGet = new RosterGet();
+        rosterGet.setReceiver("gmail.com").setQueryAttribute("xlmns", "http://jabber.org/protocol/disco#info");
         PacketWriter.addToWriteQueue(rosterGet.getXml());
     }
 

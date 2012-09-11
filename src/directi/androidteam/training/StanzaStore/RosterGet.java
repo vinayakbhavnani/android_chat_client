@@ -2,6 +2,7 @@ package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.IQTag;
 import directi.androidteam.training.TagStore.Query;
+import directi.androidteam.training.TagStore.Tag;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,5 +22,27 @@ public class RosterGet extends TagWrapper {
         query.addAttribute("xmlns","jabber:iq:roster");
         tag.addChildTag(query);
     }
-
+    public RosterGet(){
+        tag = new IQTag();
+        tag.addAttribute("type","get");
+        Query query = new Query();
+        tag.addChildTag(query);
+    }
+    public RosterGet setSender(String from){
+        tag.addAttribute("from",from);
+        return this;
+    }
+    public RosterGet setID(String id){
+        tag.addAttribute("id",id);
+        return this;
+    }
+    public RosterGet setReceiver(String to){
+        tag.addAttribute("to",to);
+        return this;
+    }
+    public RosterGet setQueryAttribute(String queryAttrName, String queryAttrVal){
+        Tag query = tag.getChildTags().get(0);
+        query.addAttribute(queryAttrName,queryAttrVal);
+        return this;
+    }
 }
