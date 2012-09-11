@@ -3,7 +3,11 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
+import directi.androidteam.training.TagStore.IQTag;
+import directi.androidteam.training.TagStore.JIDTag;
 import directi.androidteam.training.chatclient.Util.ConnectionHandler;
+import directi.androidteam.training.lib.xml.XMLHelper;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
@@ -58,7 +62,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
                 "</iq>";
     }
 
-    private void readWhile(String endsWith, BufferedReader reader) throws IOException {
+    private String readWhile(String endsWith, BufferedReader reader) throws IOException {
         String response = "";
         int c;
         while (!(response.contains(endsWith))) {
@@ -67,6 +71,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
             System.out.print((char)c);
         }
         System.out.println();
+        return response;
     }
 
     private String readWhileOr(String endsWith1, String endsWith2, BufferedReader reader) throws IOException {
@@ -117,7 +122,11 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
 
             out.print(getResourcePartStanza());
             out.flush();
-            readWhile("</iq>", reader);
+            XMLHelper helper = new XMLHelper();
+            String string = readWhile("</iq>", reader);
+            IQTag iqTag = new IQTag(helper.tearPacket(string));
+            JIDTag jidTag  = new JIDTag(iqTag.getChildTags().get(0).getChildTags().get(0));
+            Log.d("JID intialize", jidTag.getContent());
 
             out.print(getStartSessionStanza());
             out.flush();
@@ -160,6 +169,4 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
             context.startActivity(intent);
         }
     }
-
-
 }
