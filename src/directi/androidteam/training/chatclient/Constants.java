@@ -8,8 +8,8 @@ package directi.androidteam.training.chatclient;
  * To change this template use File | Settings | File Templates.
  */
 public class Constants {
-    public static String username = "dummy.android.chat";
-    public static String password = "dummyand";
+    public static String username = "brian.gingers";
+    public static String password = "androidchat";
     public static final String USERNAME_KEY = "directi.androidteam.training.chatclient.Authentication.LoginActivity.USERNAME";
     public static final int login_icon_size = 50;
 }

@@ -3,9 +3,13 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+
+import directi.androidteam.training.chatclient.Chat.ChatBox;
+
 import android.util.Log;
 import directi.androidteam.training.TagStore.IQTag;
 import directi.androidteam.training.TagStore.JIDTag;
+
 import directi.androidteam.training.chatclient.Util.ConnectionHandler;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
@@ -159,12 +163,14 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean result) {
         Intent intent;
+
         if(result)   {
             Intent serviceIntent = new Intent(context,MyService.class);
             context.startService(serviceIntent);
 
-            intent = new Intent(this.context, DisplayRosterActivity.class);
+            intent = new Intent(this.context, ChatBox.class);
             intent.putExtra(LoginActivity.USERNAME, username);
+
             context.startActivity(intent);
         }
         else {
