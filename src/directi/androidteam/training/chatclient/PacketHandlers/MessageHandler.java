@@ -24,7 +24,7 @@ public class MessageHandler implements Handler{
 
     private MessageHandler(){
         chatpanes = new HashMap<String, ChatBox>();
-        chatpanes.put("vinayak.bhavnani",new ChatBox());
+        //chatpanes.put("vinayak.bhavnani",new ChatBox());
     }
 
     public static MessageHandler getInstance(){
