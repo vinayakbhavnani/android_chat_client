@@ -86,6 +86,13 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         return response;
     }
 
+    private void extractJID(String response) {
+        XMLHelper helper = new XMLHelper();
+        IQTag iqTag = new IQTag(helper.tearPacket(response));
+        JIDTag jidTag  = new JIDTag(iqTag.getChildTags().get(0).getChildTags().get(0));
+        Log.d("JID intialize", jidTag.getContent());
+    }
+
     private boolean checkSASLSuccess(String response) {
         return response.substring(1, 8).equals("success");
     }
@@ -122,11 +129,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
 
             out.print(getResourcePartStanza());
             out.flush();
-            XMLHelper helper = new XMLHelper();
-            String string = readWhile("</iq>", reader);
-            IQTag iqTag = new IQTag(helper.tearPacket(string));
-            JIDTag jidTag  = new JIDTag(iqTag.getChildTags().get(0).getChildTags().get(0));
-            Log.d("JID intialize", jidTag.getContent());
+            extractJID(readWhile("</iq>", reader));
 
             out.print(getStartSessionStanza());
             out.flush();
