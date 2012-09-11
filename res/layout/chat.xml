@@ -19,7 +19,7 @@
                 android:layout_y="0dp" />
     </AbsoluteLayout>
     <ListView
-            android:id="@+id/widget37"
+            android:id="@+id/chatlist"
             android:layout_width="fill_parent"
             android:layout_height="340px" />
     <LinearLayout
@@ -33,7 +33,7 @@
                 android:text="EditText"
                 android:textSize="18sp" />
         <Button
-                android:id="@+id/widget43"
+                android:id="@+id/sendmessage"
                 android:layout_width="75px"
                 android:layout_height="fill_parent"
                 android:text="Send"

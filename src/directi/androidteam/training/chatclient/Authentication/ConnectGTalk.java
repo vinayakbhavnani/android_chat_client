@@ -153,7 +153,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
             Intent serviceIntent = new Intent(context,MyService.class);
             context.startService(serviceIntent);
 
-            intent = new Intent(this.context, DisplayRosterActivity.class);
+            intent = new Intent(this.context, ChatBox.class);
             intent.putExtra(LoginActivity.USERNAME, username);
 
             context.startActivity(intent);

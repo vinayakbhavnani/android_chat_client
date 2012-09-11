@@ -23,7 +23,8 @@ public class MessageHandler implements Handler{
     private HashMap<String,ChatBox> chatpanes;
 
     private MessageHandler(){
-
+        chatpanes = new HashMap<String, ChatBox>();
+        chatpanes.put("vinayak.bhavnani",new ChatBox());
     }
 
     public static MessageHandler getInstance(){
@@ -35,6 +36,7 @@ public class MessageHandler implements Handler{
     public void processPacket(Tag tag){
         Log.d("newmessage",tag.getChildTags().get(0).getContent());
         MessageStanza ms = new MessageStanza(tag);
+        ms.getBody();
 
     }
 }
