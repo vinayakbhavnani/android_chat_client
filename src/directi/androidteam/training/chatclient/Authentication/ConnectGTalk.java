@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.Util.ConnectionHandler;
 
 import javax.net.ssl.SSLSocketFactory;
@@ -140,8 +141,8 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         Boolean result = authenticate(username, password);
         Intent intent;
         if (result == true) {
-            intent = new Intent(this.context, DisplayRosterActivity.class);
-            intent.putExtra(LoginActivity.USERNAME, username);
+            intent = new Intent(this.context, ChatBox.class);
+            //intent.putExtra(LoginActivity.USERNAME, username);
             context.startActivity(intent);
             ConnectionHandler.init(this.s, this.w, this.r,this.context);
         } else {

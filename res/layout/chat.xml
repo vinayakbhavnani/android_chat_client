@@ -27,7 +27,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50px">
         <EditText
-                android:id="@+id/widget40"
+                android:id="@+id/message"
                 android:layout_width="240px"
                 android:layout_height="fill_parent"
                 android:text="EditText"
