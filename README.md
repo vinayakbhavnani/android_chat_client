@@ -1,4 +1,4 @@
 android_chat_client
 ===================
 
-Android Chat Client for GTalk :)
+Android Chat Client for GTalk
