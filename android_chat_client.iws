@@ -13,8 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75ccb3de-890e-4e12-9ecf-49698030e875" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/LoginActivity.java" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/LoginActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Util/NetworkConnectionChangeReceiver.java" afterPath="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Util/NetworkConnectionChangeReceiver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/login_error.xml" afterPath="$PROJECT_DIR$/res/layout/login_error.xml" />
     </list>
     <ignored path="android_chat_client.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -90,7 +89,6 @@
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/Base64.java" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/Test.java" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/res/layout/login_error.xml" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/LoginErrorActivity.java" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/activitytest.java" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Util/ConnectionHandler.java" />
@@ -100,6 +98,7 @@
         <option value="$PROJECT_DIR$/res/layout/login.xml" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/LoginActivity.java" />
         <option value="$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Util/NetworkConnectionChangeReceiver.java" />
+        <option value="$PROJECT_DIR$/res/layout/login_error.xml" />
       </list>
     </option>
   </component>
@@ -551,11 +550,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Util/PacketReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="13" selection-start="498" selection-end="498" vertical-scroll-proportion="0.3021978" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Util/PacketWriter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="13" selection-start="382" selection-end="382" vertical-scroll-proportion="0.3021978" />
@@ -645,6 +639,13 @@
     <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Util/NetworkConnectionChangeReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="0" selection-start="1127" selection-end="1127" vertical-scroll-proportion="0.31318682">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/login_error.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="40" selection-start="547" selection-end="547" vertical-scroll-proportion="0.3021978">
           <folding />
         </state>
       </provider>
