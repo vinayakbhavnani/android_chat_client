@@ -1,5 +1,7 @@
 package directi.androidteam.training.chatclient.Util;
 
+import android.util.Log;
+import directi.androidteam.training.chatclient.Authentication.ServiceThread;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.io.BufferedReader;
@@ -14,11 +16,18 @@ import java.net.Socket;
  * Time: 2:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PacketReader {
+public class PacketReader implements ServiceThread{
     private Socket socket;
     private BufferedReader reader;
-    public PacketReader(Socket sock){
-        this.socket=sock;
+
+    public PacketReader(){
+
+        this.socket=ConnectionHandler.getSocket();
+    }
+
+    @Override
+    public void execute() {
+        Log.d("Service Thread","I am Packet Reader");
         try {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             XMLHelper helper = new XMLHelper();
@@ -26,9 +35,5 @@ public class PacketReader {
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-    }
-
-    public String blockRead(){
-        return null;
     }
 }

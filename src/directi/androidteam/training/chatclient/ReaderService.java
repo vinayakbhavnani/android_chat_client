@@ -1,12 +1,9 @@
 package directi.androidteam.training.chatclient;
 
 import android.app.IntentService;
-import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
-import directi.androidteam.training.chatclient.PacketStore.MessageQueue;
-import directi.androidteam.training.chatclient.Util.ConnectionHandler;
 import directi.androidteam.training.chatclient.Util.PacketReader;
 
 /**
@@ -26,7 +23,7 @@ public class ReaderService extends IntentService {
     public void onCreate() {
         Log.d("executeservicereader", "background");
         //MessageQueue.getInstance().processPacket();
-        new PacketReader(ConnectionHandler.getSocket());
+        new PacketReader();
     }
 
     @Override
