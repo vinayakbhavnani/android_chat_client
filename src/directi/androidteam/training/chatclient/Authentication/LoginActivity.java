@@ -6,7 +6,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import directi.androidteam.training.chatclient.Constants;
+import android.widget.ProgressBar;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.NetworkConnectionChangeReceiver;
 
@@ -22,6 +22,8 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
         this.registerReceiver(new NetworkConnectionChangeReceiver(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
@@ -35,6 +37,8 @@ public class LoginActivity extends Activity {
         String password = password_edit_text.getText().toString();
         uname = username;
         pwd = password;
-        (new ConnectGTalk(this)).execute(Constants.username, Constants.password);
+        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+        (new ConnectGTalk(this)).execute(username, password);
     }
 }

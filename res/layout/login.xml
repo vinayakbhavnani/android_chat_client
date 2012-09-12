@@ -8,7 +8,24 @@
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:text="@string/app_name"
+              android:paddingTop="120dip"
+              android:paddingBottom="50dip"
+              android:textSize="20sp"
+              android:gravity="center_horizontal"
            />
+    <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="40dip"
+            android:minWidth="40dip"
+            android:maxHeight="40dip"
+            android:minHeight="40dip"
+            android:layout_marginBottom="10dip"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"
+            />
     <EditText android:id="@+id/username"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -24,7 +41,8 @@
             android:layout_height="wrap_content"
             android:text="@string/button_login"
             android:onClick="loginUser"
+            android:background="@drawable/login_button"
+            android:layout_marginTop="20dip"
+            android:layout_gravity="center_horizontal"
             />
 </LinearLayout>
-
-
