@@ -5,7 +5,6 @@ import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterPush;
 import directi.androidteam.training.StanzaStore.RosterResult;
 import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.Roster.RosterManager;
 
 /**
  * Created with IntelliJ IDEA.
@@ -46,8 +45,8 @@ public class RosterHandler implements Handler{
             }
             else if(type.equals("result")){
                 RosterResult rosterResult = new RosterResult(tag);
-                RosterManager rosterManager = RosterManager.getInstance();
-                rosterManager.setRosterList(rosterResult.getListOfRosters());
+         //       RosterManager rosterManager = RosterManager.getInstance();
+       //         rosterManager.setRosterList(rosterResult.getListOfRosters());
             }
             else {
                 Log.d("Packet Error","Unidentified IQ Packet, type = "+type);

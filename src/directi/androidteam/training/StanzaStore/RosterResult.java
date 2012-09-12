@@ -25,6 +25,6 @@ public class RosterResult extends TagWrapper {
     public ArrayList<Tag> getListOfRosters(){
         if (isError() || !tag.getAttribute("type").equals("result"))
             return null;
-        return ((IQTag)tag).getChildTags();
+        return ((IQTag)tag).getRosterItems();
     }
 }

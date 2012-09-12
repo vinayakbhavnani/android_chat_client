@@ -25,7 +25,7 @@ public class IQTag extends Tag{
             attributes = new HashMap<String, String>();
         attributes.put(attributeName,attributeVal);
     }
-    public ArrayList<Tag> getChildTags() {
+    public ArrayList<Tag> getRosterItems() {
         if(childTags==null)
             return null;
         Tag resultTag = childTags.get(0);
