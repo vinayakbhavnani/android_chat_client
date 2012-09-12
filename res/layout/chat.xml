@@ -18,8 +18,9 @@
                 android:layout_x="136dp"
                 android:layout_y="0dp" />
     </AbsoluteLayout>
-    <ListView
+    <fragment
             android:id="@+id/chatlist"
+            android:name="directi.androidteam.training.chatclient.Chat.ChatFragment"
             android:layout_width="fill_parent"
             android:layout_height="340px" />
     <LinearLayout
