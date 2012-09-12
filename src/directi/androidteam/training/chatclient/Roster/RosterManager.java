@@ -2,7 +2,6 @@ package directi.androidteam.training.chatclient.Roster;
 
 import android.util.Log;
 import directi.androidteam.training.StanzaStore.PresenceS;
-import directi.androidteam.training.StanzaStore.RosterResult;
 import directi.androidteam.training.TagStore.Tag;
 
 import java.util.ArrayList;
@@ -26,16 +25,25 @@ public class RosterManager {
 
     public void setRosterList(ArrayList<Tag> list){
         rosterList = list;
+        for (Tag tag : list) {
+            Log.d("setRoster tagname :",tag.getTagname());
+            if(tag.getTagname().equals("item")){
+                RosterEntry rosterEntry = new RosterEntry(tag.getAttribute("jid"));
+                Log.d("setRoster : ","hey");
+            }
+        }
         DisplayRosterActivity.showAllRosters();
     }
     public ArrayList getRosterList(){
         return rosterList;
     }
-    public void displayRoster(RosterResult rosterResult){
-
-        ArrayList<Tag> listOfRosters = rosterResult.getListOfRosters();
-        for (Tag listOfRoster : listOfRosters) {
-            Log.d("RosterManager : ", listOfRoster.getAttribute("jid"));
+    public void displayRoster(String groupName){
+        Log.d("setRoster : ","displayRoster");
+        RosterGroupManager rosterGroupManager = RosterGroupManager.getInstance();
+        RosterGroup rosterGroup = rosterGroupManager.getRosterGroupByName(groupName);
+        ArrayList<RosterEntry> rosterEntries =  rosterGroup.getRosterEntries();
+        for (RosterEntry rosterEntry : rosterEntries) {
+            Log.d("JID :",rosterEntry.getJid());
         }
     }
     public void addRosterEntry(Map<String,Object> rosterEntry){

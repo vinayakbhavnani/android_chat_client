@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import directi.androidteam.training.StanzaStore.JID;
@@ -33,12 +31,12 @@ public class DisplayRosterActivity extends Activity {
         setContentView(R.layout.roster);
         Intent intent = getIntent();
         String username =  intent.getStringExtra(LoginActivity.USERNAME);
-        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.MainLayout);
+        LinearLayout linearLayout = new LinearLayout(this);
         TextView WelcomeView = new TextView(this);
         WelcomeView.setTextSize(10);
         WelcomeView.setText("Welcome " + username);
         setContentView(WelcomeView);
-        //linearLayout.addView(WelcomeView);
+//        linearLayout.addView(WelcomeView);
         requestForServices();
         requestForRosters();
     }
@@ -46,7 +44,7 @@ public class DisplayRosterActivity extends Activity {
     private void requestForRosters() {
         Log.d("DEBUG :","entered request for ROSTER_MANAGER");
         RosterGet rosterGet = new RosterGet();
-        rosterGet.setSender(JID.jid).setID("google-ROSTER_MANAGER-1").setQueryAttribute("xmlns","jabber:iq:ROSTER_MANAGER");
+        rosterGet.setSender(JID.jid).setID("google-roster-1").setQueryAttribute("xmlns","jabber:iq:roster");
         PacketWriter.addToWriteQueue(rosterGet.getXml());
     }
     private void requestForServices(){
@@ -65,23 +63,30 @@ public class DisplayRosterActivity extends Activity {
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
+        Log.d("ROSTER INTENT :", "New Intent Started");
         String rosterToBeDisplayed = (String)intent.getExtras().get("display");
         if(rosterToBeDisplayed.equals("all")){
-            LinearLayout linearLayout1 = new LinearLayout(context);
+            Log.d("ROSTER INTENT ALL :", "New Intent Started - ALL");
+            RosterManager rosterManager = RosterManager.getInstance();
+            rosterManager.displayRoster("default");
+
+/*            LinearLayout linearLayout1 = new LinearLayout(context);
             linearLayout1.setId(Integer.parseInt("ContactList"));
             linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
             Button chatButton1 = new Button(context);
             chatButton1.setText("Chat");
             chatButton1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            linearLayout1.addView(chatButton1);
+            linearLayout1.addView(chatButton1);       */
         }
         else {
+            return;
+            /*
             LinearLayout linearLayout1 = new LinearLayout(context);
             linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
             Button chatButton1 = new Button(context);
             chatButton1.setText("Chat");
             chatButton1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            linearLayout1.addView(chatButton1);
+            linearLayout1.addView(chatButton1);     */
         }
     }
 

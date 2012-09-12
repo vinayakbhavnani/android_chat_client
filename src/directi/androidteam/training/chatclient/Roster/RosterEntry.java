@@ -1,7 +1,5 @@
 package directi.androidteam.training.chatclient.Roster;
 
-import directi.androidteam.training.StanzaStore.JID;
-
 import java.util.ArrayList;
 
 /**
@@ -12,12 +10,12 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class RosterEntry {
-    public JID jid;
+    public String jid;
     public ArrayList<RosterGroup> rosterGroups;
     public String status;
     public String presence;
 
-    public RosterEntry(JID jid) {
+    public RosterEntry(String jid) {
         this.jid = jid;
         rosterGroups = null;
         status="";
@@ -27,14 +25,14 @@ public class RosterEntry {
         this.addRosterGroup(rosterGroup);
     }
 
-    public RosterEntry(JID jid, ArrayList<RosterGroup> rosterGroups, String status, String presence) {
+    public RosterEntry(String jid, ArrayList<RosterGroup> rosterGroups, String status, String presence) {
         this.jid = jid;
         this.rosterGroups = rosterGroups;
         this.status = status;
         this.presence = presence;
     }
 
-    public JID getJid() {
+    public String getJid() {
         return jid;
     }
 
