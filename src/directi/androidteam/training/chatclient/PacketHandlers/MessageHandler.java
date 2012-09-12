@@ -1,10 +1,16 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Authentication.MyService;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
+import directi.androidteam.training.chatclient.Chat.ChatFragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -20,12 +26,19 @@ public class MessageHandler implements Handler{
 
 
 
-    private HashMap<String,ChatBox> chatpanes;
+    private HashMap<String,ArrayList<String>> chatLists;
 
     private MessageHandler(){
-        chatpanes = new HashMap<String, ChatBox>();
+        chatLists = new HashMap<String, ArrayList<String>>();
+
         //chatpanes.put("vinayak.bhavnani",new ChatBox());
     }
+
+     public  ArrayList<String> getFragList(String from){
+         if(!chatLists.containsKey(from))
+             chatLists.put(from,new ArrayList<String>());
+         return chatLists.get(from);
+     }
 
     public static MessageHandler getInstance(){
         return messageHandler;
@@ -36,7 +49,16 @@ public class MessageHandler implements Handler{
     public void processPacket(Tag tag){
         Log.d("newmessage",tag.getChildTags().get(0).getContent());
         MessageStanza ms = new MessageStanza(tag);
-        ms.getBody();
+        String message = ms.getBody();
+        String from = ms.getTag().getAttribute("from").split("/")[0];
+        if(!chatLists.containsKey(from))
+            chatLists.put(from, new ArrayList<String>());
+        chatLists.get(from).add(message);
+        Log.d("chatsize",new Integer(chatLists.get(from).size()).toString()+from);
+        ChatBox.openChat(from);
+
+
+
 
     }
 }
