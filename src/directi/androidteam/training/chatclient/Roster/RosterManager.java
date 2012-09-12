@@ -28,7 +28,7 @@ public class RosterManager {
         for (Tag tag : list) {
             Log.d("setRoster tagname :",tag.getTagname());
             if(tag.getTagname().equals("item")){
-                RosterEntry rosterEntry = new RosterEntry(tag.getAttribute("jid"));
+                new RosterEntry(tag.getAttribute("jid"));
                 Log.d("setRoster : ","hey");
             }
         }

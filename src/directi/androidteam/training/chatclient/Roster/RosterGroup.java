@@ -37,6 +37,8 @@ public class RosterGroup {
     public void addRosterEntry(RosterEntry rosterEntry){
         if (rosterEntries==null)
             rosterEntries = new ArrayList<RosterEntry>();
+        if(rosterEntries.contains(rosterEntry))
+            return;
         rosterEntries.add(rosterEntry);
         rosterEntry.addRosterGroup(this);
     }

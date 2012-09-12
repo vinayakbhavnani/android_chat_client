@@ -63,6 +63,9 @@ public class RosterEntry {
     public void addRosterGroup(RosterGroup rosterGroup) {
         if(rosterGroups==null)
             rosterGroups = new ArrayList<RosterGroup>();
+        if(rosterGroups.contains(rosterGroup))
+            return;
         rosterGroups.add(rosterGroup);
+        rosterGroup.addRosterEntry(this);
     }
 }
