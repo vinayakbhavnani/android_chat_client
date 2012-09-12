@@ -35,10 +35,10 @@ public class DisplayRosterActivity extends Activity {
         String username =  intent.getStringExtra(LoginActivity.USERNAME);
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.MainLayout);
         TextView WelcomeView = new TextView(this);
-        WelcomeView.setTextSize(5);
+        WelcomeView.setTextSize(10);
         WelcomeView.setText("Welcome " + username);
         setContentView(WelcomeView);
-        linearLayout.addView(WelcomeView);
+        //linearLayout.addView(WelcomeView);
         requestForServices();
         requestForRosters();
     }
