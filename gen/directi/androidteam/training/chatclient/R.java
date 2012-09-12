@@ -14,12 +14,13 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int button=0x7f05000a;
+        public static final int MainLayout=0x7f050009;
+        public static final int button=0x7f05000b;
         public static final int chatlist=0x7f050003;
         public static final int message=0x7f050005;
         public static final int password=0x7f050008;
         public static final int sendmessage=0x7f050006;
-        public static final int text=0x7f050009;
+        public static final int text=0x7f05000a;
         public static final int username=0x7f050007;
         public static final int widget33=0x7f050000;
         public static final int widget36=0x7f050001;

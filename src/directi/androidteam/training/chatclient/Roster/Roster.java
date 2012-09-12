@@ -1,9 +1,13 @@
 package directi.androidteam.training.chatclient.Roster;
 
+import android.content.Intent;
 import android.util.Log;
+import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterResult;
+import directi.androidteam.training.TagStore.Tag;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,17 +17,32 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class Roster {
-    public Roster() {
+    public ArrayList<Tag> rosterList  = new ArrayList<Tag>();
+    public static final Roster  roster = new Roster();
+    private Roster() {
+    }
+    public static Roster getInstance(){
+        return roster;
     }
 
+    public void setRosterList(ArrayList<Tag> list){
+        rosterList = list;
+        Intent intent = new Intent();
+    }
+    public ArrayList getRosterList(){
+        return rosterList;
+    }
     public void displayRoster(RosterResult rosterResult){
-        ArrayList<String> listOfRosters = rosterResult.getListOfRosters();
-        for (String listOfRoster : listOfRosters) {
-            Log.d("Roster : ", listOfRoster);
+
+        ArrayList<Tag> listOfRosters = rosterResult.getListOfRosters();
+        for (Tag listOfRoster : listOfRosters) {
+            Log.d("Roster : ", listOfRoster.getAttribute("jid"));
         }
     }
-/*    public void addRosterEntry(String[] groups){
-        RosterSet rosterSet = new RosterSet();
-    } */
-
+    public void addRosterEntry(Map<String,Object> rosterEntry){
+        ;//RosterSet rosterSet = new RosterSet(JID.jid,,);
+    }
+    public void sendMyPresence(){
+        PresenceS presence = new PresenceS();
+    }
 }
