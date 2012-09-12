@@ -22,9 +22,9 @@ public class RosterResult extends TagWrapper {
             return true;
         else return false;
     }
-    public ArrayList<String> getListOfRosters(){
+    public ArrayList<Tag> getListOfRosters(){
         if (isError() || !tag.getAttribute("type").equals("result"))
             return null;
-        return ((IQTag)tag).getResult();
+        return ((IQTag)tag).getChildTags();
     }
 }

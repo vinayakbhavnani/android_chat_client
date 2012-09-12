@@ -1,14 +1,9 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.Authentication.MyService;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
-import directi.androidteam.training.chatclient.Chat.ChatFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,9 +51,5 @@ public class MessageHandler implements Handler{
         chatLists.get(from).add(message);
         Log.d("chatsize",new Integer(chatLists.get(from).size()).toString()+from);
         ChatBox.openChat(from);
-
-
-
-
-    }
+   }
 }

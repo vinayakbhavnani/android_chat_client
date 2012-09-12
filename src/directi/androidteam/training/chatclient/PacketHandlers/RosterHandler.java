@@ -5,7 +5,7 @@ import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterPush;
 import directi.androidteam.training.StanzaStore.RosterResult;
 import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.Roster.Roster;
+import directi.androidteam.training.chatclient.Roster.RosterManager;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,20 +34,20 @@ public class RosterHandler implements Handler{
         if (tagName.equals("iq")){
             String type = tag.getAttribute("type");
             if (type.equals("get")){
-                Log.d("Packet Error","It is Roster Get Packet. This packet is always sent from Client side!");
+                Log.d("Packet Error","It is RosterManager Get Packet. This packet is always sent from Client side!");
             }
             else if(type.equals("set")){
-                Log.d("Packet ACK","Roster Push Packet.");
+                Log.d("Packet ACK","RosterManager Push Packet.");
                 RosterPush rosterPush = new RosterPush(tag);
                 String jid = rosterPush.getJID();
             }
             else if (type.equals("error")){
-                Log.d("Packet Error","Error Reported From Server Side possibly due to Roster Result");
+                Log.d("Packet Error","Error Reported From Server Side possibly due to RosterManager Result");
             }
             else if(type.equals("result")){
                 RosterResult rosterResult = new RosterResult(tag);
-                Roster roster = new Roster();
-                roster.displayRoster(rosterResult);
+                RosterManager rosterManager = RosterManager.getInstance();
+                rosterManager.setRosterList(rosterResult.getListOfRosters());
             }
             else {
                 Log.d("Packet Error","Unidentified IQ Packet, type = "+type);
