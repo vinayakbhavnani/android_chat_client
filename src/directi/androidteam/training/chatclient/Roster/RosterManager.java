@@ -37,7 +37,7 @@ public class RosterManager {
     public ArrayList getRosterList(){
         return rosterList;
     }
-    public void displayRoster(String groupName){
+    public ArrayList<RosterEntry> displayRoster(String groupName){
         Log.d("setRoster : ","displayRoster");
         RosterGroupManager rosterGroupManager = RosterGroupManager.getInstance();
         RosterGroup rosterGroup = rosterGroupManager.getRosterGroupByName(groupName);
@@ -45,6 +45,7 @@ public class RosterManager {
         for (RosterEntry rosterEntry : rosterEntries) {
             Log.d("JID :",rosterEntry.getJid());
         }
+        return rosterEntries;
     }
     public void addRosterEntry(Map<String,Object> rosterEntry){
         ;//RosterSet rosterSet = new RosterSet(JID.jid,,);
