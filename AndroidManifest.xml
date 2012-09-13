@@ -4,7 +4,7 @@
           android:versionCode="1"
           android:versionName="1.0"
           android:exported="true" >
-    <uses-sdk android:minSdkVersion="15"/>
+    <uses-sdk android:minSdkVersion="16"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application android:theme="@android:style/Theme.NoTitleBar"
@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="directi.androidteam.training.chatclient.Authentication.DisplayRosterActivity"
+        <activity android:name=".Roster.DisplayRosterActivity"
                   android:label="@string/app_name">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"

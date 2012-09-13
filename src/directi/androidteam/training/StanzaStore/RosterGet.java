@@ -19,7 +19,7 @@ public class RosterGet extends TagWrapper {
         tag.addAttribute("id",id);
         tag.addAttribute("type","get");
         Query query = new Query();
-        query.addAttribute("xmlns","jabber:iq:roster");
+        query.addAttribute("xmlns","jabber:iq:ROSTER_MANAGER");
         tag.addChildTag(query);
     }
     public RosterGet(){

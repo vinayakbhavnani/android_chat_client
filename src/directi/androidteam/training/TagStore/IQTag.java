@@ -25,16 +25,16 @@ public class IQTag extends Tag{
             attributes = new HashMap<String, String>();
         attributes.put(attributeName,attributeVal);
     }
-    public ArrayList<String> getResult() {
+    public ArrayList<Tag> getRosterItems() {
         if(childTags==null)
             return null;
         Tag resultTag = childTags.get(0);
         if(resultTag.childTags==null)
             return null;
-        ArrayList<String> rosterList = new ArrayList<String>();
+        ArrayList<Tag> rosterList = new ArrayList<Tag>();
 
         for (Tag childTag : resultTag.childTags) {
-            rosterList.add(childTag.attributes.get("jid"));
+            rosterList.add(childTag);
         }
         return rosterList;
     }
