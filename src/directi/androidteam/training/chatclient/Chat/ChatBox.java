@@ -1,20 +1,16 @@
 package directi.androidteam.training.chatclient.Chat;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Util.ConnectionHandler;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
@@ -32,7 +28,7 @@ public class ChatBox extends Activity {
     private ArrayList<String> chatlist;
     private ArrayAdapter<String> adaptor;
 
-
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);

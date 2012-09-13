@@ -17,7 +17,7 @@ public class RosterSet extends TagWrapper {
         tag.addAttribute("id",id);
         tag.addAttribute("type","set");
         Query query1 = new Query();
-        query1.addAttribute("xmlns","jabber:iq:roster");
+        query1.addAttribute("xmlns","jabber:iq:ROSTER_MANAGER");
         ItemTag itemTag = new ItemTag();
         itemTag.addAttribute("jid",jid);
         query1.addChildTag(itemTag);

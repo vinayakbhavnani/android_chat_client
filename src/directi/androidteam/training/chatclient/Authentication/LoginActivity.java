@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.NetworkConnectionChangeReceiver;
 
@@ -39,6 +40,9 @@ public class LoginActivity extends Activity {
         pwd = password;
         ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
-        (new ConnectGTalk(this)).execute("brian.gingers", "androidchat");
+
+
+        (new ConnectGTalk(this)).execute(Constants.username, Constants.password);
+
     }
 }

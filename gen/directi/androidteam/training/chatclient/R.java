@@ -161,7 +161,7 @@ public final class R {
         public static final int rounded_textview_r=0x7f020003;
     }
     public static final class id {
-        public static final int button=0x7f06000d;
+        public static final int MainLayout=0x7f06000c;
         public static final int chatlist=0x7f060003;
         public static final int message=0x7f060005;
         public static final int password=0x7f06000b;
@@ -169,7 +169,6 @@ public final class R {
         public static final int send_mess_body=0x7f060008;
         public static final int send_mess_name=0x7f060007;
         public static final int sendmessage=0x7f060006;
-        public static final int text=0x7f06000c;
         public static final int username=0x7f06000a;
         public static final int widget33=0x7f060000;
         public static final int widget36=0x7f060001;
