@@ -40,6 +40,9 @@ public class LoginActivity extends Activity {
         pwd = password;
         ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
+
+
         (new ConnectGTalk(this)).execute(Constants.username, Constants.password);
+
     }
 }

@@ -167,6 +167,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
 
             intent = new Intent(this.context, DisplayRosterActivity.class);
             intent.putExtra(LoginActivity.USERNAME, username);
+            intent.putExtra("buddyid","vinayak.bhavnani@gmail.com");
 
             context.startActivity(intent);
         }

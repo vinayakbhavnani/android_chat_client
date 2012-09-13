@@ -33,6 +33,7 @@ public class ChatBox extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
         context=this;
+        switchFragment((String)getIntent().getExtras().get("buddyid"));
         //ListView list = (ListView) findViewById(R.id.chatlist);
         //chatlist = new ArrayList<String>();
         //adaptor = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,chatlist);
@@ -71,7 +72,12 @@ public class ChatBox extends Activity {
 
     private void switchFragment(String from){
         Log.d("switchfrag","switched");
-        ChatFragment curfrag = new ChatFragment();
+        ChatFragment curfrag = (ChatFragment)getFragmentManager().findFragmentById(R.id.chatlist);
+        if(curfrag.getBuddyid().equals(from)){
+            curfrag.notifyAdaptor();
+            return;
+        }
+        curfrag = new ChatFragment();
         Bundle args = new Bundle();
         args.putString("from",from);
         curfrag.setArguments(args);
