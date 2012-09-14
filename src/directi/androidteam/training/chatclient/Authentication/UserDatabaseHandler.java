@@ -65,8 +65,12 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
         try {
             pwd = cursor.getString(1);
         } catch (CursorIndexOutOfBoundsException e) {
+            cursor.close();
+            db.close();
             return "NO_SUCH_USER";
         }
+        cursor.close();
+        db.close();
         return pwd;
     }
 

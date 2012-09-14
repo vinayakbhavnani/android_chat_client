@@ -164,6 +164,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         if(result)   {
             UserDatabaseHandler db = new UserDatabaseHandler(context);
             db.addUser(new User(username, password));
+            db.close();
 
             Intent serviceIntent = new Intent(context,MyService.class);
             context.startService(serviceIntent);
