@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.RosterGet;
@@ -59,14 +58,6 @@ public class DisplayRosterActivity extends Activity {
         super.onNewIntent(intent);
         Log.d("ROSTER INTENT :", "New Intent Started");
         ListView rosterList = (ListView) findViewById(R.id.rosterlist);
-        if(rosterList==null){
-            Log.d("ROSTER : ","####List is null");
-            return;
-        }
-        else
-        {
-            Log.d("ROSTER", "###Not null");
-        }
         String rosterToBeDisplayed = (String)intent.getExtras().get("display");
         if(rosterToBeDisplayed.equals("all")){
             Log.d("ROSTER INTENT ALL :", "New Intent Started - ALL");
@@ -76,16 +67,11 @@ public class DisplayRosterActivity extends Activity {
             for (RosterEntry rosterEntry : rosterEntries) {
                 values.add(rosterEntry.getJid());
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,android.R.id.text1,values);
-            if(adapter==null){
-                Log.d("ROSTER : ","Adapter is null");
-                return;
-            }
-
+           // ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,R.layout.rosterlistitem,R.id.roster_item,values);//android.R.layout.simple_list_item_1,android.R.id.text1,values);
+            RosterItemAdapter adapter = new RosterItemAdapter(this,rosterManager.getRosterList());
             rosterList.setAdapter(adapter);
             rosterList.setTextFilterEnabled(true);
 
         }
     }
-
 }
