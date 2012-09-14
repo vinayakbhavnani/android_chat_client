@@ -39,6 +39,9 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
     }
 
     public void addUser(User user) {
+        if (!(getPassword(user.getUsername()).equals("NO_SUCH_USER"))) {
+            return;
+        }
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -55,6 +58,8 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_USERNAME, KEY_PASSWORD}, KEY_USERNAME + "=?", new String[] {username}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
+        } else {
+            return "NO_SUCH_USER";
         }
 
         return cursor.getString(1);
