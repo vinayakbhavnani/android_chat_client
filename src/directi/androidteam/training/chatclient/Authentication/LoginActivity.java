@@ -1,14 +1,11 @@
 package directi.androidteam.training.chatclient.Authentication;
 
 import android.app.Activity;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Util.NetworkConnectionChangeReceiver;
 
 public class LoginActivity extends Activity {
     public static final String USERNAME = "directi.androidteam.training.chatclient.Authentication.LoginActivity.USERNAME";
@@ -24,7 +21,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.login);
         ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
-        this.registerReceiver(new NetworkConnectionChangeReceiver(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+     //   this.registerReceiver(new NetworkConnectionChangeReceiver(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     /**

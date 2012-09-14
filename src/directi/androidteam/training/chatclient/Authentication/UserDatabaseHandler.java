@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -58,11 +59,15 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_USERNAME, KEY_PASSWORD}, KEY_USERNAME + "=?", new String[] {username}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
-        } else {
-            return "NO_SUCH_USER";
         }
 
-        return cursor.getString(1);
+        String pwd;
+        try {
+            pwd = cursor.getString(1);
+        } catch (CursorIndexOutOfBoundsException e) {
+            return "NO_SUCH_USER";
+        }
+        return pwd;
     }
 
     public ArrayList<User> getAllUsers() {
