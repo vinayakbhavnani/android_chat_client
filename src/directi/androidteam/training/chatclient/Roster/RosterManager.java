@@ -16,6 +16,7 @@ import java.util.Map;
  */
 public class RosterManager {
     public ArrayList<Tag> rosterList  = new ArrayList<Tag>();
+    public ArrayList<RosterEntry> rosterEntries = new ArrayList<RosterEntry>();
     public static final RosterManager ROSTER_MANAGER = new RosterManager();
     private RosterManager() {
     }
@@ -28,16 +29,16 @@ public class RosterManager {
         for (Tag tag : list) {
             Log.d("setRoster tagname :",tag.getTagname());
             if(tag.getTagname().equals("item")){
-                new RosterEntry(tag.getAttribute("jid"));
+                rosterEntries.add(new RosterEntry(tag.getAttribute("jid")));
                 Log.d("setRoster : ","hey");
             }
         }
         DisplayRosterActivity.showAllRosters();
     }
-    public ArrayList getRosterList(){
-        return rosterList;
+    public ArrayList<RosterEntry> getRosterList(){
+        return rosterEntries;
     }
-    public void displayRoster(String groupName){
+    public ArrayList<RosterEntry> displayRoster(String groupName){
         Log.d("setRoster : ","displayRoster");
         RosterGroupManager rosterGroupManager = RosterGroupManager.getInstance();
         RosterGroup rosterGroup = rosterGroupManager.getRosterGroupByName(groupName);
@@ -45,6 +46,7 @@ public class RosterManager {
         for (RosterEntry rosterEntry : rosterEntries) {
             Log.d("JID :",rosterEntry.getJid());
         }
+        return rosterEntries;
     }
     public void addRosterEntry(Map<String,Object> rosterEntry){
         ;//RosterSet rosterSet = new RosterSet(JID.jid,,);

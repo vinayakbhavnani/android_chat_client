@@ -5,13 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ListView;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.RosterGet;
-import directi.androidteam.training.chatclient.Authentication.LoginActivity;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
+
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,16 +29,9 @@ public class DisplayRosterActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.roster);
-        Intent intent = getIntent();
-        String username =  intent.getStringExtra(LoginActivity.USERNAME);
-        LinearLayout linearLayout = new LinearLayout(this);
-        TextView WelcomeView = new TextView(this);
-        WelcomeView.setTextSize(10);
-        WelcomeView.setText("Welcome " + username);
-        setContentView(WelcomeView);
-//        linearLayout.addView(WelcomeView);
         requestForServices();
         requestForRosters();
+
     }
 
     private void requestForRosters() {
@@ -64,30 +57,21 @@ public class DisplayRosterActivity extends Activity {
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
         Log.d("ROSTER INTENT :", "New Intent Started");
+        ListView rosterList = (ListView) findViewById(R.id.rosterlist);
         String rosterToBeDisplayed = (String)intent.getExtras().get("display");
         if(rosterToBeDisplayed.equals("all")){
             Log.d("ROSTER INTENT ALL :", "New Intent Started - ALL");
             RosterManager rosterManager = RosterManager.getInstance();
-            rosterManager.displayRoster("default");
+            ArrayList<RosterEntry> rosterEntries = rosterManager.displayRoster("default");
+            ArrayList<String> values = new ArrayList<String>();
+            for (RosterEntry rosterEntry : rosterEntries) {
+                values.add(rosterEntry.getJid());
+            }
+           // ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,R.layout.rosterlistitem,R.id.roster_item,values);//android.R.layout.simple_list_item_1,android.R.id.text1,values);
+            RosterItemAdapter adapter = new RosterItemAdapter(this,rosterManager.getRosterList());
+            rosterList.setAdapter(adapter);
+            rosterList.setTextFilterEnabled(true);
 
-/*            LinearLayout linearLayout1 = new LinearLayout(context);
-            linearLayout1.setId(Integer.parseInt("ContactList"));
-            linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
-            Button chatButton1 = new Button(context);
-            chatButton1.setText("Chat");
-            chatButton1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            linearLayout1.addView(chatButton1);       */
-        }
-        else {
-            return;
-            /*
-            LinearLayout linearLayout1 = new LinearLayout(context);
-            linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
-            Button chatButton1 = new Button(context);
-            chatButton1.setText("Chat");
-            chatButton1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            linearLayout1.addView(chatButton1);     */
         }
     }
-
 }
