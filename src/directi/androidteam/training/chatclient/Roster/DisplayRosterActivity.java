@@ -37,7 +37,8 @@ public class DisplayRosterActivity extends Activity {
     private void requestForRosters() {
         Log.d("DEBUG :","entered request for ROSTER_MANAGER");
         RosterGet rosterGet = new RosterGet();
-        rosterGet.setSender(JID.jid).setID("google-roster-1").setQueryAttribute("xmlns","jabber:iq:roster");
+     //   rosterGet.setSender(JID.jid).setID("google-roster-1").setQueryAttribute("xmlns","jabber:iq:roster");
+        rosterGet.setSender(JID.jid).setID("google-roster-1").setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext","2");
         PacketWriter.addToWriteQueue(rosterGet.getXml());
     }
     private void requestForServices(){

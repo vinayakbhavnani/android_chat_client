@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import directi.androidteam.training.TagStore.IQTag;
 import directi.androidteam.training.TagStore.JIDTag;
-import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
+import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.Util.ConnectionHandler;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
@@ -168,10 +168,9 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
             Intent serviceIntent = new Intent(context,MyService.class);
             context.startService(serviceIntent);
 
-            intent = new Intent(this.context, DisplayRosterActivity.class);
+            intent = new Intent(this.context, ChatBox.class);
             intent.putExtra(LoginActivity.USERNAME, username);
             intent.putExtra("buddyid","vinayak.bhavnani@gmail.com");
-
             context.startActivity(intent);
         }
         else {

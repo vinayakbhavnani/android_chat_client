@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="horizontal"
               android:background="#FFFFFF"
-
-
-              android:paddingLeft="20dp"
+              android:padding="10dp"
         >
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/roster_item"
-              android:layout_height="wrap_content"
-              android:layout_width="wrap_content"
-              android:paddingLeft="5dp"
-              android:text="hey "
-              android:textSize="10dp"
-              android:textStyle="italic"
-    />
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
                android:id="@+id/roster_image"
                android:contentDescription="Image"
-               android:layout_height="wrap_content"
+               android:layout_height="fill_parent"
                android:layout_width="wrap_content"
                android:src="@drawable/android"
+               android:gravity="center_vertical"
             />
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/roster_item"
+              android:layout_height="fill_parent"
+              android:layout_width="fill_parent"
+              android:paddingLeft="5dp"
+              android:text="TEXT"
+              android:textSize="10dp"
+              android:textStyle="italic"
+              android:gravity="center_vertical"
+              android:textColor="#000000"
+    />
 </LinearLayout>
