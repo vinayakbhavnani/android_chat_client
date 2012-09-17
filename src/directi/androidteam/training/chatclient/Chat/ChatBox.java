@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 public class ChatBox extends Activity {
     private static Context context;
-    private final String buddy="vinayak.bhavnani@gmail.com";
+    //private final String buddy="vinayak.bhavnani@gmail.com";
     private ArrayList<String> chatlist;
     private ArrayAdapter<String> adaptor;
 
@@ -62,12 +62,13 @@ public class ChatBox extends Activity {
     public void SendChat(View view){
         EditText mess = (EditText) findViewById(R.id.message);
         String message = mess.getText().toString();
-        String messxml = new MessageStanza(buddy,message).getXml();
-        PacketWriter.addToWriteQueue(messxml);
+        String buddy = ((ChatFragment)getFragmentManager().findFragmentById(R.id.chatlist)).getBuddyid();
+        MessageStanza messxml = new MessageStanza(buddy,message);
+        PacketWriter.addToWriteQueue(messxml.getXml());
         //chatlist.add(message);
         //adaptor.notifyDataSetChanged();
         ChatFragment fragment =  (ChatFragment)getFragmentManager().findFragmentById(R.id.chatlist);
-        fragment.insertMessage(message);
+        fragment.insertMessage(messxml);
     }
 
     private void switchFragment(String from){

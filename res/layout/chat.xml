@@ -22,20 +22,22 @@
             android:id="@+id/chatlist"
             android:name="directi.androidteam.training.chatclient.Chat.ChatFragment"
             android:layout_width="fill_parent"
-            android:layout_height="340px" />
+            android:layout_height="600px"
+
+            />
     <LinearLayout
             android:id="@+id/widget38"
             android:layout_width="fill_parent"
-            android:layout_height="50px">
+            android:layout_height="140px">
         <EditText
                 android:id="@+id/message"
-                android:layout_width="240px"
+                android:layout_width="350px"
                 android:layout_height="fill_parent"
                 android:text="EditText"
                 android:textSize="18sp" />
         <Button
                 android:id="@+id/sendmessage"
-                android:layout_width="75px"
+                android:layout_width="150px"
                 android:layout_height="fill_parent"
                 android:text="Send"
                 android:onClick="SendChat"/>

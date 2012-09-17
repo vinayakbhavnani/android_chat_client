@@ -21,17 +21,17 @@ public class MessageHandler implements Handler{
 
 
 
-    private HashMap<String,ArrayList<String>> chatLists;
+    private HashMap<String,ArrayList<MessageStanza>> chatLists;
 
     private MessageHandler(){
-        chatLists = new HashMap<String, ArrayList<String>>();
+        chatLists = new HashMap<String, ArrayList<MessageStanza>>();
 
         //chatpanes.put("vinayak.bhavnani",new ChatBox());
     }
 
-     public  ArrayList<String> getFragList(String from){
+     public  ArrayList<MessageStanza> getFragList(String from){
          if(!chatLists.containsKey(from))
-             chatLists.put(from,new ArrayList<String>());
+             chatLists.put(from,new ArrayList<MessageStanza>());
          return chatLists.get(from);
      }
 
@@ -47,8 +47,8 @@ public class MessageHandler implements Handler{
         String message = ms.getBody();
         String from = ms.getTag().getAttribute("from").split("/")[0];
         if(!chatLists.containsKey(from))
-            chatLists.put(from, new ArrayList<String>());
-        chatLists.get(from).add(message);
+            chatLists.put(from, new ArrayList<MessageStanza>());
+        chatLists.get(from).add(ms);
         Log.d("chatsize",new Integer(chatLists.get(from).size()).toString()+from);
         ChatBox.openChat(from);
    }

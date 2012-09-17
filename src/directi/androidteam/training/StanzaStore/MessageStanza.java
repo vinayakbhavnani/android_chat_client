@@ -26,5 +26,12 @@ public class MessageStanza extends TagWrapper{
     public Tag getTag(){
         return tag;
     }
+    public String getFrom(){
+        return tag.getAttribute("from").split("/")[0];
+    }
+
+    public String getTo(){
+        return tag.getAttribute("to").split("/")[0];
+    }
 
 }

@@ -58,12 +58,12 @@ public class RosterHandler implements Handler{
         else if(tagName.equals("presence")){
             PresenceS presence = new PresenceS();
             String type = presence.getType();
-            if(type.equals("error")){
+    /*        if(type.equals("error")){
                 Log.d("Packet Error","Error From Server Side In Presence Packet");
             }
             else {
                 Log.d("Packet ACK","Presence Packet");
-            }
+            }     */
         }
         else {
             Log.d("Packet Error","Unidentified Packet, tagname = "+tagName);

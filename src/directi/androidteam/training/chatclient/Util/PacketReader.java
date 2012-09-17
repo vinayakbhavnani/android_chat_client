@@ -32,8 +32,25 @@ public class PacketReader implements ServiceThread{
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             XMLHelper helper = new XMLHelper();
             helper.tearxmlPacket(reader);
+            //read();
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
+    }
+
+    public void read(){
+        while(true)
+            try {
+                String response = "";
+                int c;
+                while (!response.contains(">")) {
+                    c = reader.read();
+                    response = response + (char)c;
+
+            }
+                Log.d("packetinxml", response);
+            } catch (IOException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
     }
 }
