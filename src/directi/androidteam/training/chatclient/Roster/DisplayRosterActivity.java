@@ -1,23 +1,27 @@
 package directi.androidteam.training.chatclient.Roster;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.RosterGet;
-import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
-import directi.androidteam.training.lib.xml.XMLHelper;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -35,28 +39,44 @@ public class DisplayRosterActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.roster);
-        //requestForServices();
+        ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);
+        attachIcon(myImage);
+        Log.d("XXXX","oncreate roster");
         requestForRosters();
     }
-    public void f() throws XmlPullParserException {
-        String testxml = "<iq>   </iq>";//  <query>       <item>hdjsh</item>    <item>jfhjsh</item>     </query>   </iq>";
-        StringReader str = new StringReader(testxml);
-        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-        XmlPullParser xpp = factory.newPullParser();
-        xpp.setInput(str);
-        XMLHelper xmlHelper = new XMLHelper();
-     //   Tag tag = xmlHelper.tearTag(xpp);
-  //      Log.d("XPP : ",xpp.getName()); this is failing thus the input is not correct..:(
-        //Log.d("testpacket",xmlHelper.buildPacket(tag));
-        Tag t  = xmlHelper.tearPacket(testxml);
-        Log.d("XML : Test", xmlHelper.buildPacket(t));
+    private int dpToPx(int dp)
+    {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float)dp * density);
+    }
+    public void attachIcon(ImageView view) {
+        Drawable drawing = view.getDrawable();
+        Bitmap bitmap = ((BitmapDrawable)drawing).getBitmap();
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int bounding = dpToPx(Constants.login_icon_size);
+        float xScale = ((float) bounding) / width;
+        float yScale = ((float) bounding) / height;
+        float scale = (xScale <= yScale) ? xScale : yScale;
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale);
+        Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+        width = scaledBitmap.getWidth();
+        height = scaledBitmap.getHeight();
+        BitmapDrawable result = new BitmapDrawable(scaledBitmap);
+        view.setImageDrawable(result);
+        view.setScaleType(ImageView.ScaleType.FIT_START);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
+        params.width = width;
+        params.height = height;
+        view.setLayoutParams(params);
     }
 
     private void requestForRosters() {
         Log.d("ROSTER :","entered request for ROSTER_MANAGER");
         RosterGet rosterGet = new RosterGet();
      //   rosterGet.setSender(JID.jid).setID("google-roster-1").setQueryAttribute("xmlns","jabber:iq:roster");
-        rosterGet.setSender(JID.jid).setID("google-roster-1").setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext","2");
+        rosterGet.setSender(JID.jid).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext","2");
         PacketWriter.addToWriteQueue(rosterGet.getXml());
         Log.d("ROSTER :","done requesting");
     }
@@ -69,7 +89,8 @@ public class DisplayRosterActivity extends Activity {
 
     public static void showAllRosters() {
         Intent intent = new Intent(context,DisplayRosterActivity.class);
-        intent.putExtra("display","all");
+        Log.d("XXXX","show AllRosters Called");
+        intent.putExtra("display", "all");
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);
     }
@@ -77,6 +98,9 @@ public class DisplayRosterActivity extends Activity {
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
         Log.d("ROSTER INTENT :", "New Intent Started");
+        ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);
+        attachIcon(myImage);
+
         ListView rosterList = (ListView) findViewById(R.id.rosterlist);
         String rosterToBeDisplayed = (String)intent.getExtras().get("display");
         if(rosterToBeDisplayed.equals("all")){
@@ -87,11 +111,20 @@ public class DisplayRosterActivity extends Activity {
             for (RosterEntry rosterEntry : rosterEntries) {
                 values.add(rosterEntry.getJid());
             }
-           // ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,R.layout.rosterlistitem,R.id.roster_item,values);//android.R.layout.simple_list_item_1,android.R.id.text1,values);
             RosterItemAdapter adapter = new RosterItemAdapter(this,rosterManager.getRosterList());
             rosterList.setAdapter(adapter);
-            rosterList.setTextFilterEnabled(true);
+             rosterList.setTextFilterEnabled(true);
 
         }
     }
+    protected Dialog onCreateDialog(int id) {
+        AddRosterDialog dialog = new AddRosterDialog(context);
+        dialog.setContentView(R.layout.roster_add_dialog);
+        dialog.setTitle("Add Your Friend");
+        return dialog;
+    }
+    public void addRosterEntry(View view){
+        showDialog(1);
+    }
 }
+

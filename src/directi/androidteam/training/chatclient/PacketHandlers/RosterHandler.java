@@ -49,7 +49,6 @@ public class RosterHandler implements Handler{
                 RosterResult rosterResult = new RosterResult(tag);
                 RosterManager rosterManager = RosterManager.getInstance();
                 rosterManager.setRosterList(rosterResult.getListOfRosters());
-                DisplayRosterActivity.showAllRosters();
             }
             else {
                 Log.d("Packet Error","Unidentified IQ Packet, type = "+type);
