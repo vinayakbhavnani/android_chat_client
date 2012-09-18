@@ -37,7 +37,7 @@ public class XMLHelper {
             Element rootelem = document.createElement(tag.getTagname());
             HashMap<String,String> attrmap = tag.getAttributes();
             if(attrmap!=null){
-            Set<String> attr =  tag.getAttributes().keySet();
+                Set<String> attr =  tag.getAttributes().keySet();
                 for (String key : attr) {
                     rootelem.setAttribute(key,attrmap.get(key));
                 }
@@ -85,39 +85,45 @@ public class XMLHelper {
 
     }
 
+    private boolean streamCondition(int event, String name) {
+        if (name.equals("stream:stream")) {
+            return false;
+        } else {
+            return (event!=XmlPullParser.END_TAG);
+        }
+    }
+
     public Tag tearTag(XmlPullParser xpp){
 
         int event;
-            try{
+        try{
             String name = xpp.getName();
+            Log.d("XML : Name",name);
             String content = null;
             HashMap<String,String> map = null;
             if(xpp.getAttributeCount()!=0){
-            map= new HashMap<String, String>();
-            int count = xpp.getAttributeCount();
-            for(int i=0;i<count;i++)
-                map.put(xpp.getAttributeName(i),xpp.getAttributeValue(i));
+                map= new HashMap<String, String>();
+                int count = xpp.getAttributeCount();
+                for(int i=0;i<count;i++)
+                    map.put(xpp.getAttributeName(i),xpp.getAttributeValue(i));
             }
-                ArrayList<Tag> childlist = null;
+            ArrayList<Tag> childlist = null;
+            do{
                 event=xpp.next();
-            if(event==XmlPullParser.START_TAG)  {
-                childlist= new ArrayList<Tag>();
-                childlist.add(tearTag(xpp));
-            }
+                if(event==XmlPullParser.START_TAG)  {
+                    if (childlist==null)
+                        childlist= new ArrayList<Tag>();
+                    childlist.add(tearTag(xpp));
+                }
                 if(event==XmlPullParser.TEXT){
                     content = xpp.getText();
                     event=xpp.next();
                 }
+            }while (streamCondition(event, name));
 
-            while (event!=XmlPullParser.END_TAG)
-                event=xpp.next();
-
-            if(event==XmlPullParser.END_TAG){
-                return new Tag(name,map,childlist,content);
-            }
-            }
-            catch (Exception e){e.printStackTrace();return  null;}
-            return null;
+            return new Tag(name,map,childlist,content);
+        }
+        catch (Exception e){e.printStackTrace();return  null;}
     }
     public Tag tearPacket(String xml){
         Tag temptag=null;
@@ -129,7 +135,6 @@ public class XMLHelper {
             while (event !=XmlPullParser.END_DOCUMENT){
                 if(event==XmlPullParser.START_TAG){
                     temptag =  tearTag(xpp);
-
                 }
                 event=xpp.next();
             }

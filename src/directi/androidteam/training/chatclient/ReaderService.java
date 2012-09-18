@@ -6,6 +6,9 @@ import android.os.IBinder;
 import android.util.Log;
 import directi.androidteam.training.chatclient.Util.PacketReader;
 
+import java.io.BufferedReader;
+import java.net.Socket;
+
 /**
  * Created with IntelliJ IDEA.
  * User: vinayak
@@ -14,16 +17,20 @@ import directi.androidteam.training.chatclient.Util.PacketReader;
  * To change this template use File | Settings | File Templates.
  */
 public class ReaderService extends IntentService {
-    public ReaderService(){
-        super("readerservice");
+    private Socket socket;
+    private BufferedReader reader;
 
+    public ReaderService(Socket s, BufferedReader r){
+        super("readerservice");
+        this.socket = s;
+        this.reader = r;
     }
 
     @Override
     public void onCreate() {
         Log.d("executeservicereader", "background");
         //MessageQueue.getInstance().processPacket();
-        new PacketReader();
+        new PacketReader(socket, reader);
     }
 
     @Override

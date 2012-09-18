@@ -1,6 +1,12 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
+import android.content.Intent;
+import android.util.Log;
+import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Authentication.*;
+import directi.androidteam.training.chatclient.Chat.ChatBox;
+import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,8 +18,55 @@ import directi.androidteam.training.TagStore.Tag;
 public class LoginHandler implements Handler {
     private static final LoginHandler loginHandler = new LoginHandler();
 
-    public void processPacket(Tag tag) {
+    private boolean containsGrandChild(Tag tag, String grandChildTagName) {
+        if (tag.getChildTags().get(0).getChildTags().get(0).getTagname().equals(grandChildTagName)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    public void processPacket(Tag tag) {
+        if (tag.getTagname().equals("stream:stream")) {
+            if (containsGrandChild(tag, "bind")) {
+                Log.d("Login Flow", "Stream tag with bind tag received.");
+                PacketWriter.addToWriteQueue("<iq id='tn281v37' type='set'>" +
+                        " <bind xmlns='urn:ietf:params:xml:ns:xmpp-bind'/>" +
+                        " </iq>");
+            } else if (containsGrandChild(tag, "mechanisms")) {
+                String auth = '\0' + LoginActivity.uname + '\0' + LoginActivity.pwd;
+                Log.d("Login Flow", "Stream tag with mechanisms tag received.");
+                PacketWriter.addToWriteQueue("<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='PLAIN'>" + Base64.encodeBytes(auth.getBytes()) + "</auth>");
+            }
+        } else if (tag.getTagname().equals("success")) {
+            Log.d("Login Flow", "Success tag received.");
+            PacketWriter.addToWriteQueue("<stream:stream" +
+                    " to='gmail.com'" +
+                    " xmlns='jabber:client'" +
+                    " xmlns:stream='http://etherx.jabber.org/streams'" +
+                    " version='1.0'>");
+        } else if (tag.getTagname().equals("failure")) {
+            Log.d("Login Flow", "Failure tag received.");
+            Intent intent = new Intent(ChatApplication.getAppContext(), LoginErrorActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            ChatApplication.getAppContext().startActivity(intent);
+        } else if (tag.getTagname().equals("iq")) {
+            Log.d("Login Flow", "Iq tag with a child bind tag received.");
+            PacketWriter.addToWriteQueue("<iq to='talk.google.com'" +
+                    " type='set'" +
+                    " id='sess_1'>" +
+                    " <session xmlns='urn:ietf:params:xml:ns:xmpp-session'/>" +
+                    "</iq>");
+            UserDatabaseHandler db = new UserDatabaseHandler(ChatApplication.getAppContext());
+            db.addUser(new User(LoginActivity.uname, LoginActivity.pwd));
+            db.close();
+
+            Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(LoginActivity.USERNAME, LoginActivity.uname);
+            intent.putExtra("buddyid","vinayak.bhavnani@gmail.com");
+            ChatApplication.getAppContext().startActivity(intent);
+        }
     }
 
     public static LoginHandler getInstance() {

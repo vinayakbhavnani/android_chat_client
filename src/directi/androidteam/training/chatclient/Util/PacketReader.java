@@ -20,9 +20,9 @@ public class PacketReader implements ServiceThread{
     private Socket socket;
     private BufferedReader reader;
 
-    public PacketReader(){
-
-        this.socket=ConnectionHandler.getSocket();
+    public PacketReader(Socket s, BufferedReader r) {
+        this.socket = s;
+        this.reader = r;
     }
 
     @Override

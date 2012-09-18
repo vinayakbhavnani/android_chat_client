@@ -30,10 +30,13 @@ public class MessageQueue {
     }
 
     private boolean contains(Tag parent, String childTagName) {
-        for (int i = 0; i < parent.getChildTags().size(); i++) {
-            if (parent.getChildTags().get(i).getTagname().equals(childTagName)) {
-                return true;
+        if (parent.getChildTags() != null) {
+            for (int i = 0; i < parent.getChildTags().size(); i++) {
+                if (parent.getChildTags().get(i).getTagname().equals(childTagName)) {
+                    return true;
+                }
             }
+            return false;
         }
         return false;
     }
@@ -52,7 +55,7 @@ public class MessageQueue {
                 Log.d("packet","packetprocessed");
                 if(temp.getTagname().equals("message")){
                       mhandler.processPacket(temp);
-                } else if (temp.getTagname().equals("stream") || temp.getTagname().equals("success") || temp.getTagname().equals("failure")) {
+                } else if (temp.getTagname().equals("stream:stream") || temp.getTagname().equals("success") || temp.getTagname().equals("failure")) {
                     loginHandler.processPacket(temp);
                 } else if (temp.getTagname().equals("iq") && contains(temp, "bind")) {
                     loginHandler.processPacket(temp);

@@ -36,7 +36,7 @@ public class UserListActivity extends ListActivity {
         UserDatabaseHandler db = new UserDatabaseHandler(this);
         String password = db.getPassword(username);
         db.close();
-        (new ConnectGTalk(this)).execute(username, password);
+  //      (new ConnectGTalk(this)).execute(username, password);
     }
 
     public void addUser(View view) {

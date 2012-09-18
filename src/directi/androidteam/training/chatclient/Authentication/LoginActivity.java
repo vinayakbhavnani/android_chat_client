@@ -1,6 +1,7 @@
 package directi.androidteam.training.chatclient.Authentication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -36,6 +37,8 @@ public class LoginActivity extends Activity {
         pwd = password;
         ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
-        (new ConnectGTalk(this)).execute(username, password);
+//        (new ConnectGTalk(this)).execute(username, password);
+        Intent intent = new Intent(this, MyService.class);
+        this.startService(intent);
     }
 }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
-import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 
@@ -22,7 +21,7 @@ public class activitytest extends Activity {
 
         xml.tearPacket(xmlstring);
         //new testtask().execute();
-        (new ConnectGTalk(this)).execute("brian.gingers", "androidchat");
+      //  (new ConnectGTalk(this)).execute("brian.gingers", "androidchat");
         //new testtask().execute();
         startService(new Intent(this, testtask.class));
         //while(ConnectionHandler.writer==null) {}
