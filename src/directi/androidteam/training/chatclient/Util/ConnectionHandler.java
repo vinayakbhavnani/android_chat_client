@@ -1,12 +1,5 @@
 package directi.androidteam.training.chatclient.Util;
 
-import android.content.Context;
-import android.content.Intent;
-import directi.androidteam.training.StanzaStore.MessageStanza;
-import directi.androidteam.training.chatclient.ReaderService;
-import directi.androidteam.training.chatclient.testtask;
-import directi.androidteam.training.lib.xml.XMLHelper;
-
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;

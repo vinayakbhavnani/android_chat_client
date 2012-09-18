@@ -15,6 +15,7 @@ public class RosterPush extends TagWrapper {
     public RosterPush(Tag tag) {
         this.tag = new IQTag(tag);
     }
+
     public String getJID(){
         Tag childTag = tag.getChildTags().get(0);
         if(childTag==null){

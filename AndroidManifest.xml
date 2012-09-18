@@ -11,6 +11,7 @@
                  android:theme="@android:style/Theme.NoTitleBar"
                  android:label="@string/app_name"
                  android:icon="@drawable/ic_launcher">
+
         <activity android:name="directi.androidteam.training.chatclient.Authentication.UserListActivity"
                   android:label="@string/app_name">
             <intent-filter>
@@ -18,24 +19,29 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity android:name="directi.androidteam.training.chatclient.Authentication.LoginActivity"
                   android:label="@string/app_name">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="directi.androidteam.training.chatclient.Authentication.UserListActivity" />
         </activity>
+
         <activity android:name=".Roster.DisplayRosterActivity"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:configChanges="orientation|keyboardHidden"                >
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="directi.androidteam.training.chatclient.Authentication.LoginActivity" />
         </activity>
+
         <activity android:name="directi.androidteam.training.chatclient.Authentication.LoginErrorActivity"
                   android:label="@string/app_name">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="directi.androidteam.training.chatclient.Authentication.LoginActivity" />
         </activity>
+
         <activity android:name="directi.androidteam.training.chatclient.activitytest"
                   android:label="@string/app_name">
         </activity>
