@@ -69,9 +69,10 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         while (!(response.contains(endsWith))) {
             c = reader.read();
             response = response + (char)c;
-            System.out.print((char)c);
+//            System.out.print((char)c);
         }
-        System.out.println();
+//        System.out.println();
+        Log.d("Server Response (Login)", response);
         return response;
     }
 
@@ -81,9 +82,10 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         while (!(response.contains(endsWith1) || response.contains(endsWith2))) {
             c = reader.read();
             response = response + (char)c;
-            System.out.print((char)c);
+//            System.out.print((char)c);
         }
-        System.out.println();
+//        System.out.println();
+        Log.d("Server Response (Login)", response);
         return response;
     }
 

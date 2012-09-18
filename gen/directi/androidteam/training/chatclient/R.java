@@ -168,8 +168,8 @@ public final class R {
         public static final int message=0x7f060005;
         public static final int password=0x7f06000b;
         public static final int progress_bar=0x7f060009;
-        public static final int roster_image=0x7f06000f;
-        public static final int roster_item=0x7f06000e;
+        public static final int roster_image=0x7f06000e;
+        public static final int roster_item=0x7f06000f;
         public static final int rosterlist=0x7f06000d;
         public static final int send_mess_body=0x7f060008;
         public static final int send_mess_name=0x7f060007;
