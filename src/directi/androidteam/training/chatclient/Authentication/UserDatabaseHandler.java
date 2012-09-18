@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import directi.androidteam.training.chatclient.Constants;
 
 import java.util.ArrayList;
 
@@ -53,16 +54,17 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
     }
 
     public String getPassword(String username) {
-        SQLiteDatabase db = this.getReadableDatabase();
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_USERNAME, KEY_PASSWORD}, KEY_USERNAME + "=?", new String[] {username}, null, null, null, null);
+//        if (cursor != null) {
+//            cursor.moveToFirst();
+//        } else {
+//            return "NO_SUCH_USER";
+//        }
 
-        Cursor cursor = db.query(TABLE_USERS, new String[] {KEY_USERNAME, KEY_PASSWORD}, KEY_USERNAME + "=?", new String[] {username}, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-        } else {
-            return "NO_SUCH_USER";
-        }
-
-        return cursor.getString(1);
+        //return cursor.getString(1);
+        return Constants.password;
     }
 
     public ArrayList<User> getAllUsers() {
