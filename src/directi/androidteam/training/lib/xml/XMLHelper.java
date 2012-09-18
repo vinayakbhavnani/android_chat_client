@@ -100,26 +100,22 @@ public class XMLHelper {
                 map.put(xpp.getAttributeName(i),xpp.getAttributeValue(i));
             }
             ArrayList<Tag> childlist = null;
-            event=xpp.next();
-            if(event==XmlPullParser.START_TAG)  {
-                childlist= new ArrayList<Tag>();
-                childlist.add(tearTag(xpp));
-            }
-                if(event==XmlPullParser.TEXT){
-                    content = xpp.getText();
+                do{
                     event=xpp.next();
-                }
+                    if(event==XmlPullParser.START_TAG)  {
+                        if (childlist==null)
+                        childlist= new ArrayList<Tag>();
+                        childlist.add(tearTag(xpp));
+                    }
+                    if(event==XmlPullParser.TEXT){
+                        content = xpp.getText();
+                        event=xpp.next();
+                    }
+                }while (event!=XmlPullParser.END_TAG);
 
-            while (event!=XmlPullParser.END_TAG)
-                event=xpp.next();
-
-            if(event==XmlPullParser.END_TAG){
                 return new Tag(name,map,childlist,content);
             }
-            }
             catch (Exception e){e.printStackTrace();return  null;}
-            Log.d("XML : ","returns null");
-            return null;
     }
     public Tag tearPacket(String xml){
         Tag temptag=null;

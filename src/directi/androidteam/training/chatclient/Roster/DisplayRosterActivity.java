@@ -37,30 +37,28 @@ public class DisplayRosterActivity extends Activity {
         setContentView(R.layout.roster);
         //requestForServices();
         requestForRosters();
-        try {
-            f();
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
     }
     public void f() throws XmlPullParserException {
-        String testxml = "<iq>     <query>       <item>hdjsh</item>    <item>jfhjsh</item>     </query>   </iq>";
+        String testxml = "<iq>   </iq>";//  <query>       <item>hdjsh</item>    <item>jfhjsh</item>     </query>   </iq>";
         StringReader str = new StringReader(testxml);
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser xpp = factory.newPullParser();
         xpp.setInput(str);
-//        Log.d("testpacket",new XMLHelper().buildPacket(new XMLHelper().tearTag(xpp)));
-        Tag t  = new XMLHelper().tearPacket(testxml);
-        Log.d("XML : Test", new XMLHelper().buildPacket(t));
+        XMLHelper xmlHelper = new XMLHelper();
+     //   Tag tag = xmlHelper.tearTag(xpp);
+  //      Log.d("XPP : ",xpp.getName()); this is failing thus the input is not correct..:(
+        //Log.d("testpacket",xmlHelper.buildPacket(tag));
+        Tag t  = xmlHelper.tearPacket(testxml);
+        Log.d("XML : Test", xmlHelper.buildPacket(t));
     }
 
     private void requestForRosters() {
-        Log.d("DEBUG :","entered request for ROSTER_MANAGER");
+        Log.d("ROSTER :","entered request for ROSTER_MANAGER");
         RosterGet rosterGet = new RosterGet();
      //   rosterGet.setSender(JID.jid).setID("google-roster-1").setQueryAttribute("xmlns","jabber:iq:roster");
         rosterGet.setSender(JID.jid).setID("google-roster-1").setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext","2");
         PacketWriter.addToWriteQueue(rosterGet.getXml());
+        Log.d("ROSTER :","done requesting");
     }
     private void requestForServices(){
         Log.d("DEBUG :","entered request for services");
