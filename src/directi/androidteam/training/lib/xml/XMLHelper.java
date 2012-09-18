@@ -90,6 +90,7 @@ public class XMLHelper {
         int event;
             try{
             String name = xpp.getName();
+            Log.d("XML : Name",name);
             String content = null;
             HashMap<String,String> map = null;
             if(xpp.getAttributeCount()!=0){
@@ -98,8 +99,8 @@ public class XMLHelper {
             for(int i=0;i<count;i++)
                 map.put(xpp.getAttributeName(i),xpp.getAttributeValue(i));
             }
-                ArrayList<Tag> childlist = null;
-                event=xpp.next();
+            ArrayList<Tag> childlist = null;
+            event=xpp.next();
             if(event==XmlPullParser.START_TAG)  {
                 childlist= new ArrayList<Tag>();
                 childlist.add(tearTag(xpp));
@@ -117,6 +118,7 @@ public class XMLHelper {
             }
             }
             catch (Exception e){e.printStackTrace();return  null;}
+            Log.d("XML : ","returns null");
             return null;
     }
     public Tag tearPacket(String xml){
@@ -129,7 +131,6 @@ public class XMLHelper {
             while (event !=XmlPullParser.END_DOCUMENT){
                 if(event==XmlPullParser.START_TAG){
                     temptag =  tearTag(xpp);
-
                 }
                 event=xpp.next();
             }

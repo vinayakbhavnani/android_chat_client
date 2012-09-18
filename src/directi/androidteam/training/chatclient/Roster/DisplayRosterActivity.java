@@ -8,9 +8,15 @@ import android.util.Log;
 import android.widget.ListView;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.RosterGet;
+import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
+import directi.androidteam.training.lib.xml.XMLHelper;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 
 /**
@@ -29,9 +35,24 @@ public class DisplayRosterActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.roster);
-        requestForServices();
+        //requestForServices();
         requestForRosters();
+        try {
+            f();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
 
+    }
+    public void f() throws XmlPullParserException {
+        String testxml = "<iq>     <query>       <item>hdjsh</item>    <item>jfhjsh</item>     </query>   </iq>";
+        StringReader str = new StringReader(testxml);
+        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+        XmlPullParser xpp = factory.newPullParser();
+        xpp.setInput(str);
+//        Log.d("testpacket",new XMLHelper().buildPacket(new XMLHelper().tearTag(xpp)));
+        Tag t  = new XMLHelper().tearPacket(testxml);
+        Log.d("XML : Test", new XMLHelper().buildPacket(t));
     }
 
     private void requestForRosters() {
