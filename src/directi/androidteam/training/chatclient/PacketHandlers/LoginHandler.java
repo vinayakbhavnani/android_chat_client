@@ -3,10 +3,11 @@ package directi.androidteam.training.chatclient.PacketHandlers;
 import android.content.Intent;
 import android.util.Log;
 import directi.androidteam.training.ChatApplication;
-import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.TagStore.*;
 import directi.androidteam.training.chatclient.Authentication.*;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
+import directi.androidteam.training.lib.xml.XMLHelper;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,13 +31,11 @@ public class LoginHandler implements Handler {
         if (tag.getTagname().equals("stream:stream")) {
             if (containsGrandChild(tag, "bind")) {
                 Log.d("Login Flow", "Stream tag with bind tag received.");
-                PacketWriter.addToWriteQueue("<iq id='tn281v37' type='set'>" +
-                        " <bind xmlns='urn:ietf:params:xml:ns:xmpp-bind'/>" +
-                        " </iq>");
+                PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new IQTag("tn281v37", "set", new BindTag("urn:ietf:params:xml:ns:xmpp-bind"))));
             } else if (containsGrandChild(tag, "mechanisms")) {
                 String auth = '\0' + LoginActivity.uname + '\0' + LoginActivity.pwd;
                 Log.d("Login Flow", "Stream tag with mechanisms tag received.");
-                PacketWriter.addToWriteQueue("<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='PLAIN'>" + Base64.encodeBytes(auth.getBytes()) + "</auth>");
+                PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new AuthTag("urn:ietf:params:xml:ns:xmpp-sasl", "PLAIN", Base64.encodeBytes(auth.getBytes()))));
             }
         } else if (tag.getTagname().equals("success")) {
             Log.d("Login Flow", "Success tag received.");
@@ -52,11 +51,7 @@ public class LoginHandler implements Handler {
             ChatApplication.getAppContext().startActivity(intent);
         } else if (tag.getTagname().equals("iq")) {
             Log.d("Login Flow", "Iq tag with a child bind tag received.");
-            PacketWriter.addToWriteQueue("<iq to='talk.google.com'" +
-                    " type='set'" +
-                    " id='sess_1'>" +
-                    " <session xmlns='urn:ietf:params:xml:ns:xmpp-session'/>" +
-                    "</iq>");
+            PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new IQTag("sess_1", "talk.google.com", "set", new SessionTag("urn:ietf:params:xml:ns:xmpp-session"))));
             UserDatabaseHandler db = new UserDatabaseHandler(ChatApplication.getAppContext());
             db.addUser(new User(LoginActivity.uname, LoginActivity.pwd));
             db.close();
