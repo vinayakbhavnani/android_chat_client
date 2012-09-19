@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.util.Log;
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.TagStore.*;
-import directi.androidteam.training.chatclient.Authentication.*;
+import directi.androidteam.training.chatclient.Authentication.LoginActivity;
+import directi.androidteam.training.chatclient.Authentication.LoginErrorActivity;
+import directi.androidteam.training.chatclient.Authentication.User;
+import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.Util.Base64;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
@@ -26,6 +29,11 @@ public class LoginHandler implements Handler {
         } else {
             return false;
         }
+    }
+
+    private void extractJID(Tag iqTag) {
+        JIDTag jidTag  = new JIDTag(iqTag.getChildTags().get(0).getChildTags().get(0));
+        Log.d("JID intialize", jidTag.getContent());
     }
 
     public void processPacket(Tag tag) {
@@ -52,6 +60,7 @@ public class LoginHandler implements Handler {
             ChatApplication.getAppContext().startActivity(intent);
         } else if (tag.getTagname().equals("iq")) {
             Log.d("Login Flow", "Iq tag with a child bind tag received.");
+            extractJID(tag);
             PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new IQTag("sess_1", "talk.google.com", "set", new SessionTag("urn:ietf:params:xml:ns:xmpp-session"))));
             UserDatabaseHandler db = new UserDatabaseHandler(ChatApplication.getAppContext());
             db.addUser(new User(LoginActivity.uname, LoginActivity.pwd));
