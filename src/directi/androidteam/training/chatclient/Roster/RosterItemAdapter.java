@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
     public RosterItemAdapter(Context context, ArrayList<RosterEntry> rosterEntries) {
 //        super(context, R.layout.rosterlistitem, R.id.roster_item, rosterEntries);
         super(context, R.layout.rosterlistitem, rosterEntries);
+        Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
         this.context = context;
         this.rosterEntries = rosterEntries;
     }
@@ -67,7 +69,7 @@ public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
         float density = context.getResources().getDisplayMetrics().density;
         return Math.round((float)dp * density);
     }
-    private void attachIcon(ImageView view) {
+    public void attachIcon(ImageView view) {
         Drawable drawing = view.getDrawable();
         Bitmap bitmap = ((BitmapDrawable)drawing).getBitmap();
         int width = bitmap.getWidth();

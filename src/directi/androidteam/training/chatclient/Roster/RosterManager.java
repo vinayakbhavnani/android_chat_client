@@ -2,6 +2,7 @@ package directi.androidteam.training.chatclient.Roster;
 
 import android.util.Log;
 import directi.androidteam.training.StanzaStore.PresenceS;
+import directi.androidteam.training.StanzaStore.RosterSet;
 import directi.androidteam.training.TagStore.Tag;
 
 import java.util.ArrayList;
@@ -49,7 +50,9 @@ public class RosterManager {
         return rosterEntries;
     }
     public void addRosterEntry(Map<String,Object> rosterEntry){
-        ;//RosterSet rosterSet = new RosterSet(JID.jid,,);
+        String jid ="";
+        RosterSet rosterSet = new RosterSet();
+        rosterSet.addQuery(jid);
     }
     public void sendMyPresence(){
         PresenceS presence = new PresenceS();

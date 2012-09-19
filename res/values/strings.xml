@@ -11,5 +11,6 @@
     <string name="add_account">Add Account</string>
     <string name="sign_out">Sign Out</string>
     <string name="accounts">Accounts</string>
+    <string name="enter_jid">Enter email-id</string>
 </resources>
 
