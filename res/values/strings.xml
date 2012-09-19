@@ -9,5 +9,7 @@
     <string name="button_try_again">Try Again</string>
     <string name="choose_account">Choose an account to sign in with</string>
     <string name="add_account">Add Account</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="accounts">Accounts</string>
 </resources>
 

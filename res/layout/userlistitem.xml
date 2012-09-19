@@ -9,6 +9,8 @@
               android:layout_height="wrap_content"
               android:text=""
               android:textSize="20sp"
+              android:paddingTop="10dip"
+              android:paddingBottom="10dip"
               android:gravity="center_horizontal"
             />
 </RelativeLayout>

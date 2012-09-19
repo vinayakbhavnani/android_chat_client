@@ -194,6 +194,7 @@ public final class R {
         public static final int users=0x7f030009;
     }
     public static final class string {
+        public static final int accounts=0x7f05000a;
         public static final int add_account=0x7f050008;
         public static final int app_name=0x7f050000;
         public static final int button_login=0x7f050003;
@@ -201,6 +202,7 @@ public final class R {
         public static final int choose_account=0x7f050007;
         public static final int login_error=0x7f050005;
         public static final int password=0x7f050002;
+        public static final int sign_out=0x7f050009;
         public static final int start_chatting=0x7f050004;
         public static final int username=0x7f050001;
     }
