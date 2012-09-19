@@ -52,7 +52,7 @@
         </activity>
 
 
-     <service android:name=".Authentication.MyService">
+     <service android:name=".Util.MyService">
         </service>
 
 

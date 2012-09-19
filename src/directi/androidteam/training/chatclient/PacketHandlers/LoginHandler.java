@@ -6,6 +6,7 @@ import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.TagStore.*;
 import directi.androidteam.training.chatclient.Authentication.*;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
+import directi.androidteam.training.chatclient.Util.Base64;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.lib.xml.XMLHelper;
 

@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import directi.androidteam.training.chatclient.Util.PacketReader;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
+import directi.androidteam.training.chatclient.Util.ServiceThread;
 import directi.androidteam.training.chatclient.testtask;
 
 import javax.net.ssl.SSLSocketFactory;

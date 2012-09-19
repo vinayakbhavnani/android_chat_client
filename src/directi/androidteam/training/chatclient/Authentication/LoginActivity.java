@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import directi.androidteam.training.chatclient.R;
+import directi.androidteam.training.chatclient.Util.MyService;
 
 public class LoginActivity extends Activity {
     public static final String USERNAME = "directi.androidteam.training.chatclient.Authentication.LoginActivity.USERNAME";

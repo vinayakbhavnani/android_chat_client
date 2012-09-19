@@ -162,19 +162,19 @@ public final class R {
         public static final int rounded_textview_r=0x7f020004;
     }
     public static final class id {
-        public static final int MainLayout=0x7f06000d;
-        public static final int Roster_All_Contacts=0x7f060015;
-        public static final int Roster_add=0x7f060013;
+        public static final int MainLayout=0x7f060015;
+        public static final int Roster_All_Contacts=0x7f060014;
+        public static final int Roster_add=0x7f060012;
         public static final int Roster_add_new_entry_button=0x7f060017;
-        public static final int Roster_myimage=0x7f06000f;
-        public static final int Roster_myjid=0x7f060010;
-        public static final int Roster_myself=0x7f06000e;
-        public static final int Roster_preference=0x7f060014;
-        public static final int Roster_search=0x7f060012;
+        public static final int Roster_myimage=0x7f06000e;
+        public static final int Roster_myjid=0x7f06000f;
+        public static final int Roster_myself=0x7f06000d;
+        public static final int Roster_preference=0x7f060013;
+        public static final int Roster_search=0x7f060011;
         public static final int chatlist=0x7f060003;
         public static final int choose_account=0x7f06001b;
         public static final int message=0x7f060005;
-        public static final int navigationButttons=0x7f060011;
+        public static final int navigationButttons=0x7f060010;
         public static final int password=0x7f06000b;
         public static final int progress_bar=0x7f060009;
         public static final int roster_image=0x7f060018;

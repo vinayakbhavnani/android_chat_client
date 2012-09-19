@@ -1,7 +1,6 @@
 package directi.androidteam.training.chatclient.Util;
 
 import android.util.Log;
-import directi.androidteam.training.chatclient.Authentication.ServiceThread;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;

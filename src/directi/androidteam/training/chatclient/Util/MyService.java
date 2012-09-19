@@ -1,8 +1,9 @@
-package directi.androidteam.training.chatclient.Authentication;
+package directi.androidteam.training.chatclient.Util;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
 
 /**
  * Created with IntelliJ IDEA.
