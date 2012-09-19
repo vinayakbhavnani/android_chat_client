@@ -5,14 +5,14 @@
                 android:layout_height="fill_parent"
                 android:orientation="vertical"
                 android:id="@+id/roster_root">
-    <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/MainLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation ="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp" >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:background="#FFFFFF"
+              android:padding="10dp"
+              android:id="@+id/Roster_myself"
+        >
         <Button android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/accounts"
@@ -31,16 +31,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dip"
                 />
-    </LinearLayout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:background="#FFFFFF"
-              android:padding="10dp"
-              android:id="@+id/Roster_myself"
-        >
-    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
                android:id="@+id/Roster_myimage"
                android:contentDescription="Image"
                android:layout_height="wrap_content"
