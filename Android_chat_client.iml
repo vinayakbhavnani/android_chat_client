@@ -37,11 +37,7 @@
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Android 4.0.3 Platform" jdkType="Android SDK" />
-=======
-    <orderEntry type="jdk" jdkName="Android 4.1 Platform" jdkType="Android SDK" />
->>>>>>> origin
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="asmack-jse-buddycloud-2010.12.11" level="project" />
   </component>
