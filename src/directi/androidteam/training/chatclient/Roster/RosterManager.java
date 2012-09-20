@@ -24,6 +24,7 @@ public class RosterManager {
     private ArrayList<RosterEntry> busyList = new ArrayList<RosterEntry>();
     private ArrayList<RosterEntry> awayList = new ArrayList<RosterEntry>();
     private ArrayList<RosterEntry> otherList = new ArrayList<RosterEntry>();
+    private ArrayList<RosterEntry> frndReqList = new ArrayList<RosterEntry>();
     public HashMap<String,RosterEntry> rosterLookup = new HashMap<String, RosterEntry>();
     public static final RosterManager ROSTER_MANAGER = new RosterManager();
     private HashMap<String,String> requestID = new HashMap<String, String>();
@@ -48,13 +49,28 @@ public class RosterManager {
         rosterList = list;
         for (Tag tag : list) {
             if(tag.getTagname().equals("item")){
-                if(!tag.getAttribute("subscription").equals("none")) {
+                if(tag.getAttribute("subscription").equals("both")) {
                     String jid = tag.getAttribute("jid");
                     if(jid==null)
-                        return;
+                        continue;
                     RosterEntry rosterEntry = new RosterEntry(jid);
                     rosterEntries.add(rosterEntry);
                     rosterLookup.put(jid,rosterEntry);
+                    ArrayList<Tag> childTags = tag.getChildTags();
+                    if(childTags!=null)
+                    for (Tag childTag : childTags) {
+                        if(childTag.getTagname().equals("group")) {
+                            addRosterToGroup(jid,childTag.getContent());
+                            Log.d("GROUP : ", "jid : "+ jid+" groupname : "+childTag.getContent());
+                        }
+                    }
+                }
+                else if(tag.getAttribute("subscription").equals("to")) {
+                    String jid = tag.getAttribute("jid");
+                    if(jid==null)
+                        continue;
+                    RosterEntry rosterEntry = new RosterEntry(jid);
+                    frndReqList.add(rosterEntry);
                 }
             }
         }
@@ -149,5 +165,24 @@ public class RosterManager {
     public RosterEntry searchRosterEntry(String jid) {
         RosterEntry rosterEntry = rosterLookup.get(jid);
         return rosterEntry;
+    }
+    public void acceptFrndReq(String jid) {
+        return;
+    }
+    public void addRosterToGroup(String jid, String groupName) {
+        if(jid==null || jid.equals("") || groupName==null || groupName.equals(""))
+            return;
+        RosterGroupManager rosterGroupManager = RosterGroupManager.getInstance();
+        RosterGroup rosterGroup = rosterGroupManager.getRosterGroupByName(groupName);
+        if(rosterGroup==null) {
+            rosterGroup = new RosterGroup(groupName);
+            rosterGroupManager.addNewGroup(rosterGroup);
+        }
+        RosterEntry rosterEntry = rosterLookup.get(jid);
+        rosterGroup.addRosterEntry(rosterEntry);
+    }
+    public void addNewGroup(String groupName) {
+        RosterGroup rosterGroup = new RosterGroup(groupName);
+        RosterGroupManager.getInstance().addNewGroup(rosterGroup);
     }
 }

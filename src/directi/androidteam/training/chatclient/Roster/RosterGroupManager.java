@@ -26,6 +26,10 @@ public class RosterGroupManager {
         rosterGroupHashMap.put(rosterGroup.getGroupName(),rosterGroup);
         return true;
     }
+    public Boolean addNewGroup(String groupName) {
+        RosterGroup rosterGroup = new RosterGroup(groupName);
+        return addNewGroup(rosterGroup);
+    }
     public Boolean ifGroupExists(RosterGroup rosterGroup){
         if(rosterGroupHashMap==null || !rosterGroupHashMap.containsKey(rosterGroup.getGroupName()))
             return false;
