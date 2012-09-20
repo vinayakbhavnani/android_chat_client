@@ -69,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:text="Search"
+                android:onClick="searchRosterEntry"
                 >
         </Button>
         <Button

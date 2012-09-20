@@ -170,8 +170,10 @@ public final class R {
         public static final int Roster_All_Contacts=0x7f060015;
         public static final int Roster_add=0x7f060013;
         public static final int Roster_add_new_entry_button=0x7f060019;
-        public static final int Roster_add_new_status_button=0x7f06001e;
-        public static final int Roster_enter_status=0x7f06001d;
+        public static final int Roster_add_new_status_button=0x7f060021;
+        public static final int Roster_enter_search=0x7f06001a;
+        public static final int Roster_enter_search_button=0x7f06001b;
+        public static final int Roster_enter_status=0x7f060020;
         public static final int Roster_myimage=0x7f06000e;
         public static final int Roster_myjid=0x7f06000f;
         public static final int Roster_myself=0x7f06000d;
@@ -180,20 +182,21 @@ public final class R {
         public static final int Roster_preference=0x7f060014;
         public static final int Roster_search=0x7f060012;
         public static final int chatlist=0x7f060003;
-        public static final int choose_account=0x7f060020;
+        public static final int choose_account=0x7f060023;
         public static final int message=0x7f060005;
         public static final int navigationButttons=0x7f060011;
         public static final int password=0x7f06000b;
         public static final int progress_bar=0x7f060009;
-        public static final int roster_availability_image=0x7f06001c;
-        public static final int roster_image=0x7f06001a;
-        public static final int roster_item=0x7f06001b;
+        public static final int roster_availability_button=0x7f06001f;
+        public static final int roster_image=0x7f06001c;
+        public static final int roster_item=0x7f06001d;
         public static final int roster_root=0x7f06000c;
+        public static final int roster_status=0x7f06001e;
         public static final int rosterlist=0x7f060017;
         public static final int send_mess_body=0x7f060008;
         public static final int send_mess_name=0x7f060007;
         public static final int sendmessage=0x7f060006;
-        public static final int user_item=0x7f06001f;
+        public static final int user_item=0x7f060022;
         public static final int username=0x7f06000a;
         public static final int widget33=0x7f060000;
         public static final int widget36=0x7f060001;
@@ -209,10 +212,11 @@ public final class R {
         public static final int main=0x7f030005;
         public static final int roster=0x7f030006;
         public static final int roster_add_dialog=0x7f030007;
-        public static final int rosterlistitem=0x7f030008;
-        public static final int rostet_add_status=0x7f030009;
-        public static final int userlistitem=0x7f03000a;
-        public static final int users=0x7f03000b;
+        public static final int roster_search_entry=0x7f030008;
+        public static final int rosterlistitem=0x7f030009;
+        public static final int rostet_add_status=0x7f03000a;
+        public static final int userlistitem=0x7f03000b;
+        public static final int users=0x7f03000c;
     }
     public static final class string {
         public static final int add_account=0x7f050008;
@@ -221,6 +225,7 @@ public final class R {
         public static final int button_try_again=0x7f050006;
         public static final int choose_account=0x7f050007;
         public static final int enter_jid=0x7f050009;
+        public static final int enter_search=0x7f05000b;
         public static final int enter_status=0x7f05000a;
         public static final int login_error=0x7f050005;
         public static final int password=0x7f050002;

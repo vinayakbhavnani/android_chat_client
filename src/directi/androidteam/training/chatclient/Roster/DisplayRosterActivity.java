@@ -153,6 +153,12 @@ public class DisplayRosterActivity extends Activity {
         else if(id==3) {
             ;
         }
+        else if(id==4) {
+            SearchRosterEntryDialog dialog = new SearchRosterEntryDialog(context);
+            dialog.setContentView(R.layout.roster_search_entry);
+            dialog.setTitle("Find Ur Friend");
+            return dialog;
+        }
         Log.d("ROSTER : ","invalid request for dialog");
         return null;
     }
@@ -166,6 +172,10 @@ public class DisplayRosterActivity extends Activity {
     public void changeAvailability(View view) {
         Log.d("ROSTER UI :","change availability called");
         showDialog(3);
+    }
+    public void searchRosterEntry(View view) {
+        Log.d("ROSTER UI :","roster search called");
+        showDialog(4);
     }
 }
 

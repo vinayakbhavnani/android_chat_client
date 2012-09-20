@@ -20,6 +20,10 @@ import java.util.HashMap;
 public class RosterManager {
     public ArrayList<Tag> rosterList  = new ArrayList<Tag>();
     public ArrayList<RosterEntry> rosterEntries = new ArrayList<RosterEntry>();
+    private ArrayList<RosterEntry> chatList = new ArrayList<RosterEntry>();
+    private ArrayList<RosterEntry> busyList = new ArrayList<RosterEntry>();
+    private ArrayList<RosterEntry> awayList = new ArrayList<RosterEntry>();
+    private ArrayList<RosterEntry> otherList = new ArrayList<RosterEntry>();
     public HashMap<String,RosterEntry> rosterLookup = new HashMap<String, RosterEntry>();
     public static final RosterManager ROSTER_MANAGER = new RosterManager();
     private HashMap<String,String> requestID = new HashMap<String, String>();
@@ -57,7 +61,17 @@ public class RosterManager {
         DisplayRosterActivity.showAllRosters();
     }
     public ArrayList<RosterEntry> getRosterList(){
-        return rosterEntries;
+        ArrayList<RosterEntry> tempList = new ArrayList<RosterEntry>();
+        tempList.addAll(chatList);
+        tempList.addAll(busyList);
+        tempList.addAll(awayList);
+        return tempList;
+    }
+    private void copyList(ArrayList<RosterEntry> tempList,String type){
+        for (RosterEntry rosterEntry : rosterEntries) {
+            if(rosterEntry.getPresence().equals("away"))
+                tempList.add(rosterEntry);
+        }
     }
     public ArrayList<RosterEntry> displayRoster(String groupName){
         Log.d("setRoster : ","displayRoster");
@@ -80,9 +94,6 @@ public class RosterManager {
             return;
         RosterEntry rosterEntry = new RosterEntry(newJID);
         addRosterEntry(rosterEntry);
-    }
-    public void sendMyPresence(){
-        PresenceS presence = new PresenceS();
     }
     public void deleteRosterEntry(String JID) {
         if(JID==null || rosterLookup==null || JID.equals("") || !rosterLookup.containsKey(JID))
@@ -109,6 +120,18 @@ public class RosterManager {
         if(avail!=null) {
             rosterEntry.setPresence(avail);
             Log.d("roster manager ","statys"+from+" "+avail);
+            if(busyList.contains(rosterEntry))
+                busyList.remove(rosterEntry);
+            if(chatList.contains(rosterEntry))
+                chatList.remove(rosterEntry);
+            if(awayList.contains(rosterEntry))
+                awayList.remove(rosterEntry);
+            if(avail.equals("busy"))
+                busyList.add(rosterEntry);
+            if(avail.equals("chat"))
+                chatList.add(rosterEntry);
+            if(avail.equals("away"))
+                awayList.add(rosterEntry);
         }
         String status = presence.getStatus();
         if(status!=null) {
@@ -122,5 +145,9 @@ public class RosterManager {
         MyProfile myProfile = MyProfile.getInstance();
         myProfile.setAvailability(avail);
         myProfile.setStatusAndPresence();
+    }
+    public RosterEntry searchRosterEntry(String jid) {
+        RosterEntry rosterEntry = rosterLookup.get(jid);
+        return rosterEntry;
     }
 }

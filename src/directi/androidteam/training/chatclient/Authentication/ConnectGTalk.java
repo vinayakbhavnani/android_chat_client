@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import directi.androidteam.training.TagStore.IQTag;
 import directi.androidteam.training.TagStore.JIDTag;
-import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Util.ConnectionHandler;
 import directi.androidteam.training.lib.xml.XMLHelper;
@@ -110,8 +109,6 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
             socket.setSoTimeout(0);
             socket.setKeepAlive(true);
 
-            username = Constants.username;
-            password = Constants.password;
             PrintWriter out = new PrintWriter(socket.getOutputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 

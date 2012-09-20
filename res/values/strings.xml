@@ -11,5 +11,6 @@
     <string name="add_account">Add Account</string>
     <string name="enter_jid">Enter email-id</string>
     <string name="enter_status">Enter Status</string>
+    <string name="enter_search">Enter email</string>
 </resources>
 
