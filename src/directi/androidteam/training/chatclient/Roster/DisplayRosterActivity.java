@@ -11,16 +11,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
-import directi.androidteam.training.StanzaStore.JID;
-import directi.androidteam.training.StanzaStore.RosterGet;
-import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.Authentication.UserListActivity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.RosterGet;
+import directi.androidteam.training.chatclient.Authentication.UserListActivity;
 import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
@@ -119,7 +115,6 @@ public class DisplayRosterActivity extends Activity {
             RosterItemAdapter adapter = new RosterItemAdapter(this,rosterManager.getRosterList());
             rosterList.setAdapter(adapter);
              rosterList.setTextFilterEnabled(true);
-
         }
     }
 
