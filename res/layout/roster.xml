@@ -53,6 +53,12 @@
                   android:onClick="addStatus"
                 />
         </LinearLayout>
+        <Spinner
+
+                android:id="@+id/roster_availability_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/roster_availability_array" />
     </LinearLayout>
 
     <LinearLayout

@@ -11,10 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterGet;
@@ -46,6 +43,8 @@ public class DisplayRosterActivity extends Activity {
         textView.setText(JID.jid);
         TextView textView2 = (TextView) findViewById(R.id.Roster_mystatus);
         textView2.setText(MyProfile.getInstance().getStatus());
+        Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
+        spinner.setOnItemSelectedListener(new RosterAvailSpinnerHandler());
         Log.d("XXXX", "oncreate roster : " + MyProfile.getInstance().getStatus());
         requestForRosters();
         sendInitialPresence();
@@ -151,9 +150,6 @@ public class DisplayRosterActivity extends Activity {
             return dialog;
         }
         else if(id==3) {
-            ;
-        }
-        else if(id==4) {
             SearchRosterEntryDialog dialog = new SearchRosterEntryDialog(context);
             dialog.setContentView(R.layout.roster_search_entry);
             dialog.setTitle("Find Ur Friend");
@@ -169,13 +165,9 @@ public class DisplayRosterActivity extends Activity {
         Log.d("ROSTER UI :","add status called");
         showDialog(2);
     }
-    public void changeAvailability(View view) {
-        Log.d("ROSTER UI :","change availability called");
-        showDialog(3);
-    }
     public void searchRosterEntry(View view) {
         Log.d("ROSTER UI :","roster search called");
-        showDialog(4);
+        showDialog(3);
     }
 }
 
