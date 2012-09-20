@@ -48,6 +48,6 @@ public class MyProfile {
         else return m;
     }
     public String getAvailability() {
-        return myProfile.getAvailability();
+        return rosterEntry.getPresence();
     }
 }

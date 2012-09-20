@@ -61,7 +61,7 @@ public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
                 rosterItemHolder.availButton.setBackgroundColor(Color.RED);
             }
             else if(rosterEntry.getPresence().equals("away")) {
-                rosterItemHolder.availButton.setBackgroundColor(Color.MAGENTA);
+                rosterItemHolder.availButton.setBackgroundColor(Color.YELLOW);
             }
             else if(rosterEntry.getPresence().equals("chat")) {
                 rosterItemHolder.availButton.setBackgroundColor(Color.GREEN);

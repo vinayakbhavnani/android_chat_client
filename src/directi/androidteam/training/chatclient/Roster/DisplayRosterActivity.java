@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -46,6 +47,8 @@ public class DisplayRosterActivity extends Activity {
         textView2.setText(MyProfile.getInstance().getStatus());
         Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
         spinner.setOnItemSelectedListener(new RosterAvailSpinnerHandler());
+        Button button = (Button) findViewById(R.id.roster_availability_launch_spinner_button);
+        button.setBackgroundColor(Color.GREEN);
         Log.d("XXXX", "oncreate roster : " + MyProfile.getInstance().getStatus());
         requestForRosters();
         sendInitialPresence();
@@ -89,7 +92,7 @@ public class DisplayRosterActivity extends Activity {
         RosterGet rosterGet = new RosterGet();
         rosterGet.setSender(JID.jid).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext","2");
         PacketWriter.addToWriteQueue(rosterGet.getXml());
-        Log.d("ROSTER :","done requesting");
+        Log.d("ROSTER :", "done requesting");
     }
     private void requestForPresence(String typeVal) {
         RosterManager rosterManager = RosterManager.getInstance();
@@ -104,7 +107,7 @@ public class DisplayRosterActivity extends Activity {
 
     }
     private void requestForServices(){
-        Log.d("DEBUG :","entered request for services");
+        Log.d("DEBUG :", "entered request for services");
         RosterGet rosterGet = new RosterGet();
         rosterGet.setReceiver("talk.google.com").setQueryAttribute("xlmns", "http://jabber.org/protocol/disco#info");
         PacketWriter.addToWriteQueue(rosterGet.getXml());
@@ -125,6 +128,16 @@ public class DisplayRosterActivity extends Activity {
         attachIcon(myImage);
         TextView textView2 = (TextView) findViewById(R.id.Roster_mystatus);
         textView2.setText(MyProfile.getInstance().getStatus());
+        Button button = (Button) findViewById(R.id.roster_availability_launch_spinner_button);
+        String avail = MyProfile.getInstance().getAvailability();
+        if(avail.equals("available") || avail.equals("chat"))
+        button.setBackgroundColor(Color.GREEN);
+        else if(avail.equals("away"))
+            button.setBackgroundColor(Color.YELLOW);
+        else if(avail.equals("dnd"))
+            button.setBackgroundColor(Color.RED);
+        else
+            button.setBackgroundColor(Color.GRAY);
 
         ListView rosterList = (ListView) findViewById(R.id.rosterlist);
         String rosterToBeDisplayed = (String)intent.getExtras().get("display");
@@ -178,6 +191,10 @@ public class DisplayRosterActivity extends Activity {
     public void searchRosterEntry(View view) {
         Log.d("ROSTER UI :","roster search called");
         showDialog(3);
+    }
+    public void launchSpinner(View view) {
+        Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
+        spinner.performClick();
     }
 }
 
