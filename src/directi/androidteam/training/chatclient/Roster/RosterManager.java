@@ -2,11 +2,13 @@ package directi.androidteam.training.chatclient.Roster;
 
 import android.util.Log;
 import directi.androidteam.training.StanzaStore.PresenceS;
+import directi.androidteam.training.StanzaStore.RosterResult;
 import directi.androidteam.training.StanzaStore.RosterSet;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,20 +20,38 @@ import java.util.Map;
 public class RosterManager {
     public ArrayList<Tag> rosterList  = new ArrayList<Tag>();
     public ArrayList<RosterEntry> rosterEntries = new ArrayList<RosterEntry>();
+    public HashMap<String,RosterEntry> rosterLookup = new HashMap<String, RosterEntry>();
     public static final RosterManager ROSTER_MANAGER = new RosterManager();
+    private HashMap<String,String> requestID = new HashMap<String, String>();
     private RosterManager() {
     }
     public static RosterManager getInstance(){
         return ROSTER_MANAGER;
     }
 
-    public void setRosterList(ArrayList<Tag> list){
+    public void setRosterList(RosterResult rosterResult){
+        Log.d("ROSTER Manager","setRosterList starts");
+        ArrayList<Tag> list = rosterResult.getListOfRosters();
+        String id = rosterResult.getID();
+        if(list==null){              //            Log.d("setRoster tagname :",tag.getTagname());
+            return;
+        }
+        String type = rosterResult.getType();
+        if(type!=null && type.equals("result"))
+        requestID.put(id,"1");
+        else
+        requestID.put(id,"2");
         rosterList = list;
         for (Tag tag : list) {
-            Log.d("setRoster tagname :",tag.getTagname());
             if(tag.getTagname().equals("item")){
-                rosterEntries.add(new RosterEntry(tag.getAttribute("jid")));
-                Log.d("setRoster : ","hey");
+                if(!tag.getAttribute("subscription").equals("none")) {
+                    String jid = tag.getAttribute("jid");
+                    if(jid==null)
+                        return;
+                    RosterEntry rosterEntry = new RosterEntry(jid);
+                    rosterEntries.add(rosterEntry);
+                    rosterLookup.put(jid,rosterEntry);
+                }
             }
         }
         DisplayRosterActivity.showAllRosters();
@@ -49,12 +69,58 @@ public class RosterManager {
         }
         return rosterEntries;
     }
-    public void addRosterEntry(Map<String,Object> rosterEntry){
-        String jid ="";
+    public void addRosterEntry(RosterEntry rosterEntry){
         RosterSet rosterSet = new RosterSet();
-        rosterSet.addQuery(jid);
+        rosterSet.addQuery(rosterEntry.getJid());
+        PacketWriter.addToWriteQueue(rosterSet.getXml());
+        requestID.put(rosterSet.getID(),"0");
+    }
+    public void addRosterEntry(String newJID) {
+        if(newJID ==null || newJID.equals(""))
+            return;
+        RosterEntry rosterEntry = new RosterEntry(newJID);
+        addRosterEntry(rosterEntry);
     }
     public void sendMyPresence(){
         PresenceS presence = new PresenceS();
+    }
+    public void deleteRosterEntry(String JID) {
+        if(JID==null || rosterLookup==null || JID.equals("") || !rosterLookup.containsKey(JID))
+            return;
+        RosterEntry rosterEntry = rosterLookup.get(JID);
+        rosterEntries.remove(rosterEntry);
+        rosterLookup.remove(JID);
+        RosterSet rosterSet = new RosterSet();
+        rosterSet.addQuery(rosterEntry.getJid());
+        rosterSet.addSubscription("remove");
+        PacketWriter.addToWriteQueue(rosterSet.getXml());
+        DisplayRosterActivity.showAllRosters();
+    }
+
+    public void updatePresence(PresenceS presence) {
+        String from = presence.getFrom();
+        Log.d("update presence","function started");
+        from = from.split("/")[0];
+        if(from==null || rosterLookup==null || !rosterLookup.containsKey(from))
+            return;
+        Log.d("ccc","no nulls from : "+ from);
+        RosterEntry rosterEntry = rosterLookup.get(from);
+        String avail = presence.getAvailability();
+        if(avail!=null) {
+            rosterEntry.setPresence(avail);
+            Log.d("roster manager ","statys"+from+" "+avail);
+        }
+        String status = presence.getStatus();
+        if(status!=null) {
+            rosterEntry.setStatus(status);
+            Log.d("roster manager ","statys"+from+" "+status);
+        }
+        DisplayRosterActivity.showAllRosters();
+    }
+
+    public void changeAvailability(String avail) {
+        MyProfile myProfile = MyProfile.getInstance();
+        myProfile.setAvailability(avail);
+        myProfile.setStatusAndPresence();
     }
 }

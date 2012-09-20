@@ -12,6 +12,7 @@ import java.util.HashMap;
  */
 public class Status extends Tag{
     public Status() {
+        super("status",null,null,null);
     }
 
     public Status(HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {

@@ -30,7 +30,6 @@ public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
     Context context;
     ArrayList<RosterEntry> rosterEntries;
     public RosterItemAdapter(Context context, ArrayList<RosterEntry> rosterEntries) {
-//        super(context, R.layout.rosterlistitem, R.id.roster_item, rosterEntries);
         super(context, R.layout.rosterlistitem, rosterEntries);
         Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
         this.context = context;
@@ -47,6 +46,7 @@ public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
             rosterItemHolder = new RosterItemHolder();
             rosterItemHolder.rosterImg = (ImageView) v.findViewById(R.id.roster_image);
             rosterItemHolder.rosterJid = (TextView) v.findViewById(R.id.roster_item);
+            rosterItemHolder.availImg = (ImageView) v.findViewById(R.id.roster_availability_image);
             v.setTag(rosterItemHolder);
         }
         else {
@@ -55,14 +55,34 @@ public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
         RosterEntry rosterEntry = rosterEntries.get(position);
         if(rosterEntry!=null){
             attachIcon(rosterItemHolder.rosterImg);
-           // rosterItemHolder.rosterImg.setImageResource(R.drawable.android);
             rosterItemHolder.rosterJid.setText(rosterEntry.getJid());
+            if(rosterEntry.getPresence()!=null) {
+                Log.d("ssss","jid : "+rosterEntry.getJid()+"  presence :"+rosterEntry.getPresence());
+            if(rosterEntry.getPresence().equals("dnd")) {
+                rosterItemHolder.availImg.setImageResource(R.drawable.red);
+            }
+            else if(rosterEntry.getPresence().equals("away")) {
+                rosterItemHolder.availImg.setImageResource(R.drawable.orange);
+            }
+            else if(rosterEntry.getPresence().equals("chat")) {
+                rosterItemHolder.availImg.setImageResource(R.drawable.green);
+            }
+            else {
+                rosterItemHolder.availImg.setImageResource(R.drawable.android);
+            }
+            }
+        else {
+             rosterItemHolder.availImg.setImageResource(R.drawable.android);
+         }
+            if(rosterItemHolder.availImg!=null)
+            attachIcon(rosterItemHolder.availImg);
         }
         return v;
     }
     static class RosterItemHolder{
         ImageView rosterImg;
         TextView rosterJid;
+        ImageView availImg;
     }
     private int dpToPx(int dp)
     {

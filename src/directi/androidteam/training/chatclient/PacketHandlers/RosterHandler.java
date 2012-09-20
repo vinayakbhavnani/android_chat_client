@@ -5,7 +5,6 @@ import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterPush;
 import directi.androidteam.training.StanzaStore.RosterResult;
 import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
 
 /**
@@ -48,15 +47,20 @@ public class RosterHandler implements Handler{
             else if(type.equals("result")){
                 RosterResult rosterResult = new RosterResult(tag);
                 RosterManager rosterManager = RosterManager.getInstance();
-                rosterManager.setRosterList(rosterResult.getListOfRosters());
+                rosterManager.setRosterList(rosterResult);
             }
             else {
                 Log.d("Packet Error","Unidentified IQ Packet, type = "+type);
             }
         }
         else if(tagName.equals("presence")){
-            PresenceS presence = new PresenceS();
+            PresenceS presence = new PresenceS(tag);
             String type = presence.getType();
+            if(type==null) {
+                Log.d("Packet Error","type was null");
+                RosterManager.getInstance().updatePresence(presence);
+                return;
+            }
             if(type.equals("error")){
                 Log.d("Packet Error","Error From Server Side In Presence Packet");
             }

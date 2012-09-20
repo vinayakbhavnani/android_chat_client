@@ -7,7 +7,7 @@
         android:layout_height="fill_parent"
         android:orientation="vertical"
         android:id="@+id/roster_root">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:orientation="horizontal"
@@ -15,7 +15,7 @@
                   android:padding="10dp"
                   android:id="@+id/Roster_myself"
             >
-        <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        <ImageView
                    android:id="@+id/Roster_myimage"
                    android:contentDescription="Image"
                    android:layout_height="wrap_content"
@@ -23,33 +23,53 @@
                    android:src="@drawable/android"
                    android:gravity="center_vertical"
                 />
-        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:background="#FFFFFF"
+                  android:padding="10dp"
+            >
+
+            <TextView
                   android:id="@+id/Roster_myjid"
-                  android:layout_height="match_parent"
-                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
                   android:paddingLeft="5dp"
-                  android:text="ME"
                   android:textSize="10dp"
                   android:textStyle="italic"
                   android:gravity="center_vertical"
                   android:textColor="#000000"
                 />
+            <TextView
+                  android:id="@+id/Roster_mystatus"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:paddingLeft="5dp"
+                  android:textSize="10dp"
+                  android:textStyle="italic"
+                  android:clickable="true"
+                  android:textColor="#000000"
+                  android:onClick="addStatus"
+                />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+
             android:id="@+id/navigationButttons"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            >
         <Button
                 android:id="@+id/Roster_search"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:text="Search"
-               >
+                >
         </Button>
         <Button
                 android:id="@+id/Roster_add"
@@ -57,19 +77,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:text="Add Contact"
-                android:onClick="addRosterEntry">
+                android:onClick="addRosterEntry"
+                >
         </Button>
         <Button
                 android:id="@+id/Roster_preference"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
-                android:text="Groups" >
+                android:text="Groups">
         </Button>
     </LinearLayout>
 
     <ScrollView
-            xmlns:android="http://schemas.android.com/apk/res/android"
+
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:fillViewport="true"
@@ -79,7 +100,7 @@
             >
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+
             android:id="@+id/MainLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

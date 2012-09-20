@@ -7,17 +7,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import directi.androidteam.training.chatclient.R;
 
 /**
  * Created with IntelliJ IDEA.
  * User: ssumit
- * Date: 9/18/12
- * Time: 5:54 PM
+ * Date: 9/19/12
+ * Time: 10:04 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AddRosterDialog extends Dialog implements android.view.View.OnClickListener {
-    public AddRosterDialog(Context context) {
+public class ChangeAvailability extends Dialog implements android.view.View.OnClickListener {
+    public ChangeAvailability(Context context) {
         super(context);
     }
     @Override
@@ -27,14 +28,14 @@ public class AddRosterDialog extends Dialog implements android.view.View.OnClick
     }
     @Override
     public void onClick(View view){
-        Log.d("ROSTER UI :", "add new roster flow complete");
+        Log.d("ROSTER UI :", "change availability flow complete");
+        Spinner spinner = (Spinner) findViewById(R.id.chatlist); //add spinner
         EditText editText = (EditText)findViewById(R.id.Roster_new_jid);
-        String newJID  = editText.getText().toString();
-        Log.d("ROSTER UI :","new jid : "+newJID);
+        String avail  = editText.getText().toString();
+        Log.d("ROSTER UI :","new status : "+avail);
         dismiss();
         RosterManager rosterManager = RosterManager.getInstance();
-        rosterManager.addRosterEntry(newJID);
+        rosterManager.changeAvailability(avail);
         return;
     }
 }
-
