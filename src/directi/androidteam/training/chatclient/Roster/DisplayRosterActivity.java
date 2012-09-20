@@ -11,16 +11,14 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
-import directi.androidteam.training.StanzaStore.JID;
-import directi.androidteam.training.StanzaStore.RosterGet;
-import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.Authentication.UserListActivity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.RosterGet;
+import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
+import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
+import directi.androidteam.training.chatclient.Authentication.UserListActivity;
 import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
@@ -83,7 +81,7 @@ public class DisplayRosterActivity extends Activity {
      //   rosterGet.setSender(JID.jid).setID("google-roster-1").setQueryAttribute("xmlns","jabber:iq:roster");
         rosterGet.setSender(JID.jid).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext","2");
         PacketWriter.addToWriteQueue(rosterGet.getXml());
-        Log.d("ROSTER :","done requesting");
+        Log.d("ROSTER :", "done requesting");
     }
     private void requestForServices(){
         Log.d("DEBUG :","entered request for services");
@@ -124,11 +122,15 @@ public class DisplayRosterActivity extends Activity {
     }
 
     public void goToAccounts(View view) {
-        Intent intent = new Intent(this, UserListActivity.class);
-        startActivity(intent);
     }
 
     public void signOut(View view) {
+        UserDatabaseHandler db = new UserDatabaseHandler(this);
+        db.updateState(ConnectGTalk.uname, "offline");
+        db.close();
+        Intent intent = new Intent(this, UserListActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 
     protected Dialog onCreateDialog(int id) {

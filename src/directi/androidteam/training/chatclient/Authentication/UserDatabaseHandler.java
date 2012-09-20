@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import directi.androidteam.training.chatclient.Constants;
 
 import java.util.ArrayList;
 
@@ -23,6 +22,9 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_USERS = "users";
     private static final String KEY_USERNAME= "username";
     private static final String KEY_PASSWORD = "password";
+    private static final String KEY_STATE = "login_status";
+    private static final String LOGGED_IN = "online";
+    private static final String LOGGED_OUT = "offline";
 
     public UserDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,7 +32,7 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "(" + KEY_USERNAME + " TEXT," + KEY_PASSWORD + " TEXT" + ")";
+        String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "(" + KEY_USERNAME + " TEXT," + KEY_PASSWORD + " TEXT," + KEY_STATE + " TEXT" + ")";
         db.execSQL(CREATE_USERS_TABLE);
     }
 
@@ -42,16 +44,19 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
 
     public void addUser(User user) {
         if (!(getPassword(user.getUsername()).equals("NO_SUCH_USER"))) {
+            updateState(user.getUsername(), LOGGED_IN);
             return;
+        } else {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(KEY_USERNAME, user.getUsername());
+            values.put(KEY_PASSWORD, user.getPassword());
+            values.put(KEY_STATE, LOGGED_IN);
+
+            db.insert(TABLE_USERS, null, values);
+            db.close();
         }
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_USERNAME, user.getUsername());
-        values.put(KEY_PASSWORD, user.getPassword());
-
-        db.insert(TABLE_USERS, null, values);
-        db.close();
     }
 
     public String getPassword(String username) {
@@ -88,11 +93,21 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
                 User user = new User();
                 user.setUsername(cursor.getString(0));
                 user.setPassword(cursor.getString(1));
+                user.setState(cursor.getString(2));
                 userList.add(user);
             } while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
         return userList;
+    }
+
+    public int updateState(String username, String state) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_STATE, state);
+
+        return db.update(TABLE_USERS, values, KEY_USERNAME + " = ?", new String[] {String.valueOf(username)});
     }
 }

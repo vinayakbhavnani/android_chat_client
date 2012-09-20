@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import directi.androidteam.training.chatclient.R;
 
@@ -23,12 +24,18 @@ public class LoginErrorActivity extends Activity {
         setContentView(R.layout.login_error);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     /**
      * Called when the user clicks the Login button
      */
     public void goToLogin(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("username", ConnectGTalk.uname);
         startActivity(intent);
+        this.finish();
     }
-
 }

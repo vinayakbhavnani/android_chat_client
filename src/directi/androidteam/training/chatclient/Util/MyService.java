@@ -21,7 +21,12 @@ public class MyService extends Service {
 
     @Override
     public  void onCreate(){
-        (new ConnectGTalk()).execute("");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        (new ConnectGTalk()).execute(intent.getStringExtra("username"), intent.getStringExtra("password"));
+        return START_STICKY;
     }
 
 }

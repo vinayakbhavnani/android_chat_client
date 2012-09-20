@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -33,10 +34,12 @@ public class UserListActivity extends ListActivity {
     @Override
     public void onListItemClick(ListView view, View v, int position, long id) {
         String username = ((TextView)((RelativeLayout)v).getChildAt(0)).getText().toString();
+        Log.d("Login Flow (Check Username)", username);
         UserDatabaseHandler db = new UserDatabaseHandler(this);
         String password = db.getPassword(username);
+        Log.d("Login Flow (Check Password)", password);
         db.close();
-        (new ConnectGTalk()).execute("");
+        (new ConnectGTalk(this)).execute(username, password);
     }
 
     public void addUser(View view) {

@@ -1,5 +1,6 @@
 package directi.androidteam.training.chatclient.Authentication;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 import directi.androidteam.training.chatclient.Util.PacketReader;
@@ -23,8 +24,20 @@ import java.net.Socket;
  */
 
 public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
+    public static String uname = "";
+    public static String pwd = "";
+    public static Activity callerActivity = null;
+
+    public ConnectGTalk(Activity parent) {
+        callerActivity = parent;
+    }
+
+    public ConnectGTalk() {}
+
     @Override
     public Boolean doInBackground (String ...params) {
+        uname = params[0];
+        pwd = params[1];
         SSLSocketFactory sslSocketFactory;
         Socket socket;
         PrintWriter out;

@@ -13,7 +13,7 @@
               android:padding="10dp"
               android:id="@+id/Roster_myself"
         >
-        <Button android:layout_width="wrap_content"
+<!--        <Button android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/accounts"
                 android:onClick="goToAccounts"
@@ -21,7 +21,7 @@
                 android:layout_marginTop="20dip"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginRight="5dip"
-                />
+                />         -->
         <Button android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sign_out"
