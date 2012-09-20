@@ -44,6 +44,15 @@ public class UserListActivity extends ListActivity {
 
     public void addUser(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 100);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 100) {
+            if (resultCode == RESULT_OK) {
+                this.finish();
+            }
+        }
     }
 }

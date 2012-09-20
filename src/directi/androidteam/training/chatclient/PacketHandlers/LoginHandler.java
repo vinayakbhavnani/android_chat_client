@@ -1,5 +1,6 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import directi.androidteam.training.ChatApplication;
@@ -56,6 +57,7 @@ public class LoginHandler implements Handler {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             ChatApplication.getAppContext().startActivity(intent);
             if (ConnectGTalk.callerActivity != null) {
+                ConnectGTalk.callerActivity.setResult(Activity.RESULT_OK);
                 ConnectGTalk.callerActivity.finish();
             }
         } else if (tag.getTagname().equals("iq")) {
@@ -71,6 +73,7 @@ public class LoginHandler implements Handler {
             intent.putExtra(LoginActivity.USERNAME, ConnectGTalk.uname);
             ChatApplication.getAppContext().startActivity(intent);
             if (ConnectGTalk.callerActivity != null) {
+                ConnectGTalk.callerActivity.setResult(Activity.RESULT_OK);
                 ConnectGTalk.callerActivity.finish();
             }
         }
