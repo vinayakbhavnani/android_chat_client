@@ -130,7 +130,7 @@ public class DisplayRosterActivity extends Activity {
         textView2.setText(MyProfile.getInstance().getStatus());
         Button button = (Button) findViewById(R.id.roster_availability_launch_spinner_button);
         String avail = MyProfile.getInstance().getAvailability();
-        if(avail.equals("available") || avail.equals("chat"))
+        if(avail.equals("Available") || avail.equals("chat"))
         button.setBackgroundColor(Color.GREEN);
         else if(avail.equals("away"))
             button.setBackgroundColor(Color.YELLOW);
