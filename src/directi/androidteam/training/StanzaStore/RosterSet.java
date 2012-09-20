@@ -1,5 +1,6 @@
 package directi.androidteam.training.StanzaStore;
 
+import android.util.Log;
 import directi.androidteam.training.TagStore.*;
 
 import java.util.UUID;
@@ -15,10 +16,12 @@ public class RosterSet extends TagWrapper {
 
     public RosterSet() {
         tag = new IQTag();
-
         tag.addAttribute("type","set");
         tag.addAttribute("id", UUID.randomUUID().toString());
         tag.addAttribute("from", JID.jid);
+    }
+    public String getID(){
+        return tag.getAttribute("id");
     }
     public void addQuery(String jid){
         Query query1 = new Query();
@@ -27,6 +30,12 @@ public class RosterSet extends TagWrapper {
         ItemTag itemTag = new ItemTag();
         itemTag.addAttribute("jid",jid);
         query1.addChildTag(itemTag);
+        Log.d("roster set","addquery called");
+    }
+    public void addSubscription(String subscriptionType) {
+        Query query = (Query) tag.getChildTags().remove(0);
+        ItemTag itemTag = (ItemTag) query.getChildTags().remove(0);
+        itemTag.addAttribute("subscription",subscriptionType);
     }
     public void addAttr(String attrName,String attrVal){
         ItemTag itemTag = (ItemTag) tag.getChildTags().get(0).getChildTags().get(0);

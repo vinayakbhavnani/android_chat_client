@@ -1,6 +1,7 @@
 package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.Presence;
+import directi.androidteam.training.TagStore.Show;
 import directi.androidteam.training.TagStore.Status;
 import directi.androidteam.training.TagStore.Tag;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class PresenceS  extends TagWrapper {
     public PresenceS() {
         tag = new Presence();
+        addSender();
     }
     public PresenceS(Tag tag){
         this.tag = new Presence(tag);
@@ -30,14 +32,14 @@ public class PresenceS  extends TagWrapper {
     public void addSender(String sender){
         tag.addAttribute("from", sender);
     }
+    public void  addSender() {
+        tag.addAttribute("from", JID.jid);
+    }
     public void addID(String id){
         tag.addAttribute("id", id);
     }
     public void addReceiver(String receiver){
         tag.addAttribute("to", receiver);
-    }
-    public void addType(String type){
-        tag.addAttribute("type", type);
     }
     public String getType() {
         return tag.getAttribute("type");
@@ -46,9 +48,36 @@ public class PresenceS  extends TagWrapper {
         ArrayList<Tag> childlist = tag.getChildTags();
         for (Tag tag : childlist) {
             if(tag.getTagname().equals("status")){
-                return new Status(tag).getstatus();
+                return (new Status(tag)).getstatus();
             }
         }
         return null;
+    }
+    public String getAvailability(){
+        ArrayList<Tag> childlist = tag.getChildTags();
+        for (Tag tag : childlist) {
+            if(tag.getTagname().equals("show")){
+                return (new Show(tag)).getShowState();
+            }
+        }
+        return null;
+    }
+
+    public void addStatus(String status) {
+        Status status1 = new Status();
+        status1.setStatus(status);
+        tag.addChildTag(status1);
+    }
+    public void addAvailability(String avail) {
+        Show show =new Show();
+        show.setShowState(avail);
+        tag.addChildTag(show);
+    }
+    public void addType(String typeValue){
+        tag.addAttribute("type",typeValue);
+    }
+
+    public String getFrom() {
+        return tag.getAttribute("from");
     }
 }

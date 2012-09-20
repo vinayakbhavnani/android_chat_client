@@ -60,7 +60,7 @@ public class MessageQueue {
                 } else if (temp.getTagname().equals("iq") && contains(temp, "bind")) {
                     loginHandler.processPacket(temp);
                 }
-          //      else rhandler.processPacket(temp);
+                else rhandler.processPacket(temp);
             }
         }
     }

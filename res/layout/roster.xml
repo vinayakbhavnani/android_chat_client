@@ -1,101 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical"
-                android:id="@+id/roster_root">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:background="#FFFFFF"
-              android:padding="10dp"
-              android:id="@+id/Roster_myself"
-        >
-<!--        <Button android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/accounts"
-                android:onClick="goToAccounts"
-                android:background="@drawable/login_button"
-                android:layout_marginTop="20dip"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginRight="5dip"
-                />         -->
-        <Button android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sign_out"
-                android:onClick="signOut"
-                android:background="@drawable/login_button"
-                android:layout_marginTop="20dip"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="5dip"
-                />
-        <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-               android:id="@+id/Roster_myimage"
-               android:contentDescription="Image"
-               android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:src="@drawable/android"
-               android:gravity="center_vertical"
-            />
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/Roster_myjid"
-              android:layout_height="match_parent"
-              android:layout_width="fill_parent"
-              android:paddingLeft="5dp"
-              android:text="ME"
-              android:textSize="10dp"
-              android:textStyle="italic"
-              android:gravity="center_vertical"
-              android:textColor="#000000"
-            />
-</LinearLayout>
-
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/navigationButttons"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-    <Button
-            android:id="@+id/Roster_search"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="Search"
-            >
-    </Button>
-    <Button
-            android:id="@+id/Roster_add"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="Add Contact"
-            android:onClick="addRosterEntry">
-    </Button>
-    <Button
-            android:id="@+id/Roster_preference"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="Groups" >
-    </Button>
-</LinearLayout>
-
-<ScrollView
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:fillViewport="true"
-        android:layout_above="@id/navigationButttons"
-        android:layout_below="@id/Roster_myself"
-        android:id="@+id/Roster_All_Contacts"
-        >
+        android:orientation="vertical"
+        android:id="@+id/roster_root">
+    <RelativeLayout
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:background="#FFFFFF"
+                  android:padding="10dp"
+                  android:id="@+id/Roster_myself"
+            >
+        <ImageView
+                   android:id="@+id/Roster_myimage"
+                   android:contentDescription="Image"
+                   android:layout_height="wrap_content"
+                   android:layout_width="wrap_content"
+                   android:src="@drawable/android"
+                   android:gravity="center_vertical"
+                   android:layout_alignParentLeft="true"
+                  />
+        <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:background="#FFFFFF"
+                  android:padding="10dp"
+                  android:layout_toRightOf = "@id/Roster_myimage"
+                  >
+            <TextView
+                  android:id="@+id/Roster_myjid"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:paddingLeft="5dp"
+                  android:textSize="10dp"
+                  android:textStyle="italic"
+                  android:gravity="center_vertical"
+                  android:textColor="#000000"
+                />
+            <TextView
+                  android:id="@+id/Roster_mystatus"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:paddingLeft="5dp"
+                  android:textSize="10dp"
+                  android:textStyle="italic"
+                  android:clickable="true"
+                  android:textColor="#000000"
+                  android:onClick="addStatus"
+                />
+        </LinearLayout>
+        <Spinner
+                android:id="@+id/roster_availability_spinner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:entries="@array/roster_availability_array"
+                android:clickable="true"/>
+        <Button
+                android:id="@+id/roster_availability_launch_spinner_button"
+                android:layout_width="5dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="launchSpinner"
+                android:layout_alignParentRight="true"
+                >
+        </Button>
+    </RelativeLayout>
 
     <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+
+            android:id="@+id/navigationButttons"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            >
+        <Button
+                android:id="@+id/Roster_search"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Search"
+                android:onClick="searchRosterEntry"
+                >
+        </Button>
+        <Button
+                android:id="@+id/Roster_add"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Add Contact"
+                android:onClick="addRosterEntry"
+                >
+        </Button>
+        <Button
+                android:id="@+id/Roster_preference"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Groups">
+        </Button>
+    </LinearLayout>
+
+    <ScrollView
+
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true"
+            android:layout_above="@id/navigationButttons"
+            android:layout_below="@id/Roster_myself"
+            android:id="@+id/Roster_All_Contacts"
+            >
+
+        <LinearLayout
+
             android:id="@+id/MainLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -103,14 +124,14 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp" >
 
-        <ListView android:id="@+id/rosterlist"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:paddingLeft="8dp"
-                  android:paddingBottom="8dp"
-                  android:paddingRight="8dp"
-                  android:paddingTop="8dp">
-        </ListView>
-    </LinearLayout>
-</ScrollView>
+            <ListView android:id="@+id/rosterlist"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="8dp">
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
