@@ -134,7 +134,7 @@ public class DisplayRosterActivity extends Activity {
         button.setBackgroundColor(Color.GREEN);
         else if(avail.equals("away"))
             button.setBackgroundColor(Color.YELLOW);
-        else if(avail.equals("dnd"))
+        else if(avail.equals("dnd") || avail.equals("Busy"))
             button.setBackgroundColor(Color.RED);
         else
             button.setBackgroundColor(Color.GRAY);
