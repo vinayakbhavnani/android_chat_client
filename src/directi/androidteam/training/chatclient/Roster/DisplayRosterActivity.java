@@ -81,7 +81,8 @@ public class DisplayRosterActivity extends Activity {
         BitmapDrawable result = new BitmapDrawable(scaledBitmap);
         view.setImageDrawable(result);
         view.setScaleType(ImageView.ScaleType.FIT_START);
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
+        //LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
         params.width = width;
         params.height = height;
         view.setLayoutParams(params);

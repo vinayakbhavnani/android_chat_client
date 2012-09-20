@@ -7,7 +7,7 @@
         android:layout_height="fill_parent"
         android:orientation="vertical"
         android:id="@+id/roster_root">
-    <LinearLayout
+    <RelativeLayout
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:orientation="horizontal"
@@ -22,15 +22,16 @@
                    android:layout_width="wrap_content"
                    android:src="@drawable/android"
                    android:gravity="center_vertical"
-                />
+                   android:layout_alignParentLeft="true"
+                  />
         <LinearLayout
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:orientation="vertical"
                   android:background="#FFFFFF"
                   android:padding="10dp"
-            >
-
+                  android:layout_toRightOf = "@id/Roster_myimage"
+                  >
             <TextView
                   android:id="@+id/Roster_myjid"
                   android:layout_height="wrap_content"
@@ -53,22 +54,22 @@
                   android:onClick="addStatus"
                 />
         </LinearLayout>
-        <Button
-                android:id="@+id/roster_availability_launch_spinner_button"
-                android:layout_width="5dp"
-                android:layout_height="fill_parent"
-                android:clickable="true"
-                android:layout_marginRight="10dp"
-                android:onClick="launchSpinner"
-                >
-        </Button>
         <Spinner
                 android:id="@+id/roster_availability_spinner"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:entries="@array/roster_availability_array" />
+        <Button
+                android:id="@+id/roster_availability_launch_spinner_button"
+                android:layout_width="5dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="launchSpinner"
+                android:layout_alignParentRight="true"
+                >
+        </Button>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
 
