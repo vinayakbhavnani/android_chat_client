@@ -8,7 +8,7 @@ import directi.androidteam.training.chatclient.Authentication.LoginActivity;
 import directi.androidteam.training.chatclient.Authentication.LoginErrorActivity;
 import directi.androidteam.training.chatclient.Authentication.User;
 import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
-import directi.androidteam.training.chatclient.Chat.ChatBox;
+import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Util.Base64;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.lib.xml.XMLHelper;
@@ -66,7 +66,7 @@ public class LoginHandler implements Handler {
             db.addUser(new User(LoginActivity.uname, LoginActivity.pwd));
             db.close();
 
-            Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
+            Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(LoginActivity.USERNAME, LoginActivity.uname);
             intent.putExtra("buddyid","vinayak.bhavnani@gmail.com");

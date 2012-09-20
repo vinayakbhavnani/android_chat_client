@@ -11,17 +11,15 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.*;
 import directi.androidteam.training.StanzaStore.JID;
+import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.Authentication.UserListActivity;
 import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -42,9 +40,22 @@ public class DisplayRosterActivity extends Activity {
         setContentView(R.layout.roster);
         ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);
         attachIcon(myImage);
-        Log.d("XXXX","oncreate roster");
+        TextView textView = (TextView) findViewById(R.id.Roster_myjid);
+        textView.setText(JID.jid);
+        TextView textView2 = (TextView) findViewById(R.id.Roster_mystatus);
+        textView2.setText(MyProfile.getInstance().getStatus());
+        Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
+        spinner.setOnItemSelectedListener(new RosterAvailSpinnerHandler());
+        Log.d("XXXX", "oncreate roster : " + MyProfile.getInstance().getStatus());
         requestForRosters();
+        sendInitialPresence();
     }
+
+    private void sendInitialPresence() {
+        PresenceS presenceS = new PresenceS();
+        PacketWriter.addToWriteQueue(presenceS.getXml());
+    }
+
     private int dpToPx(int dp)
     {
         float density = context.getResources().getDisplayMetrics().density;
@@ -76,10 +87,21 @@ public class DisplayRosterActivity extends Activity {
     private void requestForRosters() {
         Log.d("ROSTER :","entered request for ROSTER_MANAGER");
         RosterGet rosterGet = new RosterGet();
-     //   rosterGet.setSender(JID.jid).setID("google-roster-1").setQueryAttribute("xmlns","jabber:iq:roster");
         rosterGet.setSender(JID.jid).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext","2");
         PacketWriter.addToWriteQueue(rosterGet.getXml());
         Log.d("ROSTER :","done requesting");
+    }
+    private void requestForPresence(String typeVal) {
+        RosterManager rosterManager = RosterManager.getInstance();
+        for (RosterEntry rosterEntry : rosterManager.getRosterList()) {
+            PresenceS presence = new PresenceS();
+            presence.addID(UUID.randomUUID().toString());
+            presence.addReceiver(rosterEntry.getJid());
+            presence.addType(typeVal);
+            PacketWriter.addToWriteQueue(presence.getXml());
+            Log.d("ROSTER :", "entered request for presence");
+        }
+
     }
     private void requestForServices(){
         Log.d("DEBUG :","entered request for services");
@@ -101,17 +123,15 @@ public class DisplayRosterActivity extends Activity {
         Log.d("ROSTER INTENT :", "New Intent Started");
         ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);
         attachIcon(myImage);
+        TextView textView2 = (TextView) findViewById(R.id.Roster_mystatus);
+        textView2.setText(MyProfile.getInstance().getStatus());
 
         ListView rosterList = (ListView) findViewById(R.id.rosterlist);
         String rosterToBeDisplayed = (String)intent.getExtras().get("display");
         if(rosterToBeDisplayed.equals("all")){
             Log.d("ROSTER INTENT ALL :", "New Intent Started - ALL");
+
             RosterManager rosterManager = RosterManager.getInstance();
-            ArrayList<RosterEntry> rosterEntries = rosterManager.displayRoster("default");
-            ArrayList<String> values = new ArrayList<String>();
-            for (RosterEntry rosterEntry : rosterEntries) {
-                values.add(rosterEntry.getJid());
-            }
             RosterItemAdapter adapter = new RosterItemAdapter(this,rosterManager.getRosterList());
             rosterList.setAdapter(adapter);
              rosterList.setTextFilterEnabled(true);
@@ -127,13 +147,37 @@ public class DisplayRosterActivity extends Activity {
     }
 
     protected Dialog onCreateDialog(int id) {
-        AddRosterDialog dialog = new AddRosterDialog(context);
-        dialog.setContentView(R.layout.roster_add_dialog);
-        dialog.setTitle("Add Your Friend");
-        return dialog;
+        if(id==1){
+            AddRosterDialog dialog = new AddRosterDialog(context);
+            dialog.setContentView(R.layout.roster_add_dialog);
+            dialog.setTitle("Add Your Friend");
+            return dialog;
+        }
+        else if(id==2) {
+            AddStatusDialog dialog = new AddStatusDialog(context);
+            dialog.setContentView(R.layout.rostet_add_status);
+            dialog.setTitle("Set Status");
+            return dialog;
+        }
+        else if(id==3) {
+            SearchRosterEntryDialog dialog = new SearchRosterEntryDialog(context);
+            dialog.setContentView(R.layout.roster_search_entry);
+            dialog.setTitle("Find Ur Friend");
+            return dialog;
+        }
+        Log.d("ROSTER : ","invalid request for dialog");
+        return null;
     }
     public void addRosterEntry(View view){
         showDialog(1);
+    }
+    public void addStatus(View view) {
+        Log.d("ROSTER UI :","add status called");
+        showDialog(2);
+    }
+    public void searchRosterEntry(View view) {
+        Log.d("ROSTER UI :","roster search called");
+        showDialog(3);
     }
 }
 

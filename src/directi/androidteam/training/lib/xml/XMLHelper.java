@@ -74,6 +74,7 @@ public class XMLHelper {
             //System.out.println(xmlString);
             //Log.d("msg123",xmlString);
             //Log.d("msg123","heyhey");
+            Log.d("testing buildpacket :",xmlString.split("\\?>")[1]);
             return xmlString.split("\\?>")[1];
 
 
