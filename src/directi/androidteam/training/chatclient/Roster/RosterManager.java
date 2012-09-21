@@ -21,7 +21,7 @@ public class RosterManager {
     public ArrayList<Tag> rosterList  = new ArrayList<Tag>();
     public ArrayList<RosterEntry> rosterEntries = new ArrayList<RosterEntry>();
     private ArrayList<RosterEntry> chatList = new ArrayList<RosterEntry>();
-    private ArrayList<RosterEntry> busyList = new ArrayList<RosterEntry>();
+    private ArrayList<RosterEntry> dndList = new ArrayList<RosterEntry>();
     private ArrayList<RosterEntry> awayList = new ArrayList<RosterEntry>();
     private ArrayList<RosterEntry> otherList = new ArrayList<RosterEntry>();
     private ArrayList<RosterEntry> frndReqList = new ArrayList<RosterEntry>();
@@ -79,7 +79,7 @@ public class RosterManager {
     public ArrayList<RosterEntry> getRosterList(){
         ArrayList<RosterEntry> tempList = new ArrayList<RosterEntry>();
         tempList.addAll(chatList);
-        tempList.addAll(busyList);
+        tempList.addAll(dndList);
         tempList.addAll(awayList);
         return tempList;
     }
@@ -132,25 +132,46 @@ public class RosterManager {
             return;
         Log.d("ccc","no nulls from : "+ from);
         RosterEntry rosterEntry = rosterLookup.get(from);
+        String prevAvail = rosterEntry.getPresence();
         String avail = presence.getAvailability();
+        int flag =0 ;
         if(avail!=null) {
             rosterEntry.setPresence(avail);
             Log.d("roster manager ","statys"+from+" "+avail);
-            if(busyList.contains(rosterEntry))
-                busyList.remove(rosterEntry);
-            if(chatList.contains(rosterEntry))
+            if(dndList.contains(rosterEntry)) {
+                dndList.remove(rosterEntry);
+            }
+            if(chatList.contains(rosterEntry)) {
                 chatList.remove(rosterEntry);
-            if(awayList.contains(rosterEntry))
+            }
+            if(awayList.contains(rosterEntry)) {
                 awayList.remove(rosterEntry);
-            if(avail.equals("busy"))
-                busyList.add(rosterEntry);
-            if(avail.equals("chat"))
-                chatList.add(rosterEntry);
-            if(avail.equals("away"))
+            }
+            if(prevAvail==null)
+                prevAvail="";
+            if(avail.equals("chat")){
+                    if (prevAvail.equals("chat"))
+                        flag =1 ;
+                        chatList.add(rosterEntry);
+            }
+            else if(avail.equals("away")) {
+                    if (prevAvail.equals("away"))
+                        flag = 1;
+                        awayList.add(rosterEntry);
+            }
+            else if(avail.equals("dnd")) {
+                if (prevAvail.equals("dnd"))
+                    flag = 1;
                 awayList.add(rosterEntry);
+            }
         }
         String status = presence.getStatus();
+        if(status==null && flag==1)
+            return;
         if(status!=null) {
+            String prevStatus = rosterEntry.getStatus();
+            if(prevStatus.equals(status) && flag==1)
+                return;
             rosterEntry.setStatus(status);
             Log.d("roster manager ","statys"+from+" "+status);
         }
