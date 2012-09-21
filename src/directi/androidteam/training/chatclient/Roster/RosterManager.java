@@ -175,6 +175,7 @@ public class RosterManager {
             rosterEntry.setStatus(status);
             Log.d("roster manager ","statys"+from+" "+status);
         }
+        //(getRosterList());
         DisplayRosterActivity.showAllRosters();
     }
 
