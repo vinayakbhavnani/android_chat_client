@@ -1,7 +1,6 @@
 package directi.androidteam.training.chatclient.Util;
 
 import android.util.Log;
-import directi.androidteam.training.chatclient.Authentication.ServiceThread;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.io.BufferedReader;
@@ -20,9 +19,9 @@ public class PacketReader implements ServiceThread{
     private Socket socket;
     private BufferedReader reader;
 
-    public PacketReader(){
-
-        this.socket=ConnectionHandler.getSocket();
+    public PacketReader(Socket s, BufferedReader r) {
+        this.socket = s;
+        this.reader = r;
     }
 
     @Override

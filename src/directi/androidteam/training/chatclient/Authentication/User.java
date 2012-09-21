@@ -10,6 +10,7 @@ package directi.androidteam.training.chatclient.Authentication;
 public class User {
     private String username;
     private String password;
+    private String state;
 
     public User() {}
 
@@ -34,4 +35,11 @@ public class User {
         return this.password;
     }
 
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getState() {
+        return this.state;
+    }
 }

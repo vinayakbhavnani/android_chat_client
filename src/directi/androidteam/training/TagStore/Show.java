@@ -18,6 +18,9 @@ public class Show extends Tag{
         super("show",null,null,null);
         setShowState(showState);
     }
+    public Show() {
+        super("show",null,null,null);
+    }
     public Show(Tag tag) {
         super(tag.tagname,tag.attributes,tag.childTags,tag.content);
     }

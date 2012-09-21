@@ -26,6 +26,7 @@ public class UserListActivity extends ListActivity {
         setContentView(R.layout.users);
         UserDatabaseHandler db = new UserDatabaseHandler(this);
         ArrayList<User> users = db.getAllUsers();
+        db.close();
         UserAdapter userAdapter = new UserAdapter(this, R.layout.userlistitem, users);
         setListAdapter(userAdapter);
     }
@@ -33,14 +34,25 @@ public class UserListActivity extends ListActivity {
     @Override
     public void onListItemClick(ListView view, View v, int position, long id) {
         String username = ((TextView)((RelativeLayout)v).getChildAt(0)).getText().toString();
-        Log.e("text view username", username);
+        Log.d("Login Flow (Check Username)", username);
         UserDatabaseHandler db = new UserDatabaseHandler(this);
         String password = db.getPassword(username);
+        Log.d("Login Flow (Check Password)", password);
+        db.close();
         (new ConnectGTalk(this)).execute(username, password);
     }
 
     public void addUser(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 100);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 100) {
+            if (resultCode == RESULT_OK) {
+                this.finish();
+            }
+        }
     }
 }

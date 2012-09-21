@@ -1,68 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/MainLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation ="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp" >
-    <ListView android:id="@+id/rosterlist"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:paddingLeft="8dp"
-              android:paddingBottom="8dp"
-              android:paddingRight="8dp"
-              android:paddingTop="8dp">
-            </ListView>
- <!--   <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation = "horizontal"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp" >
-        <TextView android:id="@+id/text"
+        android:orientation="vertical"
+        android:id="@+id/roster_root">
+    <RelativeLayout
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:background="#FFFFFF"
+                  android:padding="10dp"
+                  android:id="@+id/Roster_myself"
+            >
+        <ImageView
+                   android:id="@+id/Roster_myimage"
+                   android:contentDescription="Image"
+                   android:layout_height="wrap_content"
+                   android:layout_width="wrap_content"
+                   android:src="@drawable/android"
+                   android:gravity="center_vertical"
+                   android:layout_alignParentLeft="true"
+                  />
+        <LinearLayout
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Hello, I am a TextView"
-                  android:paddingLeft="8dp"
-                  android:paddingRight="16dp" />
-        <Button android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/start_chatting"
-                android:paddingLeft="dp"
-                android:paddingRight="8dp"
-                android:layout_gravity="right"
+                  android:orientation="vertical"
+                  android:background="#FFFFFF"
+                  android:padding="10dp"
+                  android:layout_toRightOf = "@id/Roster_myimage"
+                  >
+            <TextView
+                  android:id="@+id/Roster_myjid"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:paddingLeft="5dp"
+                  android:textSize="10dp"
+                  android:textStyle="italic"
+                  android:gravity="center_vertical"
+                  android:textColor="#000000"
                 />
-
-    </LinearLayout>
+            <TextView
+                  android:id="@+id/Roster_mystatus"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:paddingLeft="5dp"
+                  android:textSize="10dp"
+                  android:textStyle="italic"
+                  android:clickable="true"
+                  android:textColor="#000000"
+                  android:onClick="addStatus"
+                />
+        </LinearLayout>
+        <Spinner
+                android:id="@+id/roster_availability_spinner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:entries="@array/roster_availability_array"
+                android:clickable="true"/>
+        <Button
+                android:id="@+id/roster_availability_launch_spinner_button"
+                android:layout_width="5dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="launchSpinner"
+                android:layout_alignParentRight="true"
+                >
+        </Button>
+    </RelativeLayout>
 
     <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+
+            android:id="@+id/navigationButttons"
+            android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation = "horizontal"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp" >
-        <TextView android:id="@+id/text"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Hello, I am a TextView"
-                  android:paddingLeft="16dp"
-                  android:paddingRight="8dp"
-        />
-        <Button android:id="@+id/button"
-                android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            >
+        <Button
+                android:id="@+id/Roster_search"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/start_chatting"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_gravity="right"
-        />
-
+                android:layout_weight="50"
+                android:text="Search"
+                android:onClick="searchRosterEntry"
+                >
+        </Button>
+        <Button
+                android:id="@+id/Roster_add"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Add Contact"
+                android:onClick="addRosterEntry"
+                >
+        </Button>
+        <Button
+                android:id="@+id/Roster_preference"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Groups">
+        </Button>
     </LinearLayout>
-   -->
-</LinearLayout>
+
+    <ScrollView
+
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true"
+            android:layout_above="@id/navigationButttons"
+            android:layout_below="@id/Roster_myself"
+            android:id="@+id/Roster_All_Contacts"
+            >
+
+        <LinearLayout
+
+            android:id="@+id/MainLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation ="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" >
+
+            <ListView android:id="@+id/rosterlist"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="8dp">
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

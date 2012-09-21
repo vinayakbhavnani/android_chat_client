@@ -1,4 +1,4 @@
-package directi.androidteam.training.chatclient.Authentication;
+package directi.androidteam.training.chatclient.Util;
 
 /**
  * Created with IntelliJ IDEA.

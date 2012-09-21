@@ -20,6 +20,19 @@ public class IQTag extends Tag{
     public IQTag(String tagname, HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
         super(tagname, attributes, childTags, content);
     }
+    public IQTag(String id, String type, Tag child) {
+        this.tagname = "iq";
+        this.addAttribute("id", id);
+        this.addAttribute("type", type);
+        this.addChildTag(child);
+    }
+    public IQTag(String id, String to, String type, Tag child) {
+        this.tagname = "iq";
+        this.addAttribute("type", type);
+        this.addAttribute("to", to);
+        this.addAttribute("id", id);
+        this.addChildTag(child);
+    }
     public void addAttribute(String attributeName,String attributeVal){
         if(attributes==null)
             attributes = new HashMap<String, String>();

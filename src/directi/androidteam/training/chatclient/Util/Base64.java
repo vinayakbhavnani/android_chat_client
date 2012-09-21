@@ -145,7 +145,7 @@
  * @author rob@iharder.net
  * @version 2.3.7
  */
-package directi.androidteam.training.chatclient.Authentication;
+package directi.androidteam.training.chatclient.Util;
 public class Base64
 {
     

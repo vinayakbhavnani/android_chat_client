@@ -27,4 +27,12 @@ public class RosterResult extends TagWrapper {
             return null;
         return ((IQTag)tag).getRosterItems();
     }
+
+    public String getID() {
+        return tag.getAttribute("id");
+    }
+
+    public String getType() {
+        return tag.getAttribute("type");
+    }
 }

@@ -1,7 +1,6 @@
 package directi.androidteam.training.chatclient.Util;
 
 import android.util.Log;
-import directi.androidteam.training.chatclient.Authentication.ServiceThread;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -14,8 +13,12 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class PacketWriter implements ServiceThread{
-    private static PrintWriter writer =  ConnectionHandler.getWriter();
+    private static PrintWriter writer;
     private static ArrayList<String> list =  new ArrayList<String>();
+
+    public PacketWriter(PrintWriter w) {
+        writer = w;
+    }
 
     public static void addToWriteQueue(String msg){
         list.add(msg);
