@@ -82,7 +82,7 @@ public class MessageHandler implements Handler{
 
         Log.d("chatsize",new Integer(chatLists.get(from).size()).toString()+from);
         ChatBox.openChat(from);
-        ChatBox.notifyChat(ms);
+        //ChatBox.notifyChat(ms);
 
    }
 }

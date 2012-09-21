@@ -33,6 +33,7 @@ public class ChatBox extends FragmentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("chatboxcreated","cc");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
         context=this;
@@ -93,6 +94,12 @@ public class ChatBox extends FragmentActivity {
             switchFragment(from);
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        moveTaskToBack(false);
+        Log.d("Chatboxresumed","true");
+    }
     public void SendChat(View view){
         EditText mess = (EditText) findViewById(R.id.message);
         String message = mess.getText().toString();
