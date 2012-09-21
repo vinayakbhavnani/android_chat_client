@@ -4,6 +4,7 @@ import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
+import directi.androidteam.training.chatclient.Chat.ChatNotifier;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,12 +72,17 @@ public class MessageHandler implements Handler{
 
     @Override
     public void processPacket(Tag tag){
-        Log.d("newmessage",tag.getChildTags().get(0).getContent());
+
         MessageStanza ms = new MessageStanza(tag);
         String message = ms.getBody();
         String from = ms.getTag().getAttribute("from").split("/")[0];
+        if(ms.getBody()==null)
+            return;
         addChat(from,ms);
+
         Log.d("chatsize",new Integer(chatLists.get(from).size()).toString()+from);
         ChatBox.openChat(from);
+        ChatBox.notifyChat(ms);
+
    }
 }

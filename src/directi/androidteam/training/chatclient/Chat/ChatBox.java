@@ -36,7 +36,7 @@ public class ChatBox extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
         context=this;
-
+        moveTaskToBack(true);
         frag_adaptor = new FragmentSwipeAdaptor(getSupportFragmentManager());
         viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(frag_adaptor);
@@ -57,7 +57,7 @@ public class ChatBox extends FragmentActivity {
                 //To change body of implemented methods use File | Settings | File Templates.
             }
         });
-        switchFragment((String) getIntent().getExtras().get("buddyid"));
+        //switchFragment((String) getIntent().getExtras().get("buddyid"));
 
 
 
@@ -69,14 +69,20 @@ public class ChatBox extends FragmentActivity {
     }
 
     public static void openChat(String from){
+
         Intent intent = new Intent(context, ChatBox.class);
         intent.putExtra("buddyid",from);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         //intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
         //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+
     }
 
+    public static void notifyChat(MessageStanza ms){
+        ChatNotifier cn = new ChatNotifier(context);
+        cn.notifyChat(ms);
+    }
     @Override
     public void onNewIntent(Intent intent){
         Log.d("newintent","intent");
