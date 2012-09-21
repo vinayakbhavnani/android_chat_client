@@ -7,6 +7,7 @@ import directi.androidteam.training.chatclient.Chat.ChatBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,17 +22,36 @@ public class MessageHandler implements Handler{
 
 
 
-    private HashMap<String,ArrayList<MessageStanza>> chatLists;
+    private HashMap<String,NotifierArrayList> chatLists;
 
     private MessageHandler(){
-        chatLists = new HashMap<String, ArrayList<MessageStanza>>();
+        chatLists = new HashMap<String, NotifierArrayList>();
 
         //chatpanes.put("vinayak.bhavnani",new ChatBox());
     }
 
+     public String FragToJid(int i){
+         return (String)chatLists.keySet().toArray()[i];
+     }
+
+     public int JidToFrag(String from){
+         if(!chatLists.containsKey(from))
+             chatLists.put(from, new NotifierArrayList());
+         String[] t=null;
+         Log.d("arraysize",new Integer(chatLists.keySet().size()).toString());
+         Object[]  set = chatLists.keySet().toArray();
+         for(int i=0;i<chatLists.size();i++){
+            if(((String)set[i]).equals(from))
+                return i;
+         }
+
+         return -1;
+
+     }
+
      public  ArrayList<MessageStanza> getFragList(String from){
          if(!chatLists.containsKey(from))
-             chatLists.put(from,new ArrayList<MessageStanza>());
+             chatLists.put(from,new NotifierArrayList());
          return chatLists.get(from);
      }
 
@@ -39,6 +59,15 @@ public class MessageHandler implements Handler{
         return messageHandler;
     }
 
+    public HashMap<String,NotifierArrayList> getChatLists() {
+        return chatLists;
+    }
+
+    public void addChat(String from , MessageStanza ms){
+        if(!chatLists.containsKey(from))
+            chatLists.put(from, new NotifierArrayList());
+        chatLists.get(from).add(ms);
+    }
 
     @Override
     public void processPacket(Tag tag){
@@ -46,9 +75,7 @@ public class MessageHandler implements Handler{
         MessageStanza ms = new MessageStanza(tag);
         String message = ms.getBody();
         String from = ms.getTag().getAttribute("from").split("/")[0];
-        if(!chatLists.containsKey(from))
-            chatLists.put(from, new ArrayList<MessageStanza>());
-        chatLists.get(from).add(ms);
+        addChat(from,ms);
         Log.d("chatsize",new Integer(chatLists.get(from).size()).toString()+from);
         ChatBox.openChat(from);
    }

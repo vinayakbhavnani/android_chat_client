@@ -156,26 +156,31 @@ public final class R {
     }
     public static final class drawable {
         public static final int android=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int login_button=0x7f020002;
-        public static final int rounded_textview=0x7f020003;
-        public static final int rounded_textview_r=0x7f020004;
+        public static final int default_profile_l=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int images=0x7f020003;
+        public static final int login_button=0x7f020004;
+        public static final int rounded_textview=0x7f020005;
+        public static final int rounded_textview_r=0x7f020006;
     }
     public static final class id {
-        public static final int MainLayout=0x7f06000c;
-        public static final int chatlist=0x7f060003;
-        public static final int choose_account=0x7f060011;
+        public static final int MainLayout=0x7f06000f;
+        public static final int chatfragment_image=0x7f060007;
+        public static final int chatfragment_jid=0x7f060008;
+        public static final int chatfragment_status=0x7f060009;
+        public static final int choose_account=0x7f060014;
         public static final int message=0x7f060005;
-        public static final int password=0x7f06000b;
-        public static final int progress_bar=0x7f060009;
-        public static final int roster_image=0x7f06000f;
-        public static final int roster_item=0x7f06000e;
-        public static final int rosterlist=0x7f06000d;
-        public static final int send_mess_body=0x7f060008;
-        public static final int send_mess_name=0x7f060007;
+        public static final int pager=0x7f060003;
+        public static final int password=0x7f06000e;
+        public static final int progress_bar=0x7f06000c;
+        public static final int roster_image=0x7f060012;
+        public static final int roster_item=0x7f060011;
+        public static final int rosterlist=0x7f060010;
+        public static final int send_mess_body=0x7f06000b;
+        public static final int send_mess_name=0x7f06000a;
         public static final int sendmessage=0x7f060006;
-        public static final int user_item=0x7f060010;
-        public static final int username=0x7f06000a;
+        public static final int user_item=0x7f060013;
+        public static final int username=0x7f06000d;
         public static final int widget33=0x7f060000;
         public static final int widget36=0x7f060001;
         public static final int widget38=0x7f060004;
@@ -184,15 +189,16 @@ public final class R {
     public static final class layout {
         public static final int chat=0x7f030000;
         public static final int chatfragment=0x7f030001;
-        public static final int chatlistitem=0x7f030002;
-        public static final int chatlistitem_r=0x7f030003;
-        public static final int login=0x7f030004;
-        public static final int login_error=0x7f030005;
-        public static final int main=0x7f030006;
-        public static final int roster=0x7f030007;
-        public static final int rosterlistitem=0x7f030008;
-        public static final int userlistitem=0x7f030009;
-        public static final int users=0x7f03000a;
+        public static final int chatlistheader=0x7f030002;
+        public static final int chatlistitem=0x7f030003;
+        public static final int chatlistitem_r=0x7f030004;
+        public static final int login=0x7f030005;
+        public static final int login_error=0x7f030006;
+        public static final int main=0x7f030007;
+        public static final int roster=0x7f030008;
+        public static final int rosterlistitem=0x7f030009;
+        public static final int userlistitem=0x7f03000a;
+        public static final int users=0x7f03000b;
     }
     public static final class string {
         public static final int add_account=0x7f050008;

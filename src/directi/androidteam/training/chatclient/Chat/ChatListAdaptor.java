@@ -50,7 +50,8 @@ public class ChatListAdaptor extends ArrayAdapter<ChatListItem> {
        }
 
        ChatListItem cli = chatListItems.get(position);
-       holder.username.setText(cli.getUsername());
+       if(!cli.isSender())
+        holder.username.setText(cli.getUsername());
        holder.message.setText(cli.getMessage());
 
 

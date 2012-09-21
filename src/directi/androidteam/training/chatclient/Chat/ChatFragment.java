@@ -1,14 +1,20 @@
 package directi.androidteam.training.chatclient.Chat;
 
-import android.R;
-import android.app.ListFragment;
+
+
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
+import directi.androidteam.training.chatclient.R;
 
 import java.util.ArrayList;
 
@@ -25,43 +31,75 @@ public class ChatFragment extends ListFragment {
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
 
+
+
     @Override
-    public void onActivityCreated(Bundle savedInstanceState){
-        super.onActivityCreated(savedInstanceState);
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        Log.d("fragmentcreated","new fragement");
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
         //buddyid = "vinayak.bhavnani@gmail.com";
             //buddyid = "vinayak.bhavnani@gmail.com";
+            Log.d("buddyid",buddyid);
             sconvo = MessageHandler.getInstance().getFragList(buddyid);
             convo = toChatListItemList(sconvo);
 
         }
         else
             convo = new ArrayList<ChatListItem>();
-        ChatListItem[] random=new ChatListItem[1];
-        random[0] = new ChatListItem("aa","hey",true);
 
 
-        adaptor = new ChatListAdaptor(getActivity(),convo);
-        setListAdapter(adaptor);
-        getListView().setBackgroundColor(0xFF00FF00);
+
+
+        //
+
 
         //buddyid = (String)getArguments().get("id");
 
     }
 
-    public void insertMessage(MessageStanza message){
-        sconvo.add(message);
-        notifyAdaptor();
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        adaptor = new ChatListAdaptor(getActivity(),convo);
+
+        //getListView().setBackgroundColor(0x000000);
+        ListView lv = getListView();
+        LayoutInflater linf = getLayoutInflater(savedInstanceState);
+        ViewGroup header = (ViewGroup)linf.inflate(R.layout.chatlistheader,lv,false);
+        TextView tv = (TextView)(header.findViewById(R.id.chatfragment_jid));
+        tv.setText(buddyid);
+        lv.addHeaderView(header,null,false);
+        setListAdapter(adaptor);
     }
 
+    public static ChatFragment getInstance(String from){
+        ChatFragment curfrag = new ChatFragment();
+        MessageHandler.getInstance().getChatLists().get(from).registerFragment(curfrag);
+        Bundle args = new Bundle();
+        args.putString("from",from);
+        Log.d("XXXX", "from is " + from);
+        curfrag.setArguments(args);
+        return curfrag;
+    }
+
+    public void insertMessage(MessageStanza message){
+        Log.d("XXX","chat fragment for: "+buddyid);
+        sconvo.add(message);
+        //notifyAdaptor();
+    }
+    public void addChatItem(MessageStanza message){
+        convo.add(new ChatListItem(message.getFrom(),message.getBody(),isSender(message)));
+        Log.d("chatlistitemsize",message.getBody());
+    }
     public boolean isSender(MessageStanza message){
         return message.getFrom().equals(JID.jid.split("/")[0]);
     }
 
     public void notifyAdaptor(){
-        MessageStanza message = sconvo.get(sconvo.size()-1);
-        convo.add(new ChatListItem(message.getFrom(),message.getBody(),isSender(message)));
+
+
         adaptor.notifyDataSetChanged();
         ListView lv = getListView();
         lv.setFocusable(true);
@@ -76,6 +114,22 @@ public class ChatFragment extends ListFragment {
         return buddyid;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        notifyAdaptor();
+        Log.d("fragmentresume",buddyid);
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        //notifyAdaptor();
+        Log.d("fragmentpause",buddyid);
+
+    }
+
     private ArrayList<ChatListItem> toChatListItemList(ArrayList<MessageStanza> list){
         ArrayList<ChatListItem> conv;
         conv = new ArrayList<ChatListItem>();
@@ -85,5 +139,7 @@ public class ChatFragment extends ListFragment {
         }
         return  conv;
     }
+
+
 
 }
