@@ -29,7 +29,7 @@ public class ChangeAvailability extends Dialog implements android.view.View.OnCl
     @Override
     public void onClick(View view){
         Log.d("ROSTER UI :", "change availability flow complete");
-        Spinner spinner = (Spinner) findViewById(R.id.chatlist); //add spinner
+        Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner); //add spinner
         EditText editText = (EditText)findViewById(R.id.Roster_new_jid);
         String avail  = editText.getText().toString();
         Log.d("ROSTER UI :","new status : "+avail);
