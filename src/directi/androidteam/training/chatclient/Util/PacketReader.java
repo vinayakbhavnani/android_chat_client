@@ -1,11 +1,13 @@
 package directi.androidteam.training.chatclient.Util;
 
 import android.util.Log;
+import directi.androidteam.training.chatclient.testtask;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
@@ -18,18 +20,22 @@ import java.net.Socket;
 public class PacketReader implements ServiceThread{
     private Socket socket;
     private BufferedReader reader;
+    PrintWriter out;
 
     public PacketReader(Socket s, BufferedReader r) {
         this.socket = s;
         this.reader = r;
+        this.out=out;
     }
 
     @Override
     public void execute() {
         Log.d("Service Thread","I am Packet Reader");
+
         try {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             XMLHelper helper = new XMLHelper();
+
             helper.tearxmlPacket(reader);
             //read();
         } catch (IOException e) {
