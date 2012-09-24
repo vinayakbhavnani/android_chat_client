@@ -34,7 +34,9 @@ public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
         this.rosterEntries = rosterEntries;
     }
     public void setRosterEntries(ArrayList<RosterEntry> rosterEntriesInput){
-        rosterEntries = rosterEntriesInput;
+        this.clear();
+        this.addAll(rosterEntriesInput);
+//        rosterEntries = rosterEntriesInput;
         Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
         for (RosterEntry rosterEntry : rosterEntries) {
             Log.d("qqqq jid : ",rosterEntry.getJid());
