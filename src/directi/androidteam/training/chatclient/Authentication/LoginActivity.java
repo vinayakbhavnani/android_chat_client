@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import directi.androidteam.training.chatclient.Chat.ChatNotifier;
 import directi.androidteam.training.chatclient.R;
 
 public class LoginActivity extends Activity {
@@ -24,7 +23,6 @@ public class LoginActivity extends Activity {
             EditText username_edit_text = (EditText) findViewById(R.id.username);
             username_edit_text.setText(username);
         }
-
 //        this.registerReceiver(new NetworkConnectionChangeReceiver(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
