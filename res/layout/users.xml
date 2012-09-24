@@ -19,6 +19,20 @@
               android:background="#DDDDDD"
               android:layout_weight="1"
               android:drawSelectorOnTop="false"/>
+    <ProgressBar
+            android:id="@+id/progress_bar_users"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="40dip"
+            android:minWidth="40dip"
+            android:maxHeight="40dip"
+            android:minHeight="40dip"
+            android:layout_marginBottom="10dip"
+            android:layout_marginTop="10dip"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"
+            />
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_account"
