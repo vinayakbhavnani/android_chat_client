@@ -127,7 +127,7 @@ public class DisplayRosterActivity extends Activity {
         intent.putExtra("display", "all");
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);
-    }
+   }
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);

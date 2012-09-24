@@ -103,7 +103,7 @@ public class ChatBox extends FragmentActivity {
     @Override
     public void onResume(){
         super.onResume();
-        moveTaskToBack(false);
+        //moveTaskToBack(false);
         Log.d("Chatboxresumed","true");
     }
     public void SendChat(View view){

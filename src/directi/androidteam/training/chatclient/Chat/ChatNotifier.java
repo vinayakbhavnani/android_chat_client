@@ -33,7 +33,8 @@ public class ChatNotifier {
         Intent notificationIntent = new Intent(context, ChatBox.class);
         notificationIntent.putExtra("buddyid",stanza.getFrom());
         notificationIntent.putExtra("notification",true);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        //notificationIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        //notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
