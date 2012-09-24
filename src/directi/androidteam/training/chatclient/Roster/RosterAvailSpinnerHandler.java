@@ -49,6 +49,10 @@ public class RosterAvailSpinnerHandler implements AdapterView.OnItemSelectedList
             signOut();
             return;
         }
+        if(string.equals("Availability"))
+            string="chat";
+        else if(string.equals("Busy"))
+            string="away";
         myProfile.setAvailability(string);
         myProfile.setStatusAndPresence();
     }

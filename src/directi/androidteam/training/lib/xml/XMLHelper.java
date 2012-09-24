@@ -146,6 +146,7 @@ public class XMLHelper {
     public Tag tearxmlPacket(Reader reader){
         Tag temptag=null;
         try{
+            Log.d("packetreader","ddfdf");
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser xpp = factory.newPullParser();
             xpp.setInput(reader);

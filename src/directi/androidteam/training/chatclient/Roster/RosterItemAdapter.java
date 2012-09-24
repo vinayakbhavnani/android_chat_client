@@ -33,6 +33,17 @@ public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
         this.context = context;
         this.rosterEntries = rosterEntries;
     }
+    public void setRosterEntries(ArrayList<RosterEntry> rosterEntries){
+        rosterEntries = rosterEntries;
+        setNotifyOnChange(true);
+    }
+
+    @Override
+    public boolean isEnabled(int position)
+    {
+        return true;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
@@ -44,7 +55,7 @@ public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
             rosterItemHolder = new RosterItemHolder();
             rosterItemHolder.rosterImg = (ImageView) v.findViewById(R.id.roster_image);
             rosterItemHolder.rosterJid = (TextView) v.findViewById(R.id.roster_item);
-            rosterItemHolder.availButton = (Button) v.findViewById(R.id.roster_availability_button);
+            rosterItemHolder.availButton = (Button)v.findViewById(R.id.roster_availability_button);
             rosterItemHolder.rosterStatus = (TextView) v.findViewById(R.id.roster_status);
             v.setTag(rosterItemHolder);
         }
@@ -80,17 +91,20 @@ public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
         }
         return v;
     }
+
     static class RosterItemHolder{
         ImageView rosterImg;
         TextView rosterJid;
         TextView rosterStatus;
         Button availButton;
     }
+
     private int dpToPx(int dp)
     {
         float density = context.getResources().getDisplayMetrics().density;
         return Math.round((float)dp * density);
     }
+
     public void attachIcon(ImageView view) {
         Drawable drawing = view.getDrawable();
         Bitmap bitmap = ((BitmapDrawable)drawing).getBitmap();

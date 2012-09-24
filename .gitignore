@@ -1,4 +1,6 @@
 bin/
+android_chat_client.*
+Android_chat_client.*
 AndroidManifest.xml
 ant.properties
 build.xml

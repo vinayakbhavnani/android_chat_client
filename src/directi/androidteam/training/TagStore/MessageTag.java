@@ -17,8 +17,8 @@ public class MessageTag extends Tag{
         tagname="message";
         attributes = new HashMap<String, String>();
         attributes.put("type","chat");
-        attributes.put("from", JID.jid);
         attributes.put("to",to);
+        attributes.put("from", JID.jid);
         if(subject!=null)
             attributes.put("subject",subject);
         childTags = new ArrayList<Tag>();

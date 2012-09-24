@@ -50,9 +50,8 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
 
             out = new PrintWriter(socket.getOutputStream());
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-            launchInNewThread(new PacketWriter(out));
             launchInNewThread(new PacketReader(socket, reader));
+            launchInNewThread(new PacketWriter(out));
             launchInNewThread(new testtask());
             PacketWriter.addToWriteQueue("<stream:stream" +
                     " to='gmail.com'" +
@@ -66,8 +65,9 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         return null;
     }
 
-    private void launchInNewThread(final ServiceThread serviceThread){
+    private  void launchInNewThread(final ServiceThread serviceThread){
         Thread t = new Thread(){public void run(){serviceThread.execute();}};
         t.start();
     }
-}
+
+    }

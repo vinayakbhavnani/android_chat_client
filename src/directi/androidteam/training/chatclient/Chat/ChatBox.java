@@ -1,15 +1,16 @@
 package directi.androidteam.training.chatclient.Chat;
 
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import directi.androidteam.training.StanzaStore.MessageStanza;
+import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
@@ -22,18 +23,45 @@ import java.util.ArrayList;
  * Time: 7:22 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ChatBox extends Activity {
+public class ChatBox extends FragmentActivity {
     private static Context context;
-    private final String buddy="vinayak.bhavnani@gmail.com";
+    //private final String buddy="vinayak.bhavnani@gmail.com";
     private ArrayList<String> chatlist;
     private ArrayAdapter<String> adaptor;
+    FragmentSwipeAdaptor frag_adaptor;
+    ViewPager viewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("chatboxcreated","cc");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
         context=this;
-        switchFragment((String)getIntent().getExtras().get("buddyid"));
+        //moveTaskToBack(true);
+        frag_adaptor = new FragmentSwipeAdaptor(getSupportFragmentManager());
+        viewPager = (ViewPager)findViewById(R.id.pager);
+        viewPager.setAdapter(frag_adaptor);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                Log.d("XXX","index: "+i);
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+        //switchFragment((String) getIntent().getExtras().get("buddyid"));
+
+
+
         //ListView list = (ListView) findViewById(R.id.chatlist);
         //chatlist = new ArrayList<String>();
         //adaptor = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,chatlist);
@@ -42,48 +70,71 @@ public class ChatBox extends Activity {
     }
 
     public static void openChat(String from){
+
         Intent intent = new Intent(context, ChatBox.class);
         intent.putExtra("buddyid",from);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         //intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
         //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+
     }
 
+    public static void notifyChat(MessageStanza ms){
+        ChatNotifier cn = new ChatNotifier(context);
+        cn.notifyChat(ms);
+    }
+    public static void cancelNotification(){
+        ChatNotifier cn = new ChatNotifier(context);
+        cn.cancelNotification();
+    }
     @Override
     public void onNewIntent(Intent intent){
         Log.d("newintent","intent");
         super.onNewIntent(intent);
         String from = (String)intent.getExtras().get("buddyid");
+        if(intent.getExtras().containsKey("notification"))
+            cancelNotification();
+        //viewPager.setCurrentItem(0);
         if(from!=null)
             switchFragment(from);
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        //moveTaskToBack(false);
+        Log.d("Chatboxresumed","true");
+    }
     public void SendChat(View view){
         EditText mess = (EditText) findViewById(R.id.message);
         String message = mess.getText().toString();
-        String messxml = new MessageStanza(buddy,message).getXml();
-        PacketWriter.addToWriteQueue(messxml);
+        //String buddy = ((ChatFragment)getSupportFragmentManager().findFragmentById(R.id.chatlist)).getBuddyid();
+        int currentItem = viewPager.getCurrentItem();
+        Log.d("XXX","current view: "+currentItem);
+        int position = currentItem;
+
+
+        //ChatFragment fragment = (ChatFragment)(frag_adaptor.getItem(currentItem));
+        //Log.d("XXXX", "fragment " + fragment.getArguments().get("from"));
+        //String buddy = fragment.getBuddyid();
+        MessageStanza messxml = new MessageStanza(MessageHandler.getInstance().FragToJid(position),message);
+        PacketWriter.addToWriteQueue(messxml.getXml());
+        MessageHandler.getInstance().addChat(MessageHandler.getInstance().FragToJid(position),messxml);
+        viewPager.setCurrentItem(position);
+        frag_adaptor.notifyDataSetChanged();
         //chatlist.add(message);
         //adaptor.notifyDataSetChanged();
-        ChatFragment fragment =  (ChatFragment)getFragmentManager().findFragmentById(R.id.chatlist);
-        fragment.insertMessage(message);
+        //ChatFragment fragment =  (ChatFragment)getSupportFragmentManager().findFragmentById(R.id.chatlist);
+        //fragment.insertMessage(messxml);
     }
 
     private void switchFragment(String from){
-        Log.d("switchfrag","switched");
-        ChatFragment curfrag = (ChatFragment)getFragmentManager().findFragmentById(R.id.chatlist);
-        if(curfrag.getBuddyid().equals(from)){
-            curfrag.notifyAdaptor();
-            return;
-        }
-        curfrag = new ChatFragment();
-        Bundle args = new Bundle();
-        args.putString("from",from);
-        curfrag.setArguments(args);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.chatlist, curfrag);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.commit();
+        int frag = MessageHandler.getInstance().JidToFrag(from);
+        Log.d("indexreturned",new Integer(frag).toString());
+        viewPager.setCurrentItem(frag);
+        //frag_adaptor.notifyDataSetChanged();
+        //ChatFragment curfrag = (ChatFragment)(frag_adaptor.getItem(frag));
+        //curfrag.notifyAdaptor();
     }
 }

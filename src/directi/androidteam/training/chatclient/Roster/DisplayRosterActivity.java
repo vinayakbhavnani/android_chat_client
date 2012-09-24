@@ -12,22 +12,15 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import directi.androidteam.training.StanzaStore.JID;
-import directi.androidteam.training.StanzaStore.RosterGet;
-import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
-import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
 import android.widget.*;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterGet;
-import directi.androidteam.training.chatclient.Authentication.UserListActivity;
 import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -57,6 +50,8 @@ public class DisplayRosterActivity extends Activity {
         Button button = (Button) findViewById(R.id.roster_availability_launch_spinner_button);
         button.setBackgroundColor(Color.GREEN);
         Log.d("XXXX", "oncreate roster : " + MyProfile.getInstance().getStatus());
+        ListView rosterList = (ListView) findViewById(R.id.rosterlist);
+        rosterList.setOnItemClickListener(new rosterListClickHandler(rosterList,this));
         requestForRosters();
         sendInitialPresence();
     }
@@ -64,6 +59,10 @@ public class DisplayRosterActivity extends Activity {
     private void sendInitialPresence() {
         PresenceS presenceS = new PresenceS();
         PacketWriter.addToWriteQueue(presenceS.getXml());
+    }
+    public static void setRosterEntries(ArrayList<RosterEntry> rosterEntries) {
+        return;
+//        new RosterItemAdapter(context,rosterEntries).setRosterEntries();
     }
 
     private int dpToPx(int dp)
@@ -128,7 +127,7 @@ public class DisplayRosterActivity extends Activity {
         intent.putExtra("display", "all");
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);
-    }
+   }
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
@@ -197,5 +196,17 @@ public class DisplayRosterActivity extends Activity {
         Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
         spinner.performClick();
     }
+    public void OnClickRosterEntry(View view) {
+        RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.roster_list_item);
+        if(relativeLayout!=null)
+            Log.d("jjj","not null");
+
+        TextView jid = (TextView) relativeLayout.findViewById(R.id.roster_item);
+        if(jid!=null)
+            Log.d("jjj","jid not null");
+
+        Log.d("Cliecked : ",jid.getText().toString());
+    }
 }
+
 
