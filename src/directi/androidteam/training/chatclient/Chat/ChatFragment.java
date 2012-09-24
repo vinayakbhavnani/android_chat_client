@@ -15,6 +15,8 @@ import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
+import directi.androidteam.training.chatclient.Roster.RosterEntry;
+import directi.androidteam.training.chatclient.Roster.RosterManager;
 
 import java.util.ArrayList;
 
@@ -70,6 +72,13 @@ public class ChatFragment extends ListFragment {
         ViewGroup header = (ViewGroup)linf.inflate(R.layout.chatlistheader,lv,false);
         TextView tv = (TextView)(header.findViewById(R.id.chatfragment_jid));
         tv.setText(buddyid);
+        TextView status = (TextView)(header.findViewById(R.id.chatfragment_status));
+        RosterEntry re = RosterManager.getInstance().searchRosterEntry(buddyid);
+        if(re!=null){
+            status.setText(re.getStatus());
+            Log.d("statusmess",re.getStatus());
+        }
+        else status.setText("null");
         lv.addHeaderView(header,null,false);
         setListAdapter(adaptor);
     }
