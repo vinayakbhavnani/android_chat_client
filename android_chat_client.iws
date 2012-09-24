@@ -16,7 +16,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75ccb3de-890e-4e12-9ecf-49698030e875" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android_chat_client.iml" afterPath="$PROJECT_DIR$/Android_chat_client.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/android_chat_client.iws" afterPath="$PROJECT_DIR$/android_chat_client.iws" />
     </list>
     <ignored path="android_chat_client.iws" />
@@ -84,6 +83,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitLogSettings">
+    <option name="myStructureFilterPaths" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
@@ -107,10 +109,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
-    <option name="y" value="24" />
-    <option name="width" value="1368" />
-    <option name="height" value="721" />
+    <option name="y" value="52" />
+    <option name="width" value="1366" />
+    <option name="height" value="692" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -138,18 +139,19 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
+      <pane id="PackagesPane">
+        <subPane>
           <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android_chat_client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android_chat_client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane />
       </pane>
       <pane id="ProjectPane">
         <subPane>
@@ -207,6 +209,16 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="chatclient" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -466,29 +478,29 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="24" width="1368" height="721" extended-state="6" />
+    <frame x="0" y="52" width="1366" height="692" extended-state="7" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3986014" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2534965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3041958" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3041958" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19575115" sideWeight="0.6958042" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19575115" sideWeight="0.67132866" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26573426" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1737481" sideWeight="0.73426574" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2534965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -552,21 +564,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Util/MyService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="49" selection-start="762" selection-end="762" vertical-scroll-proportion="0.5564516" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/UserDatabaseHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="0" selection-start="1784" selection-end="1784" vertical-scroll-proportion="0.613079" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/InitialActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/userlistitem.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
@@ -575,26 +572,6 @@
     <entry file="file://$PROJECT_DIR$/res/layout/users.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/UserAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="0" selection-start="1373" selection-end="1373" vertical-scroll-proportion="0.7983871" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/LoginErrorActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="60" selection-start="1054" selection-end="1054" vertical-scroll-proportion="0.87903225" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/UserListActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="31" selection-start="1903" selection-end="1903" vertical-scroll-proportion="0.91935486" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/PacketHandlers/LoginHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="5" selection-start="631" selection-end="631" vertical-scroll-proportion="0.5013928" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Roster/RosterAvailSpinnerHandler.java">
@@ -614,30 +591,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="277" selection-end="277" vertical-scroll-proportion="-0.37362638">
-          <folding />
-        </state>
+        <state line="9" column="13" selection-start="277" selection-end="277" vertical-scroll-proportion="-0.37362638" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/PacketStore/MessageQueue.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="0" selection-start="1547" selection-end="1547" vertical-scroll-proportion="0.20612814">
-          <folding />
-        </state>
+        <state line="50" column="0" selection-start="1547" selection-end="1547" vertical-scroll-proportion="0.20612814" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/testtask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="360" selection-end="360" vertical-scroll-proportion="0.32258064">
-          <folding />
-        </state>
+        <state line="10" column="0" selection-start="360" selection-end="360" vertical-scroll-proportion="0.32258064" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/LoginErrorActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="13" selection-start="418" selection-end="418" vertical-scroll-proportion="0.3021978" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/UserAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="0" selection-start="1373" selection-end="1373" vertical-scroll-proportion="0.83516484" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/ConnectGTalk.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="0" selection-start="2363" selection-end="2363" vertical-scroll-proportion="0.5967742">
-          <folding />
-        </state>
+        <state line="33" column="4" selection-start="1019" selection-end="1019" vertical-scroll-proportion="0.010989011" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/UserListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="31" selection-start="1903" selection-end="1903" vertical-scroll-proportion="0.83516484" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/Authentication/UserDatabaseHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="0" selection-start="1784" selection-end="1784" vertical-scroll-proportion="0.028142588" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/ReaderService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="13" selection-start="458" selection-end="458" vertical-scroll-proportion="0.3021978" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/PacketHandlers/LoginHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="6" selection-start="1470" selection-end="1470" vertical-scroll-proportion="-0.08442777" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directi/androidteam/training/chatclient/PacketHandlers/MessageHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="487" selection-end="487" vertical-scroll-proportion="-0.15750916" />
       </provider>
     </entry>
   </component>
