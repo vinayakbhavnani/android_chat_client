@@ -15,4 +15,5 @@ src/directi/androidteam/training/chatclient/activitytest.java
 src/directi/androidteam/training/lib/TCPHandler/CustomXmpp.java
 src/directi/androidteam/training/lib/TCPHandler/smackLogin.java
 src/directi/androidteam/training/chatclient/Authentication/DoNotDelete
+src/directi/androidteam/training/chatclient/Util/MyService.java
 AndroidManifest.xml
