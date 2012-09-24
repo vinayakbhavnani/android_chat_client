@@ -197,6 +197,7 @@ public final class R {
         public static final int pager=0x7f070003;
         public static final int password=0x7f07000e;
         public static final int progress_bar=0x7f07000c;
+        public static final int progress_bar_users=0x7f07002a;
         public static final int roster_availability_button=0x7f070025;
         public static final int roster_availability_launch_spinner_button=0x7f070015;
         public static final int roster_availability_spinner=0x7f070014;
