@@ -29,7 +29,7 @@ public class MyProfile {
         presence.addID(UUID.randomUUID().toString());
         presence.addStatus(rosterEntry.getStatus());
         PacketWriter.addToWriteQueue(presence.getXml());
-        DisplayRosterActivity.showAllRosters();
+        DisplayRosterActivity.launchNewIntent();
     }
     public void setStatus(String status) {
         rosterEntry.setStatus(status);

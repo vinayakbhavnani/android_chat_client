@@ -74,7 +74,9 @@ public class RosterManager {
                 }
             }
         }
-        DisplayRosterActivity.showAllRosters();
+        Log.d("ssss","inside roster manager -set roster list.. will update adapter list n display it");
+     //   RosterItemAdapter.setRosterEntries(getRosterList());
+        DisplayRosterActivity.updateRosterList(getRosterList());
     }
     public ArrayList<RosterEntry> getRosterList(){
         ArrayList<RosterEntry> tempList = new ArrayList<RosterEntry>();
@@ -121,7 +123,9 @@ public class RosterManager {
         rosterSet.addQuery(rosterEntry.getJid());
         rosterSet.addSubscription("remove");
         PacketWriter.addToWriteQueue(rosterSet.getXml());
-        DisplayRosterActivity.showAllRosters();
+        Log.d("ssss", "inside roster manager -delete in roster list.. will update adapter list n display it");
+        //   RosterItemAdapter.setRosterEntries(getRosterList());
+        DisplayRosterActivity.updateRosterList(getRosterList());
     }
 
     public void updatePresence(PresenceS presence) {
@@ -175,8 +179,9 @@ public class RosterManager {
             rosterEntry.setStatus(status);
             Log.d("roster manager ","statys"+from+" "+status);
         }
-        //(getRosterList());
-        DisplayRosterActivity.showAllRosters();
+        Log.d("ssss","inside roster manager -update presence of roster list.. will update adapter list n display it");
+        //   RosterItemAdapter.setRosterEntries(getRosterList());
+        DisplayRosterActivity.updateRosterList(getRosterList());
     }
 
     public void changeAvailability(String avail) {
