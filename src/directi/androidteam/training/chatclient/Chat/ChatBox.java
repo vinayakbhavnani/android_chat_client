@@ -60,7 +60,11 @@ public class ChatBox extends FragmentActivity {
                 //To change body of implemented methods use File | Settings | File Templates.
             }
         });
-        //switchFragment((String) getIntent().getExtras().get("buddyid"));
+        String from =  (String) getIntent().getExtras().get("buddyid");
+        if(getIntent().getExtras().containsKey("notification"))
+            cancelNotification();
+        if(from != null)
+            switchFragment(from);
 
 
 
