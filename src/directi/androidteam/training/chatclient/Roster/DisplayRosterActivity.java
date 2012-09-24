@@ -31,6 +31,7 @@ import java.util.UUID;
  * To change this template use File | Settings | File Templates.
  */
 public class DisplayRosterActivity extends Activity {
+    private static RosterItemAdapter adapter;
     private static Context context;
     public DisplayRosterActivity(){
         context =this;
@@ -54,6 +55,10 @@ public class DisplayRosterActivity extends Activity {
         rosterList.setOnItemClickListener(new rosterListClickHandler(rosterList,this));
         requestForRosters();
         sendInitialPresence();
+
+        adapter = new RosterItemAdapter(context,new ArrayList<RosterEntry>());
+        rosterList.setAdapter(adapter);
+        rosterList.setTextFilterEnabled(true);
     }
 
     private void sendInitialPresence() {
@@ -121,17 +126,31 @@ public class DisplayRosterActivity extends Activity {
         PacketWriter.addToWriteQueue(rosterGet.getXml());
     }
 
-    public static void showAllRosters() {
+    public static void updateRosterList(final ArrayList<RosterEntry> rosterList) {
+        Activity a = (Activity) context;
+        Log.d("ssss","updateroster called");
+        a.runOnUiThread(new Runnable() {   public void run() {
+            adapter.setRosterEntries(rosterList);
+            adapter.notifyDataSetChanged();
+        }}
+            );
+
+/*
         Intent intent = new Intent(context,DisplayRosterActivity.class);
         Log.d("XXXX","show AllRosters Called");
         intent.putExtra("display", "all");
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);
+*/
    }
-    @Override
-    public void onNewIntent(Intent intent){
-        super.onNewIntent(intent);
-        Log.d("ROSTER INTENT :", "New Intent Started");
+    public static void launchNewIntent() {
+        Intent intent = new Intent(context,DisplayRosterActivity.class);
+        Log.d("XXXX","show AllRosters Called");
+        intent.putExtra("display", "all");
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        context.startActivity(intent);
+    }
+    private void displayMyCurrentProfile() {
         ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);
         attachIcon(myImage);
         TextView textView2 = (TextView) findViewById(R.id.Roster_mystatus);
@@ -139,13 +158,19 @@ public class DisplayRosterActivity extends Activity {
         Button button = (Button) findViewById(R.id.roster_availability_launch_spinner_button);
         String avail = MyProfile.getInstance().getAvailability();
         if(avail.equals("Available") || avail.equals("chat"))
-        button.setBackgroundColor(Color.GREEN);
+            button.setBackgroundColor(Color.GREEN);
         else if(avail.equals("away"))
             button.setBackgroundColor(Color.YELLOW);
         else if(avail.equals("dnd") || avail.equals("Busy"))
             button.setBackgroundColor(Color.RED);
         else
             button.setBackgroundColor(Color.GRAY);
+    }
+    @Override
+    public void onNewIntent(Intent intent){
+        super.onNewIntent(intent);
+        displayMyCurrentProfile();
+        Log.d("ROSTER INTENT :", "New Intent Started");
 
         ListView rosterList = (ListView) findViewById(R.id.rosterlist);
         String rosterToBeDisplayed = (String)intent.getExtras().get("display");
@@ -153,7 +178,7 @@ public class DisplayRosterActivity extends Activity {
             Log.d("ROSTER INTENT ALL :", "New Intent Started - ALL");
 
             RosterManager rosterManager = RosterManager.getInstance();
-            RosterItemAdapter adapter = new RosterItemAdapter(this,rosterManager.getRosterList());
+//            adapter = new RosterItemAdapter(this,rosterManager.getRosterList());
             rosterList.setAdapter(adapter);
              rosterList.setTextFilterEnabled(true);
         }
