@@ -13,6 +13,7 @@ import android.widget.EditText;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
+import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
@@ -138,7 +139,10 @@ public class ChatBox extends FragmentActivity {
         //ChatFragment fragment =  (ChatFragment)getSupportFragmentManager().findFragmentById(R.id.chatlist);
         //fragment.insertMessage(messxml);
     }
-
+    public void GotoRoster(View view){
+        Intent intent = new Intent(context, DisplayRosterActivity.class);
+        startActivity(intent);
+    }
     private void switchFragment(String from){
         int frag = MessageHandler.getInstance().JidToFrag(from);
         Log.d("indexreturned",new Integer(frag).toString());
