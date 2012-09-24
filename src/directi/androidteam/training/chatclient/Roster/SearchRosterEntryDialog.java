@@ -2,11 +2,13 @@ package directi.androidteam.training.chatclient.Roster;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.R;
 
 /**
@@ -17,8 +19,10 @@ import directi.androidteam.training.chatclient.R;
  * To change this template use File | Settings | File Templates.
  */
 public class SearchRosterEntryDialog extends Dialog implements android.view.View.OnClickListener  {
+    Context context;
     public SearchRosterEntryDialog(Context context) {
         super(context);
+        this.context = context;
     }
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -36,6 +40,10 @@ public class SearchRosterEntryDialog extends Dialog implements android.view.View
         RosterEntry rosterEntry = rosterManager.searchRosterEntry(newJID);
         if(rosterEntry!=null) {
             Log.d("ROSTER UI : ","call to chat window");
+            Intent intent = new Intent(context,ChatBox.class);
+            intent.putExtra("buddyid",rosterEntry.getJid());
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            context.startActivity(intent);
         }
         else
         Log.d("ROSTER UI SEARCH","roster entry not found");
