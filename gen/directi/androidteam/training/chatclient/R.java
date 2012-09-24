@@ -186,6 +186,8 @@ public final class R {
         public static final int Roster_new_jid=0x7f07001d;
         public static final int Roster_preference=0x7f070019;
         public static final int Roster_search=0x7f070017;
+        public static final int canvas_roster=0x7f070001;
+        public static final int chat_gotoroster=0x7f070002;
         public static final int chatfragment_image=0x7f070007;
         public static final int chatfragment_jid=0x7f070008;
         public static final int chatfragment_status=0x7f070009;
@@ -195,6 +197,7 @@ public final class R {
         public static final int pager=0x7f070003;
         public static final int password=0x7f07000e;
         public static final int progress_bar=0x7f07000c;
+        public static final int progress_bar_users=0x7f07002a;
         public static final int roster_availability_button=0x7f070025;
         public static final int roster_availability_launch_spinner_button=0x7f070015;
         public static final int roster_availability_spinner=0x7f070014;
@@ -210,9 +213,7 @@ public final class R {
         public static final int user_item=0x7f070028;
         public static final int username=0x7f07000d;
         public static final int widget33=0x7f070000;
-        public static final int widget36=0x7f070001;
         public static final int widget38=0x7f070004;
-        public static final int widget44=0x7f070002;
     }
     public static final class layout {
         public static final int chat=0x7f030000;

@@ -46,8 +46,8 @@ public class InitialActivity extends Activity {
         UserDatabaseHandler db = new UserDatabaseHandler(this);
         ArrayList<User> users = db.getAllUsers();
         db.close();
-        Intent chatintent = new Intent(this, ChatBox.class);
-        startActivity(chatintent);
+        //Intent chatintent = new Intent(this, ChatBox.class);
+        //startActivity(chatintent);
 //        cn.notifyChat(null);
         if (users.size() == 0) {
             Intent intent = new Intent(this, LoginActivity.class);

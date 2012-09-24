@@ -1,5 +1,6 @@
 package directi.androidteam.training.chatclient.Chat;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
+import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class ChatBox extends FragmentActivity {
     private ArrayList<String> chatlist;
     private ArrayAdapter<String> adaptor;
     FragmentSwipeAdaptor frag_adaptor;
-    ViewPager viewPager;
+    private static ViewPager viewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,11 @@ public class ChatBox extends FragmentActivity {
                 //To change body of implemented methods use File | Settings | File Templates.
             }
         });
-        //switchFragment((String) getIntent().getExtras().get("buddyid"));
+        String from =  (String) getIntent().getExtras().get("buddyid");
+        if(getIntent().getExtras().containsKey("notification"))
+            cancelNotification();
+        if(from != null)
+            switchFragment(from);
 
 
 
@@ -79,8 +85,17 @@ public class ChatBox extends FragmentActivity {
         context.startActivity(intent);
 
     }
-
+    public static void adaptorNotify(final ChatListAdaptor adap){
+        Activity a = (Activity) context;
+        //Log.d("ssss","updateroster called");
+        a.runOnUiThread(new Runnable() { public void run() {
+            adap.notifyDataSetChanged();
+        }}
+        );
+    }
     public static void notifyChat(MessageStanza ms){
+        if(viewPager.getCurrentItem()==MessageHandler.getInstance().JidToFrag(ms.getFrom()))
+            return;
         ChatNotifier cn = new ChatNotifier(context);
         cn.notifyChat(ms);
     }
@@ -128,7 +143,10 @@ public class ChatBox extends FragmentActivity {
         //ChatFragment fragment =  (ChatFragment)getSupportFragmentManager().findFragmentById(R.id.chatlist);
         //fragment.insertMessage(messxml);
     }
-
+    public void GotoRoster(View view){
+        Intent intent = new Intent(context, DisplayRosterActivity.class);
+        startActivity(intent);
+    }
     private void switchFragment(String from){
         int frag = MessageHandler.getInstance().JidToFrag(from);
         Log.d("indexreturned",new Integer(frag).toString());
