@@ -1,5 +1,6 @@
 package directi.androidteam.training.chatclient.Chat;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ public class ChatBox extends FragmentActivity {
     private ArrayList<String> chatlist;
     private ArrayAdapter<String> adaptor;
     FragmentSwipeAdaptor frag_adaptor;
-    ViewPager viewPager;
+    private static ViewPager viewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,8 +80,17 @@ public class ChatBox extends FragmentActivity {
         context.startActivity(intent);
 
     }
-
+    public static void adaptorNotify(final ChatListAdaptor adap){
+        Activity a = (Activity) context;
+        //Log.d("ssss","updateroster called");
+        a.runOnUiThread(new Runnable() { public void run() {
+            adap.notifyDataSetChanged();
+        }}
+        );
+    }
     public static void notifyChat(MessageStanza ms){
+        if(viewPager.getCurrentItem()==MessageHandler.getInstance().JidToFrag(ms.getFrom()))
+            return;
         ChatNotifier cn = new ChatNotifier(context);
         cn.notifyChat(ms);
     }

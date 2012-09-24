@@ -91,6 +91,9 @@ public class ChatFragment extends ListFragment {
     }
     public void addChatItem(MessageStanza message){
         convo.add(new ChatListItem(message.getFrom(),message.getBody(),isSender(message)));
+
+        //adaptor.notifyDataSetChanged();
+        ChatBox.adaptorNotify(adaptor);
         Log.d("chatlistitemsize",message.getBody());
     }
     public boolean isSender(MessageStanza message){
