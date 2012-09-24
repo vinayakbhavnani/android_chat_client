@@ -37,7 +37,7 @@ public class ChatBox extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
         context=this;
-        moveTaskToBack(true);
+        //moveTaskToBack(true);
         frag_adaptor = new FragmentSwipeAdaptor(getSupportFragmentManager());
         viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(frag_adaptor);
@@ -84,11 +84,17 @@ public class ChatBox extends FragmentActivity {
         ChatNotifier cn = new ChatNotifier(context);
         cn.notifyChat(ms);
     }
+    public static void cancelNotification(){
+        ChatNotifier cn = new ChatNotifier(context);
+        cn.cancelNotification();
+    }
     @Override
     public void onNewIntent(Intent intent){
         Log.d("newintent","intent");
         super.onNewIntent(intent);
         String from = (String)intent.getExtras().get("buddyid");
+        if(intent.getExtras().containsKey("notification"))
+            cancelNotification();
         //viewPager.setCurrentItem(0);
         if(from!=null)
             switchFragment(from);

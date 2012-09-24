@@ -17,7 +17,7 @@ public class dummyactivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         Log.d("dummyactivity","created");
         super.onCreate(savedInstanceState);
-        moveTaskToBack(true);
+        //moveTaskToBack(true);
         String from = (String) getIntent().getExtras().get("buddyid");
         Log.d("dummyextras",from);
         //Intent intent = new Intent(this,ChatBox.class);

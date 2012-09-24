@@ -42,6 +42,7 @@ public class MessageHandler implements Handler{
          Log.d("arraysize",new Integer(chatLists.keySet().size()).toString());
          Object[]  set = chatLists.keySet().toArray();
          for(int i=0;i<chatLists.size();i++){
+             Log.d("keyval",(String)set[i]);
             if(((String)set[i]).equals(from))
                 return i;
          }
@@ -81,8 +82,8 @@ public class MessageHandler implements Handler{
         addChat(from,ms);
 
         Log.d("chatsize",new Integer(chatLists.get(from).size()).toString()+from);
-        ChatBox.openChat(from);
-        //ChatBox.notifyChat(ms);
+        //ChatBox.openChat(from);
+        ChatBox.notifyChat(ms);
 
    }
 }

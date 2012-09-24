@@ -30,9 +30,10 @@ public class ChatNotifier {
         CharSequence contentTitle = stanza.getFrom();  // message title
         CharSequence contentText = stanza.getBody();      // message text
 
-        Intent notificationIntent = new Intent(context, dummyactivity.class);
+        Intent notificationIntent = new Intent(context, ChatBox.class);
         notificationIntent.putExtra("buddyid",stanza.getFrom());
-        //notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        notificationIntent.putExtra("notification",true);
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
@@ -41,4 +42,11 @@ public class ChatNotifier {
         notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
         mNotificationManager.notify(1,notification);
     }
+
+    public void cancelNotification(){
+        String ns = Context.NOTIFICATION_SERVICE;
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(ns);
+        mNotificationManager.cancel(1);
+    }
+
 }
