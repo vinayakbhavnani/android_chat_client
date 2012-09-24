@@ -3,14 +3,14 @@ package directi.androidteam.training.chatclient.Chat;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
@@ -51,7 +51,7 @@ public class ChatFragment extends ListFragment {
         else
             convo = new ArrayList<ChatListItem>();
 
-
+        MessageHandler.getInstance().getChatLists().get(buddyid).registerFragment(this);
 
 
         //
@@ -74,9 +74,25 @@ public class ChatFragment extends ListFragment {
         tv.setText(buddyid);
         TextView status = (TextView)(header.findViewById(R.id.chatfragment_status));
         RosterEntry re = RosterManager.getInstance().searchRosterEntry(buddyid);
+        TextView presence = (TextView)(header.findViewById(R.id.chatheader_presence));
         if(re!=null){
             status.setText(re.getStatus());
-            Log.d("statusmess",re.getStatus());
+            Log.d("statusmess",re.getPresence()+buddyid);
+
+            if(re.getPresence().equals("dnd")){
+                presence.setTextColor(Color.RED);
+                Log.d("statusmess1",re.getPresence());
+                presence.setText("Busy");
+            }
+            else if(re.getPresence().equals("chat")){
+                presence.setTextColor(Color.GREEN);
+                presence.setText("Available");
+            }
+            else if(re.getPresence().equals("away")){
+                presence.setTextColor(Color.YELLOW);
+                presence.setText("away");
+            }
+
         }
         else status.setText("null");
         lv.addHeaderView(header,null,false);
@@ -85,7 +101,7 @@ public class ChatFragment extends ListFragment {
 
     public static ChatFragment getInstance(String from){
         ChatFragment curfrag = new ChatFragment();
-        MessageHandler.getInstance().getChatLists().get(from).registerFragment(curfrag);
+        //MessageHandler.getInstance().getChatLists().get(from).registerFragment(curfrag);
         Bundle args = new Bundle();
         args.putString("from",from);
         Log.d("XXXX", "from is " + from);

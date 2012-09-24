@@ -30,7 +30,7 @@ public class ChatBox extends FragmentActivity {
     //private final String buddy="vinayak.bhavnani@gmail.com";
     private ArrayList<String> chatlist;
     private ArrayAdapter<String> adaptor;
-    FragmentSwipeAdaptor frag_adaptor;
+    private static FragmentSwipeAdaptor frag_adaptor;
     private static ViewPager viewPager;
 
     @Override
@@ -137,7 +137,8 @@ public class ChatBox extends FragmentActivity {
         PacketWriter.addToWriteQueue(messxml.getXml());
         MessageHandler.getInstance().addChat(MessageHandler.getInstance().FragToJid(position),messxml);
         viewPager.setCurrentItem(position);
-        frag_adaptor.notifyDataSetChanged();
+        //frag_adaptor.notifyDataSetChanged();
+
         //chatlist.add(message);
         //adaptor.notifyDataSetChanged();
         //ChatFragment fragment =  (ChatFragment)getSupportFragmentManager().findFragmentById(R.id.chatlist);
@@ -154,5 +155,16 @@ public class ChatBox extends FragmentActivity {
         //frag_adaptor.notifyDataSetChanged();
         //ChatFragment curfrag = (ChatFragment)(frag_adaptor.getItem(frag));
         //curfrag.notifyAdaptor();
+    }
+
+    public static void recreateFragments() {
+        Activity a = (Activity) context;
+        //Log.d("ssss","updateroster called");
+        a.runOnUiThread(new Runnable() { public void run() {
+            frag_adaptor.notifyDataSetChanged();
+        }}
+        );
+        //frag_adaptor.notifyDataSetChanged();
+        //To change body of created methods use File | Settings | File Templates.
     }
 }

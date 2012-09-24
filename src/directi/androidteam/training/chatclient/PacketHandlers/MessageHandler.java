@@ -36,8 +36,7 @@ public class MessageHandler implements Handler{
      }
 
      public int JidToFrag(String from){
-         if(!chatLists.containsKey(from))
-             chatLists.put(from, new NotifierArrayList());
+         addChatcontact(from);
          String[] t=null;
          Log.d("arraysize",new Integer(chatLists.keySet().size()).toString());
          Object[]  set = chatLists.keySet().toArray();
@@ -52,8 +51,7 @@ public class MessageHandler implements Handler{
      }
 
      public  ArrayList<MessageStanza> getFragList(String from){
-         if(!chatLists.containsKey(from))
-             chatLists.put(from,new NotifierArrayList());
+         addChatcontact(from);
          return chatLists.get(from);
      }
 
@@ -65,9 +63,14 @@ public class MessageHandler implements Handler{
         return chatLists;
     }
 
-    public void addChat(String from , MessageStanza ms){
-        if(!chatLists.containsKey(from))
+    private void addChatcontact(String from){
+        if(!chatLists.containsKey(from)){
             chatLists.put(from, new NotifierArrayList());
+            ChatBox.recreateFragments();
+        }
+    }
+    public void addChat(String from , MessageStanza ms){
+        addChatcontact(from);
         chatLists.get(from).add(ms);
     }
 
