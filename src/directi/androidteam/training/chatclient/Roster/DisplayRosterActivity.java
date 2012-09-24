@@ -52,11 +52,11 @@ public class DisplayRosterActivity extends Activity {
         button.setBackgroundColor(Color.GREEN);
         Log.d("XXXX", "oncreate roster : " + MyProfile.getInstance().getStatus());
         ListView rosterList = (ListView) findViewById(R.id.rosterlist);
-        rosterList.setOnItemClickListener(new rosterListClickHandler(rosterList,this));
+//        rosterList.setOnItemClickListener(new rosterListClickHandler(rosterList,this));
         requestForRosters();
         sendInitialPresence();
 
-        adapter = new RosterItemAdapter(context,new ArrayList<RosterEntry>());
+        adapter = new RosterItemAdapter(context);
         rosterList.setAdapter(adapter);
         rosterList.setTextFilterEnabled(true);
     }
