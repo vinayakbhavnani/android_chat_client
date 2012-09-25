@@ -137,6 +137,7 @@ public class ChatBox extends FragmentActivity {
         PacketWriter.addToWriteQueue(messxml.getXml());
         MessageHandler.getInstance().addChat(MessageHandler.getInstance().FragToJid(position),messxml);
         viewPager.setCurrentItem(position);
+        mess.setText("");
         //frag_adaptor.notifyDataSetChanged();
 
         //chatlist.add(message);
