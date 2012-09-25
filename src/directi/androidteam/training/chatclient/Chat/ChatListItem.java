@@ -2,6 +2,10 @@ package directi.androidteam.training.chatclient.Chat;
 
 import directi.androidteam.training.chatclient.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: vinayak
@@ -14,7 +18,7 @@ public class ChatListItem {
     private boolean sender;
     private static final int sendResource = R.layout.chatlistitem;
     private static final int receiveResource = R.layout.chatlistitem_r;
-
+    private String time;
     public String getMessage() {
         return message;
     }
@@ -41,10 +45,18 @@ public class ChatListItem {
         this.sender = sender;
     }
 
-    public ChatListItem(String name,String mess,boolean send){
+    public String getTime() {
+        return time;
+    }
+
+    public ChatListItem(String name,String mess,boolean send,long ltime){
         this.message=mess;
         this.sender=send;
         this.username=name;
+        Date date = new Date(ltime);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        this.time = dateFormat.format(new Date(ltime));
+
     }
 
     public int getResourceID(){

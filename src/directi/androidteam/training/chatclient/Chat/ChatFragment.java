@@ -115,7 +115,7 @@ public class ChatFragment extends ListFragment {
         //notifyAdaptor();
     }
     public void addChatItem(MessageStanza message){
-        convo.add(new ChatListItem(message.getFrom(),message.getBody(),isSender(message)));
+        convo.add(new ChatListItem(message.getFrom(),message.getBody(),isSender(message),message.getTime()));
 
         //adaptor.notifyDataSetChanged();
         ChatBox.adaptorNotify(adaptor);
@@ -162,7 +162,7 @@ public class ChatFragment extends ListFragment {
         ArrayList<ChatListItem> conv;
         conv = new ArrayList<ChatListItem>();
         for (MessageStanza s : list) {
-            ChatListItem cli = new ChatListItem(s.getFrom(),s.getBody(),isSender(s));
+            ChatListItem cli = new ChatListItem(s.getFrom(),s.getBody(),isSender(s),s.getTime());
             conv.add(cli);
         }
         return  conv;

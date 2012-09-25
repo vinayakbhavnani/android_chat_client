@@ -41,7 +41,7 @@ public class ChatListAdaptor extends ArrayAdapter<ChatListItem> {
            holder = new ChatListHolder();
            holder.username = (TextView)row.findViewById(R.id.send_mess_name);
            holder.message = (TextView)row.findViewById(R.id.send_mess_body);
-
+           holder.time = (TextView)row.findViewById(R.id.chatlistitem_time);
            row.setTag(holder);
        }
        else
@@ -51,8 +51,9 @@ public class ChatListAdaptor extends ArrayAdapter<ChatListItem> {
 
        ChatListItem cli = chatListItems.get(position);
        if(!cli.isSender())
-        holder.username.setText(cli.getUsername());
+        holder.username.setText(cli.getUsername().split("@")[0]);
        holder.message.setText(cli.getMessage());
+       holder.time.setText(cli.getTime());
 
 
         return row;
@@ -60,5 +61,6 @@ public class ChatListAdaptor extends ArrayAdapter<ChatListItem> {
    static class ChatListHolder{
        TextView username;
        TextView message;
+       TextView time;
    }
 }

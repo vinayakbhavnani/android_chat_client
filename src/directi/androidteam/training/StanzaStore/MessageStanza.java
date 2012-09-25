@@ -13,14 +13,27 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class MessageStanza extends TagWrapper{
+    private long time;
+
+    private void setCurrentTime(){
+        time = System.currentTimeMillis();
+    }
     public MessageStanza(String to, String body){
         tag = new MessageTag(to,body,null);
+        setCurrentTime();
     }
+
+    public long getTime() {
+        return time;
+    }
+
     public MessageStanza(String to, String body, String subject){
         tag = new MessageTag(to,body,subject);
+        setCurrentTime();
     }
     public MessageStanza(Tag tag) {
         this.tag = tag;
+        setCurrentTime();
     }
     public String getBody(){
         ArrayList<Tag> children = tag.getChildTags();
