@@ -56,7 +56,7 @@ public class DisplayRosterActivity extends Activity {
         requestForRosters();
         sendInitialPresence();
 
-        adapter = new RosterItemAdapter(context,new ArrayList<RosterEntry>());
+        adapter = new RosterItemAdapter(context);
         rosterList.setAdapter(adapter);
         rosterList.setTextFilterEnabled(true);
     }

@@ -105,35 +105,35 @@
         </Button>
     </LinearLayout>
 
-    <ScrollView
+    <!--<ScrollView-->
 
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:fillViewport="true"
-            android:layout_above="@id/navigationButttons"
-            android:layout_below="@id/Roster_myself"
-            android:id="@+id/Roster_All_Contacts"
-            >
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:fillViewport="true"-->
+            <!--android:id="@+id/Roster_All_Contacts"-->
+            <!-->-->
 
-        <LinearLayout
+        <!--<LinearLayout-->
 
-            android:id="@+id/MainLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation ="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp" >
+            <!--android:id="@+id/MainLayout"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:orientation ="vertical"-->
+            <!--android:paddingLeft="16dp"-->
+            <!--android:paddingRight="16dp" >-->
 
             <ListView android:id="@+id/rosterlist"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
                     android:paddingBottom="8dp"
+                    android:layout_above="@id/navigationButttons"
+                    android:layout_below="@id/Roster_myself"
                     android:paddingRight="8dp"
                     android:paddingTop="8dp"
                     android:clickable="true"
                     >
             </ListView>
-        </LinearLayout>
-    </ScrollView>
+        <!--</LinearLayout>-->
+    <!--</ScrollView>-->
 </RelativeLayout>

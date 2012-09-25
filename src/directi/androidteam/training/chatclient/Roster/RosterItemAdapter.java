@@ -24,24 +24,26 @@ import java.util.ArrayList;
  * Time: 7:25 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
+public class RosterItemAdapter extends BaseAdapter {
     Context context;
     public static ArrayList<RosterEntry> rosterEntries;
-    public RosterItemAdapter(Context context, ArrayList<RosterEntry> rosterEntries) {
-        super(context, R.layout.rosterlistitem, rosterEntries);
-        Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
+    public RosterItemAdapter(Context context) {
+ //       super(context, R.layout.rosterlistitem, rosterEntries);
         this.context = context;
-        this.rosterEntries = rosterEntries;
+        rosterEntries = new ArrayList<RosterEntry>();
+        Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
     }
     public void setRosterEntries(ArrayList<RosterEntry> rosterEntriesInput){
-        this.clear();
-        this.addAll(rosterEntriesInput);
-//        rosterEntries = rosterEntriesInput;
+//        this.clear();
+  //          this.addAll(rosterEntriesInput);
+        rosterEntries = rosterEntriesInput;
+/*
         Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
         for (RosterEntry rosterEntry : rosterEntries) {
             Log.d("qqqq jid : ",rosterEntry.getJid());
         }
         Log.d("qqqq", "count is " + getCount());
+*/
         //  setNotifyOnChange(true);
     }
 
@@ -49,6 +51,17 @@ public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
     public int getCount() {
         return rosterEntries.size();
     }
+
+    @Override
+    public Object getItem(int i) {
+        return rosterEntries.get(i);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
     @Override
     public boolean isEnabled(int position)
     {
@@ -57,7 +70,7 @@ public class RosterItemAdapter extends ArrayAdapter<RosterEntry>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("XXXX", "roster view refresh called with size " + rosterEntries.size());
+        Log.d("XXXXX", "get view is called for position " + position);
         View v = convertView;
         RosterItemHolder rosterItemHolder;
         if(convertView==null){
