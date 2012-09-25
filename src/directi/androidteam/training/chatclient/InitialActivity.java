@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import directi.androidteam.training.chatclient.Authentication.*;
-import directi.androidteam.training.chatclient.Chat.ChatBox;
-import directi.androidteam.training.chatclient.Chat.ChatNotifier;
 
 import java.util.ArrayList;
 
@@ -46,9 +44,6 @@ public class InitialActivity extends Activity {
         UserDatabaseHandler db = new UserDatabaseHandler(this);
         ArrayList<User> users = db.getAllUsers();
         db.close();
-        //Intent chatintent = new Intent(this, ChatBox.class);
-        //startActivity(chatintent);
-//        cn.notifyChat(null);
         if (users.size() == 0) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
