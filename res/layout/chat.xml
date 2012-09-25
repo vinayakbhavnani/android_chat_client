@@ -8,14 +8,15 @@
     <LinearLayout
         android:id="@+id/canvas_roster"
         android:layout_width="fill_parent"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:orientation="horizontal"
         >
         <TextView
             android:id="@+id/chat_gotoroster"
             android:layout_height="fill_parent"
-            android:layout_width="50dp"
+            android:layout_width="80dp"
             android:text="Roster"
+            android:textSize="20dp"
             android:textColor="@color/Green"
             android:clickable="true"
             android:onClick="GotoRoster"
@@ -39,7 +40,7 @@
                 android:id="@+id/message"
                 android:layout_width="350px"
                 android:layout_height="fill_parent"
-                android:text="EditText"
+                android:hint="Enter Messsage"
                 android:textSize="18sp" />
         <Button
                 android:id="@+id/sendmessage"
