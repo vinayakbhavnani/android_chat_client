@@ -96,6 +96,7 @@ public class ChatBox extends FragmentActivity {
     public static void notifyChat(MessageStanza ms){
         if(viewPager.getCurrentItem()==MessageHandler.getInstance().JidToFrag(ms.getFrom()))
             return;
+
         ChatNotifier cn = new ChatNotifier(context);
         cn.notifyChat(ms);
     }
@@ -145,10 +146,16 @@ public class ChatBox extends FragmentActivity {
         //ChatFragment fragment =  (ChatFragment)getSupportFragmentManager().findFragmentById(R.id.chatlist);
         //fragment.insertMessage(messxml);
     }
+
+    public static Context getContext() {
+        return context;
+    }
+
     public void GotoRoster(View view){
         Intent intent = new Intent(context, DisplayRosterActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
+
     }
     private void switchFragment(String from){
         int frag = MessageHandler.getInstance().JidToFrag(from);

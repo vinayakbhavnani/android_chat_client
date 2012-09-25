@@ -1,6 +1,7 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
 import android.util.Log;
+import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
@@ -66,6 +67,7 @@ public class MessageHandler implements Handler{
     private void addChatcontact(String from){
         if(!chatLists.containsKey(from)){
             chatLists.put(from, new NotifierArrayList());
+            if(ChatBox.getContext()!=null)
             ChatBox.recreateFragments();
         }
     }
@@ -86,8 +88,11 @@ public class MessageHandler implements Handler{
 
         Log.d("chatsize",new Integer(chatLists.get(from).size()).toString()+from);
         //ChatBox.openChat(from);
-
-        ChatBox.notifyChat(ms);
+        if(ChatBox.getContext()==null){
+            ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
+            cn.notifyChat(ms);
+        }
+        else ChatBox.notifyChat(ms);
 
    }
 }
