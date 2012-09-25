@@ -56,7 +56,6 @@ public class DisplayRosterActivity extends Activity {
         rosterList.setOnItemClickListener(new rosterListClickHandler(rosterList,this));
         requestForRosters();
         sendInitialPresence();
-
         adapter = new RosterItemAdapter(context);
         updateRosterList(new ArrayList<RosterEntry>());
         rosterList.setAdapter(adapter);
@@ -94,7 +93,6 @@ public class DisplayRosterActivity extends Activity {
         BitmapDrawable result = new BitmapDrawable(scaledBitmap);
         view.setImageDrawable(result);
         view.setScaleType(ImageView.ScaleType.FIT_START);
-        //LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
         params.width = width;
         params.height = height;
@@ -121,13 +119,6 @@ public class DisplayRosterActivity extends Activity {
         }
     }
 
-    private void requestForServices(){
-        Log.d("DEBUG :", "entered request for services");
-        RosterGet rosterGet = new RosterGet();
-        rosterGet.setReceiver("talk.google.com").setQueryAttribute("xlmns", "http://jabber.org/protocol/disco#info");
-        PacketWriter.addToWriteQueue(rosterGet.getXml());
-    }
-
     public static void updateRosterList(final ArrayList<RosterEntry> rosterList) {
         Activity a = (Activity) context;
         Log.d("ssss","updateroster called");
@@ -136,14 +127,6 @@ public class DisplayRosterActivity extends Activity {
             adapter.notifyDataSetChanged();
         }}
             );
-
-/*
-        Intent intent = new Intent(context,DisplayRosterActivity.class);
-        Log.d("XXXX","show AllRosters Called");
-        intent.putExtra("display", "all");
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        context.startActivity(intent);
-*/
    }
     public static void launchNewIntent() {
         Intent intent = new Intent(context,DisplayRosterActivity.class);
@@ -173,17 +156,6 @@ public class DisplayRosterActivity extends Activity {
         super.onNewIntent(intent);
         displayMyCurrentProfile();
         Log.d("ROSTER INTENT :", "New Intent Started");
-
-//        ListView rosterList = (ListView) findViewById(R.id.rosterlist);
-/*        String rosterToBeDisplayed = (String)intent.getExtras().get("display");
-        if(rosterToBeDisplayed.equals("all")){
-            Log.d("ROSTER INTENT ALL :", "New Intent Started - ALL");
-  */
-    //        RosterManager rosterManager = RosterManager.getInstance();
-//            adapter = new RosterItemAdapter(this,rosterManager.getRosterList());
-        //    rosterList.setAdapter(adapter);
-          //   rosterList.setTextFilterEnabled(true);
-      //  }
     }
 
     protected Dialog onCreateDialog(int id) {
@@ -220,8 +192,15 @@ public class DisplayRosterActivity extends Activity {
         showDialog(3);
     }
     public void launchSpinner(View view) {
-        Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
-        spinner.performClick();
+        Log.d("spinner clicked","happening?");
+//        Thread t = new Thread(){public void run() {
+            Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
+    //        Spinner spinner1 = new Spinner(context);
+//              spinner.setOnItemSelectedListener(new RosterAvailSpinnerHandler(this));
+              spinner.performClick();
+  //          spinner.bringToFront();
+    //    }};
+      //  t.start();
     }
     public void OnClickRosterEntry(View view) {
         RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.roster_list_item);
