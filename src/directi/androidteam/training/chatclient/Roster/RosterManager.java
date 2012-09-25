@@ -26,7 +26,7 @@ public class RosterManager {
     private ArrayList<RosterEntry> otherList = new ArrayList<RosterEntry>();
     private ArrayList<RosterEntry> frndReqList = new ArrayList<RosterEntry>();
     public HashMap<String,RosterEntry> rosterLookup = new HashMap<String, RosterEntry>();
-    public static final RosterManager ROSTER_MANAGER = new RosterManager();
+    public static RosterManager ROSTER_MANAGER = new RosterManager();
     private HashMap<String,String> requestID = new HashMap<String, String>();
     private RosterManager() {
     }
@@ -34,6 +34,9 @@ public class RosterManager {
         return ROSTER_MANAGER;
     }
 
+    public static void flush () {
+        ROSTER_MANAGER = new RosterManager();
+    }
     public void setRosterList(RosterResult rosterResult){
         Log.d("ROSTER Manager","setRosterList starts");
         ArrayList<Tag> list = rosterResult.getListOfRosters();

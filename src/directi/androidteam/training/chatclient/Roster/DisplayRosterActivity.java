@@ -39,6 +39,7 @@ public class DisplayRosterActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RosterManager.flush();
         setContentView(R.layout.roster);
         ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);
         attachIcon(myImage);
@@ -57,6 +58,7 @@ public class DisplayRosterActivity extends Activity {
         sendInitialPresence();
 
         adapter = new RosterItemAdapter(context);
+        updateRosterList(new ArrayList<RosterEntry>());
         rosterList.setAdapter(adapter);
         rosterList.setTextFilterEnabled(true);
     }
@@ -172,16 +174,16 @@ public class DisplayRosterActivity extends Activity {
         displayMyCurrentProfile();
         Log.d("ROSTER INTENT :", "New Intent Started");
 
-        ListView rosterList = (ListView) findViewById(R.id.rosterlist);
-        String rosterToBeDisplayed = (String)intent.getExtras().get("display");
+//        ListView rosterList = (ListView) findViewById(R.id.rosterlist);
+/*        String rosterToBeDisplayed = (String)intent.getExtras().get("display");
         if(rosterToBeDisplayed.equals("all")){
             Log.d("ROSTER INTENT ALL :", "New Intent Started - ALL");
-
-            RosterManager rosterManager = RosterManager.getInstance();
+  */
+    //        RosterManager rosterManager = RosterManager.getInstance();
 //            adapter = new RosterItemAdapter(this,rosterManager.getRosterList());
-            rosterList.setAdapter(adapter);
-             rosterList.setTextFilterEnabled(true);
-        }
+        //    rosterList.setAdapter(adapter);
+          //   rosterList.setTextFilterEnabled(true);
+      //  }
     }
 
     protected Dialog onCreateDialog(int id) {

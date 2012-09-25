@@ -27,6 +27,7 @@ import java.util.ArrayList;
 public class RosterItemAdapter extends BaseAdapter {
     Context context;
     public static ArrayList<RosterEntry> rosterEntries;
+
     public RosterItemAdapter(Context context) {
  //       super(context, R.layout.rosterlistitem, rosterEntries);
         this.context = context;
@@ -37,13 +38,7 @@ public class RosterItemAdapter extends BaseAdapter {
 //        this.clear();
   //          this.addAll(rosterEntriesInput);
         rosterEntries = rosterEntriesInput;
-/*
         Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
-        for (RosterEntry rosterEntry : rosterEntries) {
-            Log.d("qqqq jid : ",rosterEntry.getJid());
-        }
-        Log.d("qqqq", "count is " + getCount());
-*/
         //  setNotifyOnChange(true);
     }
 
@@ -130,6 +125,10 @@ public class RosterItemAdapter extends BaseAdapter {
         return Math.round((float)dp * density);
     }
 
+    @Override
+    public  int getViewTypeCount () {
+        return 1;
+    }
     public void attachIcon(ImageView view) {
         Drawable drawing = view.getDrawable();
         Bitmap bitmap = ((BitmapDrawable)drawing).getBitmap();
@@ -147,7 +146,6 @@ public class RosterItemAdapter extends BaseAdapter {
         BitmapDrawable result = new BitmapDrawable(scaledBitmap);
         view.setImageDrawable(result);
         view.setScaleType(ImageView.ScaleType.FIT_START);
-       // LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
         params.width = width;
         params.height = height;

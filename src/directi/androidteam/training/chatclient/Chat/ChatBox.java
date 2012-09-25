@@ -146,6 +146,7 @@ public class ChatBox extends FragmentActivity {
     }
     public void GotoRoster(View view){
         Intent intent = new Intent(context, DisplayRosterActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
     private void switchFragment(String from){
