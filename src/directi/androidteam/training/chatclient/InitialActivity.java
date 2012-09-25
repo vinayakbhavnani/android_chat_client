@@ -3,6 +3,8 @@ package directi.androidteam.training.chatclient;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 import directi.androidteam.training.chatclient.Authentication.*;
 
 import java.util.ArrayList;
@@ -34,8 +36,21 @@ public class InitialActivity extends Activity {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar_loading);
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    private void showLoading() {
+        this.setContentView(R.layout.loading);
+        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar_loading);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -50,6 +65,7 @@ public class InitialActivity extends Activity {
             this.finish();
         } else {
             if (userLoggedIn(users)) {
+                showLoading();
                 User loggedInUser = getLoggedInUser(users);
                 (new ConnectGTalk(this)).execute(loggedInUser.getUsername(), loggedInUser.getPassword());
             } else {
