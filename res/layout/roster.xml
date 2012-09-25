@@ -53,23 +53,20 @@
                   android:onClick="addStatus"
                 />
         </LinearLayout>
+        <Spinner
+                android:id="@+id/roster_availability_spinner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:entries="@array/roster_availability_array"
+                android:clickable="true"/>
+        <Button
+                android:id="@+id/roster_availability_launch_spinner_button"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:onClick="launchSpinner"
+                android:layout_alignParentRight="true"
+                />
     </RelativeLayout>
-    <Spinner
-            android:id="@+id/roster_availability_spinner"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:entries="@array/roster_availability_array"
-            android:clickable="true"/>
-    <Button
-            android:id="@+id/roster_availability_launch_spinner_button"
-            android:layout_width="5dp"
-            android:layout_height="40dp"
-            android:onClick="launchSpinner"
-            android:layout_margin="10dp"
-            android:layout_alignParentRight="true"
-                >
-    </Button>
-
 
     <LinearLayout
 
