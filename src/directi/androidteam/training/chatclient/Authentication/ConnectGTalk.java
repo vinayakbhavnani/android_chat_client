@@ -66,5 +66,6 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
 
         Thread t = new Thread(){public void run(){serviceThread.execute();}};
         t.start();
+
     }
 }
