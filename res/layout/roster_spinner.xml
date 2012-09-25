@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Spinner
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/roster_availability_spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:entries="@array/roster_availability_array"
+        android:clickable="true"/>
