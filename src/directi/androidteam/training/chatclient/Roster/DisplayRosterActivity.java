@@ -234,6 +234,13 @@ public class DisplayRosterActivity extends Activity {
 
         Log.d("Cliecked : ",jid.getText().toString());
     }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        System.runFinalizersOnExit(true);
+        System.exit(0);
+    }
 }
 
 
