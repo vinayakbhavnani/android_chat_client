@@ -234,6 +234,7 @@ public class DisplayRosterActivity extends Activity {
 
         Log.d("Cliecked : ",jid.getText().toString());
     }
+
 }
 
 
