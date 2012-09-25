@@ -229,11 +229,10 @@ public final class R {
         public static final int roster=0x7f030009;
         public static final int roster_add_dialog=0x7f03000a;
         public static final int roster_search_entry=0x7f03000b;
-        public static final int roster_spinner=0x7f03000c;
-        public static final int rosterlistitem=0x7f03000d;
-        public static final int rostet_add_status=0x7f03000e;
-        public static final int userlistitem=0x7f03000f;
-        public static final int users=0x7f030010;
+        public static final int rosterlistitem=0x7f03000c;
+        public static final int rostet_add_status=0x7f03000d;
+        public static final int userlistitem=0x7f03000e;
+        public static final int users=0x7f03000f;
     }
     public static final class string {
         public static final int accounts=0x7f05000a;
