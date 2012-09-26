@@ -1,7 +1,6 @@
 package directi.androidteam.training.chatclient.Util;
 
 import android.util.Log;
-import directi.androidteam.training.chatclient.testtask;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.io.BufferedReader;

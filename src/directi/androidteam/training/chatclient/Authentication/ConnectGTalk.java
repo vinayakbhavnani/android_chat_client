@@ -3,10 +3,10 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import directi.androidteam.training.chatclient.MessageQueueProcessor;
 import directi.androidteam.training.chatclient.Util.PacketReader;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.chatclient.Util.ServiceThread;
-import directi.androidteam.training.chatclient.testtask;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
@@ -49,7 +49,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             launchInNewThread(new PacketReader(socket, reader));
             launchInNewThread(new PacketWriter(out));
-            launchInNewThread(new testtask());
+            launchInNewThread(new MessageQueueProcessor());
             PacketWriter.addToWriteQueue("<stream:stream" +
                     " to='gmail.com'" +
                     " xmlns='jabber:client'" +

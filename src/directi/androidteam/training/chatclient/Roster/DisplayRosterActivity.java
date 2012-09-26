@@ -72,18 +72,6 @@ public class DisplayRosterActivity extends Activity {
         Log.d("ROSTER :", "done requesting");
     }
 
-    private void requestForPresence(String typeVal) {
-        RosterManager rosterManager = RosterManager.getInstance();
-        for (RosterEntry rosterEntry : rosterManager.getRosterList()) {
-            PresenceS presence = new PresenceS();
-            presence.addID(UUID.randomUUID().toString());
-            presence.addReceiver(rosterEntry.getJid());
-            presence.addType(typeVal);
-            PacketWriter.addToWriteQueue(presence.getXml());
-            Log.d("ROSTER :", "entered request for presence");
-        }
-    }
-
     public static void updateRosterList(final ArrayList<RosterEntry> rosterList) {
         Activity a = (Activity) context;
         Log.d("ssss","updateroster called");

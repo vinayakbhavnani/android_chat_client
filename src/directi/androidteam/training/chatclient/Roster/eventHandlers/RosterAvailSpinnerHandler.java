@@ -25,7 +25,7 @@ public class RosterAvailSpinnerHandler implements AdapterView.OnItemSelectedList
         this.activity = parent;
     }
 
-    public void signOut() {
+    private void signOut() {
         UserDatabaseHandler db = new UserDatabaseHandler(this.activity);
         db.updateState(ConnectGTalk.uname, "offline");
         db.close();
@@ -36,7 +36,7 @@ public class RosterAvailSpinnerHandler implements AdapterView.OnItemSelectedList
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        return;
     }
 
     @Override
