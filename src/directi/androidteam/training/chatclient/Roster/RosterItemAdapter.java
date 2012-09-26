@@ -25,7 +25,7 @@ import java.util.ArrayList;
  */
 public class RosterItemAdapter extends BaseAdapter {
     Context context;
-    public static ArrayList<RosterEntry> rosterEntries;
+    public ArrayList<RosterEntry> rosterEntries;
 
     public RosterItemAdapter(Context context) {
         this.context = context;

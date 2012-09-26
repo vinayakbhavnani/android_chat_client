@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.Roster.RosterEntry;
 
@@ -32,7 +33,7 @@ public class rosterListClickHandler implements  AdapterView.OnItemClickListener 
             Log.d("kkk",rosterEntry.getJid());
         else Log.d("kkk","null...:(");
         //ChatBox.openChat(rosterEntry.getJid());
-        Intent  intent = new Intent(context,ChatBox.class);
+        Intent  intent = new Intent(ChatApplication.getAppContext(),ChatBox.class);
         intent.putExtra("buddyid",rosterEntry.getJid());
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);

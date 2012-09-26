@@ -78,7 +78,6 @@ public class RosterManager {
             }
         }
         Log.d("ssss","inside roster manager -set roster list.. will update adapter list n display it");
-     //   RosterItemAdapter.setRosterEntries(getRosterList());
         DisplayRosterActivity.updateRosterList(getRosterList());
     }
     public ArrayList<RosterEntry> getRosterList(){
