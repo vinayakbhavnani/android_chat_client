@@ -4,11 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +12,9 @@ import android.widget.*;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterGet;
-import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.R;
+import directi.androidteam.training.chatclient.Roster.eventHandlers.*;
+import directi.androidteam.training.chatclient.Roster.util.ImageResize;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
@@ -42,7 +39,7 @@ public class DisplayRosterActivity extends Activity {
         RosterManager.flush();
         setContentView(R.layout.roster);
         ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);
-        attachIcon(myImage);
+        new ImageResize().attachIcon(myImage,context);
         TextView textView = (TextView) findViewById(R.id.Roster_myjid);
         textView.setText(JID.jid);
         TextView textView2 = (TextView) findViewById(R.id.Roster_mystatus);
@@ -65,34 +62,6 @@ public class DisplayRosterActivity extends Activity {
     private void sendInitialPresence() {
         PresenceS presenceS = new PresenceS();
         PacketWriter.addToWriteQueue(presenceS.getXml());
-    }
-
-    private int dpToPx(int dp)
-    {
-        float density = context.getResources().getDisplayMetrics().density;
-        return Math.round((float)dp * density);
-    }
-    public void attachIcon(ImageView view) {
-        Drawable drawing = view.getDrawable();
-        Bitmap bitmap = ((BitmapDrawable)drawing).getBitmap();
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        int bounding = dpToPx(Constants.login_icon_size);
-        float xScale = ((float) bounding) / width;
-        float yScale = ((float) bounding) / height;
-        float scale = (xScale <= yScale) ? xScale : yScale;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scale, scale);
-        Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
-        width = scaledBitmap.getWidth();
-        height = scaledBitmap.getHeight();
-        BitmapDrawable result = new BitmapDrawable(scaledBitmap);
-        view.setImageDrawable(result);
-        view.setScaleType(ImageView.ScaleType.FIT_START);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
-        params.width = width;
-        params.height = height;
-        view.setLayoutParams(params);
     }
 
     private void requestForRosters() {
@@ -133,7 +102,7 @@ public class DisplayRosterActivity extends Activity {
     }
     private void displayMyCurrentProfile() {
         ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);
-        attachIcon(myImage);
+        new ImageResize().attachIcon(myImage,context);
         TextView textView2 = (TextView) findViewById(R.id.Roster_mystatus);
         textView2.setText(MyProfile.getInstance().getStatus());
         Button button = (Button) findViewById(R.id.roster_availability_launch_spinner_button);

@@ -1,4 +1,4 @@
-package directi.androidteam.training.chatclient.Roster;
+package directi.androidteam.training.chatclient.Roster.eventHandlers;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
 import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
 import directi.androidteam.training.chatclient.Authentication.UserListActivity;
+import directi.androidteam.training.chatclient.Roster.MyProfile;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 /**

@@ -1,4 +1,4 @@
-package directi.androidteam.training.chatclient.Roster;
+package directi.androidteam.training.chatclient.Roster.eventHandlers;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import directi.androidteam.training.chatclient.R;
+import directi.androidteam.training.chatclient.Roster.MyProfile;
 
 /**
  * Created with IntelliJ IDEA.
