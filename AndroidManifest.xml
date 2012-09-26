@@ -51,6 +51,10 @@
                   android:label="@string/app_name"
                   android:launchMode="singleTask">
         </activity>
+        <activity android:name="directi.androidteam.training.chatclient.Roster.SearchRosterEntry"
+                  android:launchMode="singleTask">
+
+        </activity>
         <receiver android:name="directi.androidteam.training.chatclient.Util.NetworkConnectionChangeReceiver"
                   android:label="NetworkConnection">
             <intent-filter>

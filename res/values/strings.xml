@@ -16,6 +16,7 @@
     <string name="enter_search">Enter email</string>
     <string name="loading">Loading...</string>
     <string name="OK">OK</string>
+    <string name="typeToSearch">Type To Search</string>
     <string-array name="roster_availability_array">
         <item>Available</item>
         <item>Busy</item>

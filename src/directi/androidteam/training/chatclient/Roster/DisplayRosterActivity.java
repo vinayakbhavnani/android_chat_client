@@ -75,11 +75,13 @@ public class DisplayRosterActivity extends Activity {
     public static void updateRosterList(final ArrayList<RosterEntry> rosterList) {
         Activity a = (Activity) context;
         Log.d("ssss","updateroster called");
-        a.runOnUiThread(new Runnable() {   public void run() {
-            adapter.setRosterEntries(rosterList);
-            adapter.notifyDataSetChanged();
-        }}
-            );
+        a.runOnUiThread(new Runnable() {
+            public void run() {
+                adapter.setRosterEntries(rosterList);
+                adapter.notifyDataSetChanged();
+            }
+        }
+        );
    }
     public static void displayMyCurrentProfile(Activity c) {
         ImageView myImage = (ImageView) c.findViewById(R.id.Roster_myimage);
@@ -133,8 +135,11 @@ public class DisplayRosterActivity extends Activity {
         showDialog(2);
     }
     public void searchRosterEntry(View view) {
-        Log.d("ROSTER UI :","roster search called");
-        showDialog(3);
+        Intent intent = new Intent(context,SearchRosterEntry.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        context.startActivity(intent);
+        // Log.d("ROSTER UI :","roster search called");
+     //   showDialog(3);
     }
     public void launchSpinner(View view) {
         Log.d("spinner clicked","happening?");
