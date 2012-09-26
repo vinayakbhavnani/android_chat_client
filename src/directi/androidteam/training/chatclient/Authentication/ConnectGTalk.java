@@ -21,8 +21,8 @@ import java.net.Socket;
  */
 
 public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
-    public static String uname = "";
-    public static String pwd = "";
+    public static String username = "";
+    public static String password = "";
     public static Activity callerActivity = null;
 
     public ConnectGTalk(Activity parent) {
@@ -31,41 +31,57 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
 
     public ConnectGTalk() {}
 
+    private Socket createSSLSocket(String serverURL, int portNumber) throws IOException {
+        SSLSocketFactory sslSocketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        Socket socket = sslSocketFactory.createSocket(serverURL, portNumber);
+        socket.setSoTimeout(0);
+        socket.setKeepAlive(true);
+        return socket;
+    }
+
+    private void launchInNewThread(final ServiceThread serviceThread) {
+        Thread t = new Thread() {
+            public void run() {
+                serviceThread.execute();
+            }
+        };
+        t.start();
+    }
+
+    private void launchReaderOnSocket(Socket socket) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        launchInNewThread(new PacketReader(reader));
+    }
+
+    private void launchWriterOnSocket(Socket socket) throws IOException {
+        PrintWriter writer = new PrintWriter(socket.getOutputStream());
+        launchInNewThread(new PacketWriter(writer));
+    }
+
+    private void sendOpenStreamStanza() {
+        PacketWriter.addToWriteQueue("<stream:stream" +
+                " to='gmail.com'" +
+                " xmlns='jabber:client'" +
+                " xmlns:stream='http://etherx.jabber.org/streams'" +
+                " version='1.0'>");
+    }
+
     @Override
     public Boolean doInBackground (String ...params) {
-        uname = params[0];
-        pwd = params[1];
-        SSLSocketFactory sslSocketFactory;
-        Socket socket;
-        PrintWriter out;
-        BufferedReader reader;
+        username = params[0];
+        password = params[1];
         try {
-            sslSocketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-            socket = sslSocketFactory.createSocket("talk.google.com", 5223);
-            socket.setSoTimeout(0);
-            socket.setKeepAlive(true);
+            Socket socket = createSSLSocket("talk.google.com", 5223);
 
-            out = new PrintWriter(socket.getOutputStream());
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            launchInNewThread(new PacketReader(socket, reader));
-            launchInNewThread(new PacketWriter(out));
+            launchReaderOnSocket(socket);
+            launchWriterOnSocket(socket);
+
             launchInNewThread(new MessageQueueProcessor());
-            PacketWriter.addToWriteQueue("<stream:stream" +
-                    " to='gmail.com'" +
-                    " xmlns='jabber:client'" +
-                    " xmlns:stream='http://etherx.jabber.org/streams'" +
-                    " version='1.0'>");
+            sendOpenStreamStanza();
         } catch (IOException e) {
             e.printStackTrace();
         }
         Log.d("Bootup :","Executed all start functions of threads");
         return null;
-    }
-
-    private  void launchInNewThread(final ServiceThread serviceThread){
-
-        Thread t = new Thread(){public void run(){serviceThread.execute();}};
-        t.start();
-
     }
 }

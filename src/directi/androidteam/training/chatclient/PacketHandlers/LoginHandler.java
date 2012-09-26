@@ -44,7 +44,7 @@ public class LoginHandler implements Handler {
                 Log.d("Login Flow", "Stream tag with bind tag received.");
                 PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new IQTag("tn281v37", "set", new BindTag("urn:ietf:params:xml:ns:xmpp-bind"))));
             } else if (containsGrandChild(tag, "mechanisms")) {
-                String auth = '\0' + ConnectGTalk.uname + '\0' + ConnectGTalk.pwd;
+                String auth = '\0' + ConnectGTalk.username + '\0' + ConnectGTalk.password;
                 Log.d("Login Flow", "Stream tag with mechanisms tag received.");
                 PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new AuthTag("urn:ietf:params:xml:ns:xmpp-sasl", "PLAIN", Base64.encodeBytes(auth.getBytes()))));
             }
@@ -69,12 +69,12 @@ public class LoginHandler implements Handler {
             extractJID(tag);
             PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new IQTag("sess_1", "talk.google.com", "set", new SessionTag("urn:ietf:params:xml:ns:xmpp-session"))));
             UserDatabaseHandler db = new UserDatabaseHandler(ChatApplication.getAppContext());
-            db.addUser(new User(ConnectGTalk.uname, ConnectGTalk.pwd));
+            db.addUser(new User(ConnectGTalk.username, ConnectGTalk.password));
             db.close();
 
             Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(LoginActivity.USERNAME, ConnectGTalk.uname);
+            intent.putExtra(LoginActivity.USERNAME, ConnectGTalk.username);
             ChatApplication.getAppContext().startActivity(intent);
             if (ConnectGTalk.callerActivity != null) {
                 ConnectGTalk.callerActivity.setResult(Activity.RESULT_OK);
