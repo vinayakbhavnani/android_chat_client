@@ -25,8 +25,10 @@ public class PacketWriter implements ServiceThread{
     }
 
     public void write(String str){
+
         writer.write(str);
         writer.flush();
+
     }
     @Override
     public void execute() {

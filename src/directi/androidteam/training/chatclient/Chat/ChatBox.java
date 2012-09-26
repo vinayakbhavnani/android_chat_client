@@ -9,7 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
@@ -36,6 +39,7 @@ public class ChatBox extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d("chatboxcreated","cc");
+        ChatApplication.chatrunning=true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
         context=this;
@@ -108,6 +112,10 @@ public class ChatBox extends FragmentActivity {
     public void onNewIntent(Intent intent){
         Log.d("newintent","intent");
         super.onNewIntent(intent);
+        if(intent.getExtras().containsKey("error")){
+            notifyConnectionError();
+            return;
+        }
         String from = (String)intent.getExtras().get("buddyid");
         if(intent.getExtras().containsKey("notification"))
             cancelNotification();
@@ -115,7 +123,12 @@ public class ChatBox extends FragmentActivity {
         if(from!=null)
             switchFragment(from);
     }
-
+    public void notifyConnectionError(){
+        TextView textView = (TextView)findViewById(R.id.chatbox_networknotification);
+        textView.setVisibility(0);
+        Button button = (Button)findViewById(R.id.sendmessage);
+        button.setClickable(false);
+    }
     @Override
     public void onResume(){
         super.onResume();
@@ -139,6 +152,7 @@ public class ChatBox extends FragmentActivity {
         MessageHandler.getInstance().addChat(MessageHandler.getInstance().FragToJid(position),messxml);
         viewPager.setCurrentItem(position);
         mess.setText("");
+
         //frag_adaptor.notifyDataSetChanged();
 
         //chatlist.add(message);
