@@ -40,11 +40,7 @@ public class MyProfile {
         return myProfile;
     }
     public String getStatus() {
-        String m =  rosterEntry.getStatus();
-        if(m==null || m.equals("")) {
-            return "Set status";
-        }
-        else return m;
+        return  rosterEntry.getStatus();
     }
     public String getAvailability() {
         return rosterEntry.getPresence();

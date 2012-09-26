@@ -235,6 +235,7 @@ public final class R {
         public static final int users=0x7f03000f;
     }
     public static final class string {
+        public static final int OK=0x7f05000f;
         public static final int accounts=0x7f05000a;
         public static final int add_account=0x7f050008;
         public static final int app_name=0x7f050000;
