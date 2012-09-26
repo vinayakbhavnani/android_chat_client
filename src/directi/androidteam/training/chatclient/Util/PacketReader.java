@@ -5,9 +5,6 @@ import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,29 +14,16 @@ import java.net.Socket;
  * To change this template use File | Settings | File Templates.
  */
 public class PacketReader implements ServiceThread{
-    private Socket socket;
     private BufferedReader reader;
-    PrintWriter out;
 
-    public PacketReader(Socket s, BufferedReader r) {
-        this.socket = s;
+    public PacketReader(BufferedReader r) {
         this.reader = r;
-        this.out=out;
     }
 
     @Override
     public void execute() {
         Log.d("Service Thread","I am Packet Reader");
-
-        try {
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            XMLHelper helper = new XMLHelper();
-
-            helper.tearxmlPacket(reader);
-            //read();
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        new XMLHelper().tearxmlPacket(this.reader);
     }
 
     public void read(){
@@ -48,7 +32,7 @@ public class PacketReader implements ServiceThread{
                 String response = "";
                 int c;
                 while (!response.contains(">")) {
-                    c = reader.read();
+                    c = this.reader.read();
                     response = response + (char)c;
 
             }
