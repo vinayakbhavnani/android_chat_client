@@ -66,10 +66,6 @@ public class DisplayRosterActivity extends Activity {
         PresenceS presenceS = new PresenceS();
         PacketWriter.addToWriteQueue(presenceS.getXml());
     }
-    public static void setRosterEntries(ArrayList<RosterEntry> rosterEntries) {
-        return;
-//        new RosterItemAdapter(context,rosterEntries).setRosterEntries();
-    }
 
     private int dpToPx(int dp)
     {
@@ -193,27 +189,9 @@ public class DisplayRosterActivity extends Activity {
     }
     public void launchSpinner(View view) {
         Log.d("spinner clicked","happening?");
-//        Thread t = new Thread(){public void run() {
             Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
-    //        Spinner spinner1 = new Spinner(context);
-//              spinner.setOnItemSelectedListener(new RosterAvailSpinnerHandler(this));
               spinner.performClick();
-  //          spinner.bringToFront();
-    //    }};
-      //  t.start();
     }
-    public void OnClickRosterEntry(View view) {
-        RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.roster_list_item);
-        if(relativeLayout!=null)
-            Log.d("jjj","not null");
-
-        TextView jid = (TextView) relativeLayout.findViewById(R.id.roster_item);
-        if(jid!=null)
-            Log.d("jjj","jid not null");
-
-        Log.d("Cliecked : ",jid.getText().toString());
-    }
-
     @Override
     public void onDestroy(){
         super.onDestroy();
