@@ -187,11 +187,6 @@ public class RosterManager {
         DisplayRosterActivity.updateRosterList(getRosterList());
     }
 
-    public void changeAvailability(String avail) {
-        MyProfile myProfile = MyProfile.getInstance();
-        myProfile.setAvailability(avail);
-        myProfile.setStatusAndPresence();
-    }
     public RosterEntry searchRosterEntry(String jid) {
         RosterEntry rosterEntry = rosterLookup.get(jid);
         return rosterEntry;
