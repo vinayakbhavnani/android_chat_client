@@ -108,13 +108,17 @@ public class RosterManager {
         RosterSet rosterSet = new RosterSet();
         rosterSet.addQuery(rosterEntry.getJid());
         PacketWriter.addToWriteQueue(rosterSet.getXml());
-        requestID.put(rosterSet.getID(),"0");
+        requestID.put(rosterSet.getID(), "0");
     }
     public void addRosterEntry(String newJID) {
         if(newJID ==null || newJID.equals(""))
             return;
         RosterEntry rosterEntry = new RosterEntry(newJID);
         addRosterEntry(rosterEntry);
+        PresenceS presenceS = new PresenceS();
+        presenceS.addReceiver(newJID);
+        presenceS.addType("subscribe");
+        PacketWriter.addToWriteQueue(presenceS.getXml());
     }
     public void deleteRosterEntry(String JID) {
         if(JID==null || rosterLookup==null || JID.equals("") || !rosterLookup.containsKey(JID))
