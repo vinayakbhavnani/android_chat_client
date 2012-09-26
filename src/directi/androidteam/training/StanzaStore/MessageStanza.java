@@ -2,6 +2,7 @@ package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.MessageTag;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Chat.ChatListItem;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,18 @@ import java.util.ArrayList;
  */
 public class MessageStanza extends TagWrapper{
     private long time;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    private boolean status = true;
+
+
 
     private void setCurrentTime(){
         time = System.currentTimeMillis();
@@ -54,5 +67,7 @@ public class MessageStanza extends TagWrapper{
     public String getTo(){
         return tag.getAttribute("to").split("/")[0];
     }
-
+    public String getID(){
+        return tag.getAttribute("id");
+    }
 }

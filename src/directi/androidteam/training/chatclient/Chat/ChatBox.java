@@ -127,7 +127,7 @@ public class ChatBox extends FragmentActivity {
         TextView textView = (TextView)findViewById(R.id.chatbox_networknotification);
         textView.setVisibility(0);
         Button button = (Button)findViewById(R.id.sendmessage);
-        button.setClickable(false);
+        //button.setClickable(false);
     }
     @Override
     public void onResume(){
@@ -148,8 +148,11 @@ public class ChatBox extends FragmentActivity {
         //Log.d("XXXX", "fragment " + fragment.getArguments().get("from"));
         //String buddy = fragment.getBuddyid();
         MessageStanza messxml = new MessageStanza(MessageHandler.getInstance().FragToJid(position),message);
-        PacketWriter.addToWriteQueue(messxml.getXml());
+
+        PacketStatusManager.getInstance().pushMsPacket(messxml);
         MessageHandler.getInstance().addChat(MessageHandler.getInstance().FragToJid(position),messxml);
+        PacketWriter.addToWriteQueue(messxml.getXml());
+
         viewPager.setCurrentItem(position);
         mess.setText("");
 
@@ -160,7 +163,10 @@ public class ChatBox extends FragmentActivity {
         //ChatFragment fragment =  (ChatFragment)getSupportFragmentManager().findFragmentById(R.id.chatlist);
         //fragment.insertMessage(messxml);
     }
-
+    public void resendMessage(View view){
+        TextView tv = (TextView)findViewById(R.id.chatlistitem_status);
+        tv.setVisibility(0);
+    }
     public static Context getContext() {
         return context;
     }

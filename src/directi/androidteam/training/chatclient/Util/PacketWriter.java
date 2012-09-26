@@ -1,6 +1,9 @@
 package directi.androidteam.training.chatclient.Util;
 
 import android.util.Log;
+import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Chat.PacketStatusManager;
+import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -28,6 +31,13 @@ public class PacketWriter implements ServiceThread{
 
         writer.write(str);
         writer.flush();
+        if(writer.checkError()){
+            XMLHelper xmlHelper = new XMLHelper();
+            Tag tag = xmlHelper.tearPacket(str);
+            String id = tag.getAttribute("id");
+            PacketStatusManager.getInstance().setFailure(id);
+        }
+
 
     }
     @Override
