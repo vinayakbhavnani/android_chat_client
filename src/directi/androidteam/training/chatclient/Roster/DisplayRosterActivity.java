@@ -41,7 +41,7 @@ public class DisplayRosterActivity extends Activity {
         ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);
         new ImageResize().attachIcon(myImage,context);
         TextView textView = (TextView) findViewById(R.id.Roster_myjid);
-        textView.setText(JID.jid);
+        textView.setText(MyProfile.getInstance().getBareJID());
         TextView textView2 = (TextView) findViewById(R.id.Roster_mystatus);
         textView2.setText(MyProfile.getInstance().getStatus());
         Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);

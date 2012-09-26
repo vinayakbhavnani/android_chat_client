@@ -131,7 +131,6 @@ public class RosterManager {
         rosterSet.addSubscription("remove");
         PacketWriter.addToWriteQueue(rosterSet.getXml());
         Log.d("ssss", "inside roster manager -delete in roster list.. will update adapter list n display it");
-        //   RosterItemAdapter.setRosterEntries(getRosterList());
         DisplayRosterActivity.updateRosterList(getRosterList());
     }
 
@@ -187,7 +186,6 @@ public class RosterManager {
             Log.d("roster manager ","statys"+from+" "+status);
         }
         Log.d("ssss","inside roster manager -update presence of roster list.. will update adapter list n display it");
-        //   RosterItemAdapter.setRosterEntries(getRosterList());
         DisplayRosterActivity.updateRosterList(getRosterList());
     }
 
