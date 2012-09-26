@@ -81,13 +81,6 @@ public class DisplayRosterActivity extends Activity {
         }}
             );
    }
-    public static void launchNewIntent() {
-        Intent intent = new Intent(context,DisplayRosterActivity.class);
-        Log.d("XXXX","show AllRosters Called");
-        intent.putExtra("display", "all");
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        context.startActivity(intent);
-    }
     public static void displayMyCurrentProfile(Activity c) {
         ImageView myImage = (ImageView) c.findViewById(R.id.Roster_myimage);
         new ImageResize().attachIcon(myImage,context);
@@ -107,7 +100,6 @@ public class DisplayRosterActivity extends Activity {
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
-//        displayMyCurrentProfile();
         Log.d("ROSTER INTENT :", "New Intent Started");
     }
 

@@ -55,7 +55,7 @@ public class RosterAvailSpinnerHandler implements AdapterView.OnItemSelectedList
         if(string.equals("Available"))
             string="chat";
         else if(string.equals("Busy"))
-            string="away";
+            string="dnd";
         myProfile.setAvailability(string);
         myProfile.setStatusAndPresence();
         DisplayRosterActivity.displayMyCurrentProfile(activity);
