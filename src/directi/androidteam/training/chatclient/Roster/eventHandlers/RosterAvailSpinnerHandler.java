@@ -1,6 +1,7 @@
 package directi.androidteam.training.chatclient.Roster.eventHandlers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -8,6 +9,7 @@ import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
 import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
 import directi.androidteam.training.chatclient.Authentication.UserListActivity;
+import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Roster.MyProfile;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
@@ -21,8 +23,8 @@ import directi.androidteam.training.chatclient.Util.PacketWriter;
 public class RosterAvailSpinnerHandler implements AdapterView.OnItemSelectedListener {
     private Activity activity;
 
-    public RosterAvailSpinnerHandler(Activity parent) {
-        this.activity = parent;
+    public RosterAvailSpinnerHandler(Context context) {
+        this.activity = (Activity) context;
     }
 
     private void signOut() {
@@ -53,8 +55,9 @@ public class RosterAvailSpinnerHandler implements AdapterView.OnItemSelectedList
         if(string.equals("Available"))
             string="chat";
         else if(string.equals("Busy"))
-            string="away";
+            string="dnd";
         myProfile.setAvailability(string);
         myProfile.setStatusAndPresence();
+        DisplayRosterActivity.displayMyCurrentProfile(activity);
     }
 }

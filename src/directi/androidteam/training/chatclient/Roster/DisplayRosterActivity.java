@@ -81,19 +81,12 @@ public class DisplayRosterActivity extends Activity {
         }}
             );
    }
-    public static void launchNewIntent() {
-        Intent intent = new Intent(context,DisplayRosterActivity.class);
-        Log.d("XXXX","show AllRosters Called");
-        intent.putExtra("display", "all");
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        context.startActivity(intent);
-    }
-    private void displayMyCurrentProfile() {
-        ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);
+    public static void displayMyCurrentProfile(Activity c) {
+        ImageView myImage = (ImageView) c.findViewById(R.id.Roster_myimage);
         new ImageResize().attachIcon(myImage,context);
-        TextView textView2 = (TextView) findViewById(R.id.Roster_mystatus);
+        TextView textView2 = (TextView) c.findViewById(R.id.Roster_mystatus);
         textView2.setText(MyProfile.getInstance().getStatus());
-        Button button = (Button) findViewById(R.id.roster_availability_launch_spinner_button);
+        Button button = (Button) c.findViewById(R.id.roster_availability_launch_spinner_button);
         String avail = MyProfile.getInstance().getAvailability();
         if(avail.equals("Available") || avail.equals("chat"))
             button.setBackgroundColor(Color.GREEN);
@@ -107,7 +100,6 @@ public class DisplayRosterActivity extends Activity {
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
-        displayMyCurrentProfile();
         Log.d("ROSTER INTENT :", "New Intent Started");
     }
 
