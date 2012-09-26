@@ -212,4 +212,13 @@ public class RosterManager {
         RosterGroup rosterGroup = new RosterGroup(groupName);
         RosterGroupManager.getInstance().addNewGroup(rosterGroup);
     }
+
+    public ArrayList<RosterEntry> searchRosterEntries(String newJID) {
+        ArrayList<RosterEntry> rosterEntriesResult = new ArrayList<RosterEntry>();
+        for (RosterEntry rosterEntry : rosterEntries) {
+            if(rosterEntry.getJid().contains(newJID))
+                rosterEntriesResult.add(rosterEntry);
+        }
+        return rosterEntriesResult;
+    }
 }

@@ -13,6 +13,8 @@ import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.RosterEntry;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: ssumit
@@ -39,7 +41,8 @@ public class SearchRosterEntryDialog extends Dialog implements android.view.View
         Log.d("ROSTER UI :","new jid : "+newJID);
         dismiss();
         RosterManager rosterManager = RosterManager.getInstance();
-        RosterEntry rosterEntry = rosterManager.searchRosterEntry(newJID);
+        ArrayList<RosterEntry> rosterEntries = rosterManager.searchRosterEntries(newJID);
+        RosterEntry rosterEntry = rosterEntries.get(0);
         if(rosterEntry!=null) {
             Log.d("ROSTER UI : ","call to chat window");
             Intent intent = new Intent(context,ChatBox.class);

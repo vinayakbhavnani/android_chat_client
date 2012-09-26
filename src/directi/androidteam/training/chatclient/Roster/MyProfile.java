@@ -18,10 +18,10 @@ public class MyProfile {
     private static MyProfile myProfile = new MyProfile();
     private String bareJID;
     private MyProfile() {
-        this.rosterEntry = new RosterEntry(JID.jid);
-        this.rosterEntry.setPresence("chat");
-        this.rosterEntry.setStatus("Set Status");
-        this.bareJID = JID.jid.split("/")[0];
+        rosterEntry = new RosterEntry(JID.jid);
+        rosterEntry.setPresence("chat");
+        rosterEntry.setStatus("Set Status");
+        bareJID = JID.jid.split("/")[0];
     }
     public void setStatusAndPresence(){
         PresenceS presence = new PresenceS();
@@ -36,18 +36,18 @@ public class MyProfile {
         return bareJID;
     }
     public void setStatus(String status) {
-        this.rosterEntry.setStatus(status);
+        rosterEntry.setStatus(status);
     }
     public void setAvailability(String avail){
-        this.rosterEntry.setPresence(avail);
+        rosterEntry.setPresence(avail);
     }
     public static MyProfile getInstance() {
         return myProfile;
     }
     public String getStatus() {
-        return  this.rosterEntry.getStatus();
+        return  rosterEntry.getStatus();
     }
     public String getAvailability() {
-        return this.rosterEntry.getPresence();
+        return rosterEntry.getPresence();
     }
 }
