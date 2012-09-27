@@ -33,12 +33,15 @@ import java.util.UUID;
 public class DisplayRosterActivity extends Activity {
     private static RosterItemAdapter adapter;
     private static Context context;
+    private static ArrayList<RosterEntry> rosterEntries = new ArrayList<RosterEntry>();
     public DisplayRosterActivity(){
         context =this;
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //if(savedInstanceState==null)
+        {
 //        BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
         Log.d("XXXX", "oncreate roster : ");
         setContentView(R.layout.roster);
@@ -59,6 +62,15 @@ public class DisplayRosterActivity extends Activity {
         adapter = new RosterItemAdapter(context);
         updateRosterList(new ArrayList<RosterEntry>());
         rosterList.setAdapter(adapter);
+        }
+/*
+        else {
+            for (String s : savedInstanceState.keySet()) {
+                Log.d("oncreate","bundle key :" +s);
+            }
+*/
+
+     //   }
     }
 
     private void sendInitialPresence() {
@@ -84,6 +96,7 @@ public class DisplayRosterActivity extends Activity {
             }
         }
         );
+        rosterEntries = rosterList;
    }
     public static void displayMyCurrentProfile(Activity c) {
         ImageView myImage = (ImageView) c.findViewById(R.id.Roster_myimage);
@@ -106,8 +119,12 @@ public class DisplayRosterActivity extends Activity {
         super.onNewIntent(intent);
         Log.d("ROSTER INTENT :", "New Intent Started");
     }
+    @Override
+    protected void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+    }
 
-    protected Dialog onCreateDialog(int id) {
+        protected Dialog onCreateDialog(int id) {
         if(id==1){
             AddRosterDialog dialog = new AddRosterDialog(context);
             dialog.setContentView(R.layout.roster_add_dialog);

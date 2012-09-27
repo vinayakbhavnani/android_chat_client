@@ -181,7 +181,7 @@ public class ChatBox extends FragmentActivity {
         Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-
+        Log.d("oncreate :","coming back to roster activity");
     }
     private void switchFragment(String from){
         int frag = MessageHandler.getInstance().JidToFrag(from);

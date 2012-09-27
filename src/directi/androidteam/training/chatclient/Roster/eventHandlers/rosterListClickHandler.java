@@ -35,7 +35,7 @@ public class rosterListClickHandler implements  AdapterView.OnItemClickListener 
         //ChatBox.openChat(rosterEntry.getJid());
         Intent  intent = new Intent(ChatApplication.getAppContext(),ChatBox.class);
         intent.putExtra("buddyid",rosterEntry.getJid());
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);
     }
 }
