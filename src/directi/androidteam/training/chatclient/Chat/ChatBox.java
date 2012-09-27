@@ -12,8 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.bugsense.trace.BugSenseHandler;
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.MessageStanza;
+import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
@@ -42,7 +44,7 @@ public class ChatBox extends FragmentActivity {
         Log.d("chatboxcreated","cc");
         ChatApplication.chatrunning=true;
         super.onCreate(savedInstanceState);
-//        BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
+        BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
 
         setContentView(R.layout.chat);
         context=this;
