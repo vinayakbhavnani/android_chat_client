@@ -8,7 +8,13 @@ package directi.androidteam.training.StanzaStore;
  * To change this template use File | Settings | File Templates.
  */
 public class JID {
-    public static String jid = null;
+    private static String jid = null;
+    private JID () {
+
+    }
+    public static String getJid() {
+        return jid;
+    }
 
     public static void setJID(String content) {
         jid = content;

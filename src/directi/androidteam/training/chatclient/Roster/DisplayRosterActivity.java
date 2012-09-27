@@ -59,7 +59,6 @@ public class DisplayRosterActivity extends Activity {
         adapter = new RosterItemAdapter(context);
         updateRosterList(new ArrayList<RosterEntry>());
         rosterList.setAdapter(adapter);
-        rosterList.setTextFilterEnabled(true);
     }
 
     private void sendInitialPresence() {
@@ -70,7 +69,7 @@ public class DisplayRosterActivity extends Activity {
     private void requestForRosters() {
         Log.d("ROSTER :","entered request for ROSTER_MANAGER");
         RosterGet rosterGet = new RosterGet();
-        rosterGet.setSender(JID.jid).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext","2");
+        rosterGet.setSender(JID.getJid()).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext","2");
         PacketWriter.addToWriteQueue(rosterGet.getXml());
         Log.d("ROSTER :", "done requesting");
     }

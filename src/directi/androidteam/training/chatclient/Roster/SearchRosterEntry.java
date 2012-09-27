@@ -37,7 +37,6 @@ public class SearchRosterEntry extends Activity {
         ArrayList<RosterEntry> rosterEntries = rosterManager.searchRosterEntries("");
         updateRosterList(rosterEntries);
         listView.setAdapter(adapter);
-        listView.setTextFilterEnabled(true);
     }
     public static void updateRosterList(final ArrayList<RosterEntry> rosterList) {
         Activity a = (Activity) context;

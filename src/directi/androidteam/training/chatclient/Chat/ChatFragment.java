@@ -2,15 +2,14 @@ package directi.androidteam.training.chatclient.Chat;
 
 
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.ListView;
+import android.widget.TextView;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
@@ -119,13 +118,11 @@ public class ChatFragment extends ListFragment {
         convo.add(cli);
         PacketStatusManager.getInstance().pushCliPacket(cli);
         //adaptor.notifyDataSetChanged();
-        ChatBox.adaptorNotify(this);
-
+        ChatBox.adaptorNotify(adaptor);
         Log.d("chatlistitemsize",message.getBody());
     }
     public static boolean isSender(MessageStanza message){
-        //Log.d("isSender",JID.jid.split("/")[0]+" "+message.getFrom());
-        return message.getFrom().equals(JID.jid.split("/")[0]);
+        return message.getFrom().equals(JID.getJid().split("/")[0]);
     }
 
     public void notifyAdaptor(){
@@ -136,7 +133,6 @@ public class ChatFragment extends ListFragment {
         lv.setFocusable(true);
 
         if(lv.getChildCount()!=0){
-            Log.d("listviewfocus","true");
             lv.getChildAt(lv.getChildCount()-1).setFocusable(true);
             lv.setSelection(lv.getChildCount()-1);
         }

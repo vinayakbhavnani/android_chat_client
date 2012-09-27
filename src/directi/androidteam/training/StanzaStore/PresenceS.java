@@ -33,7 +33,7 @@ public class PresenceS  extends TagWrapper {
         tag.addAttribute("from", sender);
     }
     public void  addSender() {
-        tag.addAttribute("from", JID.jid);
+        tag.addAttribute("from", JID.getJid());
     }
     public void addID(String id){
         tag.addAttribute("id", id);

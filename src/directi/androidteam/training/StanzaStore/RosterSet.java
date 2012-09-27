@@ -18,7 +18,7 @@ public class RosterSet extends TagWrapper {
         tag = new IQTag();
         tag.addAttribute("type","set");
         tag.addAttribute("id", UUID.randomUUID().toString());
-        tag.addAttribute("from", JID.jid);
+        tag.addAttribute("from", JID.getJid());
     }
     public String getID(){
         return tag.getAttribute("id");

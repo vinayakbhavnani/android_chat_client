@@ -18,11 +18,12 @@ public class MyProfile {
     private static MyProfile myProfile = new MyProfile();
     private String bareJID;
     private MyProfile() {
-        rosterEntry = new RosterEntry(JID.jid);
+        String jid  = JID.getJid();
+        rosterEntry = new RosterEntry(jid);
         rosterEntry.setPresence("chat");
         rosterEntry.setStatus("Set Status");
-        if(JID.jid!=null)
-        bareJID = JID.jid.split("/")[0];
+        if(jid!=null)
+        bareJID = jid.split("/")[0];
         else
             bareJID = "me";
     }

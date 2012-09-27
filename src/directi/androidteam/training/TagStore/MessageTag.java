@@ -19,7 +19,7 @@ public class MessageTag extends Tag{
         attributes = new HashMap<String, String>();
         attributes.put("type","chat");
         attributes.put("to",to);
-        attributes.put("from", JID.jid);
+        attributes.put("from", JID.getJid());
         attributes.put("id", UUID.randomUUID().toString());
         if(subject!=null)
             attributes.put("subject",subject);
