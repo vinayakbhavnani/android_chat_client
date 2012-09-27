@@ -41,11 +41,11 @@
     <LinearLayout
             android:id="@+id/widget38"
             android:layout_width="fill_parent"
-            android:layout_height="140px"
+            android:layout_height="100dp"
             android:background="@color/White">
         <EditText
                 android:id="@+id/message"
-                android:layout_width="350px"
+                android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:hint="Enter Messsage"
                 android:textColor="@color/Black"

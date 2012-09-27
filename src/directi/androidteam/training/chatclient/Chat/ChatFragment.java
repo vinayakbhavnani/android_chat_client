@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import directi.androidteam.training.StanzaStore.JID;
@@ -74,6 +76,13 @@ public class ChatFragment extends ListFragment {
         TextView status = (TextView)(header.findViewById(R.id.chatfragment_status));
         RosterEntry re = RosterManager.getInstance().searchRosterEntry(buddyid);
         TextView presence = (TextView)(header.findViewById(R.id.chatheader_presence));
+        ImageView closeWindow = (ImageView)(header.findViewById(R.id.chatlistheader_close));
+        closeWindow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeFragment(view);
+            }
+        });
         if(re!=null){
             status.setText(re.getStatus());
             Log.d("statusmess",re.getPresence()+buddyid);
@@ -166,6 +175,12 @@ public class ChatFragment extends ListFragment {
             conv.add(cli);
         }
         return  conv;
+    }
+
+    public void closeFragment(View view){
+        Log.d("closewindow","click");
+        MessageHandler.getInstance().getChatLists().remove(buddyid);
+        ChatBox.recreateFragments();
     }
 
 
