@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import com.bugsense.trace.BugSenseHandler;
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterGet;
+import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.eventHandlers.*;
 import directi.androidteam.training.chatclient.Roster.util.ImageResize;
@@ -37,6 +39,7 @@ public class DisplayRosterActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
         Log.d("XXXX", "oncreate roster : ");
         setContentView(R.layout.roster);
         ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);

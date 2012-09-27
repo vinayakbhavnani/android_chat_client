@@ -16,12 +16,15 @@ import android.widget.TextView;
 
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.MessageStanza;
+import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
+import com.bugsense.trace.BugSenseHandler;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,6 +46,8 @@ public class ChatBox extends FragmentActivity {
         Log.d("chatboxcreated","cc");
         ChatApplication.chatrunning=true;
         super.onCreate(savedInstanceState);
+        BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
+
         setContentView(R.layout.chat);
         context=this;
         //moveTaskToBack(true);
@@ -91,11 +96,11 @@ public class ChatBox extends FragmentActivity {
         context.startActivity(intent);
 
     }
-    public static void adaptorNotify(final ChatListAdaptor adap){
+    public static void adaptorNotify(final ChatFragment cfrag){
         Activity a = (Activity) context;
         //Log.d("ssss","updateroster called");
         a.runOnUiThread(new Runnable() { public void run() {
-            adap.notifyDataSetChanged();
+            cfrag.notifyAdaptor();
         }}
         );
     }
@@ -140,6 +145,8 @@ public class ChatBox extends FragmentActivity {
     public void SendChat(View view){
         EditText mess = (EditText) findViewById(R.id.message);
         String message = mess.getText().toString();
+        if(message.equals(""))
+            return;
         //String buddy = ((ChatFragment)getSupportFragmentManager().findFragmentById(R.id.chatlist)).getBuddyid();
         int currentItem = viewPager.getCurrentItem();
         Log.d("XXX","current view: "+currentItem);
@@ -157,6 +164,7 @@ public class ChatBox extends FragmentActivity {
 
         viewPager.setCurrentItem(position);
         mess.setText("");
+
 
         //frag_adaptor.notifyDataSetChanged();
 

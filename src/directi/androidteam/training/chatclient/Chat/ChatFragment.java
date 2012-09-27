@@ -119,10 +119,12 @@ public class ChatFragment extends ListFragment {
         convo.add(cli);
         PacketStatusManager.getInstance().pushCliPacket(cli);
         //adaptor.notifyDataSetChanged();
-        ChatBox.adaptorNotify(adaptor);
+        ChatBox.adaptorNotify(this);
+
         Log.d("chatlistitemsize",message.getBody());
     }
     public static boolean isSender(MessageStanza message){
+        Log.d("isSender",JID.jid.split("/")[0]+" "+message.getFrom());
         return message.getFrom().equals(JID.jid.split("/")[0]);
     }
 
@@ -134,6 +136,7 @@ public class ChatFragment extends ListFragment {
         lv.setFocusable(true);
 
         if(lv.getChildCount()!=0){
+            Log.d("listviewfocus","true");
             lv.getChildAt(lv.getChildCount()-1).setFocusable(true);
             lv.setSelection(lv.getChildCount()-1);
         }
