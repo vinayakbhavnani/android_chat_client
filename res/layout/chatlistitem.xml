@@ -31,6 +31,18 @@
           android:text="helllo"
 
           />
+        <TextView
+            android:id="@+id/chatlistitem_status"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="10dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/Green"
+            android:text="failed"
+            android:clickable="true"
+            android:onClick="resendMessage"
+            android:visibility="gone"
+            />
 
     </LinearLayout>
     <TextView android:id="@+id/send_mess_body"

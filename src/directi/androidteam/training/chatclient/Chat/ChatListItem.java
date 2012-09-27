@@ -1,5 +1,6 @@
 package directi.androidteam.training.chatclient.Chat;
 
+import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.R;
 
 import java.text.DateFormat;
@@ -19,6 +20,17 @@ public class ChatListItem {
     private static final int sendResource = R.layout.chatlistitem;
     private static final int receiveResource = R.layout.chatlistitem_r;
     private String time;
+    private boolean status=true;
+    private String id;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public String getMessage() {
         return message;
     }
@@ -49,13 +61,24 @@ public class ChatListItem {
         return time;
     }
 
-    public ChatListItem(String name,String mess,boolean send,long ltime){
-        this.message=mess;
-        this.sender=send;
-        this.username=name;
-        Date date = new Date(ltime);
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ChatListItem(MessageStanza message){
+        this.message=message.getBody();
+        this.sender=ChatFragment.isSender(message);
+        this.username=message.getFrom();
+        Date date = new Date(message.getTime());
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        this.time = dateFormat.format(new Date(ltime));
+        this.time = dateFormat.format(new Date(message.getTime()));
+        this.id = message.getID();
+        this.status = message.isStatus();
+
 
     }
 

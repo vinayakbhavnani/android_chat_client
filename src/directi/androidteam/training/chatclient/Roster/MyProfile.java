@@ -21,6 +21,7 @@ public class MyProfile {
         rosterEntry = new RosterEntry(JID.jid);
         rosterEntry.setPresence("chat");
         rosterEntry.setStatus("Set Status");
+        if(JID.jid!=null)
         bareJID = JID.jid.split("/")[0];
     }
     public void setStatusAndPresence(){

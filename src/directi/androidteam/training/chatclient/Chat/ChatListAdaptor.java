@@ -2,6 +2,7 @@ package directi.androidteam.training.chatclient.Chat;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class ChatListAdaptor extends ArrayAdapter<ChatListItem> {
 
    @Override
     public View getView(int position,View view,ViewGroup viewg){
+       Log.d("viewofchatlist","hey");
        View row = view;
        int layoutResourceId = chatListItems.get(position).getResourceID();
        ChatListHolder holder = null;
@@ -42,6 +44,7 @@ public class ChatListAdaptor extends ArrayAdapter<ChatListItem> {
            holder.username = (TextView)row.findViewById(R.id.send_mess_name);
            holder.message = (TextView)row.findViewById(R.id.send_mess_body);
            holder.time = (TextView)row.findViewById(R.id.chatlistitem_time);
+           holder.status = (TextView)row.findViewById(R.id.chatlistitem_status);
            row.setTag(holder);
        }
        else
@@ -54,6 +57,8 @@ public class ChatListAdaptor extends ArrayAdapter<ChatListItem> {
         holder.username.setText(cli.getUsername().split("@")[0]);
        holder.message.setText(cli.getMessage());
        holder.time.setText(cli.getTime());
+       if(!cli.isStatus())
+           holder.status.setVisibility(0);
 
 
         return row;
@@ -62,5 +67,6 @@ public class ChatListAdaptor extends ArrayAdapter<ChatListItem> {
        TextView username;
        TextView message;
        TextView time;
+       TextView status;
    }
 }

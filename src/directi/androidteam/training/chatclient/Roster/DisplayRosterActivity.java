@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterGet;
@@ -36,19 +37,18 @@ public class DisplayRosterActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RosterManager.flush();
+        Log.d("XXXX", "oncreate roster : ");
         setContentView(R.layout.roster);
         ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);
         new ImageResize().attachIcon(myImage,context);
         TextView textView = (TextView) findViewById(R.id.Roster_myjid);
-        textView.setText(MyProfile.getInstance().getBareJID());
+        textView.setText("myprofile");//MyProfile.getInstance().getBareJID());
         TextView textView2 = (TextView) findViewById(R.id.Roster_mystatus);
         textView2.setText(MyProfile.getInstance().getStatus());
         Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
         spinner.setOnItemSelectedListener(new RosterAvailSpinnerHandler(this));
         Button button = (Button) findViewById(R.id.roster_availability_launch_spinner_button);
         button.setBackgroundColor(Color.GREEN);
-        Log.d("XXXX", "oncreate roster : " + MyProfile.getInstance().getStatus());
         ListView rosterList = (ListView) findViewById(R.id.rosterlist);
         rosterList.setOnItemClickListener(new rosterListClickHandler(rosterList,this));
         requestForRosters();
@@ -135,7 +135,7 @@ public class DisplayRosterActivity extends Activity {
         showDialog(2);
     }
     public void searchRosterEntry(View view) {
-        Intent intent = new Intent(context,SearchRosterEntry.class);
+        Intent intent = new Intent(ChatApplication.getAppContext(),SearchRosterEntry.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);
         // Log.d("ROSTER UI :","roster search called");
@@ -149,7 +149,9 @@ public class DisplayRosterActivity extends Activity {
     @Override
     public void onDestroy(){
         super.onDestroy();
+        Log.d("oncreate", "rosterdisplay destroyed");
         System.runFinalizersOnExit(true);
+        RosterManager.flush();
         System.exit(0);
     }
 }

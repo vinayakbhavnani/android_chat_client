@@ -115,13 +115,14 @@ public class ChatFragment extends ListFragment {
         //notifyAdaptor();
     }
     public void addChatItem(MessageStanza message){
-        convo.add(new ChatListItem(message.getFrom(),message.getBody(),isSender(message),message.getTime()));
-
+        ChatListItem cli = new ChatListItem(message);
+        convo.add(cli);
+        PacketStatusManager.getInstance().pushCliPacket(cli);
         //adaptor.notifyDataSetChanged();
         ChatBox.adaptorNotify(adaptor);
         Log.d("chatlistitemsize",message.getBody());
     }
-    public boolean isSender(MessageStanza message){
+    public static boolean isSender(MessageStanza message){
         return message.getFrom().equals(JID.jid.split("/")[0]);
     }
 
@@ -162,7 +163,7 @@ public class ChatFragment extends ListFragment {
         ArrayList<ChatListItem> conv;
         conv = new ArrayList<ChatListItem>();
         for (MessageStanza s : list) {
-            ChatListItem cli = new ChatListItem(s.getFrom(),s.getBody(),isSender(s),s.getTime());
+            ChatListItem cli = new ChatListItem(s);
             conv.add(cli);
         }
         return  conv;

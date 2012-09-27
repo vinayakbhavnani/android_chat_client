@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.eventHandlers.TextChangeListenerForSearch;
+import directi.androidteam.training.chatclient.Roster.eventHandlers.rosterListClickHandler;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class SearchRosterEntry extends Activity {
         EditText editText = (EditText) findViewById(R.id.searchrosterentryedittext);
         editText.addTextChangedListener(new TextChangeListenerForSearch());
         ListView listView = (ListView) findViewById(R.id.rostersearchlist);
+        listView.setOnItemClickListener(new rosterListClickHandler(listView,context));
         adapter = new RosterItemAdapter(context);
         RosterManager rosterManager = RosterManager.getInstance();
         ArrayList<RosterEntry> rosterEntries = rosterManager.searchRosterEntries("");
@@ -46,6 +48,12 @@ public class SearchRosterEntry extends Activity {
             }
         }
         );
+    }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        System.runFinalizersOnExit(true);
+        System.exit(0);
     }
 
 }
