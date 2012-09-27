@@ -16,20 +16,25 @@ import java.util.UUID;
 public class MyProfile {
     private RosterEntry rosterEntry;
     private static MyProfile myProfile = new MyProfile();
+    private String bareJID;
     private MyProfile() {
-        this.rosterEntry = new RosterEntry(JID.jid);
-        this.rosterEntry.setPresence("chat");
-        this.rosterEntry.setStatus("Set Status");
+        rosterEntry = new RosterEntry(JID.jid);
+        rosterEntry.setPresence("chat");
+        rosterEntry.setStatus("Set Status");
+        if(JID.jid!=null)
+        bareJID = JID.jid.split("/")[0];
     }
     public void setStatusAndPresence(){
         PresenceS presence = new PresenceS();
         presence.addID(UUID.randomUUID().toString());
-        String avail = rosterEntry.getPresence();
+        String avail = getAvailability();
         presence.addAvailability(avail);
         presence.addID(UUID.randomUUID().toString());
-        presence.addStatus(rosterEntry.getStatus());
+        presence.addStatus(getStatus());
         PacketWriter.addToWriteQueue(presence.getXml());
-        DisplayRosterActivity.launchNewIntent();
+    }
+    public String getBareJID() {
+        return bareJID;
     }
     public void setStatus(String status) {
         rosterEntry.setStatus(status);
@@ -41,11 +46,7 @@ public class MyProfile {
         return myProfile;
     }
     public String getStatus() {
-        String m =  rosterEntry.getStatus();
-        if(m==null || m.equals("")) {
-            return "Set status";
-        }
-        else return m;
+        return  rosterEntry.getStatus();
     }
     public String getAvailability() {
         return rosterEntry.getPresence();

@@ -61,13 +61,11 @@
                 android:clickable="true"/>
         <Button
                 android:id="@+id/roster_availability_launch_spinner_button"
-                android:layout_width="5dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:clickable="true"
                 android:onClick="launchSpinner"
                 android:layout_alignParentRight="true"
-                >
-        </Button>
+                />
     </RelativeLayout>
 
     <LinearLayout
@@ -105,24 +103,7 @@
         </Button>
     </LinearLayout>
 
-    <!--<ScrollView-->
-
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="fill_parent"-->
-            <!--android:fillViewport="true"-->
-            <!--android:id="@+id/Roster_All_Contacts"-->
-            <!-->-->
-
-        <!--<LinearLayout-->
-
-            <!--android:id="@+id/MainLayout"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="fill_parent"-->
-            <!--android:orientation ="vertical"-->
-            <!--android:paddingLeft="16dp"-->
-            <!--android:paddingRight="16dp" >-->
-
-            <ListView android:id="@+id/rosterlist"
+    <ListView android:id="@+id/rosterlist"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
@@ -132,8 +113,5 @@
                     android:paddingRight="8dp"
                     android:paddingTop="8dp"
                     android:clickable="true"
-                    >
-            </ListView>
-        <!--</LinearLayout>-->
-    <!--</ScrollView>-->
+                    />
 </RelativeLayout>

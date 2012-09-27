@@ -11,7 +11,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+
 import android.widget.TextView;
+
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
@@ -81,7 +83,7 @@ public class ChatBox extends FragmentActivity {
 
     public static void openChat(String from){
 
-        Intent intent = new Intent(context, ChatBox.class);
+        Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
         intent.putExtra("buddyid",from);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         //intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
@@ -172,7 +174,7 @@ public class ChatBox extends FragmentActivity {
     }
 
     public void GotoRoster(View view){
-        Intent intent = new Intent(context, DisplayRosterActivity.class);
+        Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
 

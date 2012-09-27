@@ -2,18 +2,17 @@ package directi.androidteam.training.chatclient.Roster;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import directi.androidteam.training.chatclient.Constants;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import directi.androidteam.training.chatclient.R;
+import directi.androidteam.training.chatclient.Roster.util.ImageResize;
 
 import java.util.ArrayList;
 
@@ -26,20 +25,16 @@ import java.util.ArrayList;
  */
 public class RosterItemAdapter extends BaseAdapter {
     Context context;
-    public static ArrayList<RosterEntry> rosterEntries;
+    public ArrayList<RosterEntry> rosterEntries;
 
     public RosterItemAdapter(Context context) {
- //       super(context, R.layout.rosterlistitem, rosterEntries);
         this.context = context;
         rosterEntries = new ArrayList<RosterEntry>();
         Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
     }
     public void setRosterEntries(ArrayList<RosterEntry> rosterEntriesInput){
-//        this.clear();
-  //          this.addAll(rosterEntriesInput);
         rosterEntries = rosterEntriesInput;
         Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
-        //  setNotifyOnChange(true);
     }
 
     @Override
@@ -84,7 +79,7 @@ public class RosterItemAdapter extends BaseAdapter {
         }
         RosterEntry rosterEntry = rosterEntries.get(position);
         if(rosterEntry!=null){
-            attachIcon(rosterItemHolder.rosterImg);
+            new ImageResize().attachIcon(rosterItemHolder.rosterImg,context);
             rosterItemHolder.rosterJid.setText(rosterEntry.getJid());
             if(rosterEntry.getPresence()!=null) {
                 Log.d("ssss","jid : "+rosterEntry.getJid()+"  presence :"+rosterEntry.getPresence() + "status"+rosterEntry.getStatus());
@@ -119,36 +114,8 @@ public class RosterItemAdapter extends BaseAdapter {
         Button availButton;
     }
 
-    private int dpToPx(int dp)
-    {
-        float density = context.getResources().getDisplayMetrics().density;
-        return Math.round((float)dp * density);
-    }
-
     @Override
     public  int getViewTypeCount () {
         return 1;
-    }
-    public void attachIcon(ImageView view) {
-        Drawable drawing = view.getDrawable();
-        Bitmap bitmap = ((BitmapDrawable)drawing).getBitmap();
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        int bounding = dpToPx(Constants.login_icon_size);
-        float xScale = ((float) bounding) / width;
-        float yScale = ((float) bounding) / height;
-        float scale = (xScale <= yScale) ? xScale : yScale;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scale, scale);
-        Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
-        width = scaledBitmap.getWidth();
-        height = scaledBitmap.getHeight();
-        BitmapDrawable result = new BitmapDrawable(scaledBitmap);
-        view.setImageDrawable(result);
-        view.setScaleType(ImageView.ScaleType.FIT_START);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
-        params.width = width;
-        params.height = height;
-        view.setLayoutParams(params);
     }
 }

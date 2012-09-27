@@ -3,7 +3,6 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import directi.androidteam.training.chatclient.R;
 
@@ -34,7 +33,7 @@ public class LoginErrorActivity extends Activity {
      */
     public void goToLogin(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra("username", ConnectGTalk.uname);
+        intent.putExtra("username", ConnectGTalk.username);
         startActivity(intent);
         this.finish();
     }

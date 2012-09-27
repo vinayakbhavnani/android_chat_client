@@ -1,5 +1,6 @@
-package directi.androidteam.training.chatclient.Roster;
+package directi.androidteam.training.chatclient.Roster.eventHandlers;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import directi.androidteam.training.chatclient.R;
+import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
+import directi.androidteam.training.chatclient.Roster.MyProfile;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,8 +20,10 @@ import directi.androidteam.training.chatclient.R;
  * To change this template use File | Settings | File Templates.
  */
 public class AddStatusDialog extends Dialog implements android.view.View.OnClickListener {
+    private Context context;
     public AddStatusDialog(Context context) {
         super(context);
+        this.context = context;
     }
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -34,9 +39,7 @@ public class AddStatusDialog extends Dialog implements android.view.View.OnClick
         myProfile.setStatus(status);
         myProfile.setStatusAndPresence();
         dismiss();
-
-        //RosterManager rosterManager =RosterManager.getInstance();
-        //rosterManager.deleteRosterEntry("singhsumitbit@gmail.com");
+        DisplayRosterActivity.displayMyCurrentProfile((Activity)context);
         return;
     }
 

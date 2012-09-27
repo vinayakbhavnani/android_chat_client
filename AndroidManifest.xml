@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="directi.androidteam.training.chatclient"
           android:versionCode="1"
@@ -31,6 +32,7 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="directi.androidteam.training.chatclient.Authentication.LoginActivity" />
         </activity>
+
         <activity android:name="directi.androidteam.training.chatclient.Authentication.UserListActivity"
                   android:label="@string/app_name">
             <meta-data
@@ -43,15 +45,15 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="directi.androidteam.training.chatclient.Authentication.LoginActivity" />
         </activity>
-        <activity android:name="directi.androidteam.training.chatclient.activitytest"
-                  android:label="@string/app_name">
-        </activity>
-        <activity android:name="directi.androidteam.training.chatclient.Chat.dummyactivity"
-                  android:label="@string/app_name">
-        </activity>
         <activity android:name="directi.androidteam.training.chatclient.Chat.ChatBox"
                   android:label="@string/app_name"
                   android:launchMode="singleTask">
+        </activity>
+        <activity android:name="directi.androidteam.training.chatclient.Roster.SearchRosterEntry"
+                  android:launchMode="singleTask">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="directi.androidteam.training.chatclient.Roster.DisplayRosterActivity" />
         </activity>
         <receiver android:name="directi.androidteam.training.chatclient.Util.NetworkConnectionChangeReceiver"
                   android:label="NetworkConnection">

@@ -78,7 +78,6 @@ public class RosterManager {
             }
         }
         Log.d("ssss","inside roster manager -set roster list.. will update adapter list n display it");
-     //   RosterItemAdapter.setRosterEntries(getRosterList());
         DisplayRosterActivity.updateRosterList(getRosterList());
     }
     public ArrayList<RosterEntry> getRosterList(){
@@ -108,13 +107,17 @@ public class RosterManager {
         RosterSet rosterSet = new RosterSet();
         rosterSet.addQuery(rosterEntry.getJid());
         PacketWriter.addToWriteQueue(rosterSet.getXml());
-        requestID.put(rosterSet.getID(),"0");
+        requestID.put(rosterSet.getID(), "0");
     }
     public void addRosterEntry(String newJID) {
         if(newJID ==null || newJID.equals(""))
             return;
         RosterEntry rosterEntry = new RosterEntry(newJID);
         addRosterEntry(rosterEntry);
+        PresenceS presenceS = new PresenceS();
+        presenceS.addReceiver(newJID);
+        presenceS.addType("subscribe");
+        PacketWriter.addToWriteQueue(presenceS.getXml());
     }
     public void deleteRosterEntry(String JID) {
         if(JID==null || rosterLookup==null || JID.equals("") || !rosterLookup.containsKey(JID))
@@ -127,7 +130,6 @@ public class RosterManager {
         rosterSet.addSubscription("remove");
         PacketWriter.addToWriteQueue(rosterSet.getXml());
         Log.d("ssss", "inside roster manager -delete in roster list.. will update adapter list n display it");
-        //   RosterItemAdapter.setRosterEntries(getRosterList());
         DisplayRosterActivity.updateRosterList(getRosterList());
     }
 
@@ -183,15 +185,9 @@ public class RosterManager {
             Log.d("roster manager ","statys"+from+" "+status);
         }
         Log.d("ssss","inside roster manager -update presence of roster list.. will update adapter list n display it");
-        //   RosterItemAdapter.setRosterEntries(getRosterList());
         DisplayRosterActivity.updateRosterList(getRosterList());
     }
 
-    public void changeAvailability(String avail) {
-        MyProfile myProfile = MyProfile.getInstance();
-        myProfile.setAvailability(avail);
-        myProfile.setStatusAndPresence();
-    }
     public RosterEntry searchRosterEntry(String jid) {
         RosterEntry rosterEntry = rosterLookup.get(jid);
         return rosterEntry;
@@ -214,5 +210,14 @@ public class RosterManager {
     public void addNewGroup(String groupName) {
         RosterGroup rosterGroup = new RosterGroup(groupName);
         RosterGroupManager.getInstance().addNewGroup(rosterGroup);
+    }
+
+    public ArrayList<RosterEntry> searchRosterEntries(String newJID) {
+        ArrayList<RosterEntry> rosterEntriesResult = new ArrayList<RosterEntry>();
+        for (RosterEntry rosterEntry : rosterEntries) {
+            if(rosterEntry.getJid().contains(newJID))
+                rosterEntriesResult.add(rosterEntry);
+        }
+        return rosterEntriesResult;
     }
 }

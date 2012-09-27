@@ -4,10 +4,10 @@ import android.util.Log;
 import directi.androidteam.training.chatclient.Util.ServiceThread;
 import directi.androidteam.training.chatclient.PacketStore.MessageQueue;
 
-public class testtask implements ServiceThread {
+public class MessageQueueProcessor implements ServiceThread {
     @Override
     public void execute() {
-        Log.d("Service Thread : ", "I am testtask");
+        Log.d("Service Thread : ", "I am MessageQueueProcessor");
         MessageQueue.getInstance().processPacket();
     }
 }

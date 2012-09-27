@@ -1,4 +1,4 @@
-package directi.androidteam.training.chatclient.Roster;
+package directi.androidteam.training.chatclient.Roster.eventHandlers;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,8 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.R;
+import directi.androidteam.training.chatclient.Roster.RosterEntry;
+import directi.androidteam.training.chatclient.Roster.RosterManager;
+
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,10 +42,11 @@ public class SearchRosterEntryDialog extends Dialog implements android.view.View
         Log.d("ROSTER UI :","new jid : "+newJID);
         dismiss();
         RosterManager rosterManager = RosterManager.getInstance();
-        RosterEntry rosterEntry = rosterManager.searchRosterEntry(newJID);
+        ArrayList<RosterEntry> rosterEntries = rosterManager.searchRosterEntries(newJID);
+        RosterEntry rosterEntry = rosterEntries.get(0);
         if(rosterEntry!=null) {
             Log.d("ROSTER UI : ","call to chat window");
-            Intent intent = new Intent(context,ChatBox.class);
+            Intent intent = new Intent(ChatApplication.getAppContext(),ChatBox.class);
             intent.putExtra("buddyid",rosterEntry.getJid());
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             context.startActivity(intent);
