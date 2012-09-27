@@ -23,6 +23,8 @@ public class MyProfile {
         rosterEntry.setStatus("Set Status");
         if(JID.jid!=null)
         bareJID = JID.jid.split("/")[0];
+        else
+            bareJID = "me";
     }
     public void setStatusAndPresence(){
         PresenceS presence = new PresenceS();
