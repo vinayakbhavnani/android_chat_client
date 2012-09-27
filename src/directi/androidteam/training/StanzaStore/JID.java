@@ -1,5 +1,7 @@
 package directi.androidteam.training.StanzaStore;
 
+import android.util.Log;
+
 /**
  * Created with IntelliJ IDEA.
  * User: ssumit
@@ -8,15 +10,17 @@ package directi.androidteam.training.StanzaStore;
  * To change this template use File | Settings | File Templates.
  */
 public class JID {
-    private static String jid = null;
+    private static String jid = "consttructor";
     private JID () {
-
     }
     public static String getJid() {
         return jid;
     }
 
     public static void setJID(String content) {
+        Log.d("jid set","jid is set here");
+        if(content!=null)
+            Log.d("jid set","jid is " + content);
         jid = content;
     }
 }
