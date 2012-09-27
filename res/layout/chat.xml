@@ -48,12 +48,15 @@
                 android:layout_width="350px"
                 android:layout_height="fill_parent"
                 android:hint="Enter Messsage"
+                android:textColor="@color/Black"
+                android:layout_weight="1"
                 android:textSize="18sp" />
         <Button
                 android:id="@+id/sendmessage"
-                android:layout_width="150px"
+                android:layout_width="100dp"
                 android:layout_height="fill_parent"
                 android:text="Send"
+
                 android:onClick="SendChat"/>
     </LinearLayout>
 </LinearLayout>
