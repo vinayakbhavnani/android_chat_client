@@ -41,7 +41,7 @@
     <LinearLayout
             android:id="@+id/widget38"
             android:layout_width="fill_parent"
-            android:layout_height="140dp"
+            android:layout_height="100dp"
             android:background="@color/White">
         <EditText
                 android:id="@+id/message"
