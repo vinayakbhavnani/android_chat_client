@@ -21,29 +21,29 @@
         </activity>
         <activity android:name="directi.androidteam.training.chatclient.Authentication.LoginActivity"
                   android:label="@string/app_name">
-            <meta-data
+<!--            <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="directi.androidteam.training.chatclient.InitialActivity" />
+                    android:value="directi.androidteam.training.chatclient.InitialActivity" /> -->
         </activity>
         <activity android:name=".Roster.DisplayRosterActivity"
                   android:label="@string/app_name"
                   android:launchMode="singleTask">
-            <meta-data
+<!--            <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="directi.androidteam.training.chatclient.Authentication.LoginActivity" />
+                    android:value="directi.androidteam.training.chatclient.Authentication.LoginActivity" /> -->
         </activity>
 
         <activity android:name="directi.androidteam.training.chatclient.Authentication.UserListActivity"
                   android:label="@string/app_name">
-            <meta-data
+<!--            <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="directi.androidteam.training.chatclient.Roster.DisplayRosterActivity" />
+                    android:value="directi.androidteam.training.chatclient.Roster.DisplayRosterActivity" /> -->
         </activity>
         <activity android:name="directi.androidteam.training.chatclient.Authentication.LoginErrorActivity"
                   android:label="@string/app_name">
-            <meta-data
+<!--            <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="directi.androidteam.training.chatclient.Authentication.LoginActivity" />
+                    android:value="directi.androidteam.training.chatclient.Authentication.LoginActivity" />  -->
         </activity>
         <activity android:name="directi.androidteam.training.chatclient.Chat.ChatBox"
                   android:label="@string/app_name"
