@@ -124,7 +124,7 @@ public class ChatFragment extends ListFragment {
         Log.d("chatlistitemsize",message.getBody());
     }
     public static boolean isSender(MessageStanza message){
-        Log.d("isSender",JID.jid.split("/")[0]+" "+message.getFrom());
+        //Log.d("isSender",JID.jid.split("/")[0]+" "+message.getFrom());
         return message.getFrom().equals(JID.jid.split("/")[0]);
     }
 

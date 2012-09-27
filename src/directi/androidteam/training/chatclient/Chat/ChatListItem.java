@@ -1,5 +1,6 @@
 package directi.androidteam.training.chatclient.Chat;
 
+import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.R;
 
@@ -50,7 +51,7 @@ public class ChatListItem {
     }
 
     public boolean isSender() {
-        return sender;
+        return this.sender;
     }
 
     public void setSender(boolean sender) {
@@ -78,7 +79,7 @@ public class ChatListItem {
         this.time = dateFormat.format(new Date(message.getTime()));
         this.id = message.getID();
         this.status = message.isStatus();
-
+        Log.d("isSenderCreate",this.message+" "+this.isSender());
 
     }
 

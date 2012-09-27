@@ -21,42 +21,62 @@ import java.util.ArrayList;
  */
 public class ChatListAdaptor extends ArrayAdapter<ChatListItem> {
     Context context;
-    ArrayList<ChatListItem> chatListItems;
+    //ArrayList<ChatListItem> chatListItems;
     public ChatListAdaptor(Context context, ArrayList<ChatListItem> objects) {
         super(context, R.layout.chatlistitem, objects);
-        this.chatListItems=objects;
+        //this.chatListItems=objects;
         this.context=context;
 
     }
 
    @Override
     public View getView(int position,View view,ViewGroup viewg){
-       Log.d("viewofchatlist","hey");
+       Log.d("isSenderView","hey "+(new Integer(position)).toString());
        View row = view;
-       int layoutResourceId = chatListItems.get(position).getResourceID();
+
        ChatListHolder holder = null;
-       if(row == null)
-       {
+       ChatListItem cli = getItem(position);
+       getItem(position);
+       int layoutResourceId = cli.getResourceID();
+      /* if(row == null)
+       {*/
+           Log.d("isSenderCli",cli.isSender()+""+cli.getMessage()+" "+(new Integer(position)).toString());
            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
            row = inflater.inflate(layoutResourceId, viewg, false);
 
            holder = new ChatListHolder();
-           holder.username = (TextView)row.findViewById(R.id.send_mess_name);
-           holder.message = (TextView)row.findViewById(R.id.send_mess_body);
-           holder.time = (TextView)row.findViewById(R.id.chatlistitem_time);
-           holder.status = (TextView)row.findViewById(R.id.chatlistitem_status);
+
+           if(cli.isSender()){
+            holder.status = (TextView)row.findViewById(R.id.chatlistitem_status);
+            holder.username = (TextView)row.findViewById(R.id.send_mess_name);
+            holder.message = (TextView)row.findViewById(R.id.send_mess_body);
+            holder.time = (TextView)row.findViewById(R.id.chatlistitem_time);
+           }
+           else{
+               holder.username = (TextView)row.findViewById(R.id.receive_mess_name);
+               holder.message = (TextView)row.findViewById(R.id.receive_mess_body);
+               holder.time = (TextView)row.findViewById(R.id.chatlistitemR_time);
+           }
            row.setTag(holder);
-       }
+
+
+       /*}
        else
        {
+           Log.d("isSenderView","View "+cli.getMessage());
+
            holder = (ChatListHolder)row.getTag();
+       }*/
+
+       if(!cli.isSender()){
+           holder.username.setText(cli.getUsername().split("@")[0]);
+           //row.setRight(0);
+           //row.setBackgroundColor(R.color.Red);
        }
 
-       ChatListItem cli = chatListItems.get(position);
-       if(!cli.isSender())
-        holder.username.setText(cli.getUsername().split("@")[0]);
        holder.message.setText(cli.getMessage());
        holder.time.setText(cli.getTime());
+
        if(!cli.isStatus())
            holder.status.setVisibility(0);
 
