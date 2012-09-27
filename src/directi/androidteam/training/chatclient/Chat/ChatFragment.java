@@ -118,7 +118,7 @@ public class ChatFragment extends ListFragment {
         convo.add(cli);
         PacketStatusManager.getInstance().pushCliPacket(cli);
         //adaptor.notifyDataSetChanged();
-        ChatBox.adaptorNotify(adaptor);
+        ChatBox.adaptorNotify(this);
         Log.d("chatlistitemsize",message.getBody());
     }
     public static boolean isSender(MessageStanza message){
