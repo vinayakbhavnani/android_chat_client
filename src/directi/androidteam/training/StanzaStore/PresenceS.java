@@ -55,9 +55,9 @@ public class PresenceS  extends TagWrapper {
     }
     public String getAvailability(){
         ArrayList<Tag> childlist = tag.getChildTags();
-        for (Tag tag : childlist) {
-            if(tag.getTagname().equals("show")){
-                return (new Show(tag)).getShowState();
+        for (Tag child : childlist) {
+            if(child.getTagname().equals("show")){
+                return (new Show(child)).getShowState();
             }
         }
         return null;
