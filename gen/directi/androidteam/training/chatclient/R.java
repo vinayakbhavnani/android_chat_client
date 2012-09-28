@@ -199,9 +199,10 @@ public final class R {
         public static final int chatlistitem_status=0x7f08000f;
         public static final int chatlistitem_time=0x7f08000e;
         public static final int choose_account=0x7f080032;
-        public static final int menu_add_contact=0x7f080036;
-        public static final int menu_search=0x7f080035;
-        public static final int menugroup=0x7f080034;
+        public static final int login_via_gtalk=0x7f080034;
+        public static final int menu_add_contact=0x7f080037;
+        public static final int menu_search=0x7f080036;
+        public static final int menugroup=0x7f080035;
         public static final int message=0x7f080006;
         public static final int navigationButttons=0x7f08001f;
         public static final int pager=0x7f080003;
@@ -250,7 +251,8 @@ public final class R {
         public static final int users=0x7f030010;
     }
     public static final class menu {
-        public static final int rostermenu=0x7f070000;
+        public static final int login_menu=0x7f070000;
+        public static final int rostermenu=0x7f070001;
     }
     public static final class string {
         public static final int OK=0x7f05000f;

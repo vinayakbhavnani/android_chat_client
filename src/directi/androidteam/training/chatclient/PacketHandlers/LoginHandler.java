@@ -3,13 +3,15 @@ package directi.androidteam.training.chatclient.PacketHandlers;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.TagStore.*;
-import directi.androidteam.training.chatclient.Authentication.*;
+import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
 import directi.androidteam.training.chatclient.Authentication.LoginActivity;
-import directi.androidteam.training.chatclient.Authentication.LoginErrorActivity;
 import directi.androidteam.training.chatclient.Authentication.User;
 import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
+import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Util.Base64;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
@@ -57,13 +59,19 @@ public class LoginHandler implements Handler {
                     " version='1.0'>");
         } else if (tag.getTagname().equals("failure")) {
             Log.d("Login Flow", "Failure tag received.");
-            Intent intent = new Intent(ChatApplication.getAppContext(), LoginErrorActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            ChatApplication.getAppContext().startActivity(intent);
-            if (ConnectGTalk.callerActivity != null) {
-                ConnectGTalk.callerActivity.setResult(Activity.RESULT_OK);
-                ConnectGTalk.callerActivity.finish();
-            }
+//            Intent intent = new Intent(ChatApplication.getAppContext(), LoginErrorActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            ChatApplication.getAppContext().startActivity(intent);
+//            if (ConnectGTalk.callerActivity != null) {
+//                ConnectGTalk.callerActivity.setResult(Activity.RESULT_OK);
+//                ConnectGTalk.callerActivity.finish();
+//            }
+            ConnectGTalk.callerActivity.runOnUiThread(new Runnable() {
+                public void run() {
+                    ConnectGTalk.callerActivity.findViewById(R.id.progress_bar).setVisibility(View.GONE);
+                    (Toast.makeText(ConnectGTalk.callerActivity, "Wrong username or password. Please try again.", Toast.LENGTH_LONG)).show();
+                }
+            });
         } else if (tag.getTagname().equals("iq")) {
             Log.d("Login Flow", "Iq tag with a child bind tag received.");
             extractJID(tag);
