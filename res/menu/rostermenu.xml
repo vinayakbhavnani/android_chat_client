@@ -4,7 +4,6 @@
     <group android:id="@+id/menugroup">
         <item
             android:id="@+id/menu_search"
-            android:title="@string/search"
             android:icon="@drawable/search"
             android:showAsAction="ifRoom"
             />

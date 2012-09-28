@@ -148,6 +148,7 @@ public class DisplayRosterActivity extends Activity {
         else if(menuItem.getItemId() == R.id.menu_add_contact) {
             showDialog(1);
         }
+        else return super.onOptionsItemSelected(menuItem);
         return true;
     }
     @Override
@@ -160,6 +161,7 @@ public class DisplayRosterActivity extends Activity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d("oncreate","menu");
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.rostermenu, menu);
         return true;
