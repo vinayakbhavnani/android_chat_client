@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import directi.androidteam.training.chatclient.R;
@@ -69,7 +68,7 @@ public class RosterItemAdapter extends BaseAdapter {
             rosterItemHolder = new RosterItemHolder();
             rosterItemHolder.rosterImg = (ImageView) v.findViewById(R.id.roster_image);
             rosterItemHolder.rosterJid = (TextView) v.findViewById(R.id.roster_item);
-       //     rosterItemHolder.availButton = (Button)v.findViewById(R.id.roster_availability_button);
+            rosterItemHolder.availabilityImage = (ImageView)v.findViewById(R.id.availability_image);
             rosterItemHolder.rosterStatus = (TextView) v.findViewById(R.id.roster_status);
             v.setTag(rosterItemHolder);
         }
@@ -80,23 +79,26 @@ public class RosterItemAdapter extends BaseAdapter {
         if(rosterEntry!=null){
             new ImageResize().attachIcon(rosterItemHolder.rosterImg,context);
             rosterItemHolder.rosterJid.setText(rosterEntry.getJid());
+            if (rosterItemHolder.availabilityImage == null) {
+                rosterItemHolder.availabilityImage = new ImageView(context);
+            }
             if(rosterEntry.getPresence()!=null) {
                 Log.d("ssss","jid : "+rosterEntry.getJid()+"  presence :"+rosterEntry.getPresence() + "status"+rosterEntry.getStatus());
             if(rosterEntry.getPresence().equals("dnd")) {
-//                rosterItemHolder.availButton.setBackgroundColor(Color.RED);
+                rosterItemHolder.availabilityImage.setImageResource(R.drawable.red);
             }
             else if(rosterEntry.getPresence().equals("away")) {
-  //              rosterItemHolder.availButton.setBackgroundColor(Color.YELLOW);
+                rosterItemHolder.availabilityImage.setImageResource(R.drawable.yellow);
             }
             else if(rosterEntry.getPresence().equals("chat")) {
-    //            rosterItemHolder.availButton.setBackgroundColor(Color.GREEN);
+                rosterItemHolder.availabilityImage.setImageResource(R.drawable.green);
             }
             else {
-      //          rosterItemHolder.availButton.setBackgroundColor(Color.GRAY);
+                rosterItemHolder.availabilityImage.setImageResource(R.drawable.gray);
             }
             }
         else {
-        //        rosterItemHolder.availButton.setBackgroundColor(Color.GRAY);
+                rosterItemHolder.availabilityImage.setImageResource(R.drawable.gray);
          }
             if(rosterEntry.getStatus()!=null) {
                 rosterItemHolder.rosterStatus.setText(rosterEntry.getStatus());
@@ -110,7 +112,7 @@ public class RosterItemAdapter extends BaseAdapter {
         ImageView rosterImg;
         TextView rosterJid;
         TextView rosterStatus;
-        Button availButton;
+        ImageView availabilityImage;
     }
 
     @Override
