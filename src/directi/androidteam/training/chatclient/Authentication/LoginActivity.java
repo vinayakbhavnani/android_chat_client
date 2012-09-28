@@ -23,6 +23,8 @@ public class LoginActivity extends Activity {
             EditText username_edit_text = (EditText) findViewById(R.id.username);
             username_edit_text.setText(username);
         }
+        ((EditText)findViewById(R.id.username)).addTextChangedListener(new EditTextListener((EditText)findViewById(R.id.username)));
+        ((EditText)findViewById(R.id.password)).addTextChangedListener(new EditTextListener((EditText)findViewById(R.id.password)));
 //        this.registerReceiver(new NetworkConnectionChangeReceiver(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
