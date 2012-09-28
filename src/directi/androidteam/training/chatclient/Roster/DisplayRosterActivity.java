@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import directi.androidteam.training.ChatApplication;
@@ -40,8 +43,6 @@ public class DisplayRosterActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //if(savedInstanceState==null)
-        {
 //        BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
         Log.d("XXXX", "oncreate roster : ");
         setContentView(R.layout.roster);
@@ -62,15 +63,6 @@ public class DisplayRosterActivity extends Activity {
         adapter = new RosterItemAdapter(context);
         updateRosterList(new ArrayList<RosterEntry>());
         rosterList.setAdapter(adapter);
-        }
-/*
-        else {
-            for (String s : savedInstanceState.keySet()) {
-                Log.d("oncreate","bundle key :" +s);
-            }
-*/
-
-     //   }
     }
 
     private void sendInitialPresence() {
@@ -146,24 +138,17 @@ public class DisplayRosterActivity extends Activity {
         Log.d("ROSTER : ","invalid request for dialog");
         return null;
     }
-    public void addRosterEntry(View view){
-        showDialog(1);
-    }
-    public void addStatus(View view) {
-        Log.d("ROSTER UI :","add status called");
-        showDialog(2);
-    }
-    public void searchRosterEntry(View view) {
-        Intent intent = new Intent(ChatApplication.getAppContext(),SearchRosterEntry.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        context.startActivity(intent);
-        // Log.d("ROSTER UI :","roster search called");
-     //   showDialog(3);
-    }
-    public void launchSpinner(View view) {
-        Log.d("spinner clicked","happening?");
-            Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
-              spinner.performClick();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if(menuItem.getItemId() == R.id.menu_search) {
+            Intent intent = new Intent(ChatApplication.getAppContext(),SearchRosterEntry.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            context.startActivity(intent);
+        }
+        else if(menuItem.getItemId() == R.id.menu_add_contact) {
+            showDialog(1);
+        }
+        return true;
     }
     @Override
     public void onDestroy(){
@@ -172,6 +157,32 @@ public class DisplayRosterActivity extends Activity {
         System.runFinalizersOnExit(true);
         RosterManager.flush();
         System.exit(0);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.rostermenu, menu);
+        return true;
+    }
+    public void OnClick(View view) {
+        int id = view.getId();
+        if( id == R.id.roster_availability_launch_spinner_button) {
+            Log.d("spinner clicked","happening?");
+            Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
+            spinner.performClick();
+        }
+        else if(id == R.id.Roster_search) {
+            Intent intent = new Intent(ChatApplication.getAppContext(),SearchRosterEntry.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            context.startActivity(intent);
+        }
+        else if(id == R.id.Roster_add) {
+            showDialog(1);
+        }
+        else if(id == R.id.Roster_mystatus) {
+            Log.d("ROSTER UI :","add status called");
+            showDialog(2);
+        }
     }
 }
 

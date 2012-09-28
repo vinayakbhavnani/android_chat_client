@@ -158,18 +158,20 @@ public final class R {
         public static final int YellowGreen=0x7f040050;
     }
     public static final class drawable {
-        public static final int android=0x7f020000;
-        public static final int cross=0x7f020001;
-        public static final int default_profile_l=0x7f020002;
-        public static final int green=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int images=0x7f020005;
-        public static final int login_button=0x7f020006;
-        public static final int orange=0x7f020007;
-        public static final int red=0x7f020008;
-        public static final int roster_rounded_buttons=0x7f020009;
-        public static final int rounded_textview=0x7f02000a;
-        public static final int rounded_textview_r=0x7f02000b;
+        public static final int addcontact=0x7f020000;
+        public static final int android=0x7f020001;
+        public static final int cross=0x7f020002;
+        public static final int default_profile_l=0x7f020003;
+        public static final int green=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int images=0x7f020006;
+        public static final int login_button=0x7f020007;
+        public static final int orange=0x7f020008;
+        public static final int red=0x7f020009;
+        public static final int roster_rounded_buttons=0x7f02000a;
+        public static final int rounded_textview=0x7f02000b;
+        public static final int rounded_textview_r=0x7f02000c;
+        public static final int search=0x7f02000d;
     }
     public static final class id {
         public static final int Roster_add=0x7f080021;
@@ -198,6 +200,9 @@ public final class R {
         public static final int chatlistitem_time=0x7f08000e;
         public static final int choose_account=0x7f080032;
         public static final int login_via_gtalk=0x7f080034;
+        public static final int menu_add_contact=0x7f080037;
+        public static final int menu_search=0x7f080036;
+        public static final int menugroup=0x7f080035;
         public static final int message=0x7f080006;
         public static final int navigationButttons=0x7f08001f;
         public static final int pager=0x7f080003;
@@ -247,6 +252,7 @@ public final class R {
     }
     public static final class menu {
         public static final int login_menu=0x7f070000;
+        public static final int rostermenu=0x7f070001;
     }
     public static final class string {
         public static final int OK=0x7f05000f;
@@ -262,6 +268,7 @@ public final class R {
         public static final int loading=0x7f05000e;
         public static final int login_error=0x7f050005;
         public static final int password=0x7f050002;
+        public static final int search=0x7f050011;
         public static final int sign_out=0x7f050009;
         public static final int start_chatting=0x7f050004;
         public static final int typeToSearch=0x7f050010;
