@@ -33,12 +33,12 @@
             android:visibility="gone"
             android:layout_gravity="center_horizontal"
             />
-    <Button android:layout_width="wrap_content"
+<!--    <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_account"
             android:onClick="addUser"
             android:background="@drawable/login_button"
             android:layout_marginTop="10dip"
             android:layout_marginBottom="10dip"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"/>     -->
 </LinearLayout>
