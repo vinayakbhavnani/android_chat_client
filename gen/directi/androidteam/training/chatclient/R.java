@@ -193,6 +193,7 @@ public final class R {
         public static final int Roster_new_jid=0x7f080027;
         public static final int Roster_preference=0x7f080025;
         public static final int Roster_search=0x7f080023;
+        public static final int add_account=0x7f08003b;
         public static final int canvas_roster=0x7f080001;
         public static final int chatbox_networknotification=0x7f080006;
         public static final int chatboxheader_left=0x7f080002;
@@ -262,6 +263,7 @@ public final class R {
     public static final class menu {
         public static final int login_menu=0x7f070000;
         public static final int rostermenu=0x7f070001;
+        public static final int userlist_menu=0x7f070002;
     }
     public static final class string {
         public static final int OK=0x7f05000f;
