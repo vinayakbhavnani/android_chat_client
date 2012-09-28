@@ -33,6 +33,8 @@ public class MessageHandler implements Handler{
     }
 
      public String FragToJid(int i){
+         if(i<0 || i >= chatLists.keySet().size())
+             return null;
          return (String)chatLists.keySet().toArray()[i];
      }
 

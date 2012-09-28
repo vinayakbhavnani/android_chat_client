@@ -1,5 +1,6 @@
 package directi.androidteam.training.chatclient.Chat;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -61,6 +62,7 @@ public class ChatBox extends FragmentActivity {
             @Override
             public void onPageSelected(int i) {
                 Log.d("XXX","index: "+i);
+                updateHeader(i);
                 //To change body of implemented methods use File | Settings | File Templates.
             }
 
@@ -74,7 +76,8 @@ public class ChatBox extends FragmentActivity {
             cancelNotification();
         if(from != null)
             switchFragment(from);
-
+        ActionBar ab = getActionBar();
+        ab.hide();
 
 
         //ListView list = (ListView) findViewById(R.id.chatlist);
@@ -83,7 +86,21 @@ public class ChatBox extends FragmentActivity {
         //list.setAdapter(adaptor);
 
     }
+    public void updateHeader(int i){
+        TextView hleft = (TextView)findViewById(R.id.chatboxheader_left);
+        TextView hright = (TextView)findViewById(R.id.chatboxheader_right);
 
+        String left = MessageHandler.getInstance().FragToJid(i-1);
+        String right = MessageHandler.getInstance().FragToJid(i+1);
+        if(left!=null)
+            hleft.setText(left.split("@")[0]);
+        else
+            hleft.setText("");
+        if(right!=null)
+            hright.setText(right.split("@")[0]);
+        else
+            hright.setText("");
+    }
     public static void openChat(String from){
 
         Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
@@ -191,6 +208,7 @@ public class ChatBox extends FragmentActivity {
     private void switchFragment(String from){
         int frag = MessageHandler.getInstance().JidToFrag(from);
         Log.d("indexreturned",new Integer(frag).toString());
+        updateHeader(frag);
         viewPager.setCurrentItem(frag);
         //frag_adaptor.notifyDataSetChanged();
         //ChatFragment curfrag = (ChatFragment)(frag_adaptor.getItem(frag));
