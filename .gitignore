@@ -17,3 +17,4 @@ src/directi/androidteam/training/lib/TCPHandler/smackLogin.java
 src/directi/androidteam/training/chatclient/Authentication/DoNotDelete
 src/directi/androidteam/training/chatclient/Util/MyService.java
 AndroidManifest.xml
+libs/*
