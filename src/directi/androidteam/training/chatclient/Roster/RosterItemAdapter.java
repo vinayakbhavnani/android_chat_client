@@ -2,7 +2,6 @@ package directi.androidteam.training.chatclient.Roster;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,7 +69,7 @@ public class RosterItemAdapter extends BaseAdapter {
             rosterItemHolder = new RosterItemHolder();
             rosterItemHolder.rosterImg = (ImageView) v.findViewById(R.id.roster_image);
             rosterItemHolder.rosterJid = (TextView) v.findViewById(R.id.roster_item);
-            rosterItemHolder.availButton = (Button)v.findViewById(R.id.roster_availability_button);
+       //     rosterItemHolder.availButton = (Button)v.findViewById(R.id.roster_availability_button);
             rosterItemHolder.rosterStatus = (TextView) v.findViewById(R.id.roster_status);
             v.setTag(rosterItemHolder);
         }
@@ -84,20 +83,20 @@ public class RosterItemAdapter extends BaseAdapter {
             if(rosterEntry.getPresence()!=null) {
                 Log.d("ssss","jid : "+rosterEntry.getJid()+"  presence :"+rosterEntry.getPresence() + "status"+rosterEntry.getStatus());
             if(rosterEntry.getPresence().equals("dnd")) {
-                rosterItemHolder.availButton.setBackgroundColor(Color.RED);
+//                rosterItemHolder.availButton.setBackgroundColor(Color.RED);
             }
             else if(rosterEntry.getPresence().equals("away")) {
-                rosterItemHolder.availButton.setBackgroundColor(Color.YELLOW);
+  //              rosterItemHolder.availButton.setBackgroundColor(Color.YELLOW);
             }
             else if(rosterEntry.getPresence().equals("chat")) {
-                rosterItemHolder.availButton.setBackgroundColor(Color.GREEN);
+    //            rosterItemHolder.availButton.setBackgroundColor(Color.GREEN);
             }
             else {
-                rosterItemHolder.availButton.setBackgroundColor(Color.GRAY);
+      //          rosterItemHolder.availButton.setBackgroundColor(Color.GRAY);
             }
             }
         else {
-                rosterItemHolder.availButton.setBackgroundColor(Color.GRAY);
+        //        rosterItemHolder.availButton.setBackgroundColor(Color.GRAY);
          }
             if(rosterEntry.getStatus()!=null) {
                 rosterItemHolder.rosterStatus.setText(rosterEntry.getStatus());

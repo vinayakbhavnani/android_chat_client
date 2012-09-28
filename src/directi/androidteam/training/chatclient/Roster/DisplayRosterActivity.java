@@ -4,14 +4,15 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.PresenceS;
@@ -54,8 +55,8 @@ public class DisplayRosterActivity extends Activity {
         textView2.setText(MyProfile.getInstance().getStatus());
         Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
         spinner.setOnItemSelectedListener(new RosterAvailSpinnerHandler(this));
-        Button button = (Button) findViewById(R.id.roster_availability_launch_spinner_button);
-        button.setBackgroundColor(Color.GREEN);
+  //      Button button = (Button) findViewById(R.id.roster_availability_launch_spinner_button);
+    //    button.setBackgroundColor(Color.GREEN);
         ListView rosterList = (ListView) findViewById(R.id.rosterlist);
         rosterList.setOnItemClickListener(new rosterListClickHandler(rosterList,this));
         requestForRosters();
@@ -95,16 +96,16 @@ public class DisplayRosterActivity extends Activity {
         new ImageResize().attachIcon(myImage,context);
         TextView textView2 = (TextView) c.findViewById(R.id.Roster_mystatus);
         textView2.setText(MyProfile.getInstance().getStatus());
-        Button button = (Button) c.findViewById(R.id.roster_availability_launch_spinner_button);
+    //    Button button = (Button) c.findViewById(R.id.roster_availability_launch_spinner_button);
         String avail = MyProfile.getInstance().getAvailability();
-        if(avail.equals("Available") || avail.equals("chat"))
-            button.setBackgroundColor(Color.GREEN);
-        else if(avail.equals("away"))
-            button.setBackgroundColor(Color.YELLOW);
-        else if(avail.equals("dnd") || avail.equals("Busy"))
-            button.setBackgroundColor(Color.RED);
-        else
-            button.setBackgroundColor(Color.GRAY);
+        if(avail.equals("Available") || avail.equals("chat"))     {}
+    //        button.setBackgroundColor(Color.GREEN);
+        else if(avail.equals("away"))  {}
+      //      button.setBackgroundColor(Color.YELLOW);
+        else if(avail.equals("dnd") || avail.equals("Busy"))  {}
+        //    button.setBackgroundColor(Color.RED);
+        else                                                    {}
+          //  button.setBackgroundColor(Color.GRAY);
     }
     @Override
     public void onNewIntent(Intent intent){
@@ -166,26 +167,26 @@ public class DisplayRosterActivity extends Activity {
         inflater.inflate(R.menu.rostermenu, menu);
         return true;
     }
-    public void OnClick(View view) {
-        int id = view.getId();
-        if( id == R.id.roster_availability_launch_spinner_button) {
-            Log.d("spinner clicked","happening?");
-            Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
-            spinner.performClick();
-        }
-        else if(id == R.id.Roster_search) {
-            Intent intent = new Intent(ChatApplication.getAppContext(),SearchRosterEntry.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            context.startActivity(intent);
-        }
-        else if(id == R.id.Roster_add) {
-            showDialog(1);
-        }
-        else if(id == R.id.Roster_mystatus) {
-            Log.d("ROSTER UI :","add status called");
-            showDialog(2);
-        }
-    }
+//    public void OnClick(View view) {
+//        int id = view.getId();
+//        if( id == R.id.roster_availability_launch_spinner_button) {
+//            Log.d("spinner clicked","happening?");
+//            Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
+//            spinner.performClick();
+//        }
+//        else if(id == R.id.Roster_search) {
+//            Intent intent = new Intent(ChatApplication.getAppContext(),SearchRosterEntry.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//            context.startActivity(intent);
+//        }
+//        else if(id == R.id.Roster_add) {
+//            showDialog(1);
+//        }
+//        else if(id == R.id.Roster_mystatus) {
+//            Log.d("ROSTER UI :","add status called");
+//            showDialog(2);
+//        }
+//    }
 }
 
 
