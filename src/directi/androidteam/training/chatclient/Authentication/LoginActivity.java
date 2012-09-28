@@ -2,6 +2,9 @@ package directi.androidteam.training.chatclient.Authentication;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -39,6 +42,24 @@ public class LoginActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.login_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.login_via_gtalk:
+                loginUser(new View(this));
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
     }
 
     /**
