@@ -5,9 +5,11 @@
         <item
             android:id="@+id/menu_search"
             android:icon="@drawable/search"
+            android:title="Search"
             android:showAsAction="ifRoom"
             />
         <item
+                android:title="Add Contact"
                 android:id="@+id/menu_add_contact"
                 android:icon="@drawable/addcontact"
                 android:showAsAction="ifRoom"
