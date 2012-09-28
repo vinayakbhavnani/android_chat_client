@@ -23,8 +23,9 @@ public class LoginActivity extends Activity {
             EditText username_edit_text = (EditText) findViewById(R.id.username);
             username_edit_text.setText(username);
         }
-        ((EditText)findViewById(R.id.username)).addTextChangedListener(new EditTextListener((EditText)findViewById(R.id.username)));
-        ((EditText)findViewById(R.id.password)).addTextChangedListener(new EditTextListener((EditText)findViewById(R.id.password)));
+        View.OnFocusChangeListener usernamePasswordFocusChangeListener = new EditTextFocusChangeListener();
+        ((EditText) findViewById(R.id.username)).setOnFocusChangeListener(usernamePasswordFocusChangeListener);
+        ((EditText)findViewById(R.id.password)).setOnFocusChangeListener(usernamePasswordFocusChangeListener);
 //        this.registerReceiver(new NetworkConnectionChangeReceiver(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
@@ -44,12 +45,16 @@ public class LoginActivity extends Activity {
      * Called when the user clicks the Login button
      */
     public void loginUser(View view) {
-        EditText username_edit_text = (EditText) findViewById(R.id.username);
-        EditText password_edit_text = (EditText) findViewById(R.id.password);
-        String username = username_edit_text.getText().toString();
-        String password = password_edit_text.getText().toString();
-        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
-        progressBar.setVisibility(View.VISIBLE);
-        (new ConnectGTalk(this)).execute(username, password);
+        String username = ((EditText) findViewById(R.id.username)).getText().toString();
+        String password = ((EditText) findViewById(R.id.password)).getText().toString();
+        if (username.equals("")) {
+            ((EditText) findViewById(R.id.username)).setError("This Field Cannot Be Left Blank");
+        } else if (password.equals("")) {
+            ((EditText) findViewById(R.id.password)).setError("This Field Cannot Be Left Blank");
+        } else {
+            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.VISIBLE);
+            (new ConnectGTalk(this)).execute(username, password);
+        }
     }
 }
