@@ -121,6 +121,9 @@ public class ChatBox extends FragmentActivity {
             notifyConnectionError();
             return;
         }
+        if (intent.getExtras().containsKey("finish")){
+            this.finish();
+        }
         String from = (String)intent.getExtras().get("buddyid");
         if(intent.getExtras().containsKey("notification"))
             cancelNotification();
@@ -203,5 +206,11 @@ public class ChatBox extends FragmentActivity {
         );
         //frag_adaptor.notifyDataSetChanged();
         //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public static void finishActivity(){
+        Intent intent = new Intent(context,ChatBox.class);
+        intent.putExtra("finish",true);
+        context.startActivity(intent);
     }
 }
