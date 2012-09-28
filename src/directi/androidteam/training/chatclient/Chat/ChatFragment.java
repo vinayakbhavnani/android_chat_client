@@ -180,6 +180,8 @@ public class ChatFragment extends ListFragment {
     public void closeFragment(View view){
         Log.d("closewindow","click");
         MessageHandler.getInstance().getChatLists().remove(buddyid);
+        if(MessageHandler.getInstance().getChatLists().size()==0)
+            ChatBox.finishActivity();
         ChatBox.recreateFragments();
     }
 
