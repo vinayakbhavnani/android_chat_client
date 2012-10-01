@@ -9,7 +9,7 @@ package directi.androidteam.training.TagStore;
  */
 public class Gone extends Tag{
     public Gone() {
-        super("gone", null,null,null);
-        addAttribute("xmlns","http://jabber.org/protocol/chatstates");
+        super("cha:gone", null,null,null);
+        addAttribute("xmlns:cha","http://jabber.org/protocol/chatstates");
     }
 }

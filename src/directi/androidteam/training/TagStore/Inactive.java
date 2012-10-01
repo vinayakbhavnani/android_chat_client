@@ -9,7 +9,7 @@ package directi.androidteam.training.TagStore;
  */
 public class Inactive extends Tag {
     public Inactive() {
-        super("inactive",null,null,null);
-        addAttribute("xmlns","http://jabber.org/protocol/chatstates");
+        super("cha:inactive",null,null,null);
+        addAttribute("xmlns:cha","http://jabber.org/protocol/chatstates");
     }
 }

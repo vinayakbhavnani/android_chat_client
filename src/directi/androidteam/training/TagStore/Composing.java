@@ -9,7 +9,7 @@ package directi.androidteam.training.TagStore;
  */
 public class Composing extends Tag {
     public Composing() {
-        super("composing",null,null,null);
-        addAttribute("xmlns","http://jabber.org/protocol/chatstates");
+        super("cha:composing",null,null,null);
+        addAttribute("xmlns:cha","http://jabber.org/protocol/chatstates");
     }
 }

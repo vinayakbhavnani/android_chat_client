@@ -9,7 +9,7 @@ package directi.androidteam.training.TagStore;
  */
 public class Paused extends Tag{
     public Paused() {
-        super("paused",null,null,null);
-        addAttribute("xmlns","http://jabber.org/protocol/chatstates");
+        super("cha:paused",null,null,null);
+        addAttribute("xmlns:cha","http://jabber.org/protocol/chatstates");
     }
 }

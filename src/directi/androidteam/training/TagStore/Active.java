@@ -9,7 +9,7 @@ package directi.androidteam.training.TagStore;
  */
 public class Active extends Tag {
     public Active() {
-        super("active",null,null,null);
-        addAttribute("xmlns","http://jabber.org/protocol/chatstates");
+        super("cha:active",null,null,null);
+        addAttribute("xmlns:cha","http://jabber.org/protocol/chatstates");
     }
 }
