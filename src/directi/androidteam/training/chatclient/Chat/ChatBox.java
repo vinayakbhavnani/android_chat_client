@@ -112,7 +112,6 @@ public class ChatBox extends FragmentActivity {
     }
     public static void adaptorNotify(final ChatFragment cfrag){
         Activity a = (Activity) context;
-        //Log.d("ssss","updateroster called");
         a.runOnUiThread(new Runnable() { public void run() {
             cfrag.notifyAdaptor();
         }}
@@ -168,7 +167,7 @@ public class ChatBox extends FragmentActivity {
         int position = currentItem;
 
         MessageStanza messxml = new MessageStanza(MessageHandler.getInstance().FragToJid(position),message);
-
+        messxml.formActiveMsg();
         PacketStatusManager.getInstance().pushMsPacket(messxml);
         MessageHandler.getInstance().addChat(MessageHandler.getInstance().FragToJid(position),messxml);
         PacketWriter.addToWriteQueue(messxml.getXml());

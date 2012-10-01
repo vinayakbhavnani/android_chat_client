@@ -36,10 +36,10 @@ public class MessageHandler implements Handler{
      public int JidToFrag(String from){
          addChatContact(from);
          Log.d("message handler arraysize",new Integer(chatLists.keySet().size()).toString());
-         String[]  set = (String[]) chatLists.keySet().toArray();
+         Object[]  set = chatLists.keySet().toArray();
          int i =0;
-         for (String jid : set) {
-             if(jid.equals(from))
+         for (Object jid : set) {
+             if(((String)jid).equals(from))
                  return i;
              i++;
          }
