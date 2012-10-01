@@ -68,7 +68,7 @@ public class RosterItemAdapter extends BaseAdapter {
             rosterItemHolder = new RosterItemHolder();
             rosterItemHolder.rosterImg = (ImageView) v.findViewById(R.id.roster_image);
             rosterItemHolder.rosterJid = (TextView) v.findViewById(R.id.roster_item);
-            rosterItemHolder.availabilityImage = (ImageView)v.findViewById(R.id.availability_image);
+            rosterItemHolder.availabilityImage = (ImageView)v.findViewById(R.id.list_availability_image);
             rosterItemHolder.rosterStatus = (TextView) v.findViewById(R.id.roster_status);
             v.setTag(rosterItemHolder);
         }
@@ -79,9 +79,6 @@ public class RosterItemAdapter extends BaseAdapter {
         if(rosterEntry!=null){
             new ImageResize().attachIcon(rosterItemHolder.rosterImg,context);
             rosterItemHolder.rosterJid.setText(rosterEntry.getJid());
-            if (rosterItemHolder.availabilityImage == null) {
-                rosterItemHolder.availabilityImage = new ImageView(context);
-            }
             if(rosterEntry.getPresence()!=null) {
                 Log.d("ssss","jid : "+rosterEntry.getJid()+"  presence :"+rosterEntry.getPresence() + "status"+rosterEntry.getStatus());
             if(rosterEntry.getPresence().equals("dnd")) {
