@@ -51,13 +51,6 @@
                 android:layout_height="0dp"
                 android:entries="@array/roster_availability_array"
                 android:clickable="true"/>
-<!--        <Button
-                android:id="@+id/roster_availability_launch_spinner_button"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:onClick="OnClick"
-                android:layout_alignParentRight="true"
-                />         -->
         <ImageView android:id="@+id/Roster_myimage"
                    android:layout_height="match_parent"
                    android:layout_width="40dp"
@@ -71,38 +64,4 @@
               android:layout_height="wrap_content"
               android:clickable="true"
             />
-<!--    <LinearLayout
-
-            android:id="@+id/navigationButttons"
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            >
-        <Button
-                android:id="@+id/Roster_search"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:text="Search"
-                android:onClick="OnClick"
-                >
-        </Button>
-        <Button
-                android:id="@+id/Roster_add"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:text="Add Contact"
-                android:onClick="OnClick"
-                >
-        </Button>
-        <Button
-                android:id="@+id/Roster_preference"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:text="Groups">
-        </Button>
-    </LinearLayout>  -->
 </LinearLayout>
