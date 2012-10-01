@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient.PacketHandlers;
 import android.util.Log;
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.MessageStanza;
+import directi.androidteam.training.TagStore.Query;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.Chat.ChatNotifier;
@@ -20,9 +21,6 @@ import java.util.HashMap;
 public class MessageHandler implements Handler{
 
     private static final MessageHandler messageHandler = new MessageHandler();
-
-
-
     private HashMap<String,NotifierArrayList> chatLists;
 
     private MessageHandler(){
@@ -37,7 +35,6 @@ public class MessageHandler implements Handler{
 
      public int JidToFrag(String from){
          addChatContact(from);
-         String[] t=null;
          Log.d("message handler arraysize",new Integer(chatLists.keySet().size()).toString());
          String[]  set = (String[]) chatLists.keySet().toArray();
          int i =0;
@@ -76,20 +73,42 @@ public class MessageHandler implements Handler{
 
     @Override
     public void processPacket(Tag tag){
+        if(tag.getTagname().equals("message")) {
+            MessageStanza ms = new MessageStanza(tag);
+            String from = ms.getTag().getAttribute("from").split("/")[0];
+            if(ms.getBody()==null)
+                return;
+            addChat(from,ms);
 
-        MessageStanza ms = new MessageStanza(tag);
-        String from = ms.getTag().getAttribute("from").split("/")[0];
-        if(ms.getBody()==null)
-            return;
-        addChat(from,ms);
+            Log.d("chatsize",new Integer(chatLists.get(from).size()).toString()+from);
 
-        Log.d("chatsize",new Integer(chatLists.get(from).size()).toString()+from);
-
-        if(ChatBox.getContext()==null){
-            ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
-            cn.notifyChat(ms);
+            if(ChatBox.getContext()==null){
+                ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
+                cn.notifyChat(ms);
+            }
+            else ChatBox.notifyChat(ms);
         }
-        else ChatBox.notifyChat(ms);
-
+        else if(tag.getTagname().equals("iq")) {
+            ArrayList<Tag> childlist = tag.getChildTags();
+            if(childlist==null)
+                return;
+            if(childlist.get(0).getTagname().equals("query")) {
+                Query query = (Query) childlist.get(0);
+                String xmlnsQuery = query.getAttribute("xmlns");
+                if(xmlnsQuery==null)
+                    return;
+                if(xmlnsQuery.equals("http://jabber.org/protocol/disc#info"))
+                {
+                    ArrayList<Tag> queryChildList = query.getChildTags();
+                    if(queryChildList==null) {
+                        Log.d("MesaageHandler","feature not included");
+                    }
+                    else {
+                        Tag tag1 = queryChildList.get(0);
+                        Log.d("MesaageHandler","var - "+tag1.getAttribute("var"));
+                    }
+                }
+            }
+        }
    }
 }
