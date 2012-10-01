@@ -42,8 +42,6 @@ public class ChatFragment extends ListFragment {
         Log.d("fragmentcreated","new fragement");
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
-        //buddyid = "vinayak.bhavnani@gmail.com";
-            //buddyid = "vinayak.bhavnani@gmail.com";
             Log.d("buddyid",buddyid);
             sconvo = MessageHandler.getInstance().getFragList(buddyid);
             convo = toChatListItemList(sconvo);
@@ -53,13 +51,6 @@ public class ChatFragment extends ListFragment {
             convo = new ArrayList<ChatListItem>();
 
         MessageHandler.getInstance().getChatLists().get(buddyid).registerFragment(this);
-
-
-        //
-
-
-        //buddyid = (String)getArguments().get("id");
-
     }
 
     @Override
@@ -67,7 +58,6 @@ public class ChatFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
         adaptor = new ChatListAdaptor(getActivity(),convo);
 
-        //getListView().setBackgroundColor(0x000000);
         ListView lv = getListView();
         LayoutInflater linf = getLayoutInflater(savedInstanceState);
         ViewGroup header = (ViewGroup)linf.inflate(R.layout.chatlistheader,lv,false);
@@ -109,7 +99,6 @@ public class ChatFragment extends ListFragment {
 
     public static ChatFragment getInstance(String from){
         ChatFragment curfrag = new ChatFragment();
-        //MessageHandler.getInstance().getChatLists().get(from).registerFragment(curfrag);
         Bundle args = new Bundle();
         args.putString("from",from);
         Log.d("XXXX", "from is " + from);
@@ -120,13 +109,11 @@ public class ChatFragment extends ListFragment {
     public void insertMessage(MessageStanza message){
         Log.d("XXX","chat fragment for: "+buddyid);
         sconvo.add(message);
-        //notifyAdaptor();
     }
     public void addChatItem(MessageStanza message){
         ChatListItem cli = new ChatListItem(message);
         convo.add(cli);
         PacketStatusManager.getInstance().pushCliPacket(cli);
-        //adaptor.notifyDataSetChanged();
         ChatBox.adaptorNotify(this);
         Log.d("chatlistitemsize",message.getBody());
     }
@@ -162,7 +149,6 @@ public class ChatFragment extends ListFragment {
     @Override
     public void onPause(){
         super.onPause();
-        //notifyAdaptor();
         Log.d("fragmentpause",buddyid);
 
     }

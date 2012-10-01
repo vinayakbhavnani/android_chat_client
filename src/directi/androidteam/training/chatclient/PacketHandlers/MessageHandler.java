@@ -9,7 +9,6 @@ import directi.androidteam.training.chatclient.Chat.ChatNotifier;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,8 +27,6 @@ public class MessageHandler implements Handler{
 
     private MessageHandler(){
         chatLists = new HashMap<String, NotifierArrayList>();
-
-        //chatpanes.put("vinayak.bhavnani",new ChatBox());
     }
 
      public String FragToJid(int i){
@@ -39,22 +36,21 @@ public class MessageHandler implements Handler{
      }
 
      public int JidToFrag(String from){
-         addChatcontact(from);
+         addChatContact(from);
          String[] t=null;
-         Log.d("arraysize",new Integer(chatLists.keySet().size()).toString());
-         Object[]  set = chatLists.keySet().toArray();
-         for(int i=0;i<chatLists.size();i++){
-             Log.d("keyval",(String)set[i]);
-            if(((String)set[i]).equals(from))
-                return i;
+         Log.d("message handler arraysize",new Integer(chatLists.keySet().size()).toString());
+         String[]  set = (String[]) chatLists.keySet().toArray();
+         int i =0;
+         for (String jid : set) {
+             if(jid.equals(from))
+                 return i;
+             i++;
          }
-
          return -1;
-
      }
 
      public  ArrayList<MessageStanza> getFragList(String from){
-         addChatcontact(from);
+         addChatContact(from);
          return chatLists.get(from);
      }
 
@@ -66,7 +62,7 @@ public class MessageHandler implements Handler{
         return chatLists;
     }
 
-    private void addChatcontact(String from){
+    private void addChatContact(String from){
         if(!chatLists.containsKey(from)){
             chatLists.put(from, new NotifierArrayList());
             if(ChatBox.getContext()!=null)
@@ -74,7 +70,7 @@ public class MessageHandler implements Handler{
         }
     }
     public void addChat(String from , MessageStanza ms){
-        addChatcontact(from);
+        addChatContact(from);
         chatLists.get(from).add(ms);
     }
 
@@ -82,14 +78,13 @@ public class MessageHandler implements Handler{
     public void processPacket(Tag tag){
 
         MessageStanza ms = new MessageStanza(tag);
-        String message = ms.getBody();
         String from = ms.getTag().getAttribute("from").split("/")[0];
         if(ms.getBody()==null)
             return;
         addChat(from,ms);
 
         Log.d("chatsize",new Integer(chatLists.get(from).size()).toString()+from);
-        //ChatBox.openChat(from);
+
         if(ChatBox.getContext()==null){
             ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
             cn.notifyChat(ms);
