@@ -14,16 +14,10 @@ import directi.androidteam.training.chatclient.Roster.RosterManager;
  * Time: 2:03 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RosterHandler implements Handler{
-    private static RosterHandler rosterHandler = null;
+public class RosterHandler implements Handler {
+    private static RosterHandler rosterHandler = new RosterHandler();
 
-    private RosterHandler() {
-    }
     public static RosterHandler getInstance() {
-        if(rosterHandler==null){
-            rosterHandler = new RosterHandler();
-            return rosterHandler;
-        }
         return rosterHandler;
     }
 

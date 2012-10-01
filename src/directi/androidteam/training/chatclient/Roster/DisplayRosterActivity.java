@@ -17,6 +17,9 @@ import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterGet;
+import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
+import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
+import directi.androidteam.training.chatclient.Authentication.UserListActivity;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.eventHandlers.*;
 import directi.androidteam.training.chatclient.Roster.util.ImageResize;
@@ -148,6 +151,16 @@ public class DisplayRosterActivity extends Activity {
         }
         else if(menuItem.getItemId() == R.id.menu_add_contact) {
             showDialog(1);
+        } else if (menuItem.getItemId() == R.id.logout) {
+            PresenceS presenceS = new PresenceS();
+            presenceS.addType("unavailable");
+            PacketWriter.addToWriteQueue(presenceS.getXml());
+            UserDatabaseHandler db = new UserDatabaseHandler(this);
+            db.updateState(ConnectGTalk.username, "offline");
+            db.close();
+            Intent intent = new Intent(this, UserListActivity.class);
+            startActivity(intent);
+            this.finish();
         }
         else return super.onOptionsItemSelected(menuItem);
         return true;

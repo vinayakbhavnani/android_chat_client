@@ -14,22 +14,16 @@ import directi.androidteam.training.chatclient.Roster.util.ImageResize;
 
 import java.util.ArrayList;
 
-/**
- * Created with IntelliJ IDEA.
- * User: ssumit
- * Date: 9/13/12
- * Time: 7:25 PM
- * To change this template use File | Settings | File Templates.
- */
 public class RosterItemAdapter extends BaseAdapter {
-    Context context;
-    public ArrayList<RosterEntry> rosterEntries;
+    private Context context;
+    private ArrayList<RosterEntry> rosterEntries;
 
     public RosterItemAdapter(Context context) {
         this.context = context;
         rosterEntries = new ArrayList<RosterEntry>();
         Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
     }
+
     public void setRosterEntries(ArrayList<RosterEntry> rosterEntriesInput){
         rosterEntries = rosterEntriesInput;
         Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
@@ -51,9 +45,13 @@ public class RosterItemAdapter extends BaseAdapter {
     }
 
     @Override
-    public boolean isEnabled(int position)
-    {
+    public boolean isEnabled(int position) {
         return true;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 1;
     }
 
     @Override
@@ -61,7 +59,7 @@ public class RosterItemAdapter extends BaseAdapter {
         Log.d("XXXXX", "get view is called for position " + position);
         View v = convertView;
         RosterItemHolder rosterItemHolder;
-        if(convertView==null){
+        if(convertView == null) {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             v = inflater.inflate(R.layout.rosterlistitem,null);
 
@@ -71,49 +69,38 @@ public class RosterItemAdapter extends BaseAdapter {
             rosterItemHolder.availabilityImage = (ImageView)v.findViewById(R.id.list_availability_image);
             rosterItemHolder.rosterStatus = (TextView) v.findViewById(R.id.roster_status);
             v.setTag(rosterItemHolder);
-        }
-        else {
+        } else {
             rosterItemHolder = (RosterItemHolder) v.getTag();
         }
         RosterEntry rosterEntry = rosterEntries.get(position);
-        if(rosterEntry!=null){
+        if(rosterEntry != null) {
             new ImageResize().attachIcon(rosterItemHolder.rosterImg,context);
             rosterItemHolder.rosterJid.setText(rosterEntry.getJid());
-            if(rosterEntry.getPresence()!=null) {
+            if(rosterEntry.getPresence() != null) {
                 Log.d("ssss","jid : "+rosterEntry.getJid()+"  presence :"+rosterEntry.getPresence() + "status"+rosterEntry.getStatus());
-            if(rosterEntry.getPresence().equals("dnd")) {
-                rosterItemHolder.availabilityImage.setImageResource(R.drawable.red);
-            }
-            else if(rosterEntry.getPresence().equals("away")) {
-                rosterItemHolder.availabilityImage.setImageResource(R.drawable.yellow);
-            }
-            else if(rosterEntry.getPresence().equals("chat")) {
-                rosterItemHolder.availabilityImage.setImageResource(R.drawable.green);
-            }
-            else {
+                if(rosterEntry.getPresence().equals("dnd")) {
+                    rosterItemHolder.availabilityImage.setImageResource(R.drawable.red);
+                } else if(rosterEntry.getPresence().equals("away")) {
+                    rosterItemHolder.availabilityImage.setImageResource(R.drawable.yellow);
+                } else if(rosterEntry.getPresence().equals("chat")) {
+                    rosterItemHolder.availabilityImage.setImageResource(R.drawable.green);
+                } else {
+                    rosterItemHolder.availabilityImage.setImageResource(R.drawable.gray);
+                }
+            } else {
                 rosterItemHolder.availabilityImage.setImageResource(R.drawable.gray);
             }
-            }
-        else {
-                rosterItemHolder.availabilityImage.setImageResource(R.drawable.gray);
-         }
-            if(rosterEntry.getStatus()!=null) {
+            if(rosterEntry.getStatus() != null) {
                 rosterItemHolder.rosterStatus.setText(rosterEntry.getStatus());
             }
-
         }
         return v;
     }
 
-    static class RosterItemHolder{
+    static class RosterItemHolder {
         ImageView rosterImg;
         TextView rosterJid;
         TextView rosterStatus;
         ImageView availabilityImage;
-    }
-
-    @Override
-    public  int getViewTypeCount () {
-        return 1;
     }
 }

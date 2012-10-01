@@ -192,7 +192,7 @@ public final class R {
         public static final int Roster_myself=0x7f08001c;
         public static final int Roster_mystatus=0x7f08001f;
         public static final int Roster_new_jid=0x7f080023;
-        public static final int add_account=0x7f080037;
+        public static final int add_account=0x7f080038;
         public static final int availability_image=0x7f08001d;
         public static final int canvas_roster=0x7f080001;
         public static final int chatbox_networknotification=0x7f080006;
@@ -211,6 +211,7 @@ public final class R {
         public static final int gtalk_icon=0x7f080017;
         public static final int list_availability_image=0x7f080028;
         public static final int login_via_gtalk=0x7f080033;
+        public static final int logout=0x7f080037;
         public static final int menu_add_contact=0x7f080036;
         public static final int menu_search=0x7f080035;
         public static final int menugroup=0x7f080034;
@@ -267,6 +268,7 @@ public final class R {
         public static final int OK=0x7f05000f;
         public static final int accounts=0x7f05000a;
         public static final int add_account=0x7f050008;
+        public static final int add_contact=0x7f050012;
         public static final int app_name=0x7f050000;
         public static final int button_login=0x7f050003;
         public static final int button_try_again=0x7f050006;
