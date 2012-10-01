@@ -2,7 +2,6 @@ package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.MessageTag;
 import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.Chat.ChatListItem;
 
 import java.util.ArrayList;
 
@@ -25,8 +24,6 @@ public class MessageStanza extends TagWrapper{
     }
 
     private boolean status = true;
-
-
 
     private void setCurrentTime(){
         time = System.currentTimeMillis();

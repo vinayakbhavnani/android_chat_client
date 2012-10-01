@@ -14,7 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.bugsense.trace.BugSenseHandler;
 import directi.androidteam.training.ChatApplication;
+import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
+import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
@@ -22,6 +24,7 @@ import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 /**
@@ -68,6 +71,7 @@ public class ChatBox extends FragmentActivity {
             }
         });
         String from =  (String) getIntent().getExtras().get("buddyid");
+        sendDiscoInfoQuery(from);
         if(getIntent().getExtras().containsKey("notification"))
             cancelNotification();
         if(from != null)
@@ -75,6 +79,14 @@ public class ChatBox extends FragmentActivity {
         ActionBar ab = getActionBar();
         ab.hide();
     }
+
+    private void sendDiscoInfoQuery(String from) {
+        String queryAttr = "http://jabber.org/protocol/disco#info";
+        RosterGet rosterGet = new RosterGet();
+        rosterGet.setSender(JID.getJid()).setReceiver(from).setQueryAttribute("xmlns",queryAttr).setID(UUID.randomUUID().toString());
+        PacketWriter.addToWriteQueue(rosterGet.getXml());
+    }
+
     public void updateHeader(int i){
         TextView hleft = (TextView)findViewById(R.id.chatboxheader_left);
         TextView hright = (TextView)findViewById(R.id.chatboxheader_right);
@@ -132,7 +144,10 @@ public class ChatBox extends FragmentActivity {
         if(intent.getExtras().containsKey("notification"))
             cancelNotification();
         if(from!=null)
+        {
             switchFragment(from);
+            sendDiscoInfoQuery(from);
+        }
     }
     public void notifyConnectionError(){
         TextView textView = (TextView)findViewById(R.id.chatbox_networknotification);
@@ -184,7 +199,6 @@ public class ChatBox extends FragmentActivity {
 
     public static void recreateFragments() {
         Activity a = (Activity) context;
-        //Log.d("ssss","updateroster called");
         a.runOnUiThread(new Runnable() { public void run() {
             frag_adaptor.notifyDataSetChanged();
         }}

@@ -27,4 +27,19 @@ public class MessageTag extends Tag{
         childTags.add(new BodyTag(body));
         content=null;
     }
+    public void addActiveTag() {
+        childTags.add(new Active());
+    }
+    public void addComposingTag() {
+        childTags.add(new Composing());
+    }
+    public void addPaused() {
+        childTags.add(new Paused());
+    }
+    public void addInactive() {
+        childTags.add(new Inactive());
+    }
+    public void addGoneTag() {
+        childTags.add(new Gone());
+    }
 }
