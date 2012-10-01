@@ -10,7 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.bugsense.trace.BugSenseHandler;
@@ -34,7 +33,6 @@ import java.util.ArrayList;
  */
 public class ChatBox extends FragmentActivity {
     private static Context context;
-    //private final String buddy="vinayak.bhavnani@gmail.com";
     private ArrayList<String> chatlist;
     private ArrayAdapter<String> adaptor;
     private static FragmentSwipeAdaptor frag_adaptor;
@@ -42,33 +40,31 @@ public class ChatBox extends FragmentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d("chatboxcreated","cc");
+        Log.d(Constants.DEBUG_CHATBOX,"created");
         ChatApplication.chatrunning=true;
         super.onCreate(savedInstanceState);
         BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
 
         setContentView(R.layout.chat);
         context=this;
-        //moveTaskToBack(true);
         frag_adaptor = new FragmentSwipeAdaptor(getSupportFragmentManager());
         viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(frag_adaptor);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-                //To change body of implemented methods use File | Settings | File Templates.
+                return;
             }
 
             @Override
             public void onPageSelected(int i) {
-                Log.d("XXX","index: "+i);
+                Log.d(Constants.DEBUG_CHATBOX,"page listener - index: "+i);
                 updateHeader(i);
-                //To change body of implemented methods use File | Settings | File Templates.
             }
 
             @Override
             public void onPageScrollStateChanged(int i) {
-                //To change body of implemented methods use File | Settings | File Templates.
+                return;
             }
         });
         String from =  (String) getIntent().getExtras().get("buddyid");
@@ -78,13 +74,6 @@ public class ChatBox extends FragmentActivity {
             switchFragment(from);
         ActionBar ab = getActionBar();
         ab.hide();
-
-
-        //ListView list = (ListView) findViewById(R.id.chatlist);
-        //chatlist = new ArrayList<String>();
-        //adaptor = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,chatlist);
-        //list.setAdapter(adaptor);
-
     }
     public void updateHeader(int i){
         TextView hleft = (TextView)findViewById(R.id.chatboxheader_left);
@@ -106,8 +95,6 @@ public class ChatBox extends FragmentActivity {
         Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
         intent.putExtra("buddyid",from);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
 
     }
@@ -144,36 +131,27 @@ public class ChatBox extends FragmentActivity {
         String from = (String)intent.getExtras().get("buddyid");
         if(intent.getExtras().containsKey("notification"))
             cancelNotification();
-        //viewPager.setCurrentItem(0);
         if(from!=null)
             switchFragment(from);
     }
     public void notifyConnectionError(){
         TextView textView = (TextView)findViewById(R.id.chatbox_networknotification);
         textView.setVisibility(0);
-        Button button = (Button)findViewById(R.id.sendmessage);
-        //button.setClickable(false);
     }
     @Override
     public void onResume(){
         super.onResume();
-        //moveTaskToBack(false);
         Log.d("Chatboxresumed","true");
     }
     public void SendChat(View view){
         EditText mess = (EditText) findViewById(R.id.message);
         String message = mess.getText().toString();
-        if(message.equals(""))
+        if(message==null || message.equals(""))
             return;
-        //String buddy = ((ChatFragment)getSupportFragmentManager().findFragmentById(R.id.chatlist)).getBuddyid();
         int currentItem = viewPager.getCurrentItem();
         Log.d("XXX","current view: "+currentItem);
         int position = currentItem;
 
-
-        //ChatFragment fragment = (ChatFragment)(frag_adaptor.getItem(currentItem));
-        //Log.d("XXXX", "fragment " + fragment.getArguments().get("from"));
-        //String buddy = fragment.getBuddyid();
         MessageStanza messxml = new MessageStanza(MessageHandler.getInstance().FragToJid(position),message);
 
         PacketStatusManager.getInstance().pushMsPacket(messxml);
@@ -182,14 +160,6 @@ public class ChatBox extends FragmentActivity {
 
         viewPager.setCurrentItem(position);
         mess.setText("");
-
-
-        //frag_adaptor.notifyDataSetChanged();
-
-        //chatlist.add(message);
-        //adaptor.notifyDataSetChanged();
-        //ChatFragment fragment =  (ChatFragment)getSupportFragmentManager().findFragmentById(R.id.chatlist);
-        //fragment.insertMessage(messxml);
     }
     public void resendMessage(View view){
         TextView tv = (TextView)findViewById(R.id.chatlistitem_status);
@@ -210,9 +180,6 @@ public class ChatBox extends FragmentActivity {
         Log.d("indexreturned",new Integer(frag).toString());
         updateHeader(frag);
         viewPager.setCurrentItem(frag);
-        //frag_adaptor.notifyDataSetChanged();
-        //ChatFragment curfrag = (ChatFragment)(frag_adaptor.getItem(frag));
-        //curfrag.notifyAdaptor();
     }
 
     public static void recreateFragments() {
@@ -222,8 +189,6 @@ public class ChatBox extends FragmentActivity {
             frag_adaptor.notifyDataSetChanged();
         }}
         );
-        //frag_adaptor.notifyDataSetChanged();
-        //To change body of created methods use File | Settings | File Templates.
     }
 
     public static void finishActivity(){
