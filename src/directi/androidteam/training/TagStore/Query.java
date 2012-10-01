@@ -1,8 +1,5 @@
 package directi.androidteam.training.TagStore;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 /**
  * Created with IntelliJ IDEA.
  * User: ssumit
@@ -11,8 +8,8 @@ import java.util.HashMap;
  * To change this template use File | Settings | File Templates.
  */
 public class Query extends Tag{
-    public Query(HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
-        super("query", attributes, childTags, content);
+    public Query(Tag tag) {
+        super("query", tag.getAttributes(), tag.getChildTags(), tag.getContent());
     }
     public Query(){
         super("query",null,null,null);

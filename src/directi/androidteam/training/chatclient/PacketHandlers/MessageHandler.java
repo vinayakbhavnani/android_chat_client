@@ -93,7 +93,7 @@ public class MessageHandler implements Handler{
             if(childlist==null)
                 return;
             if(childlist.get(0).getTagname().equals("query")) {
-                Query query = (Query) childlist.get(0);
+                Query query = new Query(childlist.get(0));
                 String xmlnsQuery = query.getAttribute("xmlns");
                 if(xmlnsQuery==null)
                     return;
