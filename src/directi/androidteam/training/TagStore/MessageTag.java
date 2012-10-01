@@ -30,6 +30,7 @@ public class MessageTag extends Tag{
     public MessageTag(String to) {
         super("message",null,null,null);
         addAttribute("to",to);
+        childTags = new ArrayList<Tag>();
     }
     public void addActiveTag() {
         childTags.add(new Active());

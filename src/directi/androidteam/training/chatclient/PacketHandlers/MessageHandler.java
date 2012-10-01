@@ -76,17 +76,20 @@ public class MessageHandler implements Handler{
         if(tag.getTagname().equals("message")) {
             MessageStanza ms = new MessageStanza(tag);
             String from = ms.getTag().getAttribute("from").split("/")[0];
-            if(ms.getBody()==null)
+            String chatState = ms.getChatState();
+            if(chatLists.containsKey(from) && chatState.equals("composing")) {
+                Log.d("CHAT STATE","Compose received from :" + from);
                 return;
-            addChat(from,ms);
-
-            Log.d("chatsize",new Integer(chatLists.get(from).size()).toString()+from);
-
-            if(ChatBox.getContext()==null){
-                ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
-                cn.notifyChat(ms);
             }
-            else ChatBox.notifyChat(ms);
+            else if(ms.getBody()!=null) {
+                addChat(from,ms);
+                if(ChatBox.getContext()==null){
+                    ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
+                    cn.notifyChat(ms);
+                }
+                else ChatBox.notifyChat(ms);
+            }
+
         }
         else if(tag.getTagname().equals("iq")) {
             ArrayList<Tag> childlist = tag.getChildTags();

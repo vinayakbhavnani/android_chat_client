@@ -91,4 +91,20 @@ public class MessageStanza extends TagWrapper{
     public String getID(){
         return tag.getAttribute("id");
     }
+
+    public String getChatState() {
+        ArrayList<Tag> childList = tag.getChildTags();
+        for (Tag tag1 : childList) {
+            if(tag1.getTagname().equals("active"))
+                return "active";
+            else if(tag1.getTagname().equals("composing"))
+                return "composing";
+            else if(tag1.getTagname().equals("gone"))
+                return "gone";
+            else if(tag1.getTagname().equals("inactive"))
+                return "inactive";
+        }
+
+        return "no chatstate";
+    }
 }

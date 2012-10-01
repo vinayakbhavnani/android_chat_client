@@ -18,6 +18,7 @@ import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.RosterEntry;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
+import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
 
@@ -70,6 +71,7 @@ public class ChatFragment extends ListFragment {
         closeWindow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sendGoneMsg(buddyid);
                 closeFragment(view);
             }
         });
@@ -95,6 +97,12 @@ public class ChatFragment extends ListFragment {
         else status.setText("null");
         lv.addHeaderView(header,null,false);
         setListAdapter(adaptor);
+    }
+
+    private void sendGoneMsg(String buddyid) {
+        MessageStanza messageStanza = new MessageStanza(buddyid);
+        messageStanza.formGoneMsg();
+        PacketWriter.addToWriteQueue(messageStanza.getXml());
     }
 
     public static ChatFragment getInstance(String from){
