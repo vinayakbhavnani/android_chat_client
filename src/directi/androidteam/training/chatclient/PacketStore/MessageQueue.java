@@ -29,18 +29,6 @@ public class MessageQueue {
         loginHandler = LoginHandler.getInstance();
     }
 
-    private boolean contains(Tag parent, String childTagName) {
-        if (parent.getChildTags() != null) {
-            for (int i = 0; i < parent.getChildTags().size(); i++) {
-                if (parent.getChildTags().get(i).getTagname().equals(childTagName)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        return false;
-    }
-
     public static MessageQueue getInstance(){
             return mqueue;
     }

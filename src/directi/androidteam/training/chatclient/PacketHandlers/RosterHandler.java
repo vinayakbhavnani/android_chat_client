@@ -27,8 +27,29 @@ public class RosterHandler implements Handler{
         return rosterHandler;
     }
 
+    private boolean contains(Tag parent, String childTagName) {
+        if (parent.getChildTags() != null) {
+            for (int i = 0; i < parent.getChildTags().size(); i++) {
+                if (parent.getChildTags().get(i).getTagname().equals(childTagName)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
     @Override
     public void processPacket(Tag tag) {
+        if(tag.getTagname().equals("message")){
+        } else if (tag.getTagname().equals("stream:stream") || tag.getTagname().equals("success") || tag.getTagname().equals("failure")) {
+        } else if (tag.getTagname().equals("iq") && contains(tag, "bind")) {
+        } else {
+            processPacketAux(tag);
+        }
+    }
+
+    public void processPacketAux(Tag tag) {
         String tagName = tag.getTagname();
         Log.d("packet - name ",tag.getTagname());
         if (tagName.equals("iq")){
