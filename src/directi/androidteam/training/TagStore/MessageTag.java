@@ -27,6 +27,10 @@ public class MessageTag extends Tag{
         childTags.add(new BodyTag(body));
         content=null;
     }
+    public MessageTag(String to) {
+        super("message",null,null,null);
+        addAttribute("to",to);
+    }
     public void addActiveTag() {
         childTags.add(new Active());
     }

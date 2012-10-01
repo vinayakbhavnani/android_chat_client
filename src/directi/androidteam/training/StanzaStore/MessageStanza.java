@@ -15,6 +15,42 @@ import java.util.ArrayList;
 public class MessageStanza extends TagWrapper{
     private long time;
 
+    public MessageStanza(String to, String body){
+        tag = new MessageTag(to,body,null);
+        setCurrentTime();
+    }
+
+    public MessageStanza(String to, String body, String subject){
+        tag = new MessageTag(to,body,subject);
+        setCurrentTime();
+    }
+
+    public MessageStanza(Tag tag) {
+        this.tag = tag;
+        setCurrentTime();
+    }
+
+    public MessageStanza(String to) {
+        tag = new MessageTag(to);
+    }
+
+    public void formActiveMsg() {
+        ((MessageTag)tag).addActiveTag();
+    }
+
+    public void formInActiveMsg() {
+        ((MessageTag)tag).addInactive();
+    }
+    public void formComposingMsg() {
+        ((MessageTag)tag).addComposingTag();
+    }
+    public void formGoneMsg() {
+        ((MessageTag)tag).addGoneTag();
+    }
+    public void formPausedMsg() {
+        ((MessageTag)tag).addPaused();
+    }
+
     public boolean isStatus() {
         return status;
     }
@@ -28,23 +64,11 @@ public class MessageStanza extends TagWrapper{
     private void setCurrentTime(){
         time = System.currentTimeMillis();
     }
-    public MessageStanza(String to, String body){
-        tag = new MessageTag(to,body,null);
-        setCurrentTime();
-    }
 
     public long getTime() {
         return time;
     }
 
-    public MessageStanza(String to, String body, String subject){
-        tag = new MessageTag(to,body,subject);
-        setCurrentTime();
-    }
-    public MessageStanza(Tag tag) {
-        this.tag = tag;
-        setCurrentTime();
-    }
     public String getBody(){
         ArrayList<Tag> children = tag.getChildTags();
         for (Tag child : children) {
