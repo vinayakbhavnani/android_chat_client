@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.bugsense.trace.BugSenseHandler;
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.JID;
@@ -196,5 +197,15 @@ public class ChatBox extends FragmentActivity {
         Intent intent = new Intent(context,ChatBox.class);
         intent.putExtra("finish",true);
         context.startActivity(intent);
+    }
+
+    public static void composeToast(final String s) {
+        Activity application = (Activity) context;
+        application.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(ChatApplication.getAppContext(), s, Toast.LENGTH_LONG).show();
+            }
+        }
+        );
     }
 }

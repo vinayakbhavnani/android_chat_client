@@ -79,6 +79,8 @@ public class MessageHandler implements Handler{
             String chatState = ms.getChatState();
             if(chatLists.containsKey(from) && chatState.equals("composing")) {
                 Log.d("CHAT STATE","Compose received from :" + from);
+                //Toast.makeText(ChatApplication.getAppContext(), from +" is composing", Toast.LENGTH_LONG).show();
+                ChatBox.composeToast(from +" is composing");
                 return;
             }
             else if(ms.getBody()!=null) {
