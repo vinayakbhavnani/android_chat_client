@@ -10,58 +10,42 @@
                   android:orientation="horizontal"
                   android:background="#FFFFFF"
                   android:layout_marginBottom="5dp"
-                  android:id="@+id/Roster_myself"
-            >
+                  android:id="@+id/Roster_myself">
         <ImageView android:id="@+id/availability_image"
                    android:layout_height="match_parent"
                    android:layout_width="5dp"
                    android:scaleType="centerCrop"
                    android:src="@drawable/green"
-                   android:layout_alignParentLeft="true"
-                />
+                   android:layout_alignParentLeft="true"/>
         <LinearLayout android:layout_width="0dp"
-                      android:layout_height="wrap_content"
+                      android:layout_height="match_parent"
                       android:layout_weight="1"
                       android:orientation="vertical"
                       android:background="#FFFFFF">
-            <TextView
-                  android:id="@+id/Roster_myjid"
-                  android:layout_height="wrap_content"
-                  android:layout_width="wrap_content"
-                  android:paddingLeft="5dp"
-                  android:textSize="15dp"
-                  android:textStyle="bold"
-                  android:textColor="#000000"
-                />
-            <TextView
-                  android:id="@+id/Roster_mystatus"
-                  android:layout_height="wrap_content"
-                  android:layout_width="wrap_content"
-                  android:paddingLeft="5dp"
-                  android:textSize="10dp"
-                  android:textStyle="italic"
-                  android:clickable="true"
-                  android:textColor="#333333"
-                  android:onClick="OnClick"
-                />
+            <TextView android:id="@+id/Roster_myjid"
+                      android:layout_height="wrap_content"
+                      android:layout_width="wrap_content"
+                      android:paddingLeft="5dp"
+                      android:textSize="15dp"
+                      android:textStyle="bold"
+                      android:textColor="#000000"/>
+            <TextView android:id="@+id/Roster_mystatus"
+                      android:layout_height="wrap_content"
+                      android:layout_width="wrap_content"
+                      android:paddingLeft="5dp"
+                      android:textSize="10dp"
+                      android:textStyle="italic"
+                      android:textColor="#333333"/>
         </LinearLayout>
-        <Spinner
-                android:id="@+id/roster_availability_spinner"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:entries="@array/roster_availability_array"
-                android:clickable="true"/>
         <ImageView android:id="@+id/Roster_myimage"
                    android:layout_height="match_parent"
-                   android:layout_width="40dp"
+                   android:layout_width="60dp"
                    android:scaleType="centerCrop"
-                   android:src="@drawable/android"
-                   android:layout_alignParentRight="true"
-                />
+                   android:src="@drawable/default_user"
+                   android:layout_alignParentRight="true"/>
     </LinearLayout>
-    <ListView android:id="@+id/rosterlist"
+    <ListView android:id="@android:id/list"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:clickable="true"
-            />
+              android:clickable="true"/>
 </LinearLayout>

@@ -40,7 +40,7 @@ public class MessageQueue {
         while(true){
             if(tagQueue.size()!=0){
                 Tag temp = tagQueue.remove(0);
-                launchInNewThread(mhandler,temp);
+                launchInNewThread(mhandler, temp);
                 launchInNewThread(loginHandler,temp);
                 launchInNewThread(rhandler,temp);
             }

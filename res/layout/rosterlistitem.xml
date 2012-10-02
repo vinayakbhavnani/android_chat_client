@@ -10,7 +10,7 @@
               android:focusable="false"
               android:focusableInTouchMode="false">
     <ImageView android:id="@+id/list_availability_image"
-               android:layout_height="fill_parent"
+               android:layout_height="match_parent"
                android:layout_width="5dp"
                android:scaleType="centerCrop"
                android:src="@drawable/green"
@@ -19,7 +19,7 @@
                android:focusable="false"
                android:focusableInTouchMode="false"/>
     <LinearLayout android:layout_width="0dp"
-                  android:layout_height="wrap_content"
+                  android:layout_height="60dp"
                   android:layout_weight="1"
                   android:orientation="vertical"
                   android:background="#FFFFFF"
@@ -49,9 +49,10 @@
                   android:focusableInTouchMode="false"/>
     </LinearLayout>
     <ImageView android:id="@+id/roster_image"
-               android:layout_height="fill_parent"
-               android:layout_width="50dp"
-               android:src="@drawable/android"
+               android:layout_height="match_parent"
+               android:layout_width="60dp"
+               android:scaleType="centerCrop"
+               android:src="@drawable/default_user"
                android:layout_alignParentRight="true"
                android:clickable="false"
                android:focusable="false"

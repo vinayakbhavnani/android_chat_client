@@ -35,9 +35,10 @@ public class LoginHandler implements Handler {
         }
     }
 
-    private void extractJID(Tag iqTag) {
+    private String extractJID(Tag iqTag) {
         JIDTag jidTag  = new JIDTag(iqTag.getChildTags().get(0).getChildTags().get(0));
         Log.d("JID intialize", jidTag.getContent());
+        return jidTag.getContent().split("/")[0];
     }
 
     private boolean contains(Tag parent, String childTagName) {
@@ -97,7 +98,7 @@ public class LoginHandler implements Handler {
             });
         } else if (tag.getTagname().equals("iq")) {
             Log.d("Login Flow", "Iq tag with a child bind tag received.");
-            extractJID(tag);
+            String bareJID = extractJID(tag);
             PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new IQTag("sess_1", "talk.google.com", "set", new SessionTag("urn:ietf:params:xml:ns:xmpp-session"))));
             UserDatabaseHandler db = new UserDatabaseHandler(ChatApplication.getAppContext());
             db.addUser(new User(ConnectGTalk.username, ConnectGTalk.password));
@@ -106,6 +107,7 @@ public class LoginHandler implements Handler {
             Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(LoginActivity.USERNAME, ConnectGTalk.username);
+            intent.putExtra("bareJID", bareJID);
             ChatApplication.getAppContext().startActivity(intent);
             if (ConnectGTalk.callerActivity != null) {
                 ConnectGTalk.callerActivity.setResult(Activity.RESULT_OK);

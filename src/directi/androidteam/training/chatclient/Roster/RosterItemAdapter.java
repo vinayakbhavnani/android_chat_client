@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.util.ImageResize;
 
 import java.util.ArrayList;
 
@@ -74,7 +73,8 @@ public class RosterItemAdapter extends BaseAdapter {
         }
         RosterEntry rosterEntry = rosterEntries.get(position);
         if(rosterEntry != null) {
-            new ImageResize().attachIcon(rosterItemHolder.rosterImg,context);
+        //    new ImageResize().attachIcon(rosterItemHolder.rosterImg,context);
+            rosterItemHolder.rosterImg.setImageBitmap(rosterEntry.avatar);
             rosterItemHolder.rosterJid.setText(rosterEntry.getJid());
             if(rosterEntry.getPresence() != null) {
                 Log.d("ssss","jid : "+rosterEntry.getJid()+"  presence :"+rosterEntry.getPresence() + "status"+rosterEntry.getStatus());

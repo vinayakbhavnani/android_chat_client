@@ -9,7 +9,6 @@ import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
 import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
 import directi.androidteam.training.chatclient.Authentication.UserListActivity;
-import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Roster.MyProfile;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
@@ -58,6 +57,6 @@ public class RosterAvailSpinnerHandler implements AdapterView.OnItemSelectedList
             string="dnd";
         myProfile.setAvailability(string);
         myProfile.setStatusAndPresence();
-        DisplayRosterActivity.displayMyCurrentProfile(activity);
+    //    DisplayRosterActivity.displayMyCurrentProfile(activity);
     }
 }

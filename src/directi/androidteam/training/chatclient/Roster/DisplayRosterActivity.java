@@ -2,33 +2,31 @@ package directi.androidteam.training.chatclient.Roster;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import directi.androidteam.training.ChatApplication;
-import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.PresenceS;
-import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
 import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
 import directi.androidteam.training.chatclient.Authentication.UserListActivity;
+import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.eventHandlers.*;
+import directi.androidteam.training.chatclient.Roster.eventHandlers.AddRosterDialog;
+import directi.androidteam.training.chatclient.Roster.eventHandlers.AddStatusDialog;
+import directi.androidteam.training.chatclient.Roster.eventHandlers.SearchRosterEntryDialog;
 import directi.androidteam.training.chatclient.Roster.util.ImageResize;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
-import java.util.UUID;
-
-//import com.bugsense.trace.BugSenseHandler;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,78 +35,53 @@ import java.util.UUID;
  * Time: 1:56 PM
  * To change this template use File | Settings | File Templates.
  */
-public class DisplayRosterActivity extends Activity {
-    private static RosterItemAdapter adapter;
-    private static Context context;
-    private static ArrayList<RosterEntry> rosterEntries = new ArrayList<RosterEntry>();
-    public DisplayRosterActivity(){
-        context =this;
-    }
+public class DisplayRosterActivity extends ListActivity {
+    private RosterItemAdapter adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
-        Log.d("XXXX", "oncreate roster : ");
         setContentView(R.layout.roster);
-        ImageView myImage = (ImageView) findViewById(R.id.Roster_myimage);
-        new ImageResize().attachIcon(myImage,context);
+        /*TODO Replace this with fetching your own vCard from persistent storage and displaying accordingly*/
         TextView textView = (TextView) findViewById(R.id.Roster_myjid);
         textView.setText(MyProfile.getInstance().getBareJID());
         TextView textView2 = (TextView) findViewById(R.id.Roster_mystatus);
         textView2.setText(MyProfile.getInstance().getStatus());
-        Spinner spinner = (Spinner) findViewById(R.id.roster_availability_spinner);
-        spinner.setOnItemSelectedListener(new RosterAvailSpinnerHandler(this));
-  //      Button button = (Button) findViewById(R.id.roster_availability_launch_spinner_button);
-    //    button.setBackgroundColor(Color.GREEN);
-        ListView rosterList = (ListView) findViewById(R.id.rosterlist);
-        rosterList.setOnItemClickListener(new rosterListClickHandler(rosterList,this));
-        requestForRosters();
-        sendInitialPresence();
-        adapter = new RosterItemAdapter(context);
-        updateRosterList(new ArrayList<RosterEntry>());
-        rosterList.setAdapter(adapter);
+        (new RequestRoster(this)).execute();
+        (new SendPresence(this)).execute();
+        this.adapter = new RosterItemAdapter(this);
+        setListAdapter(adapter);
     }
 
-    private void sendInitialPresence() {
-        PresenceS presenceS = new PresenceS();
-        PacketWriter.addToWriteQueue(presenceS.getXml());
+    @Override
+    public void onListItemClick(ListView view, View v, int position, long id) {
+        RosterEntry rosterEntry = (RosterEntry) view.getItemAtPosition(position);
+        Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
+        intent.putExtra("buddyid", rosterEntry.getJid());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
-    private void requestForRosters() {
-        Log.d("ROSTER :","entered request for ROSTER_MANAGER");
-        RosterGet rosterGet = new RosterGet();
-        rosterGet.setSender(JID.getJid()).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext","2");
-        PacketWriter.addToWriteQueue(rosterGet.getXml());
-        Log.d("ROSTER :", "done requesting");
-    }
-
-    public static void updateRosterList(final ArrayList<RosterEntry> rosterList) {
-        Activity a = (Activity) context;
-        Log.d("ssss","updateroster called");
-        a.runOnUiThread(new Runnable() {
-            public void run() {
-                adapter.setRosterEntries(rosterList);
-                adapter.notifyDataSetChanged();
-            }
-        }
-        );
-        rosterEntries = rosterList;
+    public void updateRosterList(final ArrayList<RosterEntry> rosterList) {
+        this.adapter.setRosterEntries(rosterList);
+        this.adapter.notifyDataSetChanged();
    }
-    public static void displayMyCurrentProfile(Activity c) {
+
+    public void displayMyCurrentProfile(Activity c) {
         ImageView myImage = (ImageView) c.findViewById(R.id.Roster_myimage);
-        new ImageResize().attachIcon(myImage,context);
+        new ImageResize().attachIcon(myImage,this);
         TextView textView2 = (TextView) c.findViewById(R.id.Roster_mystatus);
         textView2.setText(MyProfile.getInstance().getStatus());
-    //    Button button = (Button) c.findViewById(R.id.roster_availability_launch_spinner_button);
+        ImageView imageView = (ImageView) c.findViewById(R.id.availability_image);
         String avail = MyProfile.getInstance().getAvailability();
-        if(avail.equals("Available") || avail.equals("chat"))     {}
-    //        button.setBackgroundColor(Color.GREEN);
-        else if(avail.equals("away"))  {}
-      //      button.setBackgroundColor(Color.YELLOW);
-        else if(avail.equals("dnd") || avail.equals("Busy"))  {}
-        //    button.setBackgroundColor(Color.RED);
-        else                                                    {}
-          //  button.setBackgroundColor(Color.GRAY);
+        if(avail.equals("Available") || avail.equals("chat"))
+            imageView.setImageResource(R.drawable.green);
+        else if(avail.equals("away"))
+            imageView.setImageResource(R.drawable.yellow);
+        else if(avail.equals("dnd") || avail.equals("Busy"))
+            imageView.setImageResource(R.drawable.red);
+        else
+            imageView.setImageResource(R.drawable.gray);
     }
     @Override
     public void onNewIntent(Intent intent){
@@ -122,19 +95,19 @@ public class DisplayRosterActivity extends Activity {
 
         protected Dialog onCreateDialog(int id) {
         if(id==1){
-            AddRosterDialog dialog = new AddRosterDialog(context);
+            AddRosterDialog dialog = new AddRosterDialog(this);
             dialog.setContentView(R.layout.roster_add_dialog);
             dialog.setTitle("Add Your Friend");
             return dialog;
         }
         else if(id==2) {
-            AddStatusDialog dialog = new AddStatusDialog(context);
+            AddStatusDialog dialog = new AddStatusDialog(this);
             dialog.setContentView(R.layout.rostet_add_status);
             dialog.setTitle("Set Status");
             return dialog;
         }
         else if(id==3) {
-            SearchRosterEntryDialog dialog = new SearchRosterEntryDialog(context);
+            SearchRosterEntryDialog dialog = new SearchRosterEntryDialog(this);
             dialog.setContentView(R.layout.roster_search_entry);
             dialog.setTitle("Find Ur Friend");
             return dialog;
@@ -147,7 +120,7 @@ public class DisplayRosterActivity extends Activity {
         if(menuItem.getItemId() == R.id.menu_search) {
             Intent intent = new Intent(ChatApplication.getAppContext(),SearchRosterEntry.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            context.startActivity(intent);
+            this.startActivity(intent);
         }
         else if(menuItem.getItemId() == R.id.menu_add_contact) {
             showDialog(1);
@@ -200,6 +173,12 @@ public class DisplayRosterActivity extends Activity {
 //            showDialog(2);
 //        }
 //    }
+    public void displayVCard(VCard vCard) {
+        RosterManager rosterManager = RosterManager.getInstance();
+        rosterManager.updatePhoto(vCard);
+//        ImageView imageView = (ImageView) ((Activity)context).findViewById(R.id.Roster_myimage);
+//        imageView.setImageBitmap(vCard.getAvatar());
+    }
 }
 
 

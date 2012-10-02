@@ -78,7 +78,11 @@ public class RosterManager {
             }
         }
         Log.d("ssss","inside roster manager -set roster list.. will update adapter list n display it");
-        DisplayRosterActivity.updateRosterList(getRosterList());
+        SendPresence.callerActivity.runOnUiThread(new Runnable() {
+            public void run() {
+                ((DisplayRosterActivity)SendPresence.callerActivity).updateRosterList(getRosterList());
+            }
+        });
     }
     public ArrayList<RosterEntry> getRosterList(){
         ArrayList<RosterEntry> tempList = new ArrayList<RosterEntry>();
@@ -130,7 +134,7 @@ public class RosterManager {
         rosterSet.addSubscription("remove");
         PacketWriter.addToWriteQueue(rosterSet.getXml());
         Log.d("ssss", "inside roster manager -delete in roster list.. will update adapter list n display it");
-        DisplayRosterActivity.updateRosterList(getRosterList());
+        ((DisplayRosterActivity)SendPresence.callerActivity).updateRosterList(getRosterList());
     }
 
     public void updatePresence(PresenceS presence) {
@@ -185,7 +189,66 @@ public class RosterManager {
             Log.d("roster manager ","statys"+from+" "+status);
         }
         Log.d("ssss","inside roster manager -update presence of roster list.. will update adapter list n display it");
-        DisplayRosterActivity.updateRosterList(getRosterList());
+        SendPresence.callerActivity.runOnUiThread(new Runnable() {
+            public void run() {
+                ((DisplayRosterActivity)SendPresence.callerActivity).updateRosterList(getRosterList());
+            }
+        });
+    }
+
+    public void updatePhoto(VCard vCard) {
+        String from = vCard.getBareJID();
+        if(from==null || rosterLookup==null || !rosterLookup.containsKey(from))
+            return;
+        Log.d("ccc","no nulls from : "+ from);
+        RosterEntry rosterEntry = rosterLookup.get(from);
+        String prevAvail = rosterEntry.getPresence();
+        int flag =0 ;
+        if(vCard.getAvatar()!=null) {
+            rosterEntry.avatar = vCard.getAvatar();
+//            if(dndList.contains(rosterEntry)) {
+//                dndList.remove(rosterEntry);
+//            }
+//            if(chatList.contains(rosterEntry)) {
+//                chatList.remove(rosterEntry);
+//            }
+//            if(awayList.contains(rosterEntry)) {
+//                awayList.remove(rosterEntry);
+//            }
+//            if(prevAvail==null)
+//                prevAvail="";
+//            if(avail.equals("chat")){
+//                if (prevAvail.equals("chat"))
+//                    flag =1 ;
+//                chatList.add(rosterEntry);
+//            }
+//            else if(avail.equals("away")) {
+//                if (prevAvail.equals("away"))
+//                    flag = 1;
+//                awayList.add(rosterEntry);
+//            }
+//            else if(avail.equals("dnd")) {
+//                if (prevAvail.equals("dnd"))
+//                    flag = 1;
+//                awayList.add(rosterEntry);
+//            }
+        }
+//        String status = presence.getStatus();
+//        if(status==null && flag==1)
+//            return;
+//        if(status!=null) {
+//            String prevStatus = rosterEntry.getStatus();
+//            if(prevStatus.equals(status) && flag==1)
+//                return;
+//            rosterEntry.setStatus(status);
+//            Log.d("roster manager ","statys"+from+" "+status);
+//        }
+        Log.d("ssss","inside roster manager -update presence of roster list.. will update adapter list n display it");
+        SendPresence.callerActivity.runOnUiThread(new Runnable() {
+            public void run() {
+                ((DisplayRosterActivity)SendPresence.callerActivity).updateRosterList(getRosterList());
+            }
+        });
     }
 
     public RosterEntry searchRosterEntry(String jid) {
@@ -220,4 +283,5 @@ public class RosterManager {
         }
         return rosterEntriesResult;
     }
+
 }
