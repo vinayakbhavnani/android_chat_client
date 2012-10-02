@@ -51,7 +51,6 @@ public class ChatFragment extends ListFragment {
         else
             convo = new ArrayList<ChatListItem>();
 
-    //    MessageHandler.getInstance().getChatLists().get(buddyid).registerFragment(this);
         MessageManager.getInstance().registerFragment(this);
     }
 
@@ -115,10 +114,6 @@ public class ChatFragment extends ListFragment {
         return curfrag;
     }
 
-    public void insertMessage(MessageStanza message){
-        Log.d("XXX","chat fragment for: "+buddyid);
-        sconvo.add(message);
-    }
     public void addChatItem(MessageStanza message){
         ChatListItem cli = new ChatListItem(message);
         convo.add(cli);
@@ -132,19 +127,16 @@ public class ChatFragment extends ListFragment {
 
     public void notifyAdaptor(){
 
-
         adaptor.notifyDataSetChanged();
+        if(isVisible() || isResumed()) {  //added
         ListView lv = getListView();
         lv.setFocusable(true);
 
-        if(lv.getChildCount()!=0){
+        if(lv.getChildCount()>0){
             lv.getChildAt(lv.getChildCount()-1).setFocusable(true);
             lv.setSelection(lv.getChildCount()-1);
         }
-    }
-
-    public String getBuddyid(){
-        return buddyid;
+        }
     }
 
     @Override

@@ -98,14 +98,16 @@ public class ChatBox extends FragmentActivity {
     }
     public static void adaptorNotify(final ChatFragment cfrag){
         Activity a = (Activity) context;
+        if(context!=null && cfrag!=null)
         a.runOnUiThread(new Runnable() { public void run() {
             cfrag.notifyAdaptor();
         }}
         );
     }
     public static void notifyChat(MessageStanza ms){
-        if(viewPager.getCurrentItem()==MessageHandler.getInstance().JidToFrag(ms.getFrom()))
+        if(viewPager.getCurrentItem()==MessageHandler.getInstance().JidToFrag(ms.getFrom())) {
             return;
+        }
 
         ChatNotifier cn = new ChatNotifier(context);
         cn.notifyChat(ms);
