@@ -144,14 +144,12 @@ public class ChatFragment extends ListFragment {
         super.onResume();
         notifyAdaptor();
         Log.d("fragmentresume",buddyid);
-
     }
 
     @Override
     public void onPause(){
         super.onPause();
         Log.d("fragmentpause",buddyid);
-
     }
 
     private ArrayList<ChatListItem> toChatListItemList(ArrayList<MessageStanza> list){

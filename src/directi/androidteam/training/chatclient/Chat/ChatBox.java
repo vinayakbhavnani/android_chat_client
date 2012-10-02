@@ -89,13 +89,6 @@ public class ChatBox extends FragmentActivity {
             hright.setText("");
     }
 
-    public static void openChat(String from){
-        Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
-        intent.putExtra("buddyid",from);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        context.startActivity(intent);
-
-    }
     public static void adaptorNotify(final ChatFragment cfrag){
         Activity a = (Activity) context;
         if(context!=null && cfrag!=null)
@@ -179,7 +172,6 @@ public class ChatBox extends FragmentActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         //send inactives to chatlist
-        Log.d("oncreate :","coming back to roster activity");
     }
     private void switchFragment(String from){
         int frag = MessageHandler.getInstance().JidToFrag(from);
