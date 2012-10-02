@@ -18,6 +18,7 @@ import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.RosterEntry;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
+import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
 
@@ -50,7 +51,7 @@ public class ChatFragment extends ListFragment {
         else
             convo = new ArrayList<ChatListItem>();
 
-        MessageHandler.getInstance().getChatLists().get(buddyid).registerFragment(this);
+        MessageManager.getInstance().registerFragment(this);
     }
 
     @Override
@@ -70,6 +71,7 @@ public class ChatFragment extends ListFragment {
         closeWindow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sendGoneMsg(buddyid);
                 closeFragment(view);
             }
         });
@@ -97,6 +99,12 @@ public class ChatFragment extends ListFragment {
         setListAdapter(adaptor);
     }
 
+    private void sendGoneMsg(String buddyid) {
+        MessageStanza messageStanza = new MessageStanza(buddyid);
+        messageStanza.formGoneMsg();
+        PacketWriter.addToWriteQueue(messageStanza.getXml());
+    }
+
     public static ChatFragment getInstance(String from){
         ChatFragment curfrag = new ChatFragment();
         Bundle args = new Bundle();
@@ -106,10 +114,6 @@ public class ChatFragment extends ListFragment {
         return curfrag;
     }
 
-    public void insertMessage(MessageStanza message){
-        Log.d("XXX","chat fragment for: "+buddyid);
-        sconvo.add(message);
-    }
     public void addChatItem(MessageStanza message){
         ChatListItem cli = new ChatListItem(message);
         convo.add(cli);
@@ -123,19 +127,16 @@ public class ChatFragment extends ListFragment {
 
     public void notifyAdaptor(){
 
-
         adaptor.notifyDataSetChanged();
+        if(isVisible() || isResumed()) {  //added
         ListView lv = getListView();
         lv.setFocusable(true);
 
-        if(lv.getChildCount()!=0){
+        if(lv.getChildCount()>0){
             lv.getChildAt(lv.getChildCount()-1).setFocusable(true);
             lv.setSelection(lv.getChildCount()-1);
         }
-    }
-
-    public String getBuddyid(){
-        return buddyid;
+        }
     }
 
     @Override
@@ -143,14 +144,12 @@ public class ChatFragment extends ListFragment {
         super.onResume();
         notifyAdaptor();
         Log.d("fragmentresume",buddyid);
-
     }
 
     @Override
     public void onPause(){
         super.onPause();
         Log.d("fragmentpause",buddyid);
-
     }
 
     private ArrayList<ChatListItem> toChatListItemList(ArrayList<MessageStanza> list){

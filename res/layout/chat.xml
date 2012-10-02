@@ -20,15 +20,11 @@
             android:textSize="20dp"
             android:textColor="@color/Green"
             android:clickable="true"
-
-
             />
         <ImageView
                 android:id="@+id/chatboxheader_roster"
                 android:layout_height="30dp"
                 android:layout_width="30dp"
-
-
                 android:layout_gravity="center"
                 android:src="@drawable/chat3"
                 android:scaleType="fitCenter"
@@ -79,7 +75,6 @@
                 android:layout_width="100dp"
                 android:layout_height="fill_parent"
                 android:text="Send"
-
                 android:onClick="SendChat"/>
     </LinearLayout>
 </LinearLayout>

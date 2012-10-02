@@ -9,19 +9,23 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.bugsense.trace.BugSenseHandler;
 import directi.androidteam.training.ChatApplication;
+import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
+import directi.androidteam.training.StanzaStore.RosterGet;
+import directi.androidteam.training.chatclient.Chat.Listeners.ChatViewPageChangeListner;
+import directi.androidteam.training.chatclient.Chat.Listeners.MsgTextChangeListener;
 import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
-import java.util.ArrayList;
+import java.util.UUID;
 
 
 /**
@@ -33,8 +37,6 @@ import java.util.ArrayList;
  */
 public class ChatBox extends FragmentActivity {
     private static Context context;
-    private ArrayList<String> chatlist;
-    private ArrayAdapter<String> adaptor;
     private static FragmentSwipeAdaptor frag_adaptor;
     private static ViewPager viewPager;
 
@@ -50,31 +52,27 @@ public class ChatBox extends FragmentActivity {
         frag_adaptor = new FragmentSwipeAdaptor(getSupportFragmentManager());
         viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(frag_adaptor);
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-                return;
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                Log.d(Constants.DEBUG_CHATBOX,"page listener - index: "+i);
-                updateHeader(i);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-                return;
-            }
-        });
+        viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context));
         String from =  (String) getIntent().getExtras().get("buddyid");
         if(getIntent().getExtras().containsKey("notification"))
             cancelNotification();
-        if(from != null)
+        if(from != null) {
+            EditText editText = (EditText) findViewById(R.id.message);
+            editText.addTextChangedListener(new MsgTextChangeListener(from));
             switchFragment(from);
+            sendDiscoInfoQuery(from);
+        }
         ActionBar ab = getActionBar();
         ab.hide();
     }
+
+    private void sendDiscoInfoQuery(String from) {
+        String queryAttr = "http://jabber.org/protocol/disco#info";
+        RosterGet rosterGet = new RosterGet();
+        rosterGet.setSender(JID.getJid()).setReceiver(from).setQueryAttribute("xmlns",queryAttr).setID(UUID.randomUUID().toString());
+        PacketWriter.addToWriteQueue(rosterGet.getXml());
+    }
+
     public void updateHeader(int i){
         TextView hleft = (TextView)findViewById(R.id.chatboxheader_left);
         TextView hright = (TextView)findViewById(R.id.chatboxheader_right);
@@ -90,25 +88,19 @@ public class ChatBox extends FragmentActivity {
         else
             hright.setText("");
     }
-    public static void openChat(String from){
 
-        Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
-        intent.putExtra("buddyid",from);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        context.startActivity(intent);
-
-    }
     public static void adaptorNotify(final ChatFragment cfrag){
         Activity a = (Activity) context;
-        //Log.d("ssss","updateroster called");
+        if(context!=null && cfrag!=null)
         a.runOnUiThread(new Runnable() { public void run() {
             cfrag.notifyAdaptor();
         }}
         );
     }
     public static void notifyChat(MessageStanza ms){
-        if(viewPager.getCurrentItem()==MessageHandler.getInstance().JidToFrag(ms.getFrom()))
+        if(viewPager.getCurrentItem()==MessageHandler.getInstance().JidToFrag(ms.getFrom())) {
             return;
+        }
 
         ChatNotifier cn = new ChatNotifier(context);
         cn.notifyChat(ms);
@@ -132,7 +124,12 @@ public class ChatBox extends FragmentActivity {
         if(intent.getExtras().containsKey("notification"))
             cancelNotification();
         if(from!=null)
+        {
+            EditText editText = (EditText) findViewById(R.id.message);
+            editText.addTextChangedListener(new MsgTextChangeListener(from));
             switchFragment(from);
+            sendDiscoInfoQuery(from);
+        }
     }
     public void notifyConnectionError(){
         TextView textView = (TextView)findViewById(R.id.chatbox_networknotification);
@@ -153,9 +150,10 @@ public class ChatBox extends FragmentActivity {
         int position = currentItem;
 
         MessageStanza messxml = new MessageStanza(MessageHandler.getInstance().FragToJid(position),message);
-
+        messxml.setCreater(JID.getJid());
+        messxml.formActiveMsg();
         PacketStatusManager.getInstance().pushMsPacket(messxml);
-        MessageHandler.getInstance().addChat(MessageHandler.getInstance().FragToJid(position),messxml);
+        MessageManager.getInstance().insertMessage(MessageHandler.getInstance().FragToJid(position),messxml);
         PacketWriter.addToWriteQueue(messxml.getXml());
 
         viewPager.setCurrentItem(position);
@@ -173,7 +171,7 @@ public class ChatBox extends FragmentActivity {
         Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-        Log.d("oncreate :","coming back to roster activity");
+        //send inactives to chatlist
     }
     private void switchFragment(String from){
         int frag = MessageHandler.getInstance().JidToFrag(from);
@@ -184,7 +182,7 @@ public class ChatBox extends FragmentActivity {
 
     public static void recreateFragments() {
         Activity a = (Activity) context;
-        //Log.d("ssss","updateroster called");
+        if(context!=null)
         a.runOnUiThread(new Runnable() { public void run() {
             frag_adaptor.notifyDataSetChanged();
         }}
@@ -195,5 +193,16 @@ public class ChatBox extends FragmentActivity {
         Intent intent = new Intent(context,ChatBox.class);
         intent.putExtra("finish",true);
         context.startActivity(intent);
+    }
+
+    public static void composeToast(final String s) {
+        Activity application = (Activity) context;
+        if(context!=null)
+        application.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(ChatApplication.getAppContext(), s, Toast.LENGTH_LONG).show();
+            }
+        }
+        );
     }
 }

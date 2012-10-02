@@ -30,6 +30,6 @@ public class TextChangeListenerForSearch implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable editable) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        return;
     }
 }
