@@ -14,4 +14,10 @@ public class BodyTag extends Tag {
         attributes=null;
         childTags=null;
     }
+    public void setBody(String body) {
+        content = body;
+    }
+    public BodyTag(Tag tag) {
+        super(tag.getTagname(),tag.getAttributes(),tag.getChildTags(),tag.getContent());
+    }
 }

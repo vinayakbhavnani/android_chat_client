@@ -51,7 +51,8 @@ public class ChatFragment extends ListFragment {
         else
             convo = new ArrayList<ChatListItem>();
 
-        MessageHandler.getInstance().getChatLists().get(buddyid).registerFragment(this);
+    //    MessageHandler.getInstance().getChatLists().get(buddyid).registerFragment(this);
+        MessageManager.getInstance().registerFragment(this);
     }
 
     @Override

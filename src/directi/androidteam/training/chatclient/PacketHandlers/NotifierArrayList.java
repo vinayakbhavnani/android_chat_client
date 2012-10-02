@@ -15,11 +15,9 @@ import java.util.ArrayList;
  */
 public class NotifierArrayList extends ArrayList<MessageStanza>{
     ChatFragment listener_frag;
+
     public void registerFragment(ChatFragment frag){
         this.listener_frag = frag;
-    }
-    public void unregisterFragment(){
-        listener_frag = null;
     }
 
     @Override

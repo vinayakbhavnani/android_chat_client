@@ -155,9 +155,10 @@ public class ChatBox extends FragmentActivity {
         int position = currentItem;
 
         MessageStanza messxml = new MessageStanza(MessageHandler.getInstance().FragToJid(position),message);
+        messxml.setCreater(JID.getJid());
         messxml.formActiveMsg();
         PacketStatusManager.getInstance().pushMsPacket(messxml);
-        MessageHandler.getInstance().addChat(MessageHandler.getInstance().FragToJid(position),messxml);
+        MessageManager.getInstance().insertMessage(MessageHandler.getInstance().FragToJid(position),messxml);
         PacketWriter.addToWriteQueue(messxml.getXml());
 
         viewPager.setCurrentItem(position);
@@ -187,6 +188,7 @@ public class ChatBox extends FragmentActivity {
 
     public static void recreateFragments() {
         Activity a = (Activity) context;
+        if(context!=null)
         a.runOnUiThread(new Runnable() { public void run() {
             frag_adaptor.notifyDataSetChanged();
         }}
@@ -201,6 +203,7 @@ public class ChatBox extends FragmentActivity {
 
     public static void composeToast(final String s) {
         Activity application = (Activity) context;
+        if(context!=null)
         application.runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(ChatApplication.getAppContext(), s, Toast.LENGTH_LONG).show();

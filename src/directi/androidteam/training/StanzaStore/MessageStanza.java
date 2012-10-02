@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 public class MessageStanza extends TagWrapper{
     private long time;
+    private String creater;
 
     public MessageStanza(String to, String body){
         tag = new MessageTag(to,body,null);
@@ -34,21 +35,46 @@ public class MessageStanza extends TagWrapper{
         tag = new MessageTag(to);
     }
 
+    public void setCreater(String creater) {
+        this.creater = creater;
+    }
+
+    public String getCreater() {
+        return creater;
+    }
+
+    public void appendBody(String appendText) {
+        MessageTag messageTag = new MessageTag(tag);
+        String prevBody = messageTag.getBody();
+        messageTag.setBody(prevBody+"\n"+appendText);
+        tag = messageTag;
+    }
+
     public void formActiveMsg() {
-        ((MessageTag)tag).addActiveTag();
+        MessageTag messageTag = new MessageTag(tag);
+        messageTag.addActiveTag();
+        tag = messageTag;
     }
 
     public void formInActiveMsg() {
-        ((MessageTag)tag).addInactive();
+        MessageTag messageTag = new MessageTag(tag);
+        messageTag.addInactive();
+        tag = messageTag;
     }
     public void formComposingMsg() {
-        ((MessageTag)tag).addComposingTag();
+        MessageTag messageTag = new MessageTag(tag);
+        messageTag.addComposingTag();
+        tag = messageTag;
     }
     public void formGoneMsg() {
-        ((MessageTag)tag).addGoneTag();
+        MessageTag messageTag = new MessageTag(tag);
+        messageTag.addGoneTag();
+        tag = messageTag;
     }
     public void formPausedMsg() {
-        ((MessageTag)tag).addPaused();
+        MessageTag messageTag = new MessageTag(tag);
+        messageTag.addPaused();
+        tag = messageTag;
     }
 
     public boolean isStatus() {

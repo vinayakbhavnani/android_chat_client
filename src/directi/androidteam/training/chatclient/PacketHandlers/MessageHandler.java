@@ -7,6 +7,7 @@ import directi.androidteam.training.TagStore.Query;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.Chat.ChatNotifier;
+import directi.androidteam.training.chatclient.Chat.MessageManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,20 +22,20 @@ import java.util.HashMap;
 public class MessageHandler implements Handler{
 
     private static final MessageHandler messageHandler = new MessageHandler();
-    private HashMap<String,NotifierArrayList> chatLists;
 
     private MessageHandler(){
-        chatLists = new HashMap<String, NotifierArrayList>();
     }
 
      public String FragToJid(int i){
+         HashMap<String,ArrayList<MessageStanza>> chatLists = MessageManager.getInstance().getMessageStore();
          if(i<0 || i >= chatLists.keySet().size())
              return null;
          return (String)chatLists.keySet().toArray()[i];
      }
 
      public int JidToFrag(String from){
-         addChatContact(from);
+         MessageManager.getInstance().insertEntry(from);
+         HashMap<String,ArrayList<MessageStanza>> chatLists = MessageManager.getInstance().getMessageStore();
          Log.d("message handler arraysize",new Integer(chatLists.keySet().size()).toString());
          Object[]  set = chatLists.keySet().toArray();
          int i =0;
@@ -47,51 +48,39 @@ public class MessageHandler implements Handler{
      }
 
      public  ArrayList<MessageStanza> getFragList(String from){
-         addChatContact(from);
-         return chatLists.get(from);
+         MessageManager.getInstance().insertEntry(from);
+         return MessageManager.getInstance().getMsgList(from);
      }
 
     public static MessageHandler getInstance(){
         return messageHandler;
     }
 
-    public HashMap<String,NotifierArrayList> getChatLists() {
-        return chatLists;
-    }
-
-    private void addChatContact(String from){
-        if(!chatLists.containsKey(from)){
-            chatLists.put(from, new NotifierArrayList());
-            if(ChatBox.getContext()!=null)
-            ChatBox.recreateFragments();
-        }
-    }
-    public void addChat(String from , MessageStanza ms){
-        addChatContact(from);
-        chatLists.get(from).add(ms);
+    public HashMap<String,ArrayList<MessageStanza>> getChatLists() {
+        return MessageManager.getInstance().getMessageStore();
     }
 
     @Override
     public void processPacket(Tag tag){
+        HashMap<String,ArrayList<MessageStanza>> chatLists = MessageManager.getInstance().getMessageStore();
         if(tag.getTagname().equals("message")) {
             MessageStanza ms = new MessageStanza(tag);
             String from = ms.getTag().getAttribute("from").split("/")[0];
             String chatState = ms.getChatState();
             if(chatLists.containsKey(from) && chatState.equals("composing")) {
                 Log.d("CHAT STATE","Compose received from :" + from);
-                //Toast.makeText(ChatApplication.getAppContext(), from +" is composing", Toast.LENGTH_LONG).show();
                 ChatBox.composeToast(from +" is composing");
                 return;
             }
             else if(ms.getBody()!=null) {
-                addChat(from,ms);
+                ms.setCreater(from);
+                MessageManager.getInstance().insertMessage(from,ms);
                 if(ChatBox.getContext()==null){
                     ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
                     cn.notifyChat(ms);
                 }
                 else ChatBox.notifyChat(ms);
             }
-
         }
         else if(tag.getTagname().equals("iq")) {
             ArrayList<Tag> childlist = tag.getChildTags();
@@ -106,11 +95,11 @@ public class MessageHandler implements Handler{
                 {
                     ArrayList<Tag> queryChildList = query.getChildTags();
                     if(queryChildList==null) {
-                        Log.d("MesaageHandler","feature not included");
+                        Log.d("MessageHandler","feature not included");
                     }
                     else {
                         Tag tag1 = queryChildList.get(0);
-                        Log.d("MesaageHandler","var - "+tag1.getAttribute("var"));
+                        Log.d("MessageHandler","var - "+tag1.getAttribute("var"));
                     }
                 }
             }

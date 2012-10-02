@@ -32,6 +32,36 @@ public class MessageTag extends Tag{
         addAttribute("to",to);
         childTags = new ArrayList<Tag>();
     }
+
+    public MessageTag(Tag tag) {
+        super(tag.getTagname(),tag.getAttributes(),tag.getChildTags(),tag.getContent());
+    }
+
+    public String getBody() {
+        ArrayList<Tag> childList = getChildTags();
+        if(childList==null)
+            return null;
+        else {
+            Tag bTag = childList.get(0);
+            BodyTag bodyTag = new BodyTag(bTag);
+            return bodyTag.getContent();
+        }
+    }
+    public void setBody(String body) {
+        ArrayList<Tag> childList = getChildTags();
+        if(childList==null) {
+            childList = new ArrayList<Tag>();
+            childList.add(new BodyTag(body));
+            return;
+        }
+        else {
+            Tag bTag = childList.get(0);
+            BodyTag bodyTag = new BodyTag(bTag);
+            bodyTag.setBody(body);
+            childList.set(0,bodyTag);
+        }
+    }
+
     public void addActiveTag() {
         childTags.add(new Active());
     }
