@@ -70,7 +70,7 @@ public class ChatBox extends FragmentActivity {
         String queryAttr = "http://jabber.org/protocol/disco#info";
         RosterGet rosterGet = new RosterGet();
         rosterGet.setSender(JID.getJid()).setReceiver(from).setQueryAttribute("xmlns",queryAttr).setID(UUID.randomUUID().toString());
-        PacketWriter.addToWriteQueue(rosterGet.getTag());
+        PacketWriter.addToWriteQueue(rosterGet.getXml());
     }
 
     public void updateHeader(int i){
@@ -171,7 +171,7 @@ public class ChatBox extends FragmentActivity {
         messxml.formActiveMsg();
         PacketStatusManager.getInstance().pushMsPacket(messxml);
         MessageManager.getInstance().insertMessage(new FragmentManager().FragToJid(position), messxml);
-        PacketWriter.addToWriteQueue(messxml.getTag());
+        PacketWriter.addToWriteQueue(messxml.getXml());
 
         viewPager.setCurrentItem(position);
         mess.setText("");
@@ -194,7 +194,7 @@ public class ChatBox extends FragmentActivity {
         for (Object object : objects) {
             MessageStanza messageStanza = new MessageStanza((String) object);
             messageStanza.formInActiveMsg();
-            PacketWriter.addToWriteQueue(messageStanza.getTag());
+            PacketWriter.addToWriteQueue(messageStanza.getXml());
         }
     }
     private void switchFragment(String from){

@@ -78,7 +78,7 @@ public class DisplayRosterActivity extends ListActivity {
             case R.id.logout:
                 PresenceS presenceS = new PresenceS();
                 presenceS.addType("unavailable");
-                PacketWriter.addToWriteQueue(presenceS.getTag());
+                PacketWriter.addToWriteQueue(presenceS.getXml());
                 UserDatabaseHandler db = new UserDatabaseHandler(this);
                 db.updateState(ConnectGTalk.username, "offline");
                 startActivity(new Intent(this, UserListActivity.class));

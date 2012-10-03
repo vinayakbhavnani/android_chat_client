@@ -101,7 +101,7 @@ public class ChatFragment extends ListFragment {
     private void sendGoneMsg(String buddyid) {
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
-        PacketWriter.addToWriteQueue(messageStanza.getTag());
+        PacketWriter.addToWriteQueue(messageStanza.getXml());
     }
 
     public static ChatFragment getInstance(String from){
@@ -165,7 +165,7 @@ public class ChatFragment extends ListFragment {
         MessageManager.getInstance().removeEntry(buddyid);
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
-        PacketWriter.addToWriteQueue(messageStanza.getTag());
+        PacketWriter.addToWriteQueue(messageStanza.getXml());
         if(MessageManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
         ChatBox.recreateFragments();

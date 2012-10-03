@@ -46,7 +46,7 @@ public class RosterAvailSpinnerHandler implements AdapterView.OnItemSelectedList
         if(string.equals("LogOut")){
             PresenceS presenceS = new PresenceS();
             presenceS.addType("unavailable");
-            PacketWriter.addToWriteQueue(presenceS.getTag());
+            PacketWriter.addToWriteQueue(presenceS.getXml());
             signOut();
             return;
         }
