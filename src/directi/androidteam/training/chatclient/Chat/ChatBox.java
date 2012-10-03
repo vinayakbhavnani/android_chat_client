@@ -20,7 +20,6 @@ import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.Chat.Listeners.ChatViewPageChangeListner;
 import directi.androidteam.training.chatclient.Chat.Listeners.MsgTextChangeListener;
 import directi.androidteam.training.chatclient.Constants;
-import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
@@ -77,8 +76,8 @@ public class ChatBox extends FragmentActivity {
         TextView hleft = (TextView)findViewById(R.id.chatboxheader_left);
         TextView hright = (TextView)findViewById(R.id.chatboxheader_right);
 
-        String left = MessageHandler.getInstance().FragToJid(i-1);
-        String right = MessageHandler.getInstance().FragToJid(i+1);
+        String left = new FragmentManager().FragToJid(i-1);
+        String right = new FragmentManager().FragToJid(i+1);
         if(left!=null)
             hleft.setText(left.split("@")[0]);
         else
@@ -98,7 +97,7 @@ public class ChatBox extends FragmentActivity {
         );
     }
     public static void notifyChat(MessageStanza ms){
-        if(viewPager.getCurrentItem()==MessageHandler.getInstance().JidToFrag(ms.getFrom())) {
+        if(viewPager.getCurrentItem()==new FragmentManager().JidToFrag(ms.getFrom())) {
             return;
         }
 
@@ -149,11 +148,11 @@ public class ChatBox extends FragmentActivity {
         Log.d("XXX","current view: "+currentItem);
         int position = currentItem;
 
-        MessageStanza messxml = new MessageStanza(MessageHandler.getInstance().FragToJid(position),message);
+        MessageStanza messxml = new MessageStanza(new FragmentManager().FragToJid(position),message);
         messxml.setCreater(JID.getJid());
         messxml.formActiveMsg();
         PacketStatusManager.getInstance().pushMsPacket(messxml);
-        MessageManager.getInstance().insertMessage(MessageHandler.getInstance().FragToJid(position),messxml);
+        MessageManager.getInstance().insertMessage(new FragmentManager().FragToJid(position),messxml);
         PacketWriter.addToWriteQueue(messxml.getXml());
 
         viewPager.setCurrentItem(position);
@@ -174,7 +173,7 @@ public class ChatBox extends FragmentActivity {
         //send inactives to chatlist
     }
     private void switchFragment(String from){
-        int frag = MessageHandler.getInstance().JidToFrag(from);
+        int frag = new FragmentManager().JidToFrag(from);
         Log.d("indexreturned",new Integer(frag).toString());
         updateHeader(frag);
         viewPager.setCurrentItem(frag);

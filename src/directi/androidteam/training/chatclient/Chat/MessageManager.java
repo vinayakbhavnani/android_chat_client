@@ -16,6 +16,7 @@ public class MessageManager {
     private static MessageManager messageManager = new MessageManager();
     HashMap<String,ArrayList<MessageStanza>> messageStore;
     ChatFragment listener_frag;
+    private int sizeofActiveChats;
 
     private MessageManager() {
         messageStore = new HashMap<String, ArrayList<MessageStanza>>();
@@ -71,5 +72,17 @@ public class MessageManager {
             if(ChatBox.getContext()!=null)
                 ChatBox.recreateFragments();
         }
+    }
+
+    public void removeEntry(String buddyid) {
+        if(messageStore!=null) {
+            messageStore.remove(buddyid);
+        }
+    }
+
+    public int getSizeofActiveChats() {
+        if(messageStore==null)
+            return 0;
+        else return messageStore.size();
     }
 }

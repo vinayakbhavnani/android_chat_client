@@ -24,7 +24,7 @@ public class MessageQueue {
 
     private MessageQueue(){
         tagQueue = new ArrayList<Tag>();
-        mhandler = MessageHandler.getInstance();
+        mhandler = new MessageHandler();
         rhandler = RosterHandler.getInstance();
         loginHandler = LoginHandler.getInstance();
     }

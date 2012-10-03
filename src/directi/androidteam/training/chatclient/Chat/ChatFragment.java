@@ -44,7 +44,7 @@ public class ChatFragment extends ListFragment {
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
             Log.d("buddyid",buddyid);
-            sconvo = MessageHandler.getInstance().getFragList(buddyid);
+            sconvo = new MessageHandler().getFragList(buddyid);
             convo = toChatListItemList(sconvo);
 
         }
@@ -164,8 +164,8 @@ public class ChatFragment extends ListFragment {
 
     public void closeFragment(View view){
         Log.d("closewindow","click");
-        MessageHandler.getInstance().getChatLists().remove(buddyid);
-        if(MessageHandler.getInstance().getChatLists().size()==0)
+        MessageManager.getInstance().removeEntry(buddyid);
+        if(MessageManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
         ChatBox.recreateFragments();
     }
