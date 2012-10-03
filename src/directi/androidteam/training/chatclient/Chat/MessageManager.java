@@ -67,6 +67,8 @@ public class MessageManager {
     }
 
     public void insertEntry(String from) {
+        if(messageStore==null)
+            messageStore = new HashMap<String, ArrayList<MessageStanza>>();
         if(!messageStore.containsKey(from)) {
             messageStore.put(from,new ArrayList<MessageStanza>());
             if(ChatBox.getContext()!=null)
@@ -84,5 +86,11 @@ public class MessageManager {
         if(messageStore==null)
             return 0;
         else return messageStore.size();
+    }
+
+    public String getRequiredJiD(int queryJID) {
+        if(queryJID<0 || messageStore==null || queryJID>=getSizeofActiveChats())
+            return null;
+        else return (String) messageStore.keySet().toArray()[queryJID];
     }
 }

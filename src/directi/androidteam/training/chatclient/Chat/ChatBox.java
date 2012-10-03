@@ -174,7 +174,6 @@ public class ChatBox extends FragmentActivity {
     }
     private void switchFragment(String from){
         int frag = new FragmentManager().JidToFrag(from);
-        Log.d("indexreturned",new Integer(frag).toString());
         updateHeader(frag);
         viewPager.setCurrentItem(frag);
     }

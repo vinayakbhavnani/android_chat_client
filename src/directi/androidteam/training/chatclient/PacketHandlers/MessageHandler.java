@@ -24,11 +24,6 @@ public class MessageHandler implements Handler{
     public MessageHandler(){
     }
 
-    public  ArrayList<MessageStanza> getFragList(String from){
-        MessageManager.getInstance().insertEntry(from);
-        return MessageManager.getInstance().getMsgList(from);
-    }
-
     @Override
     public void processPacket(Tag tag){
         HashMap<String,ArrayList<MessageStanza>> chatLists = MessageManager.getInstance().getMessageStore();

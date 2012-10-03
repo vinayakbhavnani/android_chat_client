@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
-import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.RosterEntry;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
@@ -44,7 +43,7 @@ public class ChatFragment extends ListFragment {
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
             Log.d("buddyid",buddyid);
-            sconvo = new MessageHandler().getFragList(buddyid);
+            sconvo = new FragmentManager().getFragList(buddyid);
             convo = toChatListItemList(sconvo);
 
         }
