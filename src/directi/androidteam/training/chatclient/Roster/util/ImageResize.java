@@ -6,7 +6,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import directi.androidteam.training.chatclient.Constants;
 
 /**
@@ -40,7 +40,7 @@ public class ImageResize {
         BitmapDrawable result = new BitmapDrawable(scaledBitmap);
         view.setImageDrawable(result);
         view.setScaleType(ImageView.ScaleType.FIT_START);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
         params.width = width;
         params.height = height;
         view.setLayoutParams(params);

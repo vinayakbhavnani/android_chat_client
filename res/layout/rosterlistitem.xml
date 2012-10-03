@@ -1,76 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
+              android:layout_height="60dp"
               android:orientation="horizontal"
               android:background="#FFFFFF"
-              android:padding="10dp"
               android:id="@+id/roster_list_item"
               android:clickable="false"
               android:focusable="false"
-              android:focusableInTouchMode="false"
-        >
-    <ImageView
-               android:id="@+id/roster_image"
-               android:contentDescription="Image"
-               android:layout_height="fill_parent"
-               android:layout_width="wrap_content"
-               android:src="@drawable/android"
-               android:gravity="center_vertical"
+              android:focusableInTouchMode="false">
+    <ImageView android:id="@+id/list_availability_image"
+               android:layout_height="match_parent"
+               android:layout_width="5dp"
+               android:scaleType="centerCrop"
+               android:src="@drawable/green"
                android:layout_alignParentLeft="true"
                android:clickable="false"
                android:focusable="false"
-               android:focusableInTouchMode="false"
-            />
-    <LinearLayout
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
+               android:focusableInTouchMode="false"/>
+    <LinearLayout android:layout_width="0dp"
+                  android:layout_height="60dp"
+                  android:layout_weight="1"
                   android:orientation="vertical"
                   android:background="#FFFFFF"
-                  android:padding="10dp"
-                  android:layout_toRightOf = "@id/roster_image"
                   android:clickable="false"
                   android:focusable="false"
-                  android:focusableInTouchMode="false"
-            >
-        <TextView
-              android:id="@+id/roster_item"
-              android:layout_height="fill_parent"
-              android:layout_width="wrap_content"
-              android:paddingLeft="5dp"
-              android:text="TEXT"
-              android:textSize="10dp"
-              android:textStyle="italic"
-              android:gravity="center_vertical"
-              android:textColor="#000000"
-              android:clickable="false"
-              android:focusable="false"
-              android:focusableInTouchMode="false"
-                />
-        <TextView
-                android:id="@+id/roster_status"
-                android:layout_height="fill_parent"
-                android:layout_width="wrap_content"
-                android:paddingLeft="5dp"
-                android:textSize="10dp"
-                android:textStyle="italic"
-                android:gravity="center_vertical"
-                android:textColor="#000000"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                />
-        </LinearLayout>
-    <Button
-            android:id="@+id/roster_availability_button"
-            android:layout_width="5dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:focusable="false"
-            android:clickable="false"
-            android:focusableInTouchMode="false"
-            >
-    </Button>
-</RelativeLayout>
+                  android:focusableInTouchMode="false">
+        <TextView android:id="@+id/roster_item"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:paddingLeft="5dp"
+                  android:text="TEXT"
+                  android:textSize="15dp"
+                  android:textStyle="bold"
+                  android:textColor="#000000"
+                  android:clickable="false"
+                  android:focusable="false"
+                  android:focusableInTouchMode="false"/>
+        <TextView android:id="@+id/roster_status"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:paddingLeft="5dp"
+                  android:textSize="10dp"
+                  android:textStyle="italic"
+                  android:textColor="#333333"
+                  android:clickable="false"
+                  android:focusable="false"
+                  android:focusableInTouchMode="false"/>
+    </LinearLayout>
+    <ImageView android:id="@+id/roster_image"
+               android:layout_height="match_parent"
+               android:layout_width="60dp"
+               android:scaleType="centerCrop"
+               android:src="@drawable/default_user"
+               android:layout_alignParentRight="true"
+               android:clickable="false"
+               android:focusable="false"
+               android:focusableInTouchMode="false"/>
+</LinearLayout>

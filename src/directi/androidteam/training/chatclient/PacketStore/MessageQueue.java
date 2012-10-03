@@ -1,7 +1,7 @@
 package directi.androidteam.training.chatclient.PacketStore;
 
-import android.util.Log;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.PacketHandlers.Handler;
 import directi.androidteam.training.chatclient.PacketHandlers.LoginHandler;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.PacketHandlers.RosterHandler;
@@ -29,18 +29,6 @@ public class MessageQueue {
         loginHandler = LoginHandler.getInstance();
     }
 
-    private boolean contains(Tag parent, String childTagName) {
-        if (parent.getChildTags() != null) {
-            for (int i = 0; i < parent.getChildTags().size(); i++) {
-                if (parent.getChildTags().get(i).getTagname().equals(childTagName)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        return false;
-    }
-
     public static MessageQueue getInstance(){
             return mqueue;
     }
@@ -52,16 +40,15 @@ public class MessageQueue {
         while(true){
             if(tagQueue.size()!=0){
                 Tag temp = tagQueue.remove(0);
-                Log.d("packet","packetprocessed");
-                if(temp.getTagname().equals("message")){
-                      mhandler.processPacket(temp);
-                } else if (temp.getTagname().equals("stream:stream") || temp.getTagname().equals("success") || temp.getTagname().equals("failure")) {
-                    loginHandler.processPacket(temp);
-                } else if (temp.getTagname().equals("iq") && contains(temp, "bind")) {
-                    loginHandler.processPacket(temp);
-                }
-                else rhandler.processPacket(temp);
+                launchInNewThread(mhandler, temp);
+                launchInNewThread(loginHandler,temp);
+                launchInNewThread(rhandler,temp);
             }
         }
+    }
+
+    private void launchInNewThread(final Handler handler, final Tag tag) {
+        Thread thread = new Thread(){public void run() {handler.processPacket(tag);}};
+        thread.start();
     }
 }

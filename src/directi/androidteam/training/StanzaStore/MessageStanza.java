@@ -2,7 +2,6 @@ package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.MessageTag;
 import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.Chat.ChatListItem;
 
 import java.util.ArrayList;
 
@@ -15,6 +14,68 @@ import java.util.ArrayList;
  */
 public class MessageStanza extends TagWrapper{
     private long time;
+    private String creater;
+
+    public MessageStanza(String to, String body){
+        tag = new MessageTag(to,body,null);
+        setCurrentTime();
+    }
+
+    public MessageStanza(String to, String body, String subject){
+        tag = new MessageTag(to,body,subject);
+        setCurrentTime();
+    }
+
+    public MessageStanza(Tag tag) {
+        this.tag = tag;
+        setCurrentTime();
+    }
+
+    public MessageStanza(String to) {
+        tag = new MessageTag(to);
+    }
+
+    public void setCreater(String creater) {
+        this.creater = creater;
+    }
+
+    public String getCreater() {
+        return creater;
+    }
+
+    public void appendBody(String appendText) {
+        MessageTag messageTag = new MessageTag(tag);
+        String prevBody = messageTag.getBody();
+        messageTag.setBody(prevBody+"\n"+appendText);
+        tag = messageTag;
+    }
+
+    public void formActiveMsg() {
+        MessageTag messageTag = new MessageTag(tag);
+        messageTag.addActiveTag();
+        tag = messageTag;
+    }
+
+    public void formInActiveMsg() {
+        MessageTag messageTag = new MessageTag(tag);
+        messageTag.addInactive();
+        tag = messageTag;
+    }
+    public void formComposingMsg() {
+        MessageTag messageTag = new MessageTag(tag);
+        messageTag.addComposingTag();
+        tag = messageTag;
+    }
+    public void formGoneMsg() {
+        MessageTag messageTag = new MessageTag(tag);
+        messageTag.addGoneTag();
+        tag = messageTag;
+    }
+    public void formPausedMsg() {
+        MessageTag messageTag = new MessageTag(tag);
+        messageTag.addPaused();
+        tag = messageTag;
+    }
 
     public boolean isStatus() {
         return status;
@@ -26,28 +87,14 @@ public class MessageStanza extends TagWrapper{
 
     private boolean status = true;
 
-
-
     private void setCurrentTime(){
         time = System.currentTimeMillis();
-    }
-    public MessageStanza(String to, String body){
-        tag = new MessageTag(to,body,null);
-        setCurrentTime();
     }
 
     public long getTime() {
         return time;
     }
 
-    public MessageStanza(String to, String body, String subject){
-        tag = new MessageTag(to,body,subject);
-        setCurrentTime();
-    }
-    public MessageStanza(Tag tag) {
-        this.tag = tag;
-        setCurrentTime();
-    }
     public String getBody(){
         ArrayList<Tag> children = tag.getChildTags();
         for (Tag child : children) {
@@ -69,5 +116,21 @@ public class MessageStanza extends TagWrapper{
     }
     public String getID(){
         return tag.getAttribute("id");
+    }
+
+    public String getChatState() {
+        ArrayList<Tag> childList = tag.getChildTags();
+        for (Tag tag1 : childList) {
+            if(tag1.getTagname().equals("cha:active"))
+                return "active";
+            else if(tag1.getTagname().equals("cha:composing"))
+                return "composing";
+            else if(tag1.getTagname().equals("cha:gone"))
+                return "gone";
+            else if(tag1.getTagname().equals("cha:inactive"))
+                return "inactive";
+        }
+
+        return "no chatstate";
     }
 }

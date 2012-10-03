@@ -18,6 +18,7 @@
     <string name="OK">OK</string>
     <string name="typeToSearch">Type To Search</string>
     <string name="search">Search</string>
+    <string name="add_contact">Add Contact</string>
     <string-array name="roster_availability_array">
         <item>Available</item>
         <item>Busy</item>

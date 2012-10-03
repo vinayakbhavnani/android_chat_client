@@ -1,5 +1,7 @@
 package directi.androidteam.training.chatclient.Roster;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 
 /**
@@ -14,6 +16,7 @@ public class RosterEntry {
     public ArrayList<RosterGroup> rosterGroups;
     public String status;
     public String presence;
+    public Bitmap avatar;
 
     public RosterEntry(String jid) {
         this.jid = jid;

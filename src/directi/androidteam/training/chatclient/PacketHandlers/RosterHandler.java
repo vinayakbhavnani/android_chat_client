@@ -1,11 +1,13 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
-import android.util.Log;
 import directi.androidteam.training.StanzaStore.PresenceS;
-import directi.androidteam.training.StanzaStore.RosterPush;
 import directi.androidteam.training.StanzaStore.RosterResult;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
+import directi.androidteam.training.chatclient.Roster.SendPresence;
+import directi.androidteam.training.chatclient.Roster.VCard;
+import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,62 +16,44 @@ import directi.androidteam.training.chatclient.Roster.RosterManager;
  * Time: 2:03 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RosterHandler implements Handler{
-    private static RosterHandler rosterHandler = null;
+public class RosterHandler implements Handler {
+    private static RosterHandler rosterHandler = new RosterHandler();
 
-    private RosterHandler() {
-    }
     public static RosterHandler getInstance() {
-        if(rosterHandler==null){
-            rosterHandler = new RosterHandler();
-            return rosterHandler;
-        }
         return rosterHandler;
     }
 
     @Override
     public void processPacket(Tag tag) {
-        String tagName = tag.getTagname();
-        Log.d("packet - name ",tag.getTagname());
-        if (tagName.equals("iq")){
-            String type = tag.getAttribute("type");
-            if (type.equals("get")){
-                Log.d("Packet Error","It is RosterManager Get Packet. This packet is always sent from Client side!");
-            }
-            else if(type.equals("set")){
-                Log.d("Packet ACK","RosterManager Push Packet.");
-                RosterPush rosterPush = new RosterPush(tag);
-                String jid = rosterPush.getJID();
-            }
-            else if (type.equals("error")){
-                Log.d("Packet Error","Error Reported From Server Side possibly due to RosterManager Result");
-            }
-            else if(type.equals("result")){
-                RosterResult rosterResult = new RosterResult(tag);
-                RosterManager rosterManager = RosterManager.getInstance();
-                rosterManager.setRosterList(rosterResult);
-            }
-            else {
-                Log.d("Packet Error","Unidentified IQ Packet, type = "+type);
-            }
+        if(tag.getTagname().equals("message")){
+        } else if (tag.getTagname().equals("stream:stream") || tag.getTagname().equals("success") || tag.getTagname().equals("failure")) {
+        } else if (tag.getTagname().equals("iq") && tag.contains("bind")) {
+        } else {
+            processPacketAux(tag);
         }
-        else if(tagName.equals("presence")){
+    }
+
+    public void processPacketAux(Tag tag) {
+        if (tag.getTagname().equals("iq")) {
+            if(tag.getAttribute("type").equals("result")) {
+                if (tag.contains("vCard")) {
+                    final VCard vCard = new VCard();
+                    vCard.populateFromTag(tag);
+                    SendPresence.callerActivity.runOnUiThread(new Runnable() {
+                        public void run() {
+                        ((DisplayRosterActivity) SendPresence.callerActivity).displayVCard(vCard);
+                        }
+                    });
+                } else {
+                    RosterManager.getInstance().setRosterList(new RosterResult(tag));
+                }
+            }
+        } else if(tag.getTagname().equals("presence")) {
             PresenceS presence = new PresenceS(tag);
-            String type = presence.getType();
-            if(type==null) {
-                Log.d("Packet Error","type was null");
+            if(presence.getType() == null) {
                 RosterManager.getInstance().updatePresence(presence);
-                return;
+                PacketWriter.addToWriteQueue("<iq id='v3' to='" + tag.getAttribute("from") + "' type='get'><vCard xmlns='vcard-temp'/></iq>");
             }
-            if(type.equals("error")){
-                Log.d("Packet Error","Error From Server Side In Presence Packet");
-            }
-            else {
-                Log.d("Packet ACK","Presence Packet");
-            }
-        }
-        else {
-            Log.d("Packet Error","Unidentified Packet, tagname = "+tagName);
         }
     }
 }

@@ -75,4 +75,23 @@ public class Tag {
             return null;
         return attributes.get(key);
     }
+    public Tag getChildTag(String childTagName) {
+        for (int i = 0; i < this.getChildTags().size(); i++) {
+            if (this.getChildTags().get(i).getTagname().equals(childTagName)) {
+                return this.getChildTags().get(i);
+            }
+        }
+        return new Tag();
+    }
+    public boolean contains(String childTagName) {
+        if (this.getChildTags() != null) {
+            for (int i = 0; i < this.getChildTags().size(); i++) {
+                if (this.getChildTags().get(i).getTagname().equals(childTagName)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
 }

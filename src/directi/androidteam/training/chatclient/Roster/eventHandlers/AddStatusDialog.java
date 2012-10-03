@@ -1,6 +1,5 @@
 package directi.androidteam.training.chatclient.Roster.eventHandlers;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Roster.MyProfile;
 
 /**
@@ -39,7 +37,7 @@ public class AddStatusDialog extends Dialog implements android.view.View.OnClick
         myProfile.setStatus(status);
         myProfile.setStatusAndPresence();
         dismiss();
-        DisplayRosterActivity.displayMyCurrentProfile((Activity)context);
+ //       DisplayRosterActivity.displayMyCurrentProfile((Activity)context);
         return;
     }
 

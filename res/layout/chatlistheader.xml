@@ -50,7 +50,6 @@
             android:layout_width="wrap_content"
             android:paddingTop="15dp"
             android:paddingLeft="10dp"
-
             android:textSize="10dp"
             android:text="away"
             />
@@ -64,6 +63,5 @@
         android:src="@drawable/cross"
         android:scaleType="fitXY"
         android:clickable="true"
-
         />
 </LinearLayout>
