@@ -34,7 +34,7 @@ public class MyProfile {
         presence.addAvailability(avail);
         presence.addID(UUID.randomUUID().toString());
         presence.addStatus(getStatus());
-        PacketWriter.addToWriteQueue(presence.getXml());
+        PacketWriter.addToWriteQueue(presence.getTag());
     }
     public String getBareJID() {
         return bareJID;
