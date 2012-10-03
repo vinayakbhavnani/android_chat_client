@@ -1,6 +1,7 @@
 package directi.androidteam.training.chatclient.Chat;
 
 import android.util.Log;
+import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.R;
 
@@ -36,26 +37,14 @@ public class ChatListItem {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     private String message;
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public boolean isSender() {
         return this.sender;
-    }
-
-    public void setSender(boolean sender) {
-        this.sender = sender;
     }
 
     public String getTime() {
@@ -66,21 +55,16 @@ public class ChatListItem {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public ChatListItem(MessageStanza message){
         this.message=message.getBody();
-        this.sender=ChatFragment.isSender(message);
+        this.sender=message.getFrom().equals(JID.getJid().split("/")[0]);
         this.username=message.getFrom();
-        Date date = new Date(message.getTime());
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         this.time = dateFormat.format(new Date(message.getTime()));
         this.id = message.getID();
         this.status = message.isStatus();
         Log.d("isSenderCreate",this.message+" "+this.isSender());
-
     }
 
     public int getResourceID(){

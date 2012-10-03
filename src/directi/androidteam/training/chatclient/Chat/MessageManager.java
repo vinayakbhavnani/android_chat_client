@@ -32,6 +32,7 @@ public class MessageManager {
             messageStore.put(from,arrayList);
             if(ChatBox.getContext()!=null)
                 ChatBox.recreateFragments();
+            propagateChangesToFragments(ms);
         }
         else {
             ArrayList<MessageStanza> arrayList = messageStore.get(from);
@@ -39,16 +40,18 @@ public class MessageManager {
                 MessageStanza lastMessageStanza = arrayList.get(arrayList.size()-1);
                 if(lastMessageStanza.getCreater()!=null && lastMessageStanza.getCreater().equals(ms.getCreater())) {
                     lastMessageStanza.appendBody(ms.getBody());
+                    propagateChangesToFragments(lastMessageStanza);
                 }
                 else {
                     arrayList.add(ms);
+                    propagateChangesToFragments(ms);
                 }
             }
             else {
                 arrayList.add(ms);
+                propagateChangesToFragments(ms);
             }
         }
-        propagateChangesToFragments(ms);
     }
 
     private void propagateChangesToFragments(MessageStanza ms) {

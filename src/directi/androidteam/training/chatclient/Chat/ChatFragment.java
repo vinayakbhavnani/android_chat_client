@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.RosterEntry;
@@ -34,15 +33,18 @@ public class ChatFragment extends ListFragment {
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
 
+    private ChatFragment() {
+
+    }
+
 
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        Log.d("fragmentcreated","new fragement");
+
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
-            Log.d("buddyid",buddyid);
             sconvo = new FragmentManager().getFragList(buddyid);
             convo = toChatListItemList(sconvo);
 
@@ -56,6 +58,7 @@ public class ChatFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
+
         adaptor = new ChatListAdaptor(getActivity(),convo);
 
         ListView lv = getListView();
@@ -91,7 +94,6 @@ public class ChatFragment extends ListFragment {
                 presence.setTextColor(Color.YELLOW);
                 presence.setText("away");
             }
-
         }
         else status.setText("null");
         lv.addHeaderView(header,null,false);
@@ -105,23 +107,20 @@ public class ChatFragment extends ListFragment {
     }
 
     public static ChatFragment getInstance(String from){
-        ChatFragment curfrag = new ChatFragment();
+        ChatFragment chatFragment = new ChatFragment();
         Bundle args = new Bundle();
-        args.putString("from",from);
-        Log.d("XXXX", "from is " + from);
-        curfrag.setArguments(args);
-        return curfrag;
+        args.putString("from", from);
+        chatFragment.setArguments(args);
+        return chatFragment;
     }
 
     public void addChatItem(MessageStanza message){
         ChatListItem cli = new ChatListItem(message);
+        if(convo.size()>0)
+            convo.remove(convo.size()-1); //added  - 3/10
         convo.add(cli);
         PacketStatusManager.getInstance().pushCliPacket(cli);
         ChatBox.adaptorNotify(this);
-        Log.d("chatlistitemsize",message.getBody());
-    }
-    public static boolean isSender(MessageStanza message){
-        return message.getFrom().equals(JID.getJid().split("/")[0]);
     }
 
     public void notifyAdaptor(){
@@ -142,13 +141,11 @@ public class ChatFragment extends ListFragment {
     public void onResume(){
         super.onResume();
         notifyAdaptor();
-        Log.d("fragmentresume",buddyid);
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        Log.d("fragmentpause",buddyid);
     }
 
     private ArrayList<ChatListItem> toChatListItemList(ArrayList<MessageStanza> list){

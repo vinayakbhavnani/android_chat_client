@@ -164,16 +164,15 @@ public class ChatBox extends FragmentActivity {
         if(message==null || message.equals(""))
             return;
         int currentItem = viewPager.getCurrentItem();
-        int position = currentItem;
 
-        MessageStanza messxml = new MessageStanza(new FragmentManager().FragToJid(position),message);
+        String jid = new FragmentManager().FragToJid(currentItem);
+        MessageStanza messxml = new MessageStanza(jid,message);
         messxml.setCreater(JID.getJid());
         messxml.formActiveMsg();
         PacketStatusManager.getInstance().pushMsPacket(messxml);
-        MessageManager.getInstance().insertMessage(new FragmentManager().FragToJid(position), messxml);
+        MessageManager.getInstance().insertMessage(jid, messxml);
         PacketWriter.addToWriteQueue(messxml.getTag());
-
-        viewPager.setCurrentItem(position);
+        viewPager.setCurrentItem(currentItem);
         mess.setText("");
     }
 
