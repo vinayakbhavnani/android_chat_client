@@ -1,13 +1,16 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
+import android.util.Log;
 import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterResult;
+import directi.androidteam.training.TagStore.IQTag;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.TagStore.VCardTag;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
 import directi.androidteam.training.chatclient.Roster.SendPresence;
 import directi.androidteam.training.chatclient.Roster.VCard;
-import directi.androidteam.training.chatclient.Util.PacketWriter;
+import directi.androidteam.training.lib.xml.XMLHelper;
 
 /**
  * Created with IntelliJ IDEA.
@@ -52,6 +55,8 @@ public class RosterHandler implements Handler {
             PresenceS presence = new PresenceS(tag);
             if(presence.getType() == null) {
                 RosterManager.getInstance().updatePresence(presence);
+                Tag vCardTag = new IQTag("v3", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
+                Log.d("asdfasdfasdf", (new XMLHelper()).buildPacket(vCardTag));
                 //PacketWriter.addToWriteQueue("<iq id='v3' to='" + tag.getAttribute("from") + "' type='get'><vCard xmlns='vcard-temp'/></iq>");
             }
         }
