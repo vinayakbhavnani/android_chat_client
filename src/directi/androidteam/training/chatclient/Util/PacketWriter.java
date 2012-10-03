@@ -7,7 +7,6 @@ import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,25 +17,23 @@ import java.util.HashMap;
  */
 public class PacketWriter implements ServiceThread{
     private static PrintWriter writer;
-    private static ArrayList<Tag> list =  new ArrayList<Tag>();
-    private static HashMap<String,PrintWriter> outputStreams = new HashMap<String, PrintWriter>();
+    private static ArrayList<String> list =  new ArrayList<String>();
 
     public PacketWriter(PrintWriter w) {
         writer = w;
     }
 
-    public static void addToWriteQueue(Tag msg){
+    public static void addToWriteQueue(String msg){
         list.add(msg);
     }
 
-    public void write(Tag tag){
-        PrintWriter out = outputStreams.get(tag.getAttribute("from"));
-        out.write(tag.toXml());
-        out.flush();
-        writer.write(tag.toXml());
-        writer.flush();
-        if(out.checkError()){
+    public void write(String str){
 
+        writer.write(str);
+        writer.flush();
+        if(writer.checkError()){
+            XMLHelper xmlHelper = new XMLHelper();
+            Tag tag = xmlHelper.tearPacket(str);
             String id = tag.getAttribute("id");
             PacketStatusManager.getInstance().setFailure(id);
         }
@@ -49,22 +46,11 @@ public class PacketWriter implements ServiceThread{
         //write("<presence/>");
         while(true){
             if(!list.isEmpty()){
-                Tag tag = list.remove(0);
-                Log.d("PacketWriter",tag.toXml());
-                write(tag);
+                String str = list.remove(0);
+                Log.d("PacketWriter",str);
+                write(str);
             }
         }
-    }
-
-    public static void addStream(PrintWriter out , String account){
-        outputStreams.put(account,out);
-    }
-    public static boolean removeStream(String account){
-        if(outputStreams.containsKey(account)){
-            outputStreams.remove(account);
-            return true;
-        }
-        return false;
     }
 
 
