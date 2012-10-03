@@ -114,9 +114,9 @@ public class ChatFragment extends ListFragment {
         return chatFragment;
     }
 
-    public void addChatItem(MessageStanza message){
+    public void addChatItem(MessageStanza message, boolean b){
         ChatListItem cli = new ChatListItem(message);
-        if(convo.size()>0)
+        if(b && convo.size()>0)
             convo.remove(convo.size()-1); //added  - 3/10
         convo.add(cli);
         PacketStatusManager.getInstance().pushCliPacket(cli);

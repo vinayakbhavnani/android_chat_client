@@ -32,7 +32,7 @@ public class MessageManager {
             messageStore.put(from,arrayList);
             if(ChatBox.getContext()!=null)
                 ChatBox.recreateFragments();
-            propagateChangesToFragments(ms);
+            propagateChangesToFragments(ms,false);
         }
         else {
             ArrayList<MessageStanza> arrayList = messageStore.get(from);
@@ -40,23 +40,23 @@ public class MessageManager {
                 MessageStanza lastMessageStanza = arrayList.get(arrayList.size()-1);
                 if(lastMessageStanza.getCreater()!=null && lastMessageStanza.getCreater().equals(ms.getCreater())) {
                     lastMessageStanza.appendBody(ms.getBody());
-                    propagateChangesToFragments(lastMessageStanza);
+                    propagateChangesToFragments(lastMessageStanza, true);
                 }
                 else {
                     arrayList.add(ms);
-                    propagateChangesToFragments(ms);
+                    propagateChangesToFragments(ms, false);
                 }
             }
             else {
                 arrayList.add(ms);
-                propagateChangesToFragments(ms);
+                propagateChangesToFragments(ms, false);
             }
         }
     }
 
-    private void propagateChangesToFragments(MessageStanza ms) {
+    private void propagateChangesToFragments(MessageStanza ms, boolean b) {
         if (listener_frag!=null)
-            listener_frag.addChatItem(ms);
+            listener_frag.addChatItem(ms,b);
     }
 
     public void registerFragment(ChatFragment frag){
