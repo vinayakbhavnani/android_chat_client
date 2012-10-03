@@ -40,7 +40,7 @@
             android:textColor="@color/Green"
             android:text="failed"
             android:clickable="true"
-            android:onClick="resendMessage"
+            android:onClick="onClick"
             android:visibility="gone"
             />
 

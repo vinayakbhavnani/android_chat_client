@@ -162,8 +162,10 @@ public class ChatFragment extends ListFragment {
     }
 
     public void closeFragment(View view){
-        Log.d("closewindow","click");
         MessageManager.getInstance().removeEntry(buddyid);
+        MessageStanza messageStanza = new MessageStanza(buddyid);
+        messageStanza.formGoneMsg();
+        PacketWriter.addToWriteQueue(messageStanza.getXml());
         if(MessageManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
         ChatBox.recreateFragments();

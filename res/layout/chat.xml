@@ -29,7 +29,7 @@
                 android:src="@drawable/chat3"
                 android:scaleType="fitCenter"
                 android:clickable="true"
-                android:onClick="GotoRoster"
+                android:onClick="onClick"
             />
         <TextView
                 android:id="@+id/chatboxheader_right"
@@ -63,7 +63,7 @@
             android:layout_height="100dp"
             android:background="@color/White">
         <EditText
-                android:id="@+id/message"
+                android:id="@+id/enter_message"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:hint="Enter Messsage"
@@ -71,10 +71,10 @@
                 android:layout_weight="1"
                 android:textSize="18sp" />
         <Button
-                android:id="@+id/sendmessage"
+                android:id="@+id/sendmessage_button"
                 android:layout_width="100dp"
                 android:layout_height="fill_parent"
                 android:text="Send"
-                android:onClick="SendChat"/>
+                android:onClick="onClick"/>
     </LinearLayout>
 </LinearLayout>
