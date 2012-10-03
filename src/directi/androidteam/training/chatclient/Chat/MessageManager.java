@@ -1,6 +1,5 @@
 package directi.androidteam.training.chatclient.Chat;
 
-import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ public class MessageManager {
     private MessageManager() {
         messageStore = new HashMap<String, ArrayList<MessageStanza>>();
     }
+
     public static MessageManager getInstance() {
         return messageManager;
     }
@@ -35,9 +35,14 @@ public class MessageManager {
         }
         else {
             ArrayList<MessageStanza> arrayList = messageStore.get(from);
-            MessageStanza lastMessageStanza = arrayList.get(arrayList.size()-1);
-            if(lastMessageStanza.getCreater()!=null && lastMessageStanza.getCreater().equals(ms.getCreater())) {
-                lastMessageStanza.appendBody(ms.getBody());
+            if(arrayList.size()>0) {
+                MessageStanza lastMessageStanza = arrayList.get(arrayList.size()-1);
+                if(lastMessageStanza.getCreater()!=null && lastMessageStanza.getCreater().equals(ms.getCreater())) {
+                    lastMessageStanza.appendBody(ms.getBody());
+                }
+                else {
+                    arrayList.add(ms);
+                }
             }
             else {
                 arrayList.add(ms);
@@ -58,6 +63,7 @@ public class MessageManager {
     public HashMap<String, ArrayList<MessageStanza>> getMessageStore() {
         return messageStore;
     }
+
     public ArrayList<MessageStanza> getMsgList(String from) {
         if(from==null || !messageStore.containsKey(from))
             return null;
@@ -65,10 +71,30 @@ public class MessageManager {
     }
 
     public void insertEntry(String from) {
+        if(messageStore==null)
+            messageStore = new HashMap<String, ArrayList<MessageStanza>>();
         if(!messageStore.containsKey(from)) {
             messageStore.put(from,new ArrayList<MessageStanza>());
             if(ChatBox.getContext()!=null)
                 ChatBox.recreateFragments();
         }
+    }
+
+    public void removeEntry(String buddyid) {
+        if(messageStore!=null) {
+            messageStore.remove(buddyid);
+        }
+    }
+
+    public int getSizeofActiveChats() {
+        if(messageStore==null)
+            return 0;
+        else return messageStore.size();
+    }
+
+    public String getRequiredJiD(int queryJID) {
+        if(queryJID<0 || messageStore==null || queryJID>=getSizeofActiveChats())
+            return null;
+        else return (String) messageStore.keySet().toArray()[queryJID];
     }
 }

@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 import directi.androidteam.training.chatclient.Constants;
-import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,14 +25,14 @@ public  class FragmentSwipeAdaptor extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        String from = MessageHandler.getInstance().FragToJid(i);
+        String from = new directi.androidteam.training.chatclient.Chat.FragmentManager().FragToJid(i);
         Log.d(Constants.DEBUG_CHATBOX,"fragmentswipe - from "+from);
         return ChatFragment.getInstance(from);
     }
 
     @Override
     public int getCount() {
-       return MessageHandler.getInstance().getChatLists().size();
+       return MessageManager.getInstance().getSizeofActiveChats();
     }
 
     @Override

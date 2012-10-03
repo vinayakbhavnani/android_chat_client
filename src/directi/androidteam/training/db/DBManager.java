@@ -1,9 +1,8 @@
 package directi.androidteam.training.db;
 
-import android.content.Context;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import directi.androidteam.training.ChatApplication;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,24 +12,38 @@ import android.database.sqlite.SQLiteOpenHelper;
  * To change this template use File | Settings | File Templates.
  */
 public class DBManager extends SQLiteOpenHelper {
-    String TABLE_NAME = "messageTable";
-    String KEY_JID = "jid";
-    String KEY_MESSAGE = "message";
-    String KEY_ID = "id";
+    private static final String DATABASE_NAME = "MyDB";
+    private static final int DATABASE_VERSION = 1;
 
-    public DBManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
-        super(context, name, factory, version, errorHandler);
+
+    private String TABLE_1_NAME = "messageTable";
+    private String KEY_1_JID = "jid";
+    private String KEY_1_MESSAGE = "message";
+    private String KEY_1_ID = "id";
+
+    private String TABLE_2_NAME = "users";
+    private String KEY_2_USERNAME = "username";
+    private String KEY_2_PASSWORD = "password";
+    private String KEY_2_STATE = "login_status";
+
+    private static DBManager dbManager = new DBManager();
+
+    private DBManager() {
+        super(ChatApplication.getAppContext(), DATABASE_NAME,null,DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_NAME + "(" + KEY_JID + " TEXT," + KEY_MESSAGE + " TEXT," + KEY_ID + " TEXT" + ")";
-        sqLiteDatabase.execSQL(CREATE_USERS_TABLE);
+        String CREATE_TABLE = "CREATE TABLE " + TABLE_1_NAME + "(" + KEY_1_JID + " TEXT," + KEY_1_MESSAGE + " TEXT," + KEY_1_ID + " TEXT" + ")";
+        sqLiteDatabase.execSQL(CREATE_TABLE);
+        CREATE_TABLE = "CREATE TABLE " + TABLE_2_NAME + "(" + KEY_2_USERNAME + " TEXT," + KEY_2_PASSWORD + " TEXT," + KEY_2_STATE + " TEXT" + ")";
+        sqLiteDatabase.execSQL(CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_1_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_2_NAME);
         onCreate(sqLiteDatabase);
     }
     public SQLiteDatabase getWritableSQLiteDB() {
@@ -38,5 +51,9 @@ public class DBManager extends SQLiteOpenHelper {
     }
     public SQLiteDatabase getReadableSQLiteDB() {
         return this.getReadableDatabase();
+    }
+
+    public static DBManager getDbManager() {
+        return dbManager;
     }
 }

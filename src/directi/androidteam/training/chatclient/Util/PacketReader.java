@@ -2,16 +2,12 @@ package directi.androidteam.training.chatclient.Util;
 
 import android.content.Intent;
 import android.util.Log;
-
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
-
-
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * Created with IntelliJ IDEA.
@@ -35,19 +31,13 @@ public class PacketReader implements ServiceThread{
 
         try {
 
-
-            //reader = new BufferedReader();
             XMLHelper helper = new XMLHelper();
 
             if(helper.tearxmlPacket(reader)==null){
-                Log.d("connectionissue","df");
-                if(ChatApplication.chatrunning){
-                Intent intent = new Intent(ChatBox.getContext(), ChatBox.class);
+                Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
                 intent.putExtra("error","connection");
                 ChatBox.getContext().startActivity(intent);
                 }
-            }
-            //read();
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

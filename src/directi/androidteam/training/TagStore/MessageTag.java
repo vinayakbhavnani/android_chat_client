@@ -29,6 +29,7 @@ public class MessageTag extends Tag{
     }
     public MessageTag(String to) {
         super("message",null,null,null);
+        addAttribute("from", JID.getJid());
         addAttribute("to",to);
         childTags = new ArrayList<Tag>();
     }
