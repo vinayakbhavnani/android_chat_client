@@ -12,15 +12,6 @@ import android.content.Context;
  */
 public class ChatApplication extends Application {
     private static Context context;
-    private static boolean chatrunning;
-
-    public static boolean isChatrunning() {
-        return chatrunning;
-    }
-
-    public static void setChatrunning(boolean chatrunning) {
-        ChatApplication.chatrunning = chatrunning;
-    }
 
     public void onCreate() {
         super.onCreate();

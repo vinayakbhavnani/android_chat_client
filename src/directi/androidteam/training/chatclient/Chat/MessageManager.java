@@ -36,9 +36,14 @@ public class MessageManager {
         }
         else {
             ArrayList<MessageStanza> arrayList = messageStore.get(from);
-            MessageStanza lastMessageStanza = arrayList.get(arrayList.size()-1);
-            if(lastMessageStanza.getCreater()!=null && lastMessageStanza.getCreater().equals(ms.getCreater())) {
-                lastMessageStanza.appendBody(ms.getBody());
+            if(arrayList.size()>0) {
+                MessageStanza lastMessageStanza = arrayList.get(arrayList.size()-1);
+                if(lastMessageStanza.getCreater()!=null && lastMessageStanza.getCreater().equals(ms.getCreater())) {
+                    lastMessageStanza.appendBody(ms.getBody());
+                }
+                else {
+                    arrayList.add(ms);
+                }
             }
             else {
                 arrayList.add(ms);

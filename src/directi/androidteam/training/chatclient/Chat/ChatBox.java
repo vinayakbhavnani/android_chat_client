@@ -43,7 +43,7 @@ public class ChatBox extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(Constants.DEBUG_CHATBOX,"created");
-        ChatApplication.setChatrunning(true);
+
         BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
 
         setContentView(R.layout.chat);
