@@ -19,7 +19,13 @@ public class RosterSet extends TagWrapper {
         tag.addAttribute("type","set");
         tag.addAttribute("id", UUID.randomUUID().toString());
         tag.addAttribute("from", JID.getJid());
+        addSender();
     }
+
+    public void  addSender() {
+        tag.addAttribute("from", JID.getJid());
+    }
+
     public String getID(){
         return tag.getAttribute("id");
     }

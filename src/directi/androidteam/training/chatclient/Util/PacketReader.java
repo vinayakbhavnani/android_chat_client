@@ -31,8 +31,6 @@ public class PacketReader implements ServiceThread{
 
         try {
 
-
-            //reader = new BufferedReader();
             XMLHelper helper = new XMLHelper();
 
             if(helper.tearxmlPacket(reader)==null){

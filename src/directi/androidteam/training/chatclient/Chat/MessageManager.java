@@ -16,7 +16,6 @@ public class MessageManager {
     private static MessageManager messageManager = new MessageManager();
     HashMap<String,ArrayList<MessageStanza>> messageStore;
     ChatFragment listener_frag;
-    private int sizeofActiveChats;
 
     private MessageManager() {
         messageStore = new HashMap<String, ArrayList<MessageStanza>>();
