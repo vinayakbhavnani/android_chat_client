@@ -130,7 +130,6 @@ public class DisplayRosterActivity extends ListActivity {
             PacketWriter.addToWriteQueue(presenceS.getXml());
             UserDatabaseHandler db = new UserDatabaseHandler(this);
             db.updateState(ConnectGTalk.username, "offline");
-            db.close();
             Intent intent = new Intent(this, UserListActivity.class);
             startActivity(intent);
             this.finish();

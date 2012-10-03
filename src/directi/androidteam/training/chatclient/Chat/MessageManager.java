@@ -1,6 +1,5 @@
 package directi.androidteam.training.chatclient.Chat;
 
-import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ public class MessageManager {
     private MessageManager() {
         messageStore = new HashMap<String, ArrayList<MessageStanza>>();
     }
+
     public static MessageManager getInstance() {
         return messageManager;
     }
@@ -58,6 +58,7 @@ public class MessageManager {
     public HashMap<String, ArrayList<MessageStanza>> getMessageStore() {
         return messageStore;
     }
+
     public ArrayList<MessageStanza> getMsgList(String from) {
         if(from==null || !messageStore.containsKey(from))
             return null;

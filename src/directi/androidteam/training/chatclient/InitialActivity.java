@@ -58,7 +58,6 @@ public class InitialActivity extends Activity {
         super.onCreate(savedInstanceState);
         UserDatabaseHandler db = new UserDatabaseHandler(this);
         ArrayList<User> users = db.getAllUsers();
-        db.close();
         if (users.size() == 0) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
