@@ -52,7 +52,7 @@ public class RosterHandler implements Handler {
             PresenceS presence = new PresenceS(tag);
             if(presence.getType() == null) {
                 RosterManager.getInstance().updatePresence(presence);
-                PacketWriter.addToWriteQueue("<iq id='v3' to='" + tag.getAttribute("from") + "' type='get'><vCard xmlns='vcard-temp'/></iq>");
+                //PacketWriter.addToWriteQueue("<iq id='v3' to='" + tag.getAttribute("from") + "' type='get'><vCard xmlns='vcard-temp'/></iq>");
             }
         }
     }

@@ -69,7 +69,8 @@ public class LoginHandler implements Handler {
         if (tag.getTagname().equals("stream:stream")) {
             if (containsGrandChild(tag, "bind")) {
                 Log.d("Login Flow", "Stream tag with bind tag received.");
-                PacketWriter.addToWriteQueue((new IQTag("tn281v37", "set", new BindTag("urn:ietf:params:xml:ns:xmpp-bind"))));
+                //PacketWriter.addToWriteQueue((new IQTag("tn281v37", "set", new BindTag("urn:ietf:params:xml:ns:xmpp-bind"))));
+
             } else if (containsGrandChild(tag, "mechanisms")) {
                 String auth = '\0' + ConnectGTalk.username + '\0' + ConnectGTalk.password;
                 Log.d("Login Flow", "Stream tag with mechanisms tag received.");

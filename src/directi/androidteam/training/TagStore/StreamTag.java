@@ -1,5 +1,8 @@
 package directi.androidteam.training.TagStore;
 
+import android.util.Log;
+import directi.androidteam.training.lib.xml.XMLHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,5 +23,13 @@ public class StreamTag extends Tag {
         attributes.put("version", version);
         childTags = new ArrayList<Tag>();
         content=null;
+    }
+    @Override
+    public String toXml(){
+        XMLHelper helper = new XMLHelper();
+        String str = helper.buildPacket(this);
+        String open = str.substring(0,str.length()-2)+">";
+        Log.d("streamxml",open);
+        return str;
     }
 }

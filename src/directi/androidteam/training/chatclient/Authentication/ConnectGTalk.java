@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import directi.androidteam.training.TagStore.StreamTag;
 import directi.androidteam.training.chatclient.MessageQueueProcessor;
 import directi.androidteam.training.chatclient.Util.PacketReader;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
@@ -59,17 +60,20 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
     }
 
     private void sendOpenStreamStanza() {
-        PacketWriter.addToWriteQueue("<stream:stream" +
+        /*PacketWriter.addToWriteQueue("<stream:stream" +
                 " to='gmail.com'" +
                 " xmlns='jabber:client'" +
                 " xmlns:stream='http://etherx.jabber.org/streams'" +
-                " version='1.0'>");
+                " version='1.0'>");*/
+        StreamTag tag = new StreamTag("stream:stream","directi.com","jabber:client","http://etherx.jabber.org/streams","1.0");
+        PacketWriter.addToWriteQueue(tag);
     }
 
     @Override
     public Boolean doInBackground (String ...params) {
         username = params[0];
         password = params[1];
+
         try {
             Socket socket = createSSLSocket("talk.google.com", 5223);
 
