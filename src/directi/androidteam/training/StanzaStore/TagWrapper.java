@@ -12,6 +12,11 @@ import directi.androidteam.training.lib.xml.XMLHelper;
  */
 public abstract class TagWrapper {
     protected Tag tag;
+
+    public Tag getTag() {
+        return tag;
+    }
+
     public String getXml(){
         XMLHelper helper = new XMLHelper();
         return helper.buildPacket(tag);
