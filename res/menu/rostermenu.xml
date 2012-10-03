@@ -3,15 +3,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/menugroup">
         <item android:id="@+id/menu_search"
-              android:icon="@drawable/search"
-              android:title="@string/search"
-              android:showAsAction="ifRoom|withText"/>
+              android:title="@string/search"/>
         <item android:id="@+id/menu_add_contact"
-              android:title="@string/add_contact"
-              android:icon="@drawable/addcontact"
-              android:showAsAction="ifRoom|withText"/>
+              android:title="@string/add_contact"/>
         <item android:id="@+id/logout"
-              android:title="@string/sign_out"
-              android:showAsAction="ifRoom|withText"/>
+              android:title="@string/sign_out"/>
+        <item android:id="@+id/set_status"
+              android:title="@string/set_status"/>
+        <item android:id="@+id/status_available"
+              android:title="@string/available"/>
+        <item android:id="@+id/status_busy"
+              android:title="@string/busy"/>
     </group>
 </menu>

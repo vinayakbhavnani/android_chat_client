@@ -7,7 +7,7 @@
         >
     <EditText
             android:id = "@+id/Roster_enter_status"
-            android:hint="@string/enter_status"
+            android:hint="@string/set_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

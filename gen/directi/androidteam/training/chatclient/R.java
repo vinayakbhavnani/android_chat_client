@@ -193,7 +193,7 @@ public final class R {
         public static final int Roster_myself=0x7f08001c;
         public static final int Roster_mystatus=0x7f08001f;
         public static final int Roster_new_jid=0x7f080021;
-        public static final int add_account=0x7f080036;
+        public static final int add_account=0x7f080039;
         public static final int availability_image=0x7f08001d;
         public static final int canvas_roster=0x7f080001;
         public static final int chatbox_networknotification=0x7f080006;
@@ -234,6 +234,9 @@ public final class R {
         public static final int send_mess_body=0x7f080012;
         public static final int send_mess_name=0x7f08000f;
         public static final int sendmessage=0x7f080009;
+        public static final int set_status=0x7f080036;
+        public static final int status_available=0x7f080037;
+        public static final int status_busy=0x7f080038;
         public static final int user_item=0x7f08002e;
         public static final int username=0x7f080019;
         public static final int widget33=0x7f080000;
@@ -264,24 +267,26 @@ public final class R {
         public static final int userlist_menu=0x7f070002;
     }
     public static final class string {
-        public static final int OK=0x7f05000f;
+        public static final int OK=0x7f050011;
         public static final int accounts=0x7f05000a;
         public static final int add_account=0x7f050008;
-        public static final int add_contact=0x7f050012;
+        public static final int add_contact=0x7f050014;
         public static final int app_name=0x7f050000;
+        public static final int available=0x7f05000d;
+        public static final int busy=0x7f05000e;
         public static final int button_login=0x7f050003;
         public static final int button_try_again=0x7f050006;
         public static final int choose_account=0x7f050007;
         public static final int enter_jid=0x7f05000b;
-        public static final int enter_search=0x7f05000d;
-        public static final int enter_status=0x7f05000c;
-        public static final int loading=0x7f05000e;
+        public static final int enter_search=0x7f05000f;
+        public static final int loading=0x7f050010;
         public static final int login_error=0x7f050005;
         public static final int password=0x7f050002;
-        public static final int search=0x7f050011;
+        public static final int search=0x7f050013;
+        public static final int set_status=0x7f05000c;
         public static final int sign_out=0x7f050009;
         public static final int start_chatting=0x7f050004;
-        public static final int typeToSearch=0x7f050010;
+        public static final int typeToSearch=0x7f050012;
         public static final int username=0x7f050001;
     }
 }
