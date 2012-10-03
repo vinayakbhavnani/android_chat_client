@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
-import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.RosterEntry;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
@@ -44,7 +43,7 @@ public class ChatFragment extends ListFragment {
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
             Log.d("buddyid",buddyid);
-            sconvo = MessageHandler.getInstance().getFragList(buddyid);
+            sconvo = new FragmentManager().getFragList(buddyid);
             convo = toChatListItemList(sconvo);
 
         }
@@ -102,7 +101,7 @@ public class ChatFragment extends ListFragment {
     private void sendGoneMsg(String buddyid) {
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
-        PacketWriter.addToWriteQueue(messageStanza.getXml());
+        PacketWriter.addToWriteQueue(messageStanza.getTag());
     }
 
     public static ChatFragment getInstance(String from){
@@ -163,9 +162,11 @@ public class ChatFragment extends ListFragment {
     }
 
     public void closeFragment(View view){
-        Log.d("closewindow","click");
-        MessageHandler.getInstance().getChatLists().remove(buddyid);
-        if(MessageHandler.getInstance().getChatLists().size()==0)
+        MessageManager.getInstance().removeEntry(buddyid);
+        MessageStanza messageStanza = new MessageStanza(buddyid);
+        messageStanza.formGoneMsg();
+        PacketWriter.addToWriteQueue(messageStanza.getTag());
+        if(MessageManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
         ChatBox.recreateFragments();
     }

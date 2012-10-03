@@ -22,7 +22,7 @@ public class SendPresence extends AsyncTask<Void, Void, Void> {
     @Override
     public Void doInBackground(Void ...voids) {
         PresenceS presenceS = new PresenceS();
-        PacketWriter.addToWriteQueue(presenceS.getXml());
+        PacketWriter.addToWriteQueue(presenceS.getTag());
         return null;
     }
 }

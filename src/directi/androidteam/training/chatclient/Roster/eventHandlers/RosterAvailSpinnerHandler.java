@@ -29,7 +29,6 @@ public class RosterAvailSpinnerHandler implements AdapterView.OnItemSelectedList
     private void signOut() {
         UserDatabaseHandler db = new UserDatabaseHandler(this.activity);
         db.updateState(ConnectGTalk.username, "offline");
-        db.close();
         Intent intent = new Intent(this.activity, UserListActivity.class);
         this.activity.startActivity(intent);
         this.activity.finish();
@@ -47,7 +46,7 @@ public class RosterAvailSpinnerHandler implements AdapterView.OnItemSelectedList
         if(string.equals("LogOut")){
             PresenceS presenceS = new PresenceS();
             presenceS.addType("unavailable");
-            PacketWriter.addToWriteQueue(presenceS.getXml());
+            PacketWriter.addToWriteQueue(presenceS.getTag());
             signOut();
             return;
         }

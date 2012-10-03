@@ -30,7 +30,6 @@ public class UserListActivity extends ListActivity {
         setContentView(R.layout.users);
         UserDatabaseHandler db = new UserDatabaseHandler(this);
         ArrayList<User> users = db.getAllUsers();
-        db.close();
         UserAdapter userAdapter = new UserAdapter(this, R.layout.userlistitem, users);
         setListAdapter(userAdapter);
     }
@@ -44,7 +43,6 @@ public class UserListActivity extends ListActivity {
         UserDatabaseHandler db = new UserDatabaseHandler(this);
         String password = db.getPassword(username);
         Log.d("Login Flow (Check Password)", password);
-        db.close();
         (new ConnectGTalk(this)).execute(username, password);
     }
 

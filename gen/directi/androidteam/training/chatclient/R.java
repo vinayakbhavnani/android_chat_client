@@ -209,6 +209,7 @@ public final class R {
         public static final int chatlistitem_status=0x7f080011;
         public static final int chatlistitem_time=0x7f080010;
         public static final int choose_account=0x7f08002f;
+        public static final int enter_message=0x7f080008;
         public static final int gtalk_icon=0x7f080017;
         public static final int list_availability_image=0x7f080026;
         public static final int login_via_gtalk=0x7f080031;
@@ -216,7 +217,6 @@ public final class R {
         public static final int menu_add_contact=0x7f080034;
         public static final int menu_search=0x7f080033;
         public static final int menugroup=0x7f080032;
-        public static final int message=0x7f080008;
         public static final int pager=0x7f080005;
         public static final int password=0x7f08001a;
         public static final int progress_bar=0x7f080018;
@@ -233,7 +233,7 @@ public final class R {
         public static final int searchrosterentryedittext=0x7f08002a;
         public static final int send_mess_body=0x7f080012;
         public static final int send_mess_name=0x7f08000f;
-        public static final int sendmessage=0x7f080009;
+        public static final int sendmessage_button=0x7f080009;
         public static final int set_status=0x7f080036;
         public static final int status_available=0x7f080037;
         public static final int status_busy=0x7f080038;

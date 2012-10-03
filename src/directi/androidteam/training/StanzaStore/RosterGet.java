@@ -20,12 +20,14 @@ public class RosterGet extends TagWrapper {
         tag.addAttribute("type","get");
         Query query = new Query();
         tag.addChildTag(query);
+        setSender(JID.getJid());
     }
     public RosterGet(){
         tag = new IQTag();
         tag.addAttribute("type","get");
         Query query = new Query();
         tag.addChildTag(query);
+        setSender(JID.getJid());
     }
     public RosterGet setSender(String from){
         tag.addAttribute("from",from);

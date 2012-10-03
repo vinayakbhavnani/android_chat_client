@@ -1,5 +1,7 @@
 package directi.androidteam.training.TagStore;
 
+import directi.androidteam.training.lib.xml.XMLHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,6 +17,20 @@ public class Tag {
     protected HashMap<String,String> attributes;
     protected ArrayList<Tag> childTags;
     protected String content;
+    protected String recipientAccount;
+
+    public String getRecipientAccount() {
+        return recipientAccount;
+    }
+
+    public void setRecipientAccount(String recipientAccount) {
+        this.recipientAccount = recipientAccount;
+    }
+
+    public String toXml(){
+        XMLHelper helper = new XMLHelper();
+        return helper.buildPacket(this);
+    }
 
     public Tag(String tagname, HashMap<String, String> attributes, ArrayList<Tag> childTags,String content) {
         this.tagname = tagname;
