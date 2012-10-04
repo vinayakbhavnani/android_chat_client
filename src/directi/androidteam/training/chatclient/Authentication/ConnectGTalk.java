@@ -65,7 +65,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
                 " xmlns='jabber:client'" +
                 " xmlns:stream='http://etherx.jabber.org/streams'" +
                 " version='1.0'>");*/
-        StreamTag tag = new StreamTag("stream:stream","directi.com","jabber:client","http://etherx.jabber.org/streams","1.0");
+        StreamTag tag = new StreamTag("stream:stream","gmail.com","jabber:client","http://etherx.jabber.org/streams","1.0");
         PacketWriter.addToWriteQueue(tag);
     }
 

@@ -55,6 +55,7 @@ public class LoginHandler implements Handler {
 
     @Override
     public void processPacket(Tag tag) {
+        Log.d("packetrec",tag.toXml());
         if(tag.getTagname().equals("message")){
         } else if (tag.getTagname().equals("stream:stream") || tag.getTagname().equals("success") || tag.getTagname().equals("failure")) {
             processPacketAux(tag);
@@ -69,7 +70,7 @@ public class LoginHandler implements Handler {
         if (tag.getTagname().equals("stream:stream")) {
             if (containsGrandChild(tag, "bind")) {
                 Log.d("Login Flow", "Stream tag with bind tag received.");
-                //PacketWriter.addToWriteQueue((new IQTag("tn281v37", "set", new BindTag("urn:ietf:params:xml:ns:xmpp-bind"))));
+                PacketWriter.addToWriteQueue((new IQTag("tn281v37", "set", new BindTag("urn:ietf:params:xml:ns:xmpp-bind"))));
 
             } else if (containsGrandChild(tag, "mechanisms")) {
                 String auth = '\0' + ConnectGTalk.username + '\0' + ConnectGTalk.password;
@@ -78,11 +79,8 @@ public class LoginHandler implements Handler {
             }
         } else if (tag.getTagname().equals("success")) {
             Log.d("Login Flow", "Success tag received.");
-            /*PacketWriter.addToWriteQueue("<stream:stream" +
-                    " to='gmail.com'" +
-                    " xmlns='jabber:client'" +
-                    " xmlns:stream='http://etherx.jabber.org/streams'" +
-                    " version='1.0'>");*/
+
+            PacketWriter.addToWriteQueue(new StreamTag("stream:stream","gmail.com","jabber:client","http://etherx.jabber.org/streams","1.0"));
         } else if (tag.getTagname().equals("failure")) {
             Log.d("Login Flow", "Failure tag received.");
 //            Intent intent = new Intent(ChatApplication.getAppContext(), LoginErrorActivity.class);

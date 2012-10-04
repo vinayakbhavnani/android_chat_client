@@ -30,6 +30,6 @@ public class StreamTag extends Tag {
         String str = helper.buildPacket(this);
         String open = str.substring(0,str.length()-2)+">";
         Log.d("streamxml",open);
-        return str;
+        return open;
     }
 }

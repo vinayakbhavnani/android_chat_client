@@ -31,11 +31,13 @@ public class PacketWriter implements ServiceThread{
 
     public void write(Tag tag){
         PrintWriter out = outputStreams.get(tag.getAttribute("from"));
-        out.write(tag.toXml());
-        out.flush();
+        if(out!=null){
+            out.write(tag.toXml());
+            out.flush();
+        }
         writer.write(tag.toXml());
         writer.flush();
-        if(out.checkError()){
+        if(writer.checkError()){
 
             String id = tag.getAttribute("id");
             PacketStatusManager.getInstance().setFailure(id);
