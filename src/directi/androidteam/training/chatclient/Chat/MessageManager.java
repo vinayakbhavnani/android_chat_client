@@ -1,6 +1,7 @@
 package directi.androidteam.training.chatclient.Chat;
 
 import directi.androidteam.training.StanzaStore.MessageStanza;
+import directi.androidteam.training.chatclient.Chat.dbAccess.dbAccess;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,6 +61,17 @@ public class MessageManager {
                 propagateChangesToFragments(ms, false);
             }
         }
+        addToDB(ms);
+    }
+
+    private void removeFromDB(final String id) {
+        Thread t = new Thread() {public void run() { dbAccess db =  new dbAccess(); db.removeMsg(id);}};
+        t.start();
+    }
+
+    private void addToDB(final MessageStanza ms) {
+        Thread t = new Thread() {public void run() { dbAccess db =  new dbAccess(); db.addMessage(ms);}};
+        t.start();
     }
 
     private void propagateChangesToFragments(MessageStanza ms, boolean b) {

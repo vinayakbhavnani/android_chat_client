@@ -17,6 +17,11 @@ import java.util.UUID;
 public class MessageStanza extends TagWrapper{
     private long time;
     private String creater;
+
+    public void setMsgMergedCount(int msgMergedCount) {
+        this.msgMergedCount = msgMergedCount;
+    }
+
     private int msgMergedCount = 0;
 
     public void setTime(long time) {

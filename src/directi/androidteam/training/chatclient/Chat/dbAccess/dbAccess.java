@@ -63,4 +63,8 @@ public class dbAccess {
     public ArrayList<MessageStanza> getMsgByJID(String jid) {
         return null;
     }
+
+    public void removeMsg(String id) {
+        SQLiteDatabase db = DBManager.getDbManager().getWritableSQLiteDB();
+    }
 }
