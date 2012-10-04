@@ -36,7 +36,7 @@ public class PacketReader implements ServiceThread{
             if(helper.tearxmlPacket(reader)==null){
                 Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
                 intent.putExtra("error","connection");
-                ChatBox.getContext().startActivity(intent);
+                ChatApplication.getAppContext().startActivity(intent);
                 }
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
