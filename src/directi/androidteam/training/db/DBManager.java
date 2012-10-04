@@ -36,9 +36,9 @@ public class DBManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String CREATE_TABLE = "CREATE TABLE " + TABLE_1_NAME + "(" + KEY_1_JID_SENDER + " TEXT," + KEY_1_JID_RECEIVER + " TEXT," + KEY_1_MESSAGE + " TEXT," + KEY_1_ID + " TEXT" + KEY_1_TIME + "INTEGER" + ")";
+        String CREATE_TABLE = "CREATE TABLE " + TABLE_1_NAME + "(" + KEY_1_JID_SENDER + " TEXT, " + KEY_1_JID_RECEIVER + " TEXT, " + KEY_1_MESSAGE + " TEXT, " + KEY_1_ID + " TEXT, " + KEY_1_TIME + " INTEGER" + ")";
         sqLiteDatabase.execSQL(CREATE_TABLE);
-        CREATE_TABLE = "CREATE TABLE " + TABLE_2_NAME + "(" + KEY_2_USERNAME + " TEXT," + KEY_2_PASSWORD + " TEXT," + KEY_2_STATE + " TEXT" + ")";
+        CREATE_TABLE = "CREATE TABLE " + TABLE_2_NAME + "(" + KEY_2_USERNAME + " TEXT, " + KEY_2_PASSWORD + " TEXT, " + KEY_2_STATE + " TEXT" + ")";
         sqLiteDatabase.execSQL(CREATE_TABLE);
     }
 
