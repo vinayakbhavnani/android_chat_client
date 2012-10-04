@@ -1,6 +1,5 @@
 package directi.androidteam.training.chatclient.Chat;
 
-import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 
 /**
@@ -18,9 +17,7 @@ public class MsgGroupFormating {
         this.present = ms;
     }
     public Boolean formatMsg() {
-        Log.d("GGGG","format");
         if(last.getMsgMergedCount()>2) {
-            Log.d("GGGGG","count more than 2");
             return false;
         }
         if(present.getTime() - last.getTime() < 10000)

@@ -28,7 +28,6 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class ChatFragment extends ListFragment {
-    private ArrayList<MessageStanza> sconvo;
     private ArrayList<ChatListItem> chatListItems;
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
@@ -45,8 +44,7 @@ public class ChatFragment extends ListFragment {
 
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
-            sconvo = new FragmentManager().getFragList(buddyid);
-            chatListItems = toChatListItemList(sconvo);
+            chatListItems = toChatListItemList(new FragmentManager().getFragList(buddyid));
 
         }
         else
@@ -149,13 +147,13 @@ public class ChatFragment extends ListFragment {
     }
 
     private ArrayList<ChatListItem> toChatListItemList(ArrayList<MessageStanza> list){
-        ArrayList<ChatListItem> conv;
-        conv = new ArrayList<ChatListItem>();
+        ArrayList<ChatListItem> chatItemList;
+        chatItemList = new ArrayList<ChatListItem>();
         for (MessageStanza s : list) {
             ChatListItem cli = new ChatListItem(s);
-            conv.add(cli);
+            chatItemList.add(cli);
         }
-        return  conv;
+        return  chatItemList;
     }
 
     public void closeFragment(View view){
@@ -167,7 +165,5 @@ public class ChatFragment extends ListFragment {
             ChatBox.finishActivity();
         ChatBox.recreateFragments();
     }
-
-
 
 }
