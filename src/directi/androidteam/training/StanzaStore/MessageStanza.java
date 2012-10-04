@@ -150,8 +150,13 @@ public class MessageStanza extends TagWrapper{
         return msgMergedCount;
     }
 
+    public void setFrom(String from) {
+        tag.setFrom(from);
+    }
+
     public void send() {
         setCreater(JID.getJid());
+        setFrom(JID.getJid());
         setID(UUID.randomUUID().toString());
         PacketWriter.addToWriteQueue(getXml());
     }

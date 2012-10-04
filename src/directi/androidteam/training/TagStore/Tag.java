@@ -104,4 +104,7 @@ public class Tag {
         addAttribute("id",id);
     }
 
+    public void setFrom(String from) {
+        addAttribute("from",from);
+    }
 }

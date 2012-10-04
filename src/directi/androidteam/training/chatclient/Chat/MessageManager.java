@@ -108,4 +108,21 @@ public class MessageManager {
             return null;
         else return (String) messageStore.keySet().toArray()[queryJID];
     }
+
+    public HashMap<String,ArrayList<MessageStanza>> convertListToMap(ArrayList<MessageStanza> messageStanzas) {
+        HashMap<String,ArrayList<MessageStanza>> map = new HashMap<String, ArrayList<MessageStanza>>();
+        if(messageStanzas==null)
+            return map;
+        for (MessageStanza messageStanza : messageStanzas) {
+            if(map.containsKey(messageStanza.getFrom())) {
+                map.get(messageStanza.getFrom()).add(messageStanza);
+            }
+            else {
+                ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
+                arrayList.add(messageStanza);
+                map.put(messageStanza.getFrom(),arrayList);
+            }
+        }
+        return map;
+    }
 }

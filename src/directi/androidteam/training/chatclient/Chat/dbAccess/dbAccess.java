@@ -21,7 +21,7 @@ public class dbAccess {
     public void addMessage(MessageStanza messageStanza) {
         SQLiteDatabase db = DBManager.getDbManager().getWritableSQLiteDB();
         ContentValues values = new ContentValues();
-        values.put(DBManager.KEY_1_JID_SENDER,messageStanza.getCreater());
+        values.put(DBManager.KEY_1_JID_SENDER,messageStanza.getFrom());
         values.put(DBManager.KEY_1_JID_RECEIVER,messageStanza.getTo());
         values.put(DBManager.KEY_1_MESSAGE,messageStanza.getBody());
         values.put(DBManager.KEY_1_ID,messageStanza.getID());
@@ -44,6 +44,7 @@ public class dbAccess {
                  String body = cursor.getString(2);
                  MessageStanza messageStanza = new MessageStanza(to,body);
                  messageStanza.setCreater(cursor.getString(0));
+                 messageStanza.setFrom(cursor.getString(0));
                  messageStanza.setStatus(true);
                  messageStanza.setID(cursor.getString(3));
                  messageStanza.setTime(cursor.getLong(4));
