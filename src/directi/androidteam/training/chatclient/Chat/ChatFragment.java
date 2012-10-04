@@ -16,7 +16,6 @@ import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.RosterEntry;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
-import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
 
@@ -28,8 +27,7 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class ChatFragment extends ListFragment {
-    private ArrayList<MessageStanza> sconvo;
-    private ArrayList<ChatListItem> convo;
+    private ArrayList<ChatListItem> chatListItems;
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
 
@@ -45,12 +43,11 @@ public class ChatFragment extends ListFragment {
 
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
-            sconvo = new FragmentManager().getFragList(buddyid);
-            convo = toChatListItemList(sconvo);
+            chatListItems = toChatListItemList(new FragmentManager().getFragList(buddyid));
 
         }
         else
-            convo = new ArrayList<ChatListItem>();
+            chatListItems = new ArrayList<ChatListItem>();
 
         MessageManager.getInstance().registerFragment(this);
     }
@@ -59,7 +56,7 @@ public class ChatFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
-        adaptor = new ChatListAdaptor(getActivity(),convo);
+        adaptor = new ChatListAdaptor(getActivity(), chatListItems);
 
         ListView lv = getListView();
         LayoutInflater linf = getLayoutInflater(savedInstanceState);
@@ -103,7 +100,7 @@ public class ChatFragment extends ListFragment {
     private void sendGoneMsg(String buddyid) {
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
-        PacketWriter.addToWriteQueue(messageStanza.getXml());
+        messageStanza.send();
     }
 
     public static ChatFragment getInstance(String from){
@@ -116,9 +113,9 @@ public class ChatFragment extends ListFragment {
 
     public void addChatItem(MessageStanza message, boolean b){
         ChatListItem cli = new ChatListItem(message);
-        if(b && convo.size()>0)
-            convo.remove(convo.size()-1); //added  - 3/10
-        convo.add(cli);
+        if(b && chatListItems.size()>0)
+            chatListItems.remove(chatListItems.size()-1); //added  - 3/10
+        chatListItems.add(cli);
         PacketStatusManager.getInstance().pushCliPacket(cli);
         ChatBox.adaptorNotify(this);
     }
@@ -149,25 +146,23 @@ public class ChatFragment extends ListFragment {
     }
 
     private ArrayList<ChatListItem> toChatListItemList(ArrayList<MessageStanza> list){
-        ArrayList<ChatListItem> conv;
-        conv = new ArrayList<ChatListItem>();
+        ArrayList<ChatListItem> chatItemList;
+        chatItemList = new ArrayList<ChatListItem>();
         for (MessageStanza s : list) {
             ChatListItem cli = new ChatListItem(s);
-            conv.add(cli);
+            chatItemList.add(cli);
         }
-        return  conv;
+        return  chatItemList;
     }
 
     public void closeFragment(View view){
         MessageManager.getInstance().removeEntry(buddyid);
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
-        PacketWriter.addToWriteQueue(messageStanza.getXml());
+        messageStanza.send();
         if(MessageManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
         ChatBox.recreateFragments();
     }
-
-
 
 }

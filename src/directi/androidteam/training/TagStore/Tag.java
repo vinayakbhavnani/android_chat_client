@@ -33,6 +33,7 @@ public class Tag {
     public void setAttributes(HashMap<String, String> attributes) {
         this.attributes = attributes;
     }
+
     public void addAttributes(HashMap<String,String> attributes){
         if(this.attributes==null)
             this.attributes = new HashMap<String, String>();
@@ -60,21 +61,25 @@ public class Tag {
     public String getContent() {
         return content;
     }
+
     public void addAttribute(String attributeName,String attributeVal){
         if(attributes==null)
             attributes = new HashMap<String, String>();
         attributes.put(attributeName,attributeVal);
     }
+
     public void addChildTag(Tag tag){
         if(childTags==null)
             childTags = new ArrayList<Tag>();
         childTags.add(tag);
     }
+
     public String getAttribute(String key){
         if(attributes==null)
             return null;
         return attributes.get(key);
     }
+
     public Tag getChildTag(String childTagName) {
         for (int i = 0; i < this.getChildTags().size(); i++) {
             if (this.getChildTags().get(i).getTagname().equals(childTagName)) {
@@ -93,5 +98,13 @@ public class Tag {
             return false;
         }
         return false;
+    }
+
+    public void setID(String id) {
+        addAttribute("id",id);
+    }
+
+    public void setFrom(String from) {
+        addAttribute("from",from);
     }
 }

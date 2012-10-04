@@ -39,8 +39,16 @@ public class MessageManager {
             if(arrayList.size()>0) {
                 MessageStanza lastMessageStanza = arrayList.get(arrayList.size()-1);
                 if(lastMessageStanza.getCreater()!=null && lastMessageStanza.getCreater().equals(ms.getCreater())) {
-                    lastMessageStanza.appendBody(ms.getBody());
-                    propagateChangesToFragments(lastMessageStanza, true);
+                    MsgGroupFormating msgGroupFormating = new MsgGroupFormating(lastMessageStanza,ms);
+                    Boolean bool = msgGroupFormating.formatMsg();
+                    if(bool) {
+                        lastMessageStanza.appendBody(ms.getBody());
+                        propagateChangesToFragments(lastMessageStanza, true);
+                    }
+                    else {
+                        arrayList.add(ms);
+                        propagateChangesToFragments(ms, false);
+                    }
                 }
                 else {
                     arrayList.add(ms);
@@ -99,5 +107,22 @@ public class MessageManager {
         if(queryJID<0 || messageStore==null || queryJID>=getSizeofActiveChats())
             return null;
         else return (String) messageStore.keySet().toArray()[queryJID];
+    }
+
+    public HashMap<String,ArrayList<MessageStanza>> convertListToMap(ArrayList<MessageStanza> messageStanzas) {
+        HashMap<String,ArrayList<MessageStanza>> map = new HashMap<String, ArrayList<MessageStanza>>();
+        if(messageStanzas==null)
+            return map;
+        for (MessageStanza messageStanza : messageStanzas) {
+            if(map.containsKey(messageStanza.getFrom())) {
+                map.get(messageStanza.getFrom()).add(messageStanza);
+            }
+            else {
+                ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
+                arrayList.add(messageStanza);
+                map.put(messageStanza.getFrom(),arrayList);
+            }
+        }
+        return map;
     }
 }
