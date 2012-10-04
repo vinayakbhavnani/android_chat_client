@@ -10,6 +10,7 @@ import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
 import directi.androidteam.training.chatclient.Roster.SendPresence;
 import directi.androidteam.training.chatclient.Roster.VCard;
+import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 /**
@@ -57,7 +58,7 @@ public class RosterHandler implements Handler {
                 RosterManager.getInstance().updatePresence(presence);
                 Tag vCardTag = new IQTag("v3", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
                 Log.d("asdfasdfasdf", (new XMLHelper()).buildPacket(vCardTag));
-                //PacketWriter.addToWriteQueue("<iq id='v3' to='" + tag.getAttribute("from") + "' type='get'><vCard xmlns='vcard-temp'/></iq>");
+                PacketWriter.addToWriteQueue("<iq id='v3' to='" + tag.getAttribute("from") + "' type='get'><vCard xmlns='vcard-temp'/></iq>");
             }
         }
     }
