@@ -14,10 +14,12 @@ public class Show extends Tag{
     public Show(HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
         super("show", attributes, childTags, content);
     }
-    public Show(String showState){
-        super("show",null,null,null);
-        setShowState(showState);
+
+    public Show(String show) {
+        this.tagname = "show";
+        this.content = show;
     }
+
     public Show() {
         super("show",null,null,null);
     }

@@ -22,12 +22,12 @@ public class PresenceS  extends TagWrapper {
     public PresenceS(Tag tag){
         this.tag = new Presence(tag);
     }
-    public PresenceS(String sender,String receiver,String id,String type){
-        tag = new Presence();
-        addSender(sender);
-        addReceiver(receiver);
-        addID(id);
-        addType(type);
+    public PresenceS(String id, String from, String status, String show) {
+        this.tag = new Presence();
+        tag.addAttribute("id", id);
+        tag.addAttribute("from", from);
+        tag.addChildTag(new Status(status));
+        tag.addChildTag(new Show(show));
     }
     public void addSender(String sender){
         tag.addAttribute("from", sender);

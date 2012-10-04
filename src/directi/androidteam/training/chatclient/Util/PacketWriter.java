@@ -43,7 +43,6 @@ public class PacketWriter implements ServiceThread{
     @Override
     public void execute() {
         Log.d("Service Thread : ", "I am PacketWriter");
-        write("<presence/>");
         while(true){
             if(!list.isEmpty()){
                 String str = list.remove(0);
@@ -52,6 +51,4 @@ public class PacketWriter implements ServiceThread{
             }
         }
     }
-
-
 }
