@@ -39,8 +39,16 @@ public class MessageManager {
             if(arrayList.size()>0) {
                 MessageStanza lastMessageStanza = arrayList.get(arrayList.size()-1);
                 if(lastMessageStanza.getCreater()!=null && lastMessageStanza.getCreater().equals(ms.getCreater())) {
-                    lastMessageStanza.appendBody(ms.getBody());
-                    propagateChangesToFragments(lastMessageStanza, true);
+                    MsgGroupFormating msgGroupFormating = new MsgGroupFormating(lastMessageStanza,ms);
+                    Boolean bool = msgGroupFormating.formatMsg();
+                    if(bool) {
+                        lastMessageStanza.appendBody(ms.getBody());
+                        propagateChangesToFragments(lastMessageStanza, true);
+                    }
+                    else {
+                        arrayList.add(ms);
+                        propagateChangesToFragments(ms, false);
+                    }
                 }
                 else {
                     arrayList.add(ms);

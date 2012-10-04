@@ -29,7 +29,7 @@ import java.util.ArrayList;
  */
 public class ChatFragment extends ListFragment {
     private ArrayList<MessageStanza> sconvo;
-    private ArrayList<ChatListItem> convo;
+    private ArrayList<ChatListItem> chatListItems;
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
 
@@ -46,11 +46,11 @@ public class ChatFragment extends ListFragment {
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
             sconvo = new FragmentManager().getFragList(buddyid);
-            convo = toChatListItemList(sconvo);
+            chatListItems = toChatListItemList(sconvo);
 
         }
         else
-            convo = new ArrayList<ChatListItem>();
+            chatListItems = new ArrayList<ChatListItem>();
 
         MessageManager.getInstance().registerFragment(this);
     }
@@ -59,7 +59,7 @@ public class ChatFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
-        adaptor = new ChatListAdaptor(getActivity(),convo);
+        adaptor = new ChatListAdaptor(getActivity(), chatListItems);
 
         ListView lv = getListView();
         LayoutInflater linf = getLayoutInflater(savedInstanceState);
@@ -116,9 +116,9 @@ public class ChatFragment extends ListFragment {
 
     public void addChatItem(MessageStanza message, boolean b){
         ChatListItem cli = new ChatListItem(message);
-        if(b && convo.size()>0)
-            convo.remove(convo.size()-1); //added  - 3/10
-        convo.add(cli);
+        if(b && chatListItems.size()>0)
+            chatListItems.remove(chatListItems.size()-1); //added  - 3/10
+        chatListItems.add(cli);
         PacketStatusManager.getInstance().pushCliPacket(cli);
         ChatBox.adaptorNotify(this);
     }

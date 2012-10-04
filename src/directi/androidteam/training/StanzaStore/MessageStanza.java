@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class MessageStanza extends TagWrapper{
     private long time;
     private String creater;
+    private int msgMergedCount = 0;
 
     public MessageStanza(String to, String body){
         tag = new MessageTag(to,body,null);
@@ -46,8 +47,9 @@ public class MessageStanza extends TagWrapper{
     public void appendBody(String appendText) {
         MessageTag messageTag = new MessageTag(tag);
         String prevBody = messageTag.getBody();
-        messageTag.setBody(prevBody+"\n"+appendText);
+        messageTag.setBody(prevBody + "\n" + appendText);
         tag = messageTag;
+        msgMergedCount++;
     }
 
     public void formActiveMsg() {
@@ -132,5 +134,9 @@ public class MessageStanza extends TagWrapper{
         }
 
         return "no chatstate";
+    }
+
+    public int getMsgMergedCount() {
+        return msgMergedCount;
     }
 }
