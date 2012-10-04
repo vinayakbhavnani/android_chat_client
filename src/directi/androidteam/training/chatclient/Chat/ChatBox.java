@@ -169,10 +169,11 @@ public class ChatBox extends FragmentActivity {
         MessageStanza messxml = new MessageStanza(jid,message);
         messxml.setCreater(JID.getJid());
         messxml.formActiveMsg();
-        PacketStatusManager.getInstance().pushMsPacket(messxml);
+        messxml.send();
 
+        PacketStatusManager.getInstance().pushMsPacket(messxml);
         MessageManager.getInstance().insertMessage(jid, messxml);
-        PacketWriter.addToWriteQueue(messxml.getXml());
+
         viewPager.setCurrentItem(currentItem);
 
         mess.setText("");
@@ -195,7 +196,7 @@ public class ChatBox extends FragmentActivity {
         for (Object object : objects) {
             MessageStanza messageStanza = new MessageStanza((String) object);
             messageStanza.formInActiveMsg();
-            PacketWriter.addToWriteQueue(messageStanza.getXml());
+            messageStanza.send();
         }
     }
     private void switchFragment(String from){

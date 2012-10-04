@@ -16,7 +16,6 @@ import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.RosterEntry;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
-import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
 
@@ -101,7 +100,7 @@ public class ChatFragment extends ListFragment {
     private void sendGoneMsg(String buddyid) {
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
-        PacketWriter.addToWriteQueue(messageStanza.getXml());
+        messageStanza.send();
     }
 
     public static ChatFragment getInstance(String from){
@@ -160,7 +159,7 @@ public class ChatFragment extends ListFragment {
         MessageManager.getInstance().removeEntry(buddyid);
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
-        PacketWriter.addToWriteQueue(messageStanza.getXml());
+        messageStanza.send();
         if(MessageManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
         ChatBox.recreateFragments();

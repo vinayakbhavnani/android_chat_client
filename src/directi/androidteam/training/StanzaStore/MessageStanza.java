@@ -2,8 +2,10 @@ package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.MessageTag;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +18,10 @@ public class MessageStanza extends TagWrapper{
     private long time;
     private String creater;
     private int msgMergedCount = 0;
+
+    public void setTime(long time) {
+        this.time = time;
+    }
 
     public MessageStanza(String to, String body){
         tag = new MessageTag(to,body,null);
@@ -34,6 +40,10 @@ public class MessageStanza extends TagWrapper{
 
     public MessageStanza(String to) {
         tag = new MessageTag(to);
+    }
+
+    public void setID(String id) {
+        tag.setID(id);
     }
 
     public void setCreater(String creater) {
@@ -138,5 +148,11 @@ public class MessageStanza extends TagWrapper{
 
     public int getMsgMergedCount() {
         return msgMergedCount;
+    }
+
+    public void send() {
+        setCreater(JID.getJid());
+        setID(UUID.randomUUID().toString());
+        PacketWriter.addToWriteQueue(getXml());
     }
 }

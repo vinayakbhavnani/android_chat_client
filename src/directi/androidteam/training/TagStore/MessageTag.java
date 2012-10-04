@@ -4,7 +4,6 @@ import directi.androidteam.training.StanzaStore.JID;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,8 +18,6 @@ public class MessageTag extends Tag{
         attributes = new HashMap<String, String>();
         attributes.put("type","chat");
         attributes.put("to",to);
-        attributes.put("from", JID.getJid());
-        attributes.put("id", UUID.randomUUID().toString());
         if(subject!=null)
             attributes.put("subject",subject);
         childTags = new ArrayList<Tag>();
@@ -29,7 +26,6 @@ public class MessageTag extends Tag{
     }
     public MessageTag(String to) {
         super("message",null,null,null);
-        addAttribute("from", JID.getJid());
         addAttribute("to",to);
         childTags = new ArrayList<Tag>();
     }
