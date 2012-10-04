@@ -167,7 +167,6 @@ public class ChatBox extends FragmentActivity {
 
         String jid = new FragmentManager().FragToJid(currentItem);
         MessageStanza messxml = new MessageStanza(jid,message);
-        messxml.setCreater(JID.getJid());
         messxml.formActiveMsg();
         messxml.send();
 

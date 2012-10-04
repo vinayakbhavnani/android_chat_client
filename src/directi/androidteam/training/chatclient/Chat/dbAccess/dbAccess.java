@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.db.DBManager;
 
@@ -32,6 +33,7 @@ public class dbAccess {
     }
 
     public ArrayList<MessageStanza> getAllMsg() {
+        Log.d("GGGG","DB READING");
         SQLiteDatabase db = DBManager.getDbManager().getReadableSQLiteDB();
         Cursor cursor = db.query(DBManager.TABLE_1_NAME, null, null , null, null, null, null);
         ArrayList<MessageStanza> messageStanzas = new ArrayList<MessageStanza>();
@@ -43,7 +45,6 @@ public class dbAccess {
                  String to = cursor.getString(1);
                  String body = cursor.getString(2);
                  MessageStanza messageStanza = new MessageStanza(to,body);
-                 messageStanza.setCreater(cursor.getString(0));
                  messageStanza.setFrom(cursor.getString(0));
                  messageStanza.setStatus(true);
                  messageStanza.setID(cursor.getString(3));

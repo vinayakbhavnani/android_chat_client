@@ -19,7 +19,11 @@ public class MessageManager {
     ChatFragment listener_frag;
 
     private MessageManager() {
-        messageStore = new HashMap<String, ArrayList<MessageStanza>>();
+        //messageStore = new HashMap<String, ArrayList<MessageStanza>>();
+        messageStore = convertListToMap(new dbAccess().getAllMsg());
+        for (String s : messageStore.keySet()) {
+            messageStore.put(s,new MsgGroupFormating().formatMsgList(messageStore.get(s)));
+        }
     }
 
     public static MessageManager getInstance() {
@@ -33,13 +37,13 @@ public class MessageManager {
             messageStore.put(from,arrayList);
             if(ChatBox.getContext()!=null)
                 ChatBox.recreateFragments();
-            propagateChangesToFragments(ms,false);
+            propagateChangesToFragments(ms, false);
         }
         else {
             ArrayList<MessageStanza> arrayList = messageStore.get(from);
             if(arrayList.size()>0) {
                 MessageStanza lastMessageStanza = arrayList.get(arrayList.size()-1);
-                if(lastMessageStanza.getCreater()!=null && lastMessageStanza.getCreater().equals(ms.getCreater())) {
+                if(lastMessageStanza.getFrom()!=null && lastMessageStanza.getFrom().equals(ms.getFrom())) {
                     MsgGroupFormating msgGroupFormating = new MsgGroupFormating(lastMessageStanza,ms);
                     Boolean bool = msgGroupFormating.formatMsg();
                     if(bool) {

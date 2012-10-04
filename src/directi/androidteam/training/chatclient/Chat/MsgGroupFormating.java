@@ -19,6 +19,9 @@ public class MsgGroupFormating {
         this.present = ms;
     }
 
+    public MsgGroupFormating() {
+    }
+
     public Boolean formatMsg() {
         if(last.getMsgMergedCount()>2) {
             return false;
