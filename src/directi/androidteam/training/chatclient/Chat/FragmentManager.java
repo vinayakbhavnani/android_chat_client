@@ -19,6 +19,7 @@ public class FragmentManager {
     private FragmentManager() {
         FragToJID = new Vector<String>();
     }
+
     public static FragmentManager getInstance() {
         return fragmentManager;
 
@@ -43,6 +44,8 @@ public class FragmentManager {
             if(s.equals(jid))
                 FragToJID.remove(s);
         }
+        if(ChatBox.getContext()!=null)
+            ChatBox.recreateFragments();
     }
 
     public String FragToJid(int queryJID){

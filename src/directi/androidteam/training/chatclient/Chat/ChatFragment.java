@@ -72,7 +72,7 @@ public class ChatFragment extends ListFragment {
             public void onClick(View view) {
                 sendGoneMsg(buddyid);
                 FragmentManager.getInstance().removeFragEntry(buddyid);
-                ChatBox.deletePage();
+                //ChatBox.deletePage();
                 //ChatBox.recreateFragments();
                 closeFragment();
             }

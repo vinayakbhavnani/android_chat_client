@@ -35,8 +35,10 @@ public class MessageManager {
             ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
             arrayList.add(ms);
             messageStore.put(from,arrayList);
+/*
             if(ChatBox.getContext()!=null)
                 ChatBox.recreateFragments();
+*/
             propagateChangesToFragments(ms, false);
         }
         else {
@@ -79,6 +81,8 @@ public class MessageManager {
     }
 
     private void propagateChangesToFragments(MessageStanza ms, boolean b) {
+        if(ChatBox.getContext()!=null)
+            ChatBox.recreateFragments();
         if (listener_frag!=null)
             listener_frag.addChatItem(ms,b);
     }
