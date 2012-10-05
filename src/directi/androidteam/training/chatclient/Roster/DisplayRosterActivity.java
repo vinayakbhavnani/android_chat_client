@@ -44,7 +44,6 @@ public class DisplayRosterActivity extends ListActivity {
         ((TextView) findViewById(R.id.Roster_mystatus)).setText(MyProfile.getInstance().getStatus());
 
         (new RequestRoster(this)).execute();
-        (new SendPresence(this)).execute();
         setListAdapter(new RosterItemAdapter(this));
     }
 

@@ -1,5 +1,6 @@
 package directi.androidteam.training.chatclient.Roster;
 
+import android.util.Log;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
@@ -34,6 +35,7 @@ public class MyProfile {
         presence.addAvailability(avail);
         presence.addID(UUID.randomUUID().toString());
         presence.addStatus(getStatus());
+        Log.d("asdfasdf", presence.getXml());
         PacketWriter.addToWriteQueue(presence.getXml());
     }
     public String getBareJID() {

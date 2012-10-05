@@ -78,9 +78,9 @@ public class RosterManager {
             }
         }
         Log.d("ssss","inside roster manager -set roster list.. will update adapter list n display it");
-        SendPresence.callerActivity.runOnUiThread(new Runnable() {
+        RequestRoster.callerActivity.runOnUiThread(new Runnable() {
             public void run() {
-                ((DisplayRosterActivity)SendPresence.callerActivity).updateRosterList(getRosterList());
+                ((DisplayRosterActivity)RequestRoster.callerActivity).updateRosterList(getRosterList());
             }
         });
     }

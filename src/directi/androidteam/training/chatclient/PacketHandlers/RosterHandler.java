@@ -1,17 +1,16 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
-import android.util.Log;
 import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterResult;
 import directi.androidteam.training.TagStore.IQTag;
+import directi.androidteam.training.TagStore.Query;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.TagStore.VCardTag;
-import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
-import directi.androidteam.training.chatclient.Roster.RosterManager;
-import directi.androidteam.training.chatclient.Roster.SendPresence;
-import directi.androidteam.training.chatclient.Roster.VCard;
+import directi.androidteam.training.chatclient.Roster.*;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.lib.xml.XMLHelper;
+
+import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,26 +38,29 @@ public class RosterHandler implements Handler {
 
     public void processPacketAux(Tag tag) {
         if (tag.getTagname().equals("iq")) {
-            if(tag.getAttribute("type").equals("result")) {
-                if (tag.contains("vCard")) {
-                    final VCard vCard = new VCard();
-                    vCard.populateFromTag(tag);
-                    SendPresence.callerActivity.runOnUiThread(new Runnable() {
-                        public void run() {
-                        ((DisplayRosterActivity) SendPresence.callerActivity).displayVCard(vCard);
-                        }
-                    });
-                } else {
+            if (tag.contains("query")) {
+                Tag queryTag = tag.getChildTag("query");
+                if (queryTag.getAttribute("xmlns").equals("jabber:iq:roster")) {
                     RosterManager.getInstance().setRosterList(new RosterResult(tag));
+                    PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new IQTag(UUID.randomUUID().toString(), tag.getAttribute("to").split("/")[0], "get", new Query("google:shared-status", "2"))));
+                } else if (queryTag.getAttribute("xmlns").equals("google:shared-status")) {
+                    (new SendPresence(RequestRoster.callerActivity)).execute(tag.getAttribute("to"), queryTag.getChildTag("status").getContent(), queryTag.getChildTag("show").getContent());
                 }
+            } else if (tag.contains("vCard")) {
+                final VCard vCard = new VCard();
+                vCard.populateFromTag(tag);
+                SendPresence.callerActivity.runOnUiThread(new Runnable() {
+                    public void run() {
+                        ((DisplayRosterActivity) SendPresence.callerActivity).displayVCard(vCard);
+                    }
+                });
             }
         } else if(tag.getTagname().equals("presence")) {
             PresenceS presence = new PresenceS(tag);
             if(presence.getType() == null) {
                 RosterManager.getInstance().updatePresence(presence);
-                Tag vCardTag = new IQTag("v3", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
-                Log.d("asdfasdfasdf", (new XMLHelper()).buildPacket(vCardTag));
-                PacketWriter.addToWriteQueue("<iq id='v3' to='" + tag.getAttribute("from") + "' type='get'><vCard xmlns='vcard-temp'/></iq>");
+                Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
+                PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(vCardTag));
             }
         }
     }
