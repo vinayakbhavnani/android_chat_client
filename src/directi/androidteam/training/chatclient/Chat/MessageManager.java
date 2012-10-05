@@ -19,11 +19,11 @@ public class MessageManager {
     ChatFragment listener_frag;
 
     private MessageManager() {
-        //messageStore = new HashMap<String, ArrayList<MessageStanza>>();
         messageStore = convertListToMap(new dbAccess().getAllMsg());
         for (String s : messageStore.keySet()) {
             messageStore.put(s,new MsgGroupFormating().formatMsgList(messageStore.get(s)));
         }
+        //messageStore = new HashMap<String, ArrayList<MessageStanza>>();
     }
 
     public static MessageManager getInstance() {
@@ -102,8 +102,6 @@ public class MessageManager {
             messageStore = new HashMap<String, ArrayList<MessageStanza>>();
         if(!messageStore.containsKey(from)) {
             messageStore.put(from,new ArrayList<MessageStanza>());
-            if(ChatBox.getContext()!=null)
-                ChatBox.recreateFragments();
         }
     }
 
@@ -113,16 +111,18 @@ public class MessageManager {
         }
     }
 
-    public int getSizeofActiveChats() {
+    public int getNumberofChatsInStore() {
         if(messageStore==null)
             return 0;
         else return messageStore.size();
     }
 
     public String getRequiredJiD(int queryJID) {
-        if(queryJID<0 || messageStore==null || queryJID>=getSizeofActiveChats())
+        if(queryJID<0 || messageStore==null || queryJID>= getNumberofChatsInStore())
             return null;
-        else return (String) messageStore.keySet().toArray()[queryJID];
+        else {
+            return (String) messageStore.keySet().toArray()[queryJID];
+        }
     }
 
     public HashMap<String,ArrayList<MessageStanza>> convertListToMap(ArrayList<MessageStanza> messageStanzas) {

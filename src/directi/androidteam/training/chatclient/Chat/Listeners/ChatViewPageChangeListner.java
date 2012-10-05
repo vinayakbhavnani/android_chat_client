@@ -42,8 +42,8 @@ public class ChatViewPageChangeListner implements ViewPager.OnPageChangeListener
         TextView hleft = (TextView)((Activity)context).findViewById(R.id.chatboxheader_left);
         TextView hright = (TextView)((Activity)context).findViewById(R.id.chatboxheader_right);
 
-        String left = new FragmentManager().FragToJid(i - 1);
-        String right = new FragmentManager().FragToJid(i+1);
+        String left = FragmentManager.getInstance().FragToJid(i - 1);
+        String right = FragmentManager.getInstance().FragToJid(i+1);
         if(left!=null)
             hleft.setText(left.split("@")[0]);
         else
