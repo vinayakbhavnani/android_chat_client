@@ -1,5 +1,6 @@
 package directi.androidteam.training.chatclient.Authentication;
 
+import android.util.Log;
 import directi.androidteam.training.TagStore.*;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.lib.xml.XMLHelper;
@@ -17,21 +18,22 @@ import java.net.UnknownHostException;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class XMPPLogin {
-    private String authString;
-    private String serverURL;
-    private String serviceName;
-    private String accountJID;
-    private Socket socket;
-    private int port;
-    public XMPPLogin(String serverURL , int dstport , String service , String accountjid){
-        this.serverURL = serverURL;
-        this.serviceName=service;
+    protected String authString;
+    protected String serverURL;
+    protected String serviceName;
+    protected String accountJID;
+    protected Socket socket;
+    protected int port;
+    public XMPPLogin(String accountjid,String passwd){
+
         this.accountJID=accountjid;
-        this.port = dstport;
+        generateAuthString(accountjid,passwd);
+        //initiateLogin();
 
     }
     abstract void generateAuthString(String username, String passwd);
     public void initiateLogin(){
+        Log.d("xmpplogin","initiate");
         sendInitStream();
     }
     private void sendInitStream(){
@@ -55,11 +57,5 @@ public abstract class XMPPLogin {
         PacketWriter.addToWriteQueue(iqTag);
     }
 
-    private Socket createSocket() throws IOException {
-        SSLSocketFactory sslSocketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-        Socket sock = sslSocketFactory.createSocket(this.serverURL,this.port);
-        sock.setSoTimeout(0);
-        sock.setKeepAlive(true);
-        return sock;
-    }
+
 }

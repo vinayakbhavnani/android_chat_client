@@ -74,7 +74,7 @@ public class XMLHelper {
             //System.out.println(xmlString);
             //Log.d("msg123",xmlString);
             //Log.d("msg123","heyhey");
-            Log.d("testing buildpacket :",xmlString.split("\\?>")[1]);
+            //Log.d("testing buildpacket :",xmlString.split("\\?>")[1]);
             return xmlString.split("\\?>")[1];
 
 
@@ -143,7 +143,7 @@ public class XMLHelper {
         catch (Exception e){e.printStackTrace(); return null;}
         return temptag;
     }
-    public Tag tearxmlPacket(Reader reader){
+    public Tag tearxmlPacket(Reader reader,String jid){
         Tag temptag=null;
         try{
             Log.d("packetreader","ddfdf");
@@ -154,6 +154,7 @@ public class XMLHelper {
             while (event !=XmlPullParser.END_DOCUMENT){
                 if(event==XmlPullParser.START_TAG){
                     temptag =  tearTag(xpp);
+                    temptag.setRecipientAccount(jid);
                     Log.d("packetxml",buildPacket(temptag));
                     MessageQueue.getInstance().pushPacket(temptag);
                     Log.d("packet","packetpushed");

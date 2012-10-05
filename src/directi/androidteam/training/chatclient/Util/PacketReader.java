@@ -18,9 +18,10 @@ import java.io.IOException;
  */
 public class PacketReader implements ServiceThread{
     private BufferedReader reader;
-
-    public PacketReader(BufferedReader r) {
+    String accountjid;
+    public PacketReader(BufferedReader r,String jid) {
         this.reader = r;
+        this.accountjid=jid;
 
     }
 
@@ -33,10 +34,10 @@ public class PacketReader implements ServiceThread{
 
             XMLHelper helper = new XMLHelper();
 
-            if(helper.tearxmlPacket(reader)==null){
+            if(helper.tearxmlPacket(reader,accountjid)==null){
                 Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
                 intent.putExtra("error","connection");
-                ChatBox.getContext().startActivity(intent);
+//                ChatBox.getContext().startActivity(intent);
                 }
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

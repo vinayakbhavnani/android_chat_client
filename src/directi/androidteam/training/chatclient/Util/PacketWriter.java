@@ -21,8 +21,8 @@ public class PacketWriter implements ServiceThread{
     private static ArrayList<Tag> list =  new ArrayList<Tag>();
     private static HashMap<String,PrintWriter> outputStreams = new HashMap<String, PrintWriter>();
 
-    public PacketWriter(PrintWriter w) {
-        writer = w;
+    public PacketWriter() {
+        //writer = w;
     }
 
     public static void addToWriteQueue(Tag msg){
@@ -30,14 +30,18 @@ public class PacketWriter implements ServiceThread{
     }
 
     public void write(Tag tag){
-        PrintWriter out = outputStreams.get(tag.getAttribute("from"));
+        PrintWriter out = outputStreams.get(tag.getRecipientAccount());
+        Log.d("packetwriter","entry");
         if(out!=null){
+
+            String str = tag.toXml();
             out.write(tag.toXml());
+            Log.d("packetwriter","streamfound " +str );
             out.flush();
         }
-        writer.write(tag.toXml());
-        writer.flush();
-        if(writer.checkError()){
+        //writer.write(tag.toXml());
+        //writer.flush();
+        if(out.checkError()){
 
             String id = tag.getAttribute("id");
             PacketStatusManager.getInstance().setFailure(id);
@@ -52,7 +56,7 @@ public class PacketWriter implements ServiceThread{
         while(true){
             if(!list.isEmpty()){
                 Tag tag = list.remove(0);
-                Log.d("PacketWriter",tag.toXml());
+                //Log.d("PacketWriter",tag.toXml());
                 write(tag);
             }
         }

@@ -40,23 +40,24 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         return socket;
     }
 
-    private void launchInNewThread(final ServiceThread serviceThread) {
+    private Thread launchInNewThread(final ServiceThread serviceThread) {
         Thread t = new Thread() {
             public void run() {
                 serviceThread.execute();
             }
         };
         t.start();
+        return t;
     }
 
     private void launchReaderOnSocket(Socket socket) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        launchInNewThread(new PacketReader(reader));
+        launchInNewThread(new PacketReader(reader,null));
     }
 
     private void launchWriterOnSocket(Socket socket) throws IOException {
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
-        launchInNewThread(new PacketWriter(writer));
+        //launchInNewThread(new PacketWriter(writer));
     }
 
     private void sendOpenStreamStanza() {
@@ -74,18 +75,32 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         username = params[0];
         password = params[1];
 
-        try {
+        /*try {
             Socket socket = createSSLSocket("talk.google.com", 5223);
 
             launchReaderOnSocket(socket);
             launchWriterOnSocket(socket);
 
-            launchInNewThread(new MessageQueueProcessor());
+
             sendOpenStreamStanza();
         } catch (IOException e) {
             e.printStackTrace();
         }
         Log.d("Bootup :","Executed all start functions of threads");
+        return null;*/
+        launchInNewThread(new MessageQueueProcessor());
+        launchInNewThread(new PacketWriter());
+        Account gtalk = new PingPongAccount(username,password);
+
+        try {
+            Socket socket = new Socket("10.10.100.162",5222);
+            gtalk.setSocket(socket);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(gtalk.getSocket().getInputStream()));
+            gtalk.setupReaderWriter(launchInNewThread(new PacketReader(reader, username)));
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        gtalk.Login();
         return null;
     }
 }
