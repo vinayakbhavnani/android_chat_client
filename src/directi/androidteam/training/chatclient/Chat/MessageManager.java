@@ -83,8 +83,10 @@ public class MessageManager {
     private void propagateChangesToFragments(MessageStanza ms, boolean b) {
         if(ChatBox.getContext()!=null)
             ChatBox.recreateFragments();
+/*
         if (listener_frag!=null)
             listener_frag.addChatItem(ms,b);
+*/
     }
 
     public void registerFragment(ChatFragment frag){
