@@ -37,7 +37,6 @@ public class MessageHandler implements Handler{
                 return;
             }
             else if(ms.getBody()!=null) {
-                ms.setCreater(from);
                 MessageManager.getInstance().insertMessage(from,ms);
                 if(ChatBox.getContext()==null){
                     ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());

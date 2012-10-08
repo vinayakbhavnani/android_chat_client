@@ -44,7 +44,6 @@ public class DisplayRosterActivity extends ListActivity {
         ((TextView) findViewById(R.id.Roster_mystatus)).setText(MyProfile.getInstance().getStatus());
 
         (new RequestRoster(this)).execute();
-        (new SendPresence(this)).execute();
         setListAdapter(new RosterItemAdapter(this));
     }
 
@@ -78,7 +77,7 @@ public class DisplayRosterActivity extends ListActivity {
             case R.id.logout:
                 PresenceS presenceS = new PresenceS();
                 presenceS.addType("unavailable");
-                PacketWriter.addToWriteQueue(presenceS.getTag());
+                PacketWriter.addToWriteQueue(presenceS.getXml());
                 UserDatabaseHandler db = new UserDatabaseHandler(this);
                 db.updateState(ConnectGTalk.username, "offline");
                 startActivity(new Intent(this, UserListActivity.class));

@@ -14,4 +14,9 @@ public class Query extends Tag{
     public Query(){
         super("query",null,null,null);
     }
+    public Query(String XMLNameSpace, String version) {
+        this.tagname = "query";
+        this.addAttribute("xmlns", XMLNameSpace);
+        this.addAttribute("version", version);
+    }
 }

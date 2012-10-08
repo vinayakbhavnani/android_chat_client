@@ -2,8 +2,10 @@ package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.MessageTag;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +16,16 @@ import java.util.ArrayList;
  */
 public class MessageStanza extends TagWrapper{
     private long time;
-    private String creater;
+
+    public void setMsgMergedCount(int msgMergedCount) {
+        this.msgMergedCount = msgMergedCount;
+    }
+
+    private int msgMergedCount = 0;
+
+    public void setTime(long time) {
+        this.time = time;
+    }
 
     public MessageStanza(String to, String body){
         tag = new MessageTag(to,body,null);
@@ -35,19 +46,16 @@ public class MessageStanza extends TagWrapper{
         tag = new MessageTag(to);
     }
 
-    public void setCreater(String creater) {
-        this.creater = creater;
-    }
-
-    public String getCreater() {
-        return creater;
+    public void setID(String id) {
+        tag.setID(id);
     }
 
     public void appendBody(String appendText) {
         MessageTag messageTag = new MessageTag(tag);
         String prevBody = messageTag.getBody();
-        messageTag.setBody(prevBody+"\n"+appendText);
+        messageTag.setBody(prevBody + "\n" + appendText);
         tag = messageTag;
+        msgMergedCount++;
     }
 
     public void formActiveMsg() {
@@ -132,5 +140,19 @@ public class MessageStanza extends TagWrapper{
         }
 
         return "no chatstate";
+    }
+
+    public int getMsgMergedCount() {
+        return msgMergedCount;
+    }
+
+    public void setFrom(String from) {
+        tag.setFrom(from);
+    }
+
+    public void send() {
+        setFrom(JID.getJid());
+        setID(UUID.randomUUID().toString());
+        PacketWriter.addToWriteQueue(getXml());
     }
 }

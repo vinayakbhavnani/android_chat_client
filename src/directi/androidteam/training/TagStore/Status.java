@@ -15,6 +15,11 @@ public class Status extends Tag{
         super("status",null,null,null);
     }
 
+    public Status(String status) {
+        this.tagname = "status";
+        this.content = status;
+    }
+
     public Status(HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
         super("status", attributes, childTags, content);
     }

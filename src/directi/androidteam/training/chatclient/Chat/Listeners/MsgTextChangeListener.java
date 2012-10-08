@@ -3,7 +3,6 @@ package directi.androidteam.training.chatclient.Chat.Listeners;
 import android.text.Editable;
 import android.text.TextWatcher;
 import directi.androidteam.training.StanzaStore.MessageStanza;
-import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,7 +29,7 @@ public class MsgTextChangeListener implements TextWatcher {
         if(charSequence.length()==1 && !msgSent) {
             MessageStanza messageStanza = new MessageStanza(to);
             messageStanza.formComposingMsg();
-            PacketWriter.addToWriteQueue(messageStanza.getTag());
+            messageStanza.send();
             msgSent = true;
         }
     }
