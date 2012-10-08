@@ -3,6 +3,9 @@ package directi.androidteam.training.StanzaStore;
 import directi.androidteam.training.TagStore.IQTag;
 import directi.androidteam.training.TagStore.Query;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Util.PacketWriter;
+
+import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,7 +30,6 @@ public class RosterGet extends TagWrapper {
         tag.addAttribute("type","get");
         Query query = new Query();
         tag.addChildTag(query);
-        setSender(JID.getJid());
     }
     public RosterGet setSender(String from){
         tag.addAttribute("from",from);
@@ -45,5 +47,11 @@ public class RosterGet extends TagWrapper {
         Tag query = tag.getChildTags().get(0);
         query.addAttribute(queryAttrName,queryAttrVal);
         return this;
+    }
+
+    public void send() {
+        setSender(JID.getJid());
+        setID(UUID.randomUUID().toString());
+        PacketWriter.addToWriteQueue(getTag());
     }
 }

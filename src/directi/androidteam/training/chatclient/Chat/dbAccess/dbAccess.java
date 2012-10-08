@@ -29,19 +29,23 @@ public class dbAccess {
         values.put(DBManager.KEY_1_TIME,messageStanza.getTime());
         db.insert(DBManager.TABLE_1_NAME,null,values);
         db.close();
+        Log.d("DBDB","db 2");
         return;
     }
 
     public ArrayList<MessageStanza> getAllMsg() {
-        Log.d("GGGG","DB READING");
+        Log.d("DBDB","DB READING");
         SQLiteDatabase db = DBManager.getDbManager().getReadableSQLiteDB();
         Cursor cursor = db.query(DBManager.TABLE_1_NAME, null, null , null, null, null, null);
         ArrayList<MessageStanza> messageStanzas = new ArrayList<MessageStanza>();
-        if (cursor==null)
+        if (cursor==null) {
+            Log.d("DBDB","cursur null");
             return messageStanzas;
+        }
         cursor.moveToFirst();
         try {
              do {
+                 Log.d("DBDB","cursur loop");
                  String to = cursor.getString(1);
                  String body = cursor.getString(2);
                  MessageStanza messageStanza = new MessageStanza(to,body);

@@ -1,5 +1,6 @@
 package directi.androidteam.training.chatclient.Chat;
 
+import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.Chat.dbAccess.dbAccess;
 
@@ -22,6 +23,7 @@ public class MessageManager {
         messageStore = convertListToMap(new dbAccess().getAllMsg());
         for (String s : messageStore.keySet()) {
             messageStore.put(s,new MsgGroupFormating().formatMsgList(messageStore.get(s)));
+            Log.d("DBDB","key : "+s);
         }
         //messageStore = new HashMap<String, ArrayList<MessageStanza>>();
     }
@@ -35,10 +37,6 @@ public class MessageManager {
             ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
             arrayList.add(ms);
             messageStore.put(from,arrayList);
-/*
-            if(ChatBox.getContext()!=null)
-                ChatBox.recreateFragments();
-*/
             propagateChangesToFragments(ms, false);
         }
         else {
@@ -76,6 +74,7 @@ public class MessageManager {
     }
 
     private void addToDB(final MessageStanza ms) {
+        Log.d("DBDB","db ");
         Thread t = new Thread() {public void run() { dbAccess db =  new dbAccess(); db.addMessage(ms);}};
         t.start();
     }
@@ -107,7 +106,7 @@ public class MessageManager {
         if(messageStore==null)
             messageStore = new HashMap<String, ArrayList<MessageStanza>>();
         if(!messageStore.containsKey(from)) {
-            messageStore.put(from,new ArrayList<MessageStanza>());
+            messageStore.put(from, new ArrayList<MessageStanza>());
         }
     }
 
