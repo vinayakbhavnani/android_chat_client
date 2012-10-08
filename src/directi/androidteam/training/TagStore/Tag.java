@@ -32,12 +32,6 @@ public class Tag {
         return helper.buildPacket(this);
     }
 
-    public void setTo(String to) {
-        this.addAttribute("to", to);
-        setRecipientAccount(to);
-    }
-
-
     public Tag(String tagname, HashMap<String, String> attributes, ArrayList<Tag> childTags,String content) {
         this.tagname = tagname;
         this.attributes = attributes;

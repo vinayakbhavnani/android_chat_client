@@ -1,5 +1,7 @@
 package directi.androidteam.training.TagStore;
 
+import directi.androidteam.training.StanzaStore.JID;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,17 +15,19 @@ import java.util.HashMap;
 public class Presence extends Tag {
     public Presence(HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
         super("presence", attributes, childTags, content);
+        setRecipientAccount(JID.getJid());
     }
     public Presence() {
         super("presence", null,null,null);
-        setRecipientAccount("gmail.com");
+        setRecipientAccount(JID.getJid());
     }
     public Presence(String from, String id, String to, String type) {
         super("presence",null,null,null);
-        addAttribute("from",from);
+        addAttribute("from", from);
         addAttribute("id",id);
-        setTo(to);
+        this.addAttribute("to", to);
         addAttribute("type",type);
+        setRecipientAccount(JID.getJid());
     }
 
     public Presence(Tag tag) {
