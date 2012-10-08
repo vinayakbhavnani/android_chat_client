@@ -36,15 +36,23 @@ public class RosterHandler implements Handler {
         }
     }
 
-    public void processPacketAux(Tag tag) {
+    public void processPacketAux(final Tag tag) {
         if (tag.getTagname().equals("iq")) {
             if (tag.contains("query")) {
-                Tag queryTag = tag.getChildTag("query");
+                final Tag queryTag = tag.getChildTag("query");
                 if (queryTag.getAttribute("xmlns").equals("jabber:iq:roster")) {
                     RosterManager.getInstance().setRosterList(new RosterResult(tag));
                     PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new IQTag(UUID.randomUUID().toString(), tag.getAttribute("to").split("/")[0], "get", new Query("google:shared-status", "2"))));
                 } else if (queryTag.getAttribute("xmlns").equals("google:shared-status")) {
                     (new SendPresence(RequestRoster.callerActivity)).execute(tag.getAttribute("to"), queryTag.getChildTag("status").getContent(), queryTag.getChildTag("show").getContent());
+                    ((DisplayRosterActivity) RequestRoster.callerActivity).setCurrentAccount(tag.getAttribute("to"), queryTag.getChildTag("status").getContent(), queryTag.getChildTag("show").getContent(), tag);
+                    SendPresence.callerActivity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            ((DisplayRosterActivity) SendPresence.callerActivity).setJID(tag.getAttribute("to").split("/")[0]);
+                            ((DisplayRosterActivity) SendPresence.callerActivity).setStatus(queryTag.getChildTag("status").getContent());
+                            ((DisplayRosterActivity) SendPresence.callerActivity).setPresence(queryTag.getChildTag("show").getContent());
+                        }
+                    });
                 }
             } else if (tag.contains("vCard")) {
                 final VCard vCard = new VCard();

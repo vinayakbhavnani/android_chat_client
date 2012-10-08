@@ -1,5 +1,7 @@
 package directi.androidteam.training.TagStore;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -68,10 +70,22 @@ public class Tag {
         attributes.put(attributeName,attributeVal);
     }
 
+    public void deleteAttribute(String attributeName) {
+        if (attributes==null)
+            attributes = new HashMap<String, String>();
+        attributes.remove(attributeName);
+    }
+
     public void addChildTag(Tag tag){
         if(childTags==null)
             childTags = new ArrayList<Tag>();
         childTags.add(tag);
+    }
+
+    public void setAttribute(String key, String value) {
+        if (attributes==null)
+            return;
+        attributes.put(key, value);
     }
 
     public String getAttribute(String key){
@@ -86,6 +100,17 @@ public class Tag {
                 return this.getChildTags().get(i);
             }
         }
+        return new Tag();
+    }
+    public Tag getChildTag(String childTagName, String showValue) {
+        Log.d("xxxxxxxxx", showValue);
+        for (int i = 0; i < this.getChildTags().size(); i++) {
+            if (this.getChildTags().get(i).getTagname().equals(childTagName) && this.getChildTags().get(i).getAttribute("show").equals(showValue)) {
+                Log.d("xxxxxxxxxx", this.getChildTags().get(i).getTagname());
+                return this.getChildTags().get(i);
+            }
+        }
+        Log.d("xxxxxxxxxx", "error");
         return new Tag();
     }
     public boolean contains(String childTagName) {
@@ -106,5 +131,9 @@ public class Tag {
 
     public void setFrom(String from) {
         addAttribute("from",from);
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

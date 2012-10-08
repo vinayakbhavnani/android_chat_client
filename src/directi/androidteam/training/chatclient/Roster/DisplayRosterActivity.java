@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import directi.androidteam.training.StanzaStore.PresenceS;
+import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
 import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
 import directi.androidteam.training.chatclient.Authentication.UserListActivity;
@@ -34,15 +35,20 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class DisplayRosterActivity extends ListActivity {
+    private Account currentAccount;
+
+    public Account getCurrentAccount() {
+        return this.currentAccount;
+    }
+
+    public void setCurrentAccount(String JID, String status, String presence, Tag queryTag) {
+        this.currentAccount = new Account(JID, status, presence, queryTag);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.roster);
-
-        /*TODO Replace this with fetching your own vCard from persistent storage and displaying accordingly*/
-        ((TextView) findViewById(R.id.Roster_myjid)).setText(MyProfile.getInstance().getBareJID());
-        ((TextView) findViewById(R.id.Roster_mystatus)).setText(MyProfile.getInstance().getStatus());
-
         (new RequestRoster(this)).execute();
         setListAdapter(new RosterItemAdapter(this));
     }
@@ -87,14 +93,14 @@ public class DisplayRosterActivity extends ListActivity {
                 showDialog(2);
                 return true;
             case R.id.status_busy:
-                MyProfile.getInstance().setAvailability("dnd");
-                MyProfile.getInstance().setStatusAndPresence();
-                displayMyCurrentProfile(this);
+                (new SendStatusCumPresence(this)).execute(this.currentAccount.getJID(), this.currentAccount.getStatus(), "dnd");
+                this.currentAccount.setPresence("dnd");
+                setPresence("dnd");
                 return true;
             case R.id.status_available:
-                MyProfile.getInstance().setAvailability("chat");
-                MyProfile.getInstance().setStatusAndPresence();
-                displayMyCurrentProfile(this);
+                (new SendStatusCumPresence(this)).execute(this.currentAccount.getJID(), this.currentAccount.getStatus(), "default");
+                this.currentAccount.setPresence("default");
+                setPresence("default");
                 return true;
             default:
                 return super.onOptionsItemSelected(menuItem);
@@ -104,6 +110,24 @@ public class DisplayRosterActivity extends ListActivity {
     public void updateRosterList(ArrayList<RosterEntry> rosterList) {
         ((RosterItemAdapter)getListAdapter()).setRosterEntries(rosterList);
         ((RosterItemAdapter)getListAdapter()).notifyDataSetChanged();
+    }
+
+    public void setStatus(String status) {
+        ((TextView) findViewById(R.id.Roster_mystatus)).setText(status);
+    }
+
+    public void setPresence(String presence) {
+        int availabilityImageResource = R.drawable.gray;
+        if (presence.equals("dnd")) {
+            availabilityImageResource = R.drawable.red;
+        } else if (presence.equals("default")) {
+            availabilityImageResource = R.drawable.green;
+        }
+        ((ImageView) findViewById(R.id.availability_image)).setImageResource(availabilityImageResource);
+    }
+
+    public void setJID(String JID) {
+        ((TextView) findViewById(R.id.Roster_myjid)).setText(JID);
     }
 
     public void displayMyCurrentProfile(Activity c) {

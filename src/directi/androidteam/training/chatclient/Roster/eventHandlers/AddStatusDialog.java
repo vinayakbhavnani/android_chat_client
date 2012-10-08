@@ -1,14 +1,16 @@
 package directi.androidteam.training.chatclient.Roster.eventHandlers;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.MyProfile;
+import directi.androidteam.training.chatclient.Roster.Account;
+import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
+import directi.androidteam.training.chatclient.Roster.SendStatusCumPresence;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,15 +32,12 @@ public class AddStatusDialog extends Dialog implements android.view.View.OnClick
     }
     @Override
     public void onClick(View view){
-        Log.d("ROSTER UI :", "status flow complete");
-        EditText statusInput = (EditText) findViewById(R.id.Roster_enter_status);
-        String status = statusInput.getText().toString();
-        MyProfile myProfile = MyProfile.getInstance();
-        myProfile.setStatus(status);
-        myProfile.setStatusAndPresence();
+        String status = ((EditText) findViewById(R.id.Roster_enter_status)).getText().toString();
+        Account currentAccount = ((DisplayRosterActivity)context).getCurrentAccount();
+        (new SendStatusCumPresence((Activity)context)).execute(currentAccount.getJID(), status, currentAccount.getPresence());
+        currentAccount.setStatus(status);
+        ((DisplayRosterActivity)context).setStatus(status);
         dismiss();
- //       DisplayRosterActivity.displayMyCurrentProfile((Activity)context);
         return;
     }
-
 }
