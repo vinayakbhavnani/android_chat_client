@@ -12,15 +12,15 @@ import java.util.Vector;
  * Time: 12:54 PM
  * To change this template use File | Settings | File Templates.
  */
-public class FragmentManager {
+public class MyFragmentManager {
 
     private Vector<String> FragToJID;
-    private static FragmentManager fragmentManager  = new FragmentManager();
-    private FragmentManager() {
+    private static MyFragmentManager fragmentManager  = new MyFragmentManager();
+    private MyFragmentManager() {
         FragToJID = new Vector<String>();
     }
 
-    public static FragmentManager getInstance() {
+    public static MyFragmentManager getInstance() {
         return fragmentManager;
 
     }

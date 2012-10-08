@@ -47,7 +47,7 @@ public class MessageStanza extends TagWrapper{
     }
 
     public void setID(String id) {
-        tag.setID(id);
+        tag.addAttribute("id",id);
     }
 
     public void appendBody(String appendText) {
@@ -147,12 +147,12 @@ public class MessageStanza extends TagWrapper{
     }
 
     public void setFrom(String from) {
-        tag.setFrom(from);
+        tag.addAttribute("from",from);
     }
 
     public void send() {
         setFrom(JID.getJid());
         setID(UUID.randomUUID().toString());
-        PacketWriter.addToWriteQueue(getXml());
+        PacketWriter.addToWriteQueue(getTag());
     }
 }

@@ -1,7 +1,6 @@
 package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.lib.xml.XMLHelper;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,9 +11,8 @@ import directi.androidteam.training.lib.xml.XMLHelper;
  */
 public abstract class TagWrapper {
     protected Tag tag;
-    public String getXml(){
-        XMLHelper helper = new XMLHelper();
-        return helper.buildPacket(tag);
+    public Tag getTag(){
+        return tag;
     }
 
 }

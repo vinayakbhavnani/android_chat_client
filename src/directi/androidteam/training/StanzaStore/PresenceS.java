@@ -4,8 +4,10 @@ import directi.androidteam.training.TagStore.Presence;
 import directi.androidteam.training.TagStore.Show;
 import directi.androidteam.training.TagStore.Status;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,7 +19,6 @@ import java.util.ArrayList;
 public class PresenceS  extends TagWrapper {
     public PresenceS() {
         tag = new Presence();
-        addSender();
     }
     public PresenceS(Tag tag){
         this.tag = new Presence(tag);
@@ -81,5 +82,11 @@ public class PresenceS  extends TagWrapper {
 
     public String getFrom() {
         return tag.getAttribute("from");
+    }
+
+    public void send() {
+        addID(UUID.randomUUID().toString());
+        addSender();
+        PacketWriter.addToWriteQueue(getTag());
     }
 }

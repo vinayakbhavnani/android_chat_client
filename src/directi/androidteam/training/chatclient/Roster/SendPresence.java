@@ -27,7 +27,7 @@ public class SendPresence extends AsyncTask<String, Void, Void> {
         String status = params[1];
         String show = params[2];
         PresenceS presenceS = new PresenceS(UUID.randomUUID().toString(), from, status, show);
-        PacketWriter.addToWriteQueue(presenceS.getXml());
+        PacketWriter.addToWriteQueue(presenceS.getTag());
         return null;
     }
 }

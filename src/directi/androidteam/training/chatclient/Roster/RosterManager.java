@@ -110,7 +110,7 @@ public class RosterManager {
     public void addRosterEntry(RosterEntry rosterEntry){
         RosterSet rosterSet = new RosterSet();
         rosterSet.addQuery(rosterEntry.getJid());
-        PacketWriter.addToWriteQueue(rosterSet.getXml());
+        PacketWriter.addToWriteQueue(rosterSet.getTag());
         requestID.put(rosterSet.getID(), "0");
     }
     public void addRosterEntry(String newJID) {
@@ -121,7 +121,7 @@ public class RosterManager {
         PresenceS presenceS = new PresenceS();
         presenceS.addReceiver(newJID);
         presenceS.addType("subscribe");
-        PacketWriter.addToWriteQueue(presenceS.getXml());
+        PacketWriter.addToWriteQueue(presenceS.getTag());
     }
     public void deleteRosterEntry(String JID) {
         if(JID==null || rosterLookup==null || JID.equals("") || !rosterLookup.containsKey(JID))
@@ -132,7 +132,7 @@ public class RosterManager {
         RosterSet rosterSet = new RosterSet();
         rosterSet.addQuery(rosterEntry.getJid());
         rosterSet.addSubscription("remove");
-        PacketWriter.addToWriteQueue(rosterSet.getXml());
+        PacketWriter.addToWriteQueue(rosterSet.getTag());
         Log.d("ssss", "inside roster manager -delete in roster list.. will update adapter list n display it");
         ((DisplayRosterActivity)SendPresence.callerActivity).updateRosterList(getRosterList());
     }

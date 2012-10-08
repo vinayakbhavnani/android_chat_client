@@ -3,7 +3,7 @@ package directi.androidteam.training.chatclient.Chat;
 
 
 
-//import android.support.v4.app.FragmentManager;
+//import android.support.v4.app.MyFragmentManager;
 //import 	android.support.v4.app.FragmentStatePagerAdapter;
 
 import android.support.v4.app.Fragment;
@@ -25,18 +25,19 @@ public  class FragmentSwipeAdaptor extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        String from = directi.androidteam.training.chatclient.Chat.FragmentManager.getInstance().FragToJid(i);
-        Log.d("DDDD","fragswipeadap - getitem" + from);
+        String from = MyFragmentManager.getInstance().FragToJid(i);
+        Log.d("ASAS","fragswipeadap - getitem" + from);
         return ChatFragment.getInstance(from);
     }
 
     @Override
     public int getCount() {
-       return directi.androidteam.training.chatclient.Chat.FragmentManager.getInstance().getSizeofActiveChats();
+       return MyFragmentManager.getInstance().getSizeofActiveChats();
     }
 
     @Override
     public int getItemPosition(Object item){
         return POSITION_NONE;
     }
+
 }
