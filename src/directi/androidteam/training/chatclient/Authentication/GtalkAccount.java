@@ -12,12 +12,15 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class GtalkAccount extends Account {
-    public GtalkAccount(String username , String passwd){
+    public GtalkAccount(String username , String passwd , boolean pwdbased){
         this.accountJid=username;
 
         this.serverURL = "talk.google.com";
         this.serverPort = 5223;
-        this.xmppLogin = new GtalkOauthLogin(username,passwd);
+        if(pwdbased)
+            this.xmppLogin = new GtalkLogin(username,passwd);
+        else
+            this.xmppLogin = new GtalkOauthLogin(username,passwd);
         try {
             //setupReaderWriter();
             this.socket = createSocket();

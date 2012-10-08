@@ -77,6 +77,8 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         username = params[0];
         password = params[1];
         boolean account = false;
+        boolean tokenbased = false;
+        if(tokenbased){
         android.accounts.Account[] accounts = android.accounts.AccountManager.get(callerActivity).getAccountsByType("com.google");
         android.accounts.Account myaccount = accounts[0];
 
@@ -94,6 +96,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
             Log.d("authtoken",password);
         }
         catch (Exception e){}
+        }
         /*try {
             Socket socket = createSSLSocket("talk.google.com", 5223);
 
@@ -113,7 +116,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         if(account)
             gtalk = new PingPongAccount(username,password);
         else
-            gtalk = new GtalkAccount(username,password);
+            gtalk = new GtalkAccount(username,password,true);
         try {
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(gtalk.getSocket().getInputStream()));
