@@ -29,10 +29,11 @@ public class IQTag extends Tag{
     public IQTag(String id, String to, String type, Tag child) {
         this.tagname = "iq";
         this.addAttribute("type", type);
-        this.addAttribute("to", to);
+        setTo(to);
         this.addAttribute("id", id);
         this.addChildTag(child);
     }
+
     public void addAttribute(String attributeName,String attributeVal){
         if(attributes==null)
             attributes = new HashMap<String, String>();

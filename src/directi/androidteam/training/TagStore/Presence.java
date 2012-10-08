@@ -16,12 +16,13 @@ public class Presence extends Tag {
     }
     public Presence() {
         super("presence", null,null,null);
+        setRecipientAccount("gmail.com");
     }
     public Presence(String from, String id, String to, String type) {
         super("presence",null,null,null);
         addAttribute("from",from);
         addAttribute("id",id);
-        addAttribute("to",to);
+        setTo(to);
         addAttribute("type",type);
     }
 
