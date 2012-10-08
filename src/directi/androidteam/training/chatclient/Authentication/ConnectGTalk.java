@@ -1,7 +1,9 @@
 package directi.androidteam.training.chatclient.Authentication;
 
+import android.accounts.AccountManagerFuture;
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import directi.androidteam.training.TagStore.StreamTag;
 import directi.androidteam.training.chatclient.MessageQueueProcessor;
@@ -74,7 +76,24 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
     public Boolean doInBackground (String ...params) {
         username = params[0];
         password = params[1];
+        boolean account = false;
+        android.accounts.Account[] accounts = android.accounts.AccountManager.get(callerActivity).getAccountsByType("com.google");
+        android.accounts.Account myaccount = accounts[0];
 
+        AccountManagerFuture<Bundle> accFut = android.accounts.AccountManager.get(callerActivity).getAuthToken(myaccount,"mail",null,callerActivity,null,null);
+        try{
+        Bundle authTokenBundle = accFut.getResult();
+        String authToken = authTokenBundle.get(android.accounts.AccountManager.KEY_AUTHTOKEN).toString();
+        android.accounts.AccountManager.get(callerActivity).invalidateAuthToken("com.google",authToken);
+            accFut = android.accounts.AccountManager.get(callerActivity).getAuthToken(myaccount,"mail",null,callerActivity,null,null);
+            authTokenBundle = accFut.getResult();
+            authToken = authTokenBundle.get(android.accounts.AccountManager.KEY_AUTHTOKEN).toString();
+            username=myaccount.name;
+            Log.d("myusername",username);
+            password=authToken;
+            Log.d("authtoken",password);
+        }
+        catch (Exception e){}
         /*try {
             Socket socket = createSSLSocket("talk.google.com", 5223);
 
@@ -90,11 +109,13 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         return null;*/
         launchInNewThread(new MessageQueueProcessor());
         launchInNewThread(new PacketWriter());
-        Account gtalk = new PingPongAccount(username,password);
-
+        Account gtalk = null;
+        if(account)
+            gtalk = new PingPongAccount(username,password);
+        else
+            gtalk = new GtalkAccount(username,password);
         try {
-            Socket socket = new Socket("10.10.100.162",5222);
-            gtalk.setSocket(socket);
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(gtalk.getSocket().getInputStream()));
             gtalk.setupReaderWriter(launchInNewThread(new PacketReader(reader, username)));
         } catch (IOException e) {

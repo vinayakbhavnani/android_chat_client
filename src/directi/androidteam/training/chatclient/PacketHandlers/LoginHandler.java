@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import directi.androidteam.training.ChatApplication;
+import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.TagStore.*;
 import directi.androidteam.training.chatclient.Authentication.*;
 import directi.androidteam.training.chatclient.R;
@@ -81,7 +82,7 @@ public class LoginHandler implements Handler {
             //PacketWriter.addToWriteQueue(new StreamTag("stream:stream","gmail.com","jabber:client","http://etherx.jabber.org/streams","1.0"));
             AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().restartStream();
         } else if (tag.getTagname().equals("failure")) {
-            Log.d("Login Flow", "Failure tag received.");
+            Log.d("Login Flow", "Failure tag received."+tag.getContent());
 //            Intent intent = new Intent(ChatApplication.getAppContext(), LoginErrorActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            ChatApplication.getAppContext().startActivity(intent);
@@ -89,6 +90,11 @@ public class LoginHandler implements Handler {
 //                ConnectGTalk.callerActivity.setResult(Activity.RESULT_OK);
 //                ConnectGTalk.callerActivity.finish();
 //            }
+            if (contains(tag,"temporary-auth-failure")){
+                Log.d("resendauth","token");
+                AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().sendAuthPacket();
+                return;
+            }
             ConnectGTalk.callerActivity.runOnUiThread(new Runnable() {
                 public void run() {
                     ConnectGTalk.callerActivity.findViewById(R.id.progress_bar).setVisibility(View.GONE);
@@ -100,6 +106,9 @@ public class LoginHandler implements Handler {
             String bareJID = extractJID(tag);
             //PacketWriter.addToWriteQueue(new IQTag("sess_1", "talk.google.com", "set", new SessionTag("urn:ietf:params:xml:ns:xmpp-session")));
             AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().sendStartSession();
+            MessageStanza ms = new MessageStanza("dummy.android.chat@gmail.com","testerauth");
+            ms.getTag().setRecipientAccount("vinayak.bhavnani@gmail.com");
+            PacketWriter.addToWriteQueue(ms.getTag());
             UserDatabaseHandler db = new UserDatabaseHandler(ChatApplication.getAppContext());
             db.addUser(new User(ConnectGTalk.username, ConnectGTalk.password));
 
@@ -107,11 +116,11 @@ public class LoginHandler implements Handler {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(LoginActivity.USERNAME, ConnectGTalk.username);
             intent.putExtra("bareJID", bareJID);
-            ChatApplication.getAppContext().startActivity(intent);
+           /* ChatApplication.getAppContext().startActivity(intent);
             if (ConnectGTalk.callerActivity != null) {
                 ConnectGTalk.callerActivity.setResult(Activity.RESULT_OK);
                 ConnectGTalk.callerActivity.finish();
-            }
+            }*/
         }
     }
 

@@ -17,7 +17,7 @@ public class GtalkAccount extends Account {
 
         this.serverURL = "talk.google.com";
         this.serverPort = 5223;
-        this.xmppLogin = new GtalkLogin(username,passwd);
+        this.xmppLogin = new GtalkOauthLogin(username,passwd);
         try {
             //setupReaderWriter();
             this.socket = createSocket();

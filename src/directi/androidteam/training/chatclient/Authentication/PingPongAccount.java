@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.util.Log;
 
 import java.io.IOException;
+import java.net.Socket;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,5 +28,13 @@ public class PingPongAccount extends Account {
         }
         AccountManager.getInstance().addAccount(this);
         //this.Login();
+    }
+
+    @Override
+    public Socket createSocket() throws IOException{
+        Socket sock = new Socket(this.serverURL,this.serverPort);
+        sock.setSoTimeout(0);
+        sock.setKeepAlive(true);
+        return sock;
     }
 }
