@@ -1,8 +1,11 @@
 package directi.androidteam.training.chatclient.Authentication;
 
+import android.accounts.AccountManagerFuture;
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
+import directi.androidteam.training.TagStore.StreamTag;
 import directi.androidteam.training.chatclient.MessageQueueProcessor;
 import directi.androidteam.training.chatclient.Util.PacketReader;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
@@ -39,49 +42,89 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         return socket;
     }
 
-    private void launchInNewThread(final ServiceThread serviceThread) {
+    private Thread launchInNewThread(final ServiceThread serviceThread) {
         Thread t = new Thread() {
             public void run() {
                 serviceThread.execute();
             }
         };
         t.start();
+        return t;
     }
 
     private void launchReaderOnSocket(Socket socket) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        launchInNewThread(new PacketReader(reader));
+        launchInNewThread(new PacketReader(reader,null));
     }
 
     private void launchWriterOnSocket(Socket socket) throws IOException {
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
-        launchInNewThread(new PacketWriter(writer));
+        //launchInNewThread(new PacketWriter(writer));
     }
 
     private void sendOpenStreamStanza() {
-        PacketWriter.addToWriteQueue("<stream:stream" +
+        /*PacketWriter.addToWriteQueue("<stream:stream" +
                 " to='gmail.com'" +
                 " xmlns='jabber:client'" +
                 " xmlns:stream='http://etherx.jabber.org/streams'" +
-                " version='1.0'>");
+                " version='1.0'>");*/
+        StreamTag tag = new StreamTag("stream:stream","gmail.com","jabber:client","http://etherx.jabber.org/streams","1.0");
+        PacketWriter.addToWriteQueue(tag);
     }
 
     @Override
     public Boolean doInBackground (String ...params) {
         username = params[0];
         password = params[1];
-        try {
+        boolean account = false;
+        boolean tokenbased = false;
+        if(tokenbased){
+        android.accounts.Account[] accounts = android.accounts.AccountManager.get(callerActivity).getAccountsByType("com.google");
+        android.accounts.Account myaccount = accounts[0];
+
+        AccountManagerFuture<Bundle> accFut = android.accounts.AccountManager.get(callerActivity).getAuthToken(myaccount,"mail",null,callerActivity,null,null);
+        try{
+        Bundle authTokenBundle = accFut.getResult();
+        String authToken = authTokenBundle.get(android.accounts.AccountManager.KEY_AUTHTOKEN).toString();
+        android.accounts.AccountManager.get(callerActivity).invalidateAuthToken("com.google",authToken);
+            accFut = android.accounts.AccountManager.get(callerActivity).getAuthToken(myaccount,"mail",null,callerActivity,null,null);
+            authTokenBundle = accFut.getResult();
+            authToken = authTokenBundle.get(android.accounts.AccountManager.KEY_AUTHTOKEN).toString();
+            username=myaccount.name;
+            Log.d("myusername",username);
+            password=authToken;
+            Log.d("authtoken",password);
+        }
+        catch (Exception e){}
+        }
+        /*try {
             Socket socket = createSSLSocket("talk.google.com", 5223);
 
             launchReaderOnSocket(socket);
             launchWriterOnSocket(socket);
 
-            launchInNewThread(new MessageQueueProcessor());
+
             sendOpenStreamStanza();
         } catch (IOException e) {
             e.printStackTrace();
         }
         Log.d("Bootup :","Executed all start functions of threads");
+        return null;*/
+        launchInNewThread(new MessageQueueProcessor());
+        launchInNewThread(new PacketWriter());
+        Account gtalk = null;
+        if(account)
+            gtalk = new PingPongAccount(username,password);
+        else
+            gtalk = new GtalkAccount(username,password,true);
+        try {
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(gtalk.getSocket().getInputStream()));
+            gtalk.setupReaderWriter(launchInNewThread(new PacketReader(reader, username)));
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        gtalk.Login();
         return null;
     }
 }

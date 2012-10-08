@@ -1,5 +1,7 @@
 package directi.androidteam.training.TagStore;
 
+import directi.androidteam.training.StanzaStore.JID;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,18 +15,21 @@ import java.util.HashMap;
 public class IQTag extends Tag{
     public IQTag(){
         super("iq",null,null,null);
+        setRecipientAccount(JID.getJid());
     }
     public IQTag(Tag tag){
         super(tag.tagname, tag.attributes, tag.childTags, tag.content);
     }
     public IQTag(String tagname, HashMap<String, String> attributes, ArrayList<Tag> childTags, String content) {
         super(tagname, attributes, childTags, content);
+        setRecipientAccount(JID.getJid());
     }
     public IQTag(String id, String type, Tag child) {
         this.tagname = "iq";
         this.addAttribute("id", id);
         this.addAttribute("type", type);
         this.addChildTag(child);
+        setRecipientAccount(JID.getJid());
     }
     public IQTag(String id, String to, String type, Tag child) {
         this.tagname = "iq";
@@ -32,7 +37,9 @@ public class IQTag extends Tag{
         this.addAttribute("to", to);
         this.addAttribute("id", id);
         this.addChildTag(child);
+        setRecipientAccount(JID.getJid());
     }
+
     public void addAttribute(String attributeName,String attributeVal){
         if(attributes==null)
             attributes = new HashMap<String, String>();

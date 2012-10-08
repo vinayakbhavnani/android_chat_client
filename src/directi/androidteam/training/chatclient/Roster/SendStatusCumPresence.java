@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
-import directi.androidteam.training.lib.xml.XMLHelper;
 
 /**
  * Created with IntelliJ IDEA.
@@ -35,7 +34,7 @@ public class SendStatusCumPresence extends AsyncTask<String, Void, Void> {
         queryTag.getChildTag("query").getChildTag("status-list", show).addChildTag(new directi.androidteam.training.TagStore.Status(status));
 //        Log.d("gggggggg", (new XMLHelper()).buildPacket(queryTag.getChildTag("query").getChildTag("status-list", show)));
 //        Log.d("qqqqqqqqout", (new XMLHelper()).buildPacket(queryTag));
-        PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(queryTag));
+        PacketWriter.addToWriteQueue(queryTag);
 //        PacketWriter.addToWriteQueue("<iq id='psgfggmq9pmpnochq4h7i336vk' type='set'><query version='2' xmlns='google:shared-status'><show>default</show><status>Loving Talk.to for Android</status><invisible value='false'></invisible><status-list show='default'><status>Loving Talk.to for Android</status></status-list></query></iq>");
         return null;
     }

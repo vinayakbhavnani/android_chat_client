@@ -6,11 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import directi.androidteam.training.ChatApplication;
+import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.TagStore.*;
-import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
-import directi.androidteam.training.chatclient.Authentication.LoginActivity;
-import directi.androidteam.training.chatclient.Authentication.User;
-import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
+import directi.androidteam.training.chatclient.Authentication.*;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Util.Base64;
@@ -55,6 +53,7 @@ public class LoginHandler implements Handler {
 
     @Override
     public void processPacket(Tag tag) {
+        Log.d("packetrec",tag.toXml());
         if(tag.getTagname().equals("message")){
         } else if (tag.getTagname().equals("stream:stream") || tag.getTagname().equals("success") || tag.getTagname().equals("failure")) {
             processPacketAux(tag);
@@ -65,24 +64,25 @@ public class LoginHandler implements Handler {
     }
 
     public void processPacketAux(Tag tag) {
+        Log.d("loginflow",new XMLHelper().buildPacket(tag));
         if (tag.getTagname().equals("stream:stream")) {
             if (containsGrandChild(tag, "bind")) {
                 Log.d("Login Flow", "Stream tag with bind tag received.");
-                PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new IQTag("tn281v37", "set", new BindTag("urn:ietf:params:xml:ns:xmpp-bind"))));
+                //PacketWriter.addToWriteQueue((new IQTag("tn281v37", "set", new BindTag("urn:ietf:params:xml:ns:xmpp-bind"))));
+                AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().sendIQwithBind();
             } else if (containsGrandChild(tag, "mechanisms")) {
                 String auth = '\0' + ConnectGTalk.username + '\0' + ConnectGTalk.password;
                 Log.d("Login Flow", "Stream tag with mechanisms tag received.");
-                PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new AuthTag("urn:ietf:params:xml:ns:xmpp-sasl", "PLAIN", Base64.encodeBytes(auth.getBytes()))));
+                //PacketWriter.addToWriteQueue((new AuthTag("urn:ietf:params:xml:ns:xmpp-sasl", "PLAIN", Base64.encodeBytes(auth.getBytes()))));
+                AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().sendAuthPacket();
             }
         } else if (tag.getTagname().equals("success")) {
             Log.d("Login Flow", "Success tag received.");
-            PacketWriter.addToWriteQueue("<stream:stream" +
-                    " to='gmail.com'" +
-                    " xmlns='jabber:client'" +
-                    " xmlns:stream='http://etherx.jabber.org/streams'" +
-                    " version='1.0'>");
+
+            //PacketWriter.addToWriteQueue(new StreamTag("stream:stream","gmail.com","jabber:client","http://etherx.jabber.org/streams","1.0"));
+            AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().restartStream();
         } else if (tag.getTagname().equals("failure")) {
-            Log.d("Login Flow", "Failure tag received.");
+            Log.d("Login Flow", "Failure tag received."+tag.getContent());
 //            Intent intent = new Intent(ChatApplication.getAppContext(), LoginErrorActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            ChatApplication.getAppContext().startActivity(intent);
@@ -90,6 +90,11 @@ public class LoginHandler implements Handler {
 //                ConnectGTalk.callerActivity.setResult(Activity.RESULT_OK);
 //                ConnectGTalk.callerActivity.finish();
 //            }
+            if (contains(tag,"temporary-auth-failure")){
+                Log.d("resendauth","token");
+                AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().sendAuthPacket();
+                return;
+            }
             ConnectGTalk.callerActivity.runOnUiThread(new Runnable() {
                 public void run() {
                     ConnectGTalk.callerActivity.findViewById(R.id.progress_bar).setVisibility(View.GONE);
@@ -99,7 +104,11 @@ public class LoginHandler implements Handler {
         } else if (tag.getTagname().equals("iq")) {
             Log.d("Login Flow", "Iq tag with a child bind tag received.");
             String bareJID = extractJID(tag);
-            PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new IQTag("sess_1", "talk.google.com", "set", new SessionTag("urn:ietf:params:xml:ns:xmpp-session"))));
+            //PacketWriter.addToWriteQueue(new IQTag("sess_1", "talk.google.com", "set", new SessionTag("urn:ietf:params:xml:ns:xmpp-session")));
+            AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().sendStartSession();
+            /*MessageStanza ms = new MessageStanza("dummy.android.chat@gmail.com","testerauth");
+            ms.getTag().setRecipientAccount("vinayak.bhavnani@gmail.com");
+            PacketWriter.addToWriteQueue(ms.getTag());*/
             UserDatabaseHandler db = new UserDatabaseHandler(ChatApplication.getAppContext());
             db.addUser(new User(ConnectGTalk.username, ConnectGTalk.password));
 
@@ -107,7 +116,7 @@ public class LoginHandler implements Handler {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(LoginActivity.USERNAME, ConnectGTalk.username);
             intent.putExtra("bareJID", bareJID);
-            ChatApplication.getAppContext().startActivity(intent);
+           ChatApplication.getAppContext().startActivity(intent);
             if (ConnectGTalk.callerActivity != null) {
                 ConnectGTalk.callerActivity.setResult(Activity.RESULT_OK);
                 ConnectGTalk.callerActivity.finish();

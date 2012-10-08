@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.db.DBManager;
 
@@ -28,22 +29,26 @@ public class dbAccess {
         values.put(DBManager.KEY_1_TIME,messageStanza.getTime());
         db.insert(DBManager.TABLE_1_NAME,null,values);
         db.close();
+        Log.d("DBDB","db 2");
         return;
     }
 
     public ArrayList<MessageStanza> getAllMsg() {
+        Log.d("DBDB","DB READING");
         SQLiteDatabase db = DBManager.getDbManager().getReadableSQLiteDB();
         Cursor cursor = db.query(DBManager.TABLE_1_NAME, null, null , null, null, null, null);
         ArrayList<MessageStanza> messageStanzas = new ArrayList<MessageStanza>();
-        if (cursor==null)
+        if (cursor==null) {
+            Log.d("DBDB","cursur null");
             return messageStanzas;
+        }
         cursor.moveToFirst();
         try {
              do {
+                 Log.d("DBDB","cursur loop");
                  String to = cursor.getString(1);
                  String body = cursor.getString(2);
                  MessageStanza messageStanza = new MessageStanza(to,body);
-                 messageStanza.setCreater(cursor.getString(0));
                  messageStanza.setFrom(cursor.getString(0));
                  messageStanza.setStatus(true);
                  messageStanza.setID(cursor.getString(3));
@@ -62,5 +67,9 @@ public class dbAccess {
 
     public ArrayList<MessageStanza> getMsgByJID(String jid) {
         return null;
+    }
+
+    public void removeMsg(String id) {
+        SQLiteDatabase db = DBManager.getDbManager().getWritableSQLiteDB();
     }
 }

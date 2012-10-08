@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.widget.TextView;
-import directi.androidteam.training.chatclient.Chat.FragmentManager;
+import directi.androidteam.training.chatclient.Chat.MyFragmentManager;
 import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.R;
 
@@ -42,8 +42,8 @@ public class ChatViewPageChangeListner implements ViewPager.OnPageChangeListener
         TextView hleft = (TextView)((Activity)context).findViewById(R.id.chatboxheader_left);
         TextView hright = (TextView)((Activity)context).findViewById(R.id.chatboxheader_right);
 
-        String left = new FragmentManager().FragToJid(i - 1);
-        String right = new FragmentManager().FragToJid(i+1);
+        String left = MyFragmentManager.getInstance().FragToJid(i - 1);
+        String right = MyFragmentManager.getInstance().FragToJid(i+1);
         if(left!=null)
             hleft.setText(left.split("@")[0]);
         else

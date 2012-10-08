@@ -1,11 +1,7 @@
 package directi.androidteam.training.chatclient.Roster;
 
-import android.util.Log;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.PresenceS;
-import directi.androidteam.training.chatclient.Util.PacketWriter;
-
-import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,13 +26,10 @@ public class MyProfile {
     }
     public void setStatusAndPresence(){
         PresenceS presence = new PresenceS();
-        presence.addID(UUID.randomUUID().toString());
         String avail = getAvailability();
         presence.addAvailability(avail);
-        presence.addID(UUID.randomUUID().toString());
         presence.addStatus(getStatus());
-        Log.d("asdfasdf", presence.getXml());
-        PacketWriter.addToWriteQueue(presence.getXml());
+        presence.send();
     }
     public String getBareJID() {
         return bareJID;

@@ -43,8 +43,8 @@ public class ChatFragment extends ListFragment {
 
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
-            chatListItems = toChatListItemList(new FragmentManager().getFragList(buddyid));
-
+            chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));
+            Log.d("ASAS", "Chatfrgment : from : " + buddyid);
         }
         else
             chatListItems = new ArrayList<ChatListItem>();
@@ -71,7 +71,10 @@ public class ChatFragment extends ListFragment {
             @Override
             public void onClick(View view) {
                 sendGoneMsg(buddyid);
-                closeFragment(view);
+                MyFragmentManager.getInstance().removeFragEntry(buddyid);
+                //ChatBox.deletePage();
+                //ChatBox.recreateFragments();
+                closeFragment();
             }
         });
         if(re!=null){
@@ -105,6 +108,7 @@ public class ChatFragment extends ListFragment {
 
     public static ChatFragment getInstance(String from){
         ChatFragment chatFragment = new ChatFragment();
+//        Log.d("ASAS", "chatfrag - getinstance from  : " +from);
         Bundle args = new Bundle();
         args.putString("from", from);
         chatFragment.setArguments(args);
@@ -155,12 +159,12 @@ public class ChatFragment extends ListFragment {
         return  chatItemList;
     }
 
-    public void closeFragment(View view){
-        MessageManager.getInstance().removeEntry(buddyid);
+    public void closeFragment(){
+        //MessageManager.getInstance().removeEntry(buddyid);
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
         messageStanza.send();
-        if(MessageManager.getInstance().getSizeofActiveChats()==0)
+        if(MyFragmentManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
         ChatBox.recreateFragments();
     }

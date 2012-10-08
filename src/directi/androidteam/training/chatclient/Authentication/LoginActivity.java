@@ -1,7 +1,11 @@
 package directi.androidteam.training.chatclient.Authentication;
 
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -9,6 +13,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import directi.androidteam.training.chatclient.R;
+
+import java.io.IOException;
 
 public class LoginActivity extends Activity {
     public static final String USERNAME = "directi.androidteam.training.chatclient.Authentication.LoginActivity.USERNAME";
@@ -68,14 +74,24 @@ public class LoginActivity extends Activity {
     public void loginUser(View view) {
         String username = ((EditText) findViewById(R.id.username)).getText().toString();
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
+        /*android.accounts.Account[] accounts = android.accounts.AccountManager.get(this).getAccountsByType("com.google");
+        android.accounts.Account account = accounts[0];
+
+        AccountManagerFuture<Bundle> accFut = android.accounts.AccountManager.get(this).getAuthToken(account,"talk",null,this,new OnTokenAcquired(this),null);
+        *//*Bundle authTokenBundle = null;
+
+        password = authTokenBundle.get(android.accounts.AccountManager.KEY_AUTHTOKEN).toString();
+        username = account.name;*//*
+        Log.d("username",account.name);*/
+        (new ConnectGTalk(this)).execute(username, password);
         if (username.equals("")) {
             ((EditText) findViewById(R.id.username)).setError("This Field Cannot Be Left Blank");
         } else if (password.equals("")) {
             ((EditText) findViewById(R.id.password)).setError("This Field Cannot Be Left Blank");
         } else {
-            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+            /*ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
             progressBar.setVisibility(View.VISIBLE);
-            (new ConnectGTalk(this)).execute(username, password);
+            (new ConnectGTalk(this)).execute(username, password);*/
         }
     }
 }

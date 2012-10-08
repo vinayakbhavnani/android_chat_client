@@ -3,10 +3,10 @@ package directi.androidteam.training.chatclient.Util;
 import android.util.Log;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Chat.PacketStatusManager;
-import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,23 +17,31 @@ import java.util.ArrayList;
  */
 public class PacketWriter implements ServiceThread{
     private static PrintWriter writer;
-    private static ArrayList<String> list =  new ArrayList<String>();
+    private static ArrayList<Tag> list =  new ArrayList<Tag>();
+    private static HashMap<String,PrintWriter> outputStreams = new HashMap<String, PrintWriter>();
 
-    public PacketWriter(PrintWriter w) {
-        writer = w;
+    public PacketWriter() {
+        //writer = w;
     }
 
-    public static void addToWriteQueue(String msg){
+    public static void addToWriteQueue(Tag msg){
         list.add(msg);
     }
 
-    public void write(String str){
+    public void write(Tag tag){
+        PrintWriter out = outputStreams.get(tag.getRecipientAccount());
+        Log.d("packetwriter","entry");
+        if(out!=null){
 
-        writer.write(str);
-        writer.flush();
-        if(writer.checkError()){
-            XMLHelper xmlHelper = new XMLHelper();
-            Tag tag = xmlHelper.tearPacket(str);
+            String str = tag.toXml();
+            out.write(tag.toXml());
+            Log.d("packetwriter","streamfound " +str );
+            out.flush();
+        }
+        //writer.write(tag.toXml());
+        //writer.flush();
+        if(out.checkError()){
+
             String id = tag.getAttribute("id");
             PacketStatusManager.getInstance().setFailure(id);
         }
@@ -43,12 +51,26 @@ public class PacketWriter implements ServiceThread{
     @Override
     public void execute() {
         Log.d("Service Thread : ", "I am PacketWriter");
+        //write("<presence/>");
         while(true){
             if(!list.isEmpty()){
-                String str = list.remove(0);
-                Log.d("PacketWriter",str);
-                write(str);
+                Tag tag = list.remove(0);
+                //Log.d("PacketWriter",tag.toXml());
+                write(tag);
             }
         }
     }
+
+    public static void addStream(PrintWriter out , String account){
+        outputStreams.put(account,out);
+    }
+    public static boolean removeStream(String account){
+        if(outputStreams.containsKey(account)){
+            outputStreams.remove(account);
+            return true;
+        }
+        return false;
+    }
+
+
 }

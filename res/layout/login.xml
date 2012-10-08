@@ -19,15 +19,34 @@
               android:textSize="20sp"
               android:gravity="center_horizontal"
            />   -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="100dp"
+        android:layout_width="fill_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        >
     <ImageView
             android:id="@+id/gtalk_icon"
             android:contentDescription="gtalk_icon"
             android:layout_height="100dp"
             android:layout_width="100dp"
             android:scaleType="centerInside"
+
             android:src="@drawable/gtalk"
-            android:layout_marginBottom="50dp"
+
             />
+     <ImageView
+         android:id="@+id/pingpong_icon"
+         android:layout_height="fill_parent"
+         android:layout_width="100dp"
+         android:scaleType="centerInside"
+         android:layout_marginLeft="30dp"
+         android:src="@drawable/pingpong"
+         />
+
+    </LinearLayout>
     <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"

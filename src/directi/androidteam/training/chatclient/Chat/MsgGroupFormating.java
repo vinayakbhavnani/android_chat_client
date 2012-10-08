@@ -2,6 +2,8 @@ package directi.androidteam.training.chatclient.Chat;
 
 import directi.androidteam.training.StanzaStore.MessageStanza;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: ssumit
@@ -16,6 +18,10 @@ public class MsgGroupFormating {
         this.last = lastMessageStanza;
         this.present = ms;
     }
+
+    public MsgGroupFormating() {
+    }
+
     public Boolean formatMsg() {
         if(last.getMsgMergedCount()>2) {
             return false;
@@ -23,5 +29,26 @@ public class MsgGroupFormating {
         if(present.getTime() - last.getTime() < 10000)
             return true;
         else return false;
+    }
+
+    public ArrayList<MessageStanza> formatMsgList(ArrayList<MessageStanza> messageStanzas) {
+        if(messageStanzas==null || messageStanzas.size()==1)
+            return messageStanzas;
+        ArrayList<MessageStanza> newMesgStanza = new ArrayList<MessageStanza>();
+        MessageStanza m = messageStanzas.get(0);
+        newMesgStanza.add(m);
+        messageStanzas.remove(0);
+        last = newMesgStanza.get(0);
+        last.setMsgMergedCount(0);
+        for (MessageStanza messageStanza : messageStanzas) {
+            present = messageStanza;
+            Boolean b = formatMsg();
+            if(b==false) {
+                newMesgStanza.add(messageStanza);
+                messageStanza.setMsgMergedCount(0);
+                last = messageStanza;
+            }
+        }
+        return newMesgStanza;
     }
 }

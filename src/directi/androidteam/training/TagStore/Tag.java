@@ -1,6 +1,7 @@
 package directi.androidteam.training.TagStore;
 
 import android.util.Log;
+import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,20 @@ public class Tag {
     protected HashMap<String,String> attributes;
     protected ArrayList<Tag> childTags;
     protected String content;
+    protected String recipientAccount;
+
+    public String getRecipientAccount() {
+        return recipientAccount;
+    }
+
+    public void setRecipientAccount(String recipientAccount) {
+        this.recipientAccount = recipientAccount;
+    }
+
+    public String toXml(){
+        XMLHelper helper = new XMLHelper();
+        return helper.buildPacket(this);
+    }
 
     public Tag(String tagname, HashMap<String, String> attributes, ArrayList<Tag> childTags,String content) {
         this.tagname = tagname;
@@ -35,7 +50,6 @@ public class Tag {
     public void setAttributes(HashMap<String, String> attributes) {
         this.attributes = attributes;
     }
-
     public void addAttributes(HashMap<String,String> attributes){
         if(this.attributes==null)
             this.attributes = new HashMap<String, String>();
@@ -63,13 +77,11 @@ public class Tag {
     public String getContent() {
         return content;
     }
-
     public void addAttribute(String attributeName,String attributeVal){
         if(attributes==null)
             attributes = new HashMap<String, String>();
         attributes.put(attributeName,attributeVal);
     }
-
     public void deleteAttribute(String attributeName) {
         if (attributes==null)
             attributes = new HashMap<String, String>();
@@ -93,7 +105,6 @@ public class Tag {
             return null;
         return attributes.get(key);
     }
-
     public Tag getChildTag(String childTagName) {
         for (int i = 0; i < this.getChildTags().size(); i++) {
             if (this.getChildTags().get(i).getTagname().equals(childTagName)) {

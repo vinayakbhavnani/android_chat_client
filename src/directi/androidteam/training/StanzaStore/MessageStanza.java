@@ -16,7 +16,11 @@ import java.util.UUID;
  */
 public class MessageStanza extends TagWrapper{
     private long time;
-    private String creater;
+
+    public void setMsgMergedCount(int msgMergedCount) {
+        this.msgMergedCount = msgMergedCount;
+    }
+
     private int msgMergedCount = 0;
 
     public void setTime(long time) {
@@ -43,15 +47,7 @@ public class MessageStanza extends TagWrapper{
     }
 
     public void setID(String id) {
-        tag.setID(id);
-    }
-
-    public void setCreater(String creater) {
-        this.creater = creater;
-    }
-
-    public String getCreater() {
-        return creater;
+        tag.addAttribute("id",id);
     }
 
     public void appendBody(String appendText) {
@@ -151,13 +147,12 @@ public class MessageStanza extends TagWrapper{
     }
 
     public void setFrom(String from) {
-        tag.setFrom(from);
+        tag.addAttribute("from",from);
     }
 
     public void send() {
-        setCreater(JID.getJid());
         setFrom(JID.getJid());
         setID(UUID.randomUUID().toString());
-        PacketWriter.addToWriteQueue(getXml());
+        PacketWriter.addToWriteQueue(getTag());
     }
 }
