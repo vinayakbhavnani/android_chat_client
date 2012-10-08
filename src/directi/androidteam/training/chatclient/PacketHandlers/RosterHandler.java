@@ -8,7 +8,6 @@ import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.TagStore.VCardTag;
 import directi.androidteam.training.chatclient.Roster.*;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
-import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.util.UUID;
 
@@ -42,7 +41,7 @@ public class RosterHandler implements Handler {
                 Tag queryTag = tag.getChildTag("query");
                 if (queryTag.getAttribute("xmlns").equals("jabber:iq:roster")) {
                     RosterManager.getInstance().setRosterList(new RosterResult(tag));
-                    PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(new IQTag(UUID.randomUUID().toString(), tag.getAttribute("to").split("/")[0], "get", new Query("google:shared-status", "2"))));
+                    PacketWriter.addToWriteQueue((new IQTag(UUID.randomUUID().toString(), tag.getAttribute("to").split("/")[0], "get", new Query("google:shared-status", "2"))));
                 } else if (queryTag.getAttribute("xmlns").equals("google:shared-status")) {
                     (new SendPresence(RequestRoster.callerActivity)).execute(tag.getAttribute("to"), queryTag.getChildTag("status").getContent(), queryTag.getChildTag("show").getContent());
                 }
@@ -60,7 +59,7 @@ public class RosterHandler implements Handler {
             if(presence.getType() == null) {
                 RosterManager.getInstance().updatePresence(presence);
                 Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
-                PacketWriter.addToWriteQueue((new XMLHelper()).buildPacket(vCardTag));
+                PacketWriter.addToWriteQueue(vCardTag);
             }
         }
     }
