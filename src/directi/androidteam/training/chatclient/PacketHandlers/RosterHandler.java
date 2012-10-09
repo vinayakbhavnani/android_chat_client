@@ -34,7 +34,7 @@ public class RosterHandler implements Handler {
                 final Tag queryTag = tag.getChildTag("query");
                 if (queryTag.getAttribute("xmlns").equals("jabber:iq:roster")) {
                     RosterManager.getInstance().setRosterList(new RosterResult(tag));
-                    PacketWriter.addToWriteQueue((new IQTag(UUID.randomUUID().toString(), tag.getAttribute("to").split("/")[0], "get", new Query("google:shared-status", "2"))));
+                    PacketWriter.addToWriteQueue((new IQTag(UUID.randomUUID().toString(), tag.getAttribute("to").split("/")[0], "get", new Query("google:shared-status", "2")).setRecipientAccount(tag.getAttribute("to").split("/")[0])));
                 } else if (queryTag.getAttribute("xmlns").equals("google:shared-status")) {
                     (new SendPresence(RequestRoster.callerActivity)).execute(tag.getAttribute("to"), queryTag.getChildTag("status").getContent(), queryTag.getChildTag("show").getContent());
                     ((DisplayRosterActivity) RequestRoster.callerActivity).setCurrentAccount(tag.getAttribute("to"), queryTag.getChildTag("status").getContent(), queryTag.getChildTag("show").getContent(), tag);
@@ -56,7 +56,7 @@ public class RosterHandler implements Handler {
             if(presence.getType() == null) {
                 RosterManager.getInstance().updatePresence(presence);
                 Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
-                PacketWriter.addToWriteQueue(vCardTag);
+                PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(tag.getAttribute("to").split("/")[0]));
             }
         }
     }

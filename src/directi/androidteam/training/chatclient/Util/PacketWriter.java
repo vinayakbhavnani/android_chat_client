@@ -33,10 +33,8 @@ public class PacketWriter implements ServiceThread{
             tag.setRecipientAccount(tag.getRecipientAccount().split("@")[0]);
         }
         PrintWriter out = outputStreams.get(tag.getRecipientAccount());
-        Log.d("packetwriter","entry" +tag.getTagname()+tag.getRecipientAccount() + " body : "+tag.toXml());
 
         for (String s : outputStreams.keySet()) {
-            Log.d("packetwiter", "keey : " + s);
         }
 
         if(out!=null){
