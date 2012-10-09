@@ -34,6 +34,7 @@ public class ChatBox extends FragmentActivity {
     private static Context context;
     private static FragmentSwipeAdaptor frag_adaptor;
     private static ViewPager viewPager;
+    private static Toast toast;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -232,7 +233,10 @@ public class ChatBox extends FragmentActivity {
         if(context!=null)
         application.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(ChatApplication.getAppContext(), s, Toast.LENGTH_LONG).show();
+                if(toast!=null)
+                    toast.cancel();
+                toast = Toast.makeText(ChatApplication.getAppContext(), s, Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
         );
