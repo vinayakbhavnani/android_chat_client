@@ -26,7 +26,7 @@ public class RequestRoster extends AsyncTask<Void, Void, Void> {
     public Void doInBackground(Void ...voids) {
         RosterGet rosterGet = new RosterGet();
         rosterGet.setSender(JID.getJid()).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext", "2");
-        PacketWriter.addToWriteQueue(rosterGet.getTag().setRecipientAccount(JID.getJid().split("/")[0]));
+        PacketWriter.addToWriteQueue(rosterGet.getTag());
         return null;
     }
 }

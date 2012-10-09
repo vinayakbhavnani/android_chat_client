@@ -1,14 +1,11 @@
 package directi.androidteam.training.chatclient.Authentication;
 
 import android.util.Log;
-import directi.androidteam.training.chatclient.Util.PacketReader;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.chatclient.Util.ServiceThread;
 
 import javax.net.ssl.SSLSocketFactory;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -23,7 +20,7 @@ public  abstract class Account {
     public  String service;
     protected Socket socket;
     protected Thread readerThread;
-    protected String accountJid;
+    protected String accountJid ;
     protected boolean loginStatus;
     protected XMPPLogin xmppLogin;
     protected  String serverURL;

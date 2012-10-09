@@ -17,7 +17,7 @@ import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.RosterEntry;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class ChatFragment extends ListFragment {
-    private ArrayList<ChatListItem> chatListItems;
+    private Vector<ChatListItem> chatListItems;
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
 
@@ -47,7 +47,7 @@ public class ChatFragment extends ListFragment {
             Log.d("ASAS", "Chatfrgment : from : " + buddyid);
         }
         else
-            chatListItems = new ArrayList<ChatListItem>();
+            chatListItems = new Vector<ChatListItem>();
 
         MessageManager.getInstance().registerFragment(this);
     }
@@ -149,9 +149,9 @@ public class ChatFragment extends ListFragment {
         super.onPause();
     }
 
-    private ArrayList<ChatListItem> toChatListItemList(ArrayList<MessageStanza> list){
-        ArrayList<ChatListItem> chatItemList;
-        chatItemList = new ArrayList<ChatListItem>();
+    private synchronized Vector<ChatListItem> toChatListItemList(Vector<MessageStanza> list){
+        Vector<ChatListItem> chatItemList;
+        chatItemList = new Vector<ChatListItem>();
         for (MessageStanza s : list) {
             ChatListItem cli = new ChatListItem(s);
             chatItemList.add(cli);

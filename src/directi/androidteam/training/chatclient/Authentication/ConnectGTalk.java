@@ -104,7 +104,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
             launchWriterOnSocket(socket);
 
 
-            sendOpenStreamStanza();
+            sendOpenStreamStanza();                                   011-67676767
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,5 +1,7 @@
 package directi.androidteam.training.TagStore;
 
+import directi.androidteam.training.StanzaStore.JID;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rajat
@@ -11,5 +13,6 @@ public class VCardTag extends Tag {
     public VCardTag(String XMLNameSpace) {
         this.tagname = "vCard";
         this.addAttribute("xmlns", XMLNameSpace);
+        setRecipientAccount(JID.getBareJid());
     }
 }

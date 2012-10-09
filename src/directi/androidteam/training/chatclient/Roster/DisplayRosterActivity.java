@@ -96,7 +96,7 @@ public class DisplayRosterActivity extends FragmentActivity {
             case R.id.logout_menu_item:
                 PresenceS presenceS = new PresenceS();
                 presenceS.addType("unavailable");
-                PacketWriter.addToWriteQueue(presenceS.getTag().setRecipientAccount(presenceS.getFrom().split("/")[0]));
+                PacketWriter.addToWriteQueue(presenceS.getTag());
                 UserDatabaseHandler db = new UserDatabaseHandler(this);
                 db.updateState(ConnectGTalk.username, "offline");
                 startActivity(new Intent(this, UserListActivity.class));
