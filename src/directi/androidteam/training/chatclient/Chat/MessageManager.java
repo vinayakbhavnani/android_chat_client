@@ -1,6 +1,7 @@
 package directi.androidteam.training.chatclient.Chat;
 
 import android.util.Log;
+import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.Chat.dbAccess.dbAccess;
 
@@ -25,7 +26,6 @@ public class MessageManager {
             messageStore.put(s,new MsgGroupFormating().formatMsgList(messageStore.get(s)));
             Log.d("DBDB","key : "+s);
         }
-        //messageStore = new HashMap<String, ArrayList<MessageStanza>>();
     }
 
     public static MessageManager getInstance() {
@@ -132,16 +132,31 @@ public class MessageManager {
 
     public HashMap<String,ArrayList<MessageStanza>> convertListToMap(ArrayList<MessageStanza> messageStanzas) {
         HashMap<String,ArrayList<MessageStanza>> map = new HashMap<String, ArrayList<MessageStanza>>();
-        if(messageStanzas==null)
+        if(messageStanzas==null || messageStanzas.isEmpty())
             return map;
         for (MessageStanza messageStanza : messageStanzas) {
-            if(map.containsKey(messageStanza.getFrom())) {
-                map.get(messageStanza.getFrom()).add(messageStanza);
+            String from = messageStanza.getFrom().split("/")[0];
+            String to = messageStanza.getTo().split("/")[0];
+            String myJid = JID.getBareJid().split("/")[0];
+            if(from.equals(myJid)) {
+                if(map.containsKey(to)) {
+                    map.get(to).add(messageStanza);
+                }
+                else {
+                    ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
+                    arrayList.add(messageStanza);
+                    map.put(to,arrayList);
+                }
             }
             else {
-                ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
-                arrayList.add(messageStanza);
-                map.put(messageStanza.getFrom(),arrayList);
+                if(map.containsKey(from)) {
+                    map.get(from).add(messageStanza);
+                }
+                else {
+                    ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
+                    arrayList.add(messageStanza);
+                    map.put(from,arrayList);
+                }
             }
         }
         return map;
