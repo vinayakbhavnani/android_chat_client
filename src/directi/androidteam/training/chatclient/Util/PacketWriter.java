@@ -30,7 +30,11 @@ public class PacketWriter implements ServiceThread{
 
     public void write(Tag tag){
         PrintWriter out = outputStreams.get(tag.getRecipientAccount());
-        Log.d("packetwriter","entry");
+        Log.d("packetwriter","entry" +tag.getTagname()+tag.getRecipientAccount());
+        for (String s : outputStreams.keySet()) {
+            Log.d("packetwiter", "keey : " + s);
+        }
+
         if(out!=null){
 
             String str = tag.toXml();

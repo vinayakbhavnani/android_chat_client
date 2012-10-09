@@ -17,6 +17,10 @@ public class JID {
         return jid;
     }
 
+    public static String getBareJid() {
+        return jid.split("@")[0];
+    }
+
     public static void setJID(String content) {
         Log.d("jid set","jid is set here");
         if(content!=null)
