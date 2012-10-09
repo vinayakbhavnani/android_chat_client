@@ -1,6 +1,7 @@
 package directi.androidteam.training.chatclient.Roster;
 
 import android.util.Log;
+import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterResult;
 import directi.androidteam.training.StanzaStore.RosterSet;
@@ -110,7 +111,7 @@ public class RosterManager {
     public void addRosterEntry(RosterEntry rosterEntry){
         RosterSet rosterSet = new RosterSet();
         rosterSet.addQuery(rosterEntry.getJid());
-        PacketWriter.addToWriteQueue(rosterSet.getTag());
+        PacketWriter.addToWriteQueue(rosterSet.getTag().setRecipientAccount(JID.getJid().split("/")[0]));
         requestID.put(rosterSet.getID(), "0");
     }
     public void addRosterEntry(String newJID) {
@@ -121,7 +122,7 @@ public class RosterManager {
         PresenceS presenceS = new PresenceS();
         presenceS.addReceiver(newJID);
         presenceS.addType("subscribe");
-        PacketWriter.addToWriteQueue(presenceS.getTag());
+        PacketWriter.addToWriteQueue(presenceS.getTag().setRecipientAccount(JID.getJid().split("/")[0]));
     }
     public void deleteRosterEntry(String JID) {
         if(JID==null || rosterLookup==null || JID.equals("") || !rosterLookup.containsKey(JID))

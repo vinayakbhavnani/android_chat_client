@@ -24,8 +24,9 @@ public class Tag {
         return recipientAccount;
     }
 
-    public void setRecipientAccount(String recipientAccount) {
+    public Tag setRecipientAccount(String recipientAccount) {
         this.recipientAccount = recipientAccount;
+        return this;
     }
 
     public String toXml(){
