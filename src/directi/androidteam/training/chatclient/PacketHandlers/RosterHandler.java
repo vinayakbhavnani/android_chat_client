@@ -40,20 +40,16 @@ public class RosterHandler implements Handler {
                     ((DisplayRosterActivity) RequestRoster.callerActivity).setCurrentAccount(tag.getAttribute("to"), queryTag.getChildTag("status").getContent(), queryTag.getChildTag("show").getContent(), tag);
                     SendPresence.callerActivity.runOnUiThread(new Runnable() {
                         public void run() {
-                            ((DisplayRosterActivity) SendPresence.callerActivity).setJID(tag.getAttribute("to").split("/")[0]);
-                            ((DisplayRosterActivity) SendPresence.callerActivity).setStatus(queryTag.getChildTag("status").getContent());
-                            ((DisplayRosterActivity) SendPresence.callerActivity).setPresence(queryTag.getChildTag("show").getContent());
+                            ((DisplayRosterActivity) SendPresence.callerActivity).displayJID(tag.getAttribute("to").split("/")[0]);
+                            ((DisplayRosterActivity) SendPresence.callerActivity).displayStatus(queryTag.getChildTag("status").getContent());
+                            ((DisplayRosterActivity) SendPresence.callerActivity).displayPresence(queryTag.getChildTag("show").getContent());
                         }
                     });
                 }
             } else if (tag.contains("vCard")) {
-                final VCard vCard = new VCard();
+                VCard vCard = new VCard();
                 vCard.populateFromTag(tag);
-                SendPresence.callerActivity.runOnUiThread(new Runnable() {
-                    public void run() {
-                        ((DisplayRosterActivity) SendPresence.callerActivity).displayVCard(vCard);
-                    }
-                });
+                RosterManager.getInstance().updatePhoto(vCard);
             }
         } else if(tag.getTagname().equals("presence")) {
             PresenceS presence = new PresenceS(tag);
