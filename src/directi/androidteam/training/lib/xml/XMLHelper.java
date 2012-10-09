@@ -154,6 +154,7 @@ public class XMLHelper {
             while (event !=XmlPullParser.END_DOCUMENT){
                 if(event==XmlPullParser.START_TAG){
                     temptag =  tearTag(xpp);
+                    temptag.setRecipientAccount(jid);
                     Log.d("packetxml",buildPacket(temptag));
                     MessageQueue.getInstance().pushPacket(temptag);
                     Log.d("packet","packetpushed");
