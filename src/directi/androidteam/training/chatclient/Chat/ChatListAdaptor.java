@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import directi.androidteam.training.chatclient.R;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class ChatListAdaptor extends ArrayAdapter<ChatListItem> {
     Context context;
     //ArrayList<ChatListItem> chatListItems;
-    public ChatListAdaptor(Context context, ArrayList<ChatListItem> objects) {
+    public ChatListAdaptor(Context context, Vector<ChatListItem> objects) {
         super(context, R.layout.chatlistitem, objects);
         //this.chatListItems=objects;
         this.context=context;

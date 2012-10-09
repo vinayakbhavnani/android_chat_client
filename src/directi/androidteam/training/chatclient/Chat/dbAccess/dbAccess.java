@@ -20,16 +20,20 @@ import java.util.ArrayList;
 public class dbAccess {
 
     public void addMessage(MessageStanza messageStanza) {
-        SQLiteDatabase db = DBManager.getDbManager().getWritableSQLiteDB();
         ContentValues values = new ContentValues();
         values.put(DBManager.KEY_1_JID_SENDER,messageStanza.getFrom());
         values.put(DBManager.KEY_1_JID_RECEIVER,messageStanza.getTo());
         values.put(DBManager.KEY_1_MESSAGE,messageStanza.getBody());
         values.put(DBManager.KEY_1_ID,messageStanza.getID());
-        values.put(DBManager.KEY_1_TIME,messageStanza.getTime());
-        db.insert(DBManager.TABLE_1_NAME,null,values);
-        db.close();
+        values.put(DBManager.KEY_1_TIME, messageStanza.getTime());
+        Log.d("dbdb","msg : "+messageStanza.getBody());
+        DBInsert(values);
         return;
+    }
+
+    private synchronized void DBInsert(ContentValues values) {
+        SQLiteDatabase db = DBManager.getDbManager().getWritableSQLiteDB();
+        db.insert(DBManager.TABLE_1_NAME, null, values);
     }
 
     public ArrayList<MessageStanza> getAllMsg() {
@@ -54,11 +58,9 @@ public class dbAccess {
              } while (cursor.moveToNext());
         } catch (CursorIndexOutOfBoundsException e) {
             cursor.close();
-            db.close();
             return messageStanzas;
         }
         cursor.close();
-        db.close();
         return messageStanzas;
     }
 

@@ -33,6 +33,7 @@ public class MessageManager {
     }
 
     public void insertMessage(String from, MessageStanza ms) {
+        addToDB(ms);
         if(!messageStore.containsKey(from)) {
             ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
             arrayList.add(ms);
@@ -65,7 +66,6 @@ public class MessageManager {
                 propagateChangesToFragments(ms, false);
             }
         }
-        addToDB(ms);
     }
 
     private void removeFromDB(final String id) {

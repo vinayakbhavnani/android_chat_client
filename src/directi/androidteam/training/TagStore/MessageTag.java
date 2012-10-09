@@ -34,6 +34,7 @@ public class MessageTag extends Tag{
 
     public MessageTag(Tag tag) {
         super(tag.getTagname(),tag.getAttributes(),tag.getChildTags(),tag.getContent());
+        setRecipientAccount(tag.getRecipientAccount());
     }
 
     public String getBody() {
