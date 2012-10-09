@@ -68,7 +68,7 @@ public class MyFragmentManager {
         return -1;
     }
 
-    public  ArrayList<MessageStanza> getFragList(String from){
+    public  Vector<MessageStanza> getFragList(String from){
         addFragEntry(from);
         MessageManager.getInstance().insertEntry(from);
         return MessageManager.getInstance().getMsgList(from);

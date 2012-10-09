@@ -8,7 +8,7 @@ import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.db.DBManager;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,7 +26,7 @@ public class dbAccess {
         values.put(DBManager.KEY_1_MESSAGE,messageStanza.getBody());
         values.put(DBManager.KEY_1_ID,messageStanza.getID());
         values.put(DBManager.KEY_1_TIME, messageStanza.getTime());
-        Log.d("dbdb","msg : "+messageStanza.getBody());
+        Log.d("dbdb", "msg : " + messageStanza.getBody());
         DBInsert(values);
         return;
     }
@@ -36,10 +36,10 @@ public class dbAccess {
         db.insert(DBManager.TABLE_1_NAME, null, values);
     }
 
-    public ArrayList<MessageStanza> getAllMsg() {
+    public Vector<MessageStanza> getAllMsg() {
         SQLiteDatabase db = DBManager.getDbManager().getReadableSQLiteDB();
         Cursor cursor = db.query(DBManager.TABLE_1_NAME, null, null , null, null, null, null);
-        ArrayList<MessageStanza> messageStanzas = new ArrayList<MessageStanza>();
+        Vector<MessageStanza> messageStanzas = new Vector<MessageStanza>();
         if (cursor==null) {
             Log.d("DBDB","cursur null");
             return messageStanzas;
@@ -64,7 +64,7 @@ public class dbAccess {
         return messageStanzas;
     }
 
-    public ArrayList<MessageStanza> getMsgByJID(String jid) {
+    public Vector<MessageStanza> getMsgByJID(String jid) {
         return null;
     }
 

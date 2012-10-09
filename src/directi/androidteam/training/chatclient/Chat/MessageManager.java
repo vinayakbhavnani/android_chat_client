@@ -5,8 +5,8 @@ import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.Chat.dbAccess.dbAccess;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,7 +17,7 @@ import java.util.HashMap;
  */
 public class MessageManager {
     private static MessageManager messageManager = new MessageManager();
-    HashMap<String,ArrayList<MessageStanza>> messageStore;
+    HashMap<String,Vector<MessageStanza>> messageStore;
     ChatFragment listener_frag;
 
     private MessageManager() {
@@ -35,13 +35,13 @@ public class MessageManager {
     public void insertMessage(String from, MessageStanza ms) {
         addToDB(ms);
         if(!messageStore.containsKey(from)) {
-            ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
+            Vector<MessageStanza> arrayList = new Vector<MessageStanza>();
             arrayList.add(ms);
             messageStore.put(from,arrayList);
             propagateChangesToFragments(ms, false);
         }
         else {
-            ArrayList<MessageStanza> arrayList = messageStore.get(from);
+            Vector<MessageStanza> arrayList = messageStore.get(from);
             if(arrayList.size()>0) {
                 MessageStanza lastMessageStanza = arrayList.get(arrayList.size()-1);
                 if(lastMessageStanza.getFrom()!=null && lastMessageStanza.getFrom().equals(ms.getFrom())) {
@@ -92,11 +92,11 @@ public class MessageManager {
         this.listener_frag = frag;
     }
 
-    public HashMap<String, ArrayList<MessageStanza>> getMessageStore() {
+    public HashMap<String, Vector<MessageStanza>> getMessageStore() {
         return messageStore;
     }
 
-    public ArrayList<MessageStanza> getMsgList(String from) {
+    public Vector<MessageStanza> getMsgList(String from) {
         if(from==null || !messageStore.containsKey(from))
             return null;
         return messageStore.get(from);
@@ -104,9 +104,9 @@ public class MessageManager {
 
     public void insertEntry(String from) {
         if(messageStore==null)
-            messageStore = new HashMap<String, ArrayList<MessageStanza>>();
+            messageStore = new HashMap<String, Vector<MessageStanza>>();
         if(!messageStore.containsKey(from)) {
-            messageStore.put(from, new ArrayList<MessageStanza>());
+            messageStore.put(from, new Vector<MessageStanza>());
         }
     }
 
@@ -130,8 +130,8 @@ public class MessageManager {
         }
     }
 
-    public HashMap<String,ArrayList<MessageStanza>> convertListToMap(ArrayList<MessageStanza> messageStanzas) {
-        HashMap<String,ArrayList<MessageStanza>> map = new HashMap<String, ArrayList<MessageStanza>>();
+    public HashMap<String,Vector<MessageStanza>> convertListToMap(Vector<MessageStanza> messageStanzas) {
+        HashMap<String,Vector<MessageStanza>> map = new HashMap<String, Vector<MessageStanza>>();
         if(messageStanzas==null || messageStanzas.isEmpty())
             return map;
         for (MessageStanza messageStanza : messageStanzas) {
@@ -143,7 +143,7 @@ public class MessageManager {
                     map.get(to).add(messageStanza);
                 }
                 else {
-                    ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
+                    Vector<MessageStanza> arrayList = new Vector<MessageStanza>();
                     arrayList.add(messageStanza);
                     map.put(to,arrayList);
                 }
@@ -153,7 +153,7 @@ public class MessageManager {
                     map.get(from).add(messageStanza);
                 }
                 else {
-                    ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
+                    Vector<MessageStanza> arrayList = new Vector<MessageStanza>();
                     arrayList.add(messageStanza);
                     map.put(from,arrayList);
                 }

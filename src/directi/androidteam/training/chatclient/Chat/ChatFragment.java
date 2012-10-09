@@ -17,7 +17,6 @@ import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.RosterEntry;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
 
-import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -150,7 +149,7 @@ public class ChatFragment extends ListFragment {
         super.onPause();
     }
 
-    private Vector<ChatListItem> toChatListItemList(ArrayList<MessageStanza> list){
+    private synchronized Vector<ChatListItem> toChatListItemList(Vector<MessageStanza> list){
         Vector<ChatListItem> chatItemList;
         chatItemList = new Vector<ChatListItem>();
         for (MessageStanza s : list) {

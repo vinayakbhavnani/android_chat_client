@@ -2,7 +2,7 @@ package directi.androidteam.training.chatclient.Chat;
 
 import directi.androidteam.training.StanzaStore.MessageStanza;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,10 +31,10 @@ public class MsgGroupFormating {
         else return false;
     }
 
-    public ArrayList<MessageStanza> formatMsgList(ArrayList<MessageStanza> messageStanzas) {
+    public Vector<MessageStanza> formatMsgList(Vector<MessageStanza> messageStanzas) {
         if(messageStanzas==null || messageStanzas.size()==1)
             return messageStanzas;
-        ArrayList<MessageStanza> newMesgStanza = new ArrayList<MessageStanza>();
+        Vector<MessageStanza> newMesgStanza = new Vector<MessageStanza>();
         MessageStanza m = messageStanzas.get(0);
         newMesgStanza.add(m);
         messageStanzas.remove(0);
