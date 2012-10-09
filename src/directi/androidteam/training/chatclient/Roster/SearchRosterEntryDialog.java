@@ -1,4 +1,4 @@
-package directi.androidteam.training.chatclient.Roster.eventHandlers;
+package directi.androidteam.training.chatclient.Roster;
 
 import android.app.Dialog;
 import android.content.Context;

@@ -29,6 +29,7 @@ public class PacketWriter implements ServiceThread{
     }
 
     public void write(Tag tag){
+        if (tag == null) return;
         if (tag.getRecipientAccount().contains("@")) {
             tag.setRecipientAccount(tag.getRecipientAccount().split("@")[0]);
         }

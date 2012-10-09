@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ListView;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.eventHandlers.TextChangeListenerForSearch;
 import directi.androidteam.training.chatclient.Roster.eventHandlers.rosterListClickHandler;
 
 import java.util.ArrayList;

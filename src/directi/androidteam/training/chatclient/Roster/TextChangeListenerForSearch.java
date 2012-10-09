@@ -1,10 +1,7 @@
-package directi.androidteam.training.chatclient.Roster.eventHandlers;
+package directi.androidteam.training.chatclient.Roster;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import directi.androidteam.training.chatclient.Roster.RosterEntry;
-import directi.androidteam.training.chatclient.Roster.RosterManager;
-import directi.androidteam.training.chatclient.Roster.SearchRosterEntry;
 
 import java.util.ArrayList;
 
