@@ -9,7 +9,6 @@ package directi.androidteam.training.chatclient.Chat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,9 +24,10 @@ public  class FragmentSwipeAdaptor extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        String from = MyFragmentManager.getInstance().FragToJid(i);
-        Log.d("ASAS","fragswipeadap - getitem" + from);
-        return ChatFragment.getInstance(from);
+        MyFragmentManager manager = MyFragmentManager.getInstance();
+        String from = manager.FragIdToJid(i);
+        manager.addFragEntry(from);
+        return manager.getFragByJID(from);
     }
 
     @Override

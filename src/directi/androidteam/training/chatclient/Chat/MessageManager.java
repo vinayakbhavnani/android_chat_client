@@ -1,6 +1,5 @@
 package directi.androidteam.training.chatclient.Chat;
 
-import android.os.Bundle;
 import android.util.Log;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
@@ -39,7 +38,7 @@ public class MessageManager {
             Vector<MessageStanza> arrayList = new Vector<MessageStanza>();
             arrayList.add(ms);
             messageStore.put(from,arrayList);
-            propagateChangesToFragments(ms, false);
+            propagateChangesToFragments(from, ms, false);
         }
         else {
             Vector<MessageStanza> arrayList = messageStore.get(from);
@@ -50,21 +49,21 @@ public class MessageManager {
                     Boolean bool = msgGroupFormating.formatMsg();
                     if(bool) {
                         lastMessageStanza.appendBody(ms.getBody());
-                        propagateChangesToFragments(lastMessageStanza, true);
+                        propagateChangesToFragments(from, lastMessageStanza, true);
                     }
                     else {
                         arrayList.add(ms);
-                        propagateChangesToFragments(ms, false);
+                        propagateChangesToFragments(from, ms, false);
                     }
                 }
                 else {
                     arrayList.add(ms);
-                    propagateChangesToFragments(ms, false);
+                    propagateChangesToFragments(from, ms, false);
                 }
             }
             else {
                 arrayList.add(ms);
-                propagateChangesToFragments(ms, false);
+                propagateChangesToFragments(from, ms, false);
             }
         }
     }
@@ -80,7 +79,9 @@ public class MessageManager {
         t.start();
     }
 
-    private void propagateChangesToFragments(MessageStanza ms, boolean b) {
+    private void propagateChangesToFragments(String from, MessageStanza ms, boolean b) {
+        MyFragmentManager.getInstance().updateFragment(from , ms, b);
+/*
         Bundle bundle;
         if(listener_frag==null || (bundle = listener_frag.getArguments())==null) {
              ChatBox.recreateFragments();
@@ -92,6 +93,7 @@ public class MessageManager {
         else {
                 ChatBox.recreateFragments();
         }
+*/
 /*
         if (listener_frag!=null)
             listener_frag.addChatItem(ms,b);

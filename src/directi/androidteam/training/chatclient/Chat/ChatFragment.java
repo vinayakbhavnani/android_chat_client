@@ -39,11 +39,11 @@ public class ChatFragment extends ListFragment {
             buddyid = (String)getArguments().get("from");
             chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));
             Log.d("ASAS", "Chatfrgment : from : " + buddyid);
+            MyFragmentManager.getInstance().addFragEntry(buddyid);
         }
         else
             chatListItems = new Vector<ChatListItem>();
-
-        MessageManager.getInstance().registerFragment(this);
+//        MessageManager.getInstance().registerFragment(this);
     }
 
     @Override
@@ -100,7 +100,6 @@ public class ChatFragment extends ListFragment {
 
     public static ChatFragment getInstance(String from){
         ChatFragment chatFragment = new ChatFragment();
-//        Log.d("ASAS", "chatfrag - getinstance from  : " +from);
         Bundle args = new Bundle();
         args.putString("from", from);
         chatFragment.setArguments(args);

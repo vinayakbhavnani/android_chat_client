@@ -1,7 +1,10 @@
 package directi.androidteam.training.chatclient.Chat;
 
+import android.app.Activity;
+import android.content.Context;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 /**
@@ -14,9 +17,13 @@ import java.util.Vector;
 public class MyFragmentManager {
 
     private Vector<String> FragToJID;
+    private HashMap<String,FragmentList> JIDToFragmentMap;
+    private HashMap<String,ChatFragment> JIDToFrag;
     private static MyFragmentManager fragmentManager  = new MyFragmentManager();
     private MyFragmentManager() {
         FragToJID = new Vector<String>();
+        JIDToFragmentMap =  new HashMap<String, FragmentList>();
+        JIDToFrag = new HashMap<String, ChatFragment>();
     }
 
     public static MyFragmentManager getInstance() {
@@ -24,18 +31,23 @@ public class MyFragmentManager {
 
     }
 
-    public synchronized void addFragEntry(String jid) {
+    public synchronized void addFragEntry(final String jid) {
         for (String s : FragToJID) {
             if(s.equals(jid))
                 return;
         }
-        FragToJID.add(jid);
-        if(ChatBox.getContext()!=null)
-            ChatBox.recreateFragments();
-    }
-
-    public void removeFragEntry(int index) {
-        FragToJID.remove(index);
+        Context context = ChatBox.getContext();
+        if(context!=null) {
+            Activity application = (Activity) context;
+                application.runOnUiThread(new Runnable() {
+                    public void run() {
+                        ChatFragment chatFragment = ChatFragment.getInstance(jid);
+                        FragToJID.add(jid);
+                        JIDToFrag.put(jid,chatFragment);
+                        ChatBox.recreateFragments();
+                    }
+                });
+        }
     }
 
     public synchronized void removeFragEntry(String jid) {
@@ -43,18 +55,22 @@ public class MyFragmentManager {
             if(s.equals(jid))
                 FragToJID.remove(s);
         }
+        FragToJID.remove(jid);
         if(ChatBox.getContext()!=null)
             ChatBox.recreateFragments();
     }
 
-    public String FragToJid(int queryJID){
+    public ChatFragment getFragByJID(String jid) {
+        return JIDToFrag.get(jid);
+    }
+
+    public String FragIdToJid(int queryJID){
         if(queryJID<0 || queryJID>= getSizeofActiveChats())
             return null;
         return FragToJID.get(queryJID);
-        //return MessageManager.getInstance().getRequiredJiD(i);
     }
 
-    public int JidToFrag(String from){
+    public int JidToFragId(String from){
         if(from==null)
             return -1;
         int i =0;
@@ -63,7 +79,6 @@ public class MyFragmentManager {
                 return i;
             i++;
         }
-
         return -1;
     }
 
@@ -77,8 +92,11 @@ public class MyFragmentManager {
         return FragToJID.size();
     }
 
-    public void updateFragment(String jid) {
-        Vector<MessageStanza> messageStanzas = getFragList(jid);
-
+    public void updateFragment(String jid, MessageStanza ms, boolean b) {
+        if(jid==null)
+            return;
+        ChatFragment chatFragment = JIDToFrag.get(jid);
+        if(chatFragment!=null)
+            chatFragment.addChatItem(ms,b);
     }
 }

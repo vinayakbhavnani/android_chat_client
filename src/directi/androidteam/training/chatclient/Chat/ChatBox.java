@@ -74,8 +74,8 @@ public class ChatBox extends FragmentActivity {
         TextView hleft = (TextView)findViewById(R.id.chatboxheader_left);
         TextView hright = (TextView)findViewById(R.id.chatboxheader_right);
 
-        String left = MyFragmentManager.getInstance().FragToJid(i - 1);
-        String right = MyFragmentManager.getInstance().FragToJid(i + 1);
+        String left = MyFragmentManager.getInstance().FragIdToJid(i - 1);
+        String right = MyFragmentManager.getInstance().FragIdToJid(i + 1);
         if(left!=null)
             hleft.setText(left.split("@")[0]);
         else
@@ -107,7 +107,7 @@ public class ChatBox extends FragmentActivity {
     }
 
     public static void notifyChat(MessageStanza ms){
-        if(viewPager.getCurrentItem()== MyFragmentManager.getInstance().JidToFrag(ms.getFrom())) {
+        if(viewPager.getCurrentItem()== MyFragmentManager.getInstance().JidToFragId(ms.getFrom())) {
             return;
         }
 
@@ -173,7 +173,7 @@ public class ChatBox extends FragmentActivity {
             return;
         int currentItem = viewPager.getCurrentItem();
 
-        String jid = MyFragmentManager.getInstance().FragToJid(currentItem);
+        String jid = MyFragmentManager.getInstance().FragIdToJid(currentItem);
         MessageStanza messxml = new MessageStanza(jid,message);
         messxml.formActiveMsg();
         messxml.send();
@@ -181,7 +181,6 @@ public class ChatBox extends FragmentActivity {
         PacketStatusManager.getInstance().pushMsPacket(messxml);
         MyFragmentManager.getInstance().addFragEntry(jid);
         MessageManager.getInstance().insertMessage(jid, messxml);
-        MyFragmentManager.getInstance().updateFragment(jid);
 
         viewPager.setCurrentItem(currentItem);
 
@@ -209,7 +208,7 @@ public class ChatBox extends FragmentActivity {
         }
     }
     private void switchFragment(String from){
-        int frag = MyFragmentManager.getInstance().JidToFrag(from);
+        int frag = MyFragmentManager.getInstance().JidToFragId(from);
         updateHeader(frag);
         viewPager.setCurrentItem(frag);
     }
