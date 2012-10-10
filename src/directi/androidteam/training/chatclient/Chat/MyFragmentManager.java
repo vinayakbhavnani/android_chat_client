@@ -2,7 +2,6 @@ package directi.androidteam.training.chatclient.Chat;
 
 import directi.androidteam.training.StanzaStore.MessageStanza;
 
-import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -76,5 +75,10 @@ public class MyFragmentManager {
 
     public int getSizeofActiveChats() {
         return FragToJID.size();
+    }
+
+    public void updateFragment(String jid) {
+        Vector<MessageStanza> messageStanzas = getFragList(jid);
+
     }
 }

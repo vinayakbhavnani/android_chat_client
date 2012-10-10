@@ -104,7 +104,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
             launchWriterOnSocket(socket);
 
 
-            sendOpenStreamStanza();                                   011-67676767
+            sendOpenStreamStanza();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,6 +118,8 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         else
             gtalk = new GtalkAccount(username,password,true);
         try {
+            if(gtalk.getSocket()==null)
+                Log.d("EXCEPTION : ","gtalk socket null");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(gtalk.getSocket().getInputStream()));
             gtalk.setupReaderWriter(launchInNewThread(new PacketReader(reader, username)));
