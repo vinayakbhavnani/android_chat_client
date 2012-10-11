@@ -181,6 +181,7 @@ public class ChatBox extends FragmentActivity {
         PacketStatusManager.getInstance().pushMsPacket(messxml);
         MyFragmentManager.getInstance().addFragEntry(jid);
         MessageManager.getInstance().insertMessage(jid, messxml);
+        MyFragmentManager.getInstance().updateFragment(jid);
 
         viewPager.setCurrentItem(currentItem);
 
@@ -214,6 +215,8 @@ public class ChatBox extends FragmentActivity {
     }
 
     public static void recreateFragments() {
+        if(ChatBox.getContext()==null)
+            return;
         Activity a = (Activity) context;
         if(context!=null)
         a.runOnUiThread(new Runnable() { public void run() {

@@ -1,5 +1,6 @@
 package directi.androidteam.training.chatclient.Chat;
 
+import android.os.Bundle;
 import android.util.Log;
 import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
@@ -80,8 +81,17 @@ public class MessageManager {
     }
 
     private void propagateChangesToFragments(MessageStanza ms, boolean b) {
-        if(ChatBox.getContext()!=null)
-            ChatBox.recreateFragments();
+        Bundle bundle;
+        if(listener_frag==null || (bundle = listener_frag.getArguments())==null) {
+             ChatBox.recreateFragments();
+            return;
+        }
+        if(bundle.get("from").equals(ms.getFrom()) || bundle.get("from").equals(JID.getJid())) {
+            listener_frag.addChatItem(ms,b);
+        }
+        else {
+                ChatBox.recreateFragments();
+        }
 /*
         if (listener_frag!=null)
             listener_frag.addChatItem(ms,b);

@@ -31,12 +31,6 @@ public class ChatFragment extends ListFragment {
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
 
-    private ChatFragment() {
-
-    }
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -72,8 +66,6 @@ public class ChatFragment extends ListFragment {
             public void onClick(View view) {
                 sendGoneMsg(buddyid);
                 MyFragmentManager.getInstance().removeFragEntry(buddyid);
-                //ChatBox.deletePage();
-                //ChatBox.recreateFragments();
                 closeFragment();
             }
         });
@@ -160,12 +152,12 @@ public class ChatFragment extends ListFragment {
     }
 
     public void closeFragment(){
-        //MessageManager.getInstance().removeEntry(buddyid);
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
         messageStanza.send();
         if(MyFragmentManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
+        else
         ChatBox.recreateFragments();
     }
 

@@ -152,6 +152,7 @@ public class MessageStanza extends TagWrapper{
 
     public void send() {
         setFrom(JID.getJid());
+        tag.setRecipientAccount(JID.getBareJid());
         setID(UUID.randomUUID().toString());
         PacketWriter.addToWriteQueue(getTag());
     }
