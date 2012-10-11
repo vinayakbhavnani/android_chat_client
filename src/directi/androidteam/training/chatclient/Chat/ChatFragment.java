@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.RosterEntry;
+import directi.androidteam.training.chatclient.Roster.RosterItem;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
 
 import java.util.Vector;
@@ -64,7 +64,7 @@ public class ChatFragment extends ListFragment {
         TextView tv = (TextView)(header.findViewById(R.id.chatfragment_jid));
         tv.setText(buddyid);
         TextView status = (TextView)(header.findViewById(R.id.chatfragment_status));
-        RosterEntry re = RosterManager.getInstance().searchRosterEntry(buddyid);
+        RosterItem re = RosterManager.getInstance().getRosterItem(buddyid);
         TextView presence = (TextView)(header.findViewById(R.id.chatheader_presence));
         ImageView closeWindow = (ImageView)(header.findViewById(R.id.chatlistheader_close));
         closeWindow.setOnClickListener(new View.OnClickListener() {

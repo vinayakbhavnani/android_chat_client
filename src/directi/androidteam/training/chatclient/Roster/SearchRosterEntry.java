@@ -30,17 +30,17 @@ public class SearchRosterEntry extends Activity {
         editText.addTextChangedListener(new TextChangeListenerForSearch());
         ListView listView = (ListView) findViewById(R.id.rostersearchlist);
    //     listView.setOnItemClickListener(new rosterListClickHandler(listView,context));
-        adapter = new RosterItemAdapter(context);
+  //      adapter = new RosterItemAdapter(context);
         RosterManager rosterManager = RosterManager.getInstance();
-        ArrayList<RosterEntry> rosterEntries = rosterManager.searchRosterEntries("");
-        updateRosterList(rosterEntries);
+    //    ArrayList<RosterEntry> rosterEntries = rosterManager.searchRosterEntries("");
+      //  updateRosterList(rosterEntries);
         listView.setAdapter(adapter);
     }
     public static void updateRosterList(final ArrayList<RosterEntry> rosterList) {
         Activity a = (Activity) context;
         a.runOnUiThread(new Runnable() {
             public void run() {
-                adapter.setRosterEntries(rosterList);
+    //            adapter.setRosterEntries(rosterList);
                 adapter.notifyDataSetChanged();
             }
         }

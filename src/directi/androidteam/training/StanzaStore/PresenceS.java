@@ -60,7 +60,8 @@ public class PresenceS  extends TagWrapper {
             return null;
         for (Tag child : childlist) {
             if(child.getTagname().equals("show")){
-                return (new Show(child)).getShowState();
+                return child.getContent();
+             //   return (new Show(child)).getShowState();
             }
         }
         return null;

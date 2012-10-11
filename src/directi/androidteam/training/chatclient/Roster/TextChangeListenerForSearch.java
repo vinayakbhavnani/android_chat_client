@@ -3,8 +3,6 @@ package directi.androidteam.training.chatclient.Roster;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-import java.util.ArrayList;
-
 /**
  * Created with IntelliJ IDEA.
  * User: ssumit
@@ -21,8 +19,8 @@ public class TextChangeListenerForSearch implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         RosterManager rosterManager = RosterManager.getInstance();
-        ArrayList<RosterEntry> rosterEntries = rosterManager.searchRosterEntries(charSequence.toString());
-        SearchRosterEntry.updateRosterList(rosterEntries);
+      //  ArrayList<RosterEntry> rosterEntries = rosterManager.searchRosterEntries(charSequence.toString());
+       // SearchRosterEntry.updateRosterList(rosterEntries);
     }
 
     @Override

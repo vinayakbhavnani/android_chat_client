@@ -44,7 +44,7 @@ public class DisplayRosterActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.roster);
-        ((ListView)findViewById(R.id.roster_list)).setAdapter(new RosterItemAdapter(this));
+        ((ListView)findViewById(R.id.roster_list)).setAdapter(new RosterItemAdapter(this, R.layout.rosterlistitem, new ArrayList<RosterItem>()));
         ((ListView)findViewById(R.id.roster_list)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -55,9 +55,9 @@ public class DisplayRosterActivity extends FragmentActivity {
     }
 
     public void onListItemClick(ListView view, View v, int position, long id) {
-        RosterEntry rosterEntry = (RosterEntry) view.getItemAtPosition(position);
+        RosterItem rosterItem = (RosterItem) view.getItemAtPosition(position);
         Intent intent = new Intent(this, ChatBox.class);
-        intent.putExtra("buddyid", rosterEntry.getJid());
+        intent.putExtra("buddyid", rosterItem.getBareJID());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
@@ -107,9 +107,10 @@ public class DisplayRosterActivity extends FragmentActivity {
         }
     }
 
-    public void updateRosterList(ArrayList<RosterEntry> rosterList) {
-        ((RosterItemAdapter)(((ListView)findViewById(R.id.roster_list)).getAdapter())).setRosterEntries(rosterList);
-        ((RosterItemAdapter)(((ListView)findViewById(R.id.roster_list)).getAdapter())).notifyDataSetChanged();
+    public void updateRosterList(ArrayList<RosterItem> rosterList) {
+        RosterItemAdapter rosterItemAdapter = ((RosterItemAdapter)(((ListView)findViewById(R.id.roster_list)).getAdapter()));
+        rosterItemAdapter.setRosterItems(rosterList);
+        rosterItemAdapter.notifyDataSetChanged();
     }
 
     public void displayStatus(String status) {
