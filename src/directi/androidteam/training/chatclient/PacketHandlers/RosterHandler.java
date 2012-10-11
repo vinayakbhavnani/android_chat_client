@@ -1,6 +1,5 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
-import android.util.Log;
 import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.TagStore.IQTag;
 import directi.androidteam.training.TagStore.Query;
@@ -8,7 +7,6 @@ import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.TagStore.VCardTag;
 import directi.androidteam.training.chatclient.Roster.*;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
-import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.util.UUID;
 
@@ -53,13 +51,13 @@ public class RosterHandler implements Handler {
                 RosterManager.getInstance().updatePhoto(vCard, tag.getAttribute("from").split("/")[0]);
             }
         } else if(tag.getTagname().equals("presence")) {
-            Log.d("hhhhhhhhhhhhhhhhhh", (new XMLHelper()).buildPacket(tag));
             PresenceS presence = new PresenceS(tag);
-            if(presence.getType() == null) {              //this is to filter out unavailable users/contacts
-                RosterManager.getInstance().updatePresence(presence);
-                Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
-                PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(tag.getAttribute("to").split("/")[0]));
+            if(presence.getType() != null && presence.getType().equals("unavailable")) {
+                presence.addAvailability("unavailable");
             }
+            RosterManager.getInstance().updatePresence(presence);
+            Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
+            PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(tag.getAttribute("to").split("/")[0]));
         }
     }
 }
