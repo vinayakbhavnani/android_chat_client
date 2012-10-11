@@ -31,6 +31,16 @@ public class RosterItemAdapter extends ArrayAdapter<RosterItem> {
     }
 
     @Override
+    public RosterItem getItem(int i) {
+        return rosterItems.get(i);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return (long)i;
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if(view == null) {
