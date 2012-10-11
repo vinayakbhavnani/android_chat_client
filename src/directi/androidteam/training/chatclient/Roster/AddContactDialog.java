@@ -22,15 +22,12 @@ import directi.androidteam.training.chatclient.Util.PacketWriter;
  * To change this template use File | Settings | File Templates.
  */
 public class AddContactDialog extends DialogFragment {
-    public void addRosterEntry(String newJID) {
-        if (newJID == null || newJID.equals(""))
-            return;
-        RosterEntry rosterEntry = new RosterEntry(newJID);
+    public void sendChatInvitation(String invitedJID) {
         RosterSet rosterSet = new RosterSet();
-        rosterSet.addQuery(rosterEntry.getJid());
+        rosterSet.addQuery(invitedJID);
         PacketWriter.addToWriteQueue(rosterSet.getTag().setRecipientAccount(JID.getJid().split("/")[0]));
         PresenceS presenceS = new PresenceS();
-        presenceS.addReceiver(newJID);
+        presenceS.addReceiver(invitedJID);
         presenceS.addType("subscribe");
         PacketWriter.addToWriteQueue(presenceS.getTag().setRecipientAccount(JID.getJid().split("/")[0]));
     }
@@ -45,7 +42,7 @@ public class AddContactDialog extends DialogFragment {
                 .setPositiveButton(R.string.add_contact, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addRosterEntry(((EditText) view.findViewById(R.id.new_contact)).getText().toString());
+                        sendChatInvitation(((EditText) view.findViewById(R.id.new_contact)).getText().toString());
                         dismiss();
                     }
                 })

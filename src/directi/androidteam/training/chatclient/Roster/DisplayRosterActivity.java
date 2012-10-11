@@ -89,9 +89,6 @@ public class DisplayRosterActivity extends FragmentActivity {
                 (new AddContactDialog()).show(getSupportFragmentManager(), "add_contact_dialog_box_tag");
                 return true;
             case R.id.search_menu_item:
-                Intent intent = new Intent(this, SearchRosterEntry.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
                 return true;
             case R.id.logout_menu_item:
                 PresenceS presenceS = new PresenceS();
