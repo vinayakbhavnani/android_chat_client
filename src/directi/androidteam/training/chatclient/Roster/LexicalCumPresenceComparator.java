@@ -10,9 +10,15 @@ import java.util.Comparator;
  * To change this template use File | Settings | File Templates.
  */
 public class LexicalCumPresenceComparator implements Comparator<RosterItem> {
+    private PresenceComparator presenceComparator;
+
+    public LexicalCumPresenceComparator() {
+        this.presenceComparator = new PresenceComparator();
+    }
+
     @Override
     public int compare(RosterItem rosterItem1, RosterItem rosterItem2) {
-        int presenceOrder = rosterItem1.getPresence().compareTo(rosterItem2.getPresence());
+        int presenceOrder = this.presenceComparator.compare(rosterItem1, rosterItem2);
         if (presenceOrder == 0) {
             return rosterItem1.getBareJID().compareTo(rosterItem2.getBareJID());
         } else {
