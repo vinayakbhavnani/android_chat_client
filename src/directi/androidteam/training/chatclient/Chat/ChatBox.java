@@ -112,7 +112,6 @@ public class ChatBox extends FragmentActivity {
             MessageManager.getInstance().insertMessage(from,ms);
             return;
         }
-
         ChatNotifier cn = new ChatNotifier(context);
         cn.notifyChat(ms);
     }
