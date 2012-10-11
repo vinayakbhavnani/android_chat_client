@@ -30,16 +30,22 @@ public class ChatFragment extends ListFragment {
     private Vector<ChatListItem> chatListItems;
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
+    private Boolean bool = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
+
+
+
+
+
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
             chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));
-            Log.d("ASAS", "Chatfrgment : from : " + buddyid);
-            MyFragmentManager.getInstance().addFragEntry(buddyid);
+            if(bool)
+                MyFragmentManager.getInstance().addFragEntry(buddyid);
         }
         else
             chatListItems = new Vector<ChatListItem>();
@@ -49,12 +55,14 @@ public class ChatFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-
+        bool = true;
         adaptor = new ChatListAdaptor(getActivity(), chatListItems);
 
         ListView lv = getListView();
         LayoutInflater linf = getLayoutInflater(savedInstanceState);
         ViewGroup header = (ViewGroup)linf.inflate(R.layout.chatlistheader,lv,false);
+        lv.addHeaderView(header,null,false);
+
         TextView tv = (TextView)(header.findViewById(R.id.chatfragment_jid));
         tv.setText(buddyid);
         TextView status = (TextView)(header.findViewById(R.id.chatfragment_status));
@@ -71,7 +79,7 @@ public class ChatFragment extends ListFragment {
         });
         if(re!=null){
             status.setText(re.getStatus());
-            Log.d("statusmess",re.getPresence()+buddyid);
+            Log.d("statusmess", re.getPresence() + buddyid);
 
             if(re.getPresence().equals("dnd")){
                 presence.setTextColor(Color.RED);
@@ -88,8 +96,8 @@ public class ChatFragment extends ListFragment {
             }
         }
         else status.setText("null");
-        lv.addHeaderView(header,null,false);
         setListAdapter(adaptor);
+
     }
 
     private void sendGoneMsg(String buddyid) {
@@ -107,6 +115,15 @@ public class ChatFragment extends ListFragment {
     }
 
     public void addChatItem(MessageStanza message, boolean b){
+        if(chatListItems==null) {
+            return;
+/*
+            if(!(message.getFrom().equals(JID.getJid()) || message.getFrom().equals(JID.getBareJid())))
+                chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(message.getFrom()));
+            else
+                chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(message.getTo()));
+*/
+        }
         ChatListItem cli = new ChatListItem(message);
         if(b && chatListItems.size()>0)
             chatListItems.remove(chatListItems.size()-1); //added  - 3/10

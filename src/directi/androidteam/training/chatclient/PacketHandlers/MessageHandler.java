@@ -8,7 +8,6 @@ import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.Chat.ChatNotifier;
 import directi.androidteam.training.chatclient.Chat.MessageManager;
-import directi.androidteam.training.chatclient.Chat.MyFragmentManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,13 +38,14 @@ public class MessageHandler implements Handler{
                 return;
             }
             else if(ms.getBody()!=null) {
-                MyFragmentManager.getInstance().addFragEntry(from);
-                MessageManager.getInstance().insertMessage(from,ms);
                 if(ChatBox.getContext()==null){
                     ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
                     cn.notifyChat(ms);
                 }
-                else ChatBox.notifyChat(ms);
+                else {
+                    ChatBox.notifyChat(ms,from);
+                }
+
             }
         }
         else if(tag.getTagname().equals("iq")) {

@@ -106,8 +106,10 @@ public class ChatBox extends FragmentActivity {
             viewPager.setCurrentItem(0);
     }
 
-    public static void notifyChat(MessageStanza ms){
+    public static void notifyChat(MessageStanza ms, String from){
         if(viewPager.getCurrentItem()== MyFragmentManager.getInstance().JidToFragId(ms.getFrom())) {
+            MyFragmentManager.getInstance().addFragEntry(from);
+            MessageManager.getInstance().insertMessage(from,ms);
             return;
         }
 
@@ -225,9 +227,28 @@ public class ChatBox extends FragmentActivity {
     }
 
     public static void finishActivity(){
+        MyFragmentManager.getInstance().flush();
         Intent intent = new Intent(context,ChatBox.class);
         intent.putExtra("finish",true);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        MyFragmentManager.getInstance().flush();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MyFragmentManager.getInstance().flush();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyFragmentManager.getInstance().flush();
     }
 
     public static void composeToast(final String s) {

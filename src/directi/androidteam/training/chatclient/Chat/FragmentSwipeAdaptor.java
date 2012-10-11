@@ -40,4 +40,11 @@ public  class FragmentSwipeAdaptor extends FragmentStatePagerAdapter {
         return POSITION_NONE;
     }
 
+    @Override
+    public void destroyItem(android.view.ViewGroup container, int position, java.lang.Object object) {
+        super.destroyItem(container,position,object);
+        if(position<getCount()) {
+            MyFragmentManager.getInstance().removeFragEntry(position);
+        }
+    }
 }
