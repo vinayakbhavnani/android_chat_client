@@ -31,6 +31,10 @@ public class VCard {
         return this.avatar;
     }
 
+    public void setAvatar(Bitmap avatar) {
+        this.avatar = avatar;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -49,14 +53,19 @@ public class VCard {
                     this.avatarType = TYPE.getContent().split("/")[1];
                     Tag BINVAL = PHOTO.getChildTag("BINVAL");
                     String avatarBinVal = BINVAL.getContent();
-                    try {
-                        byte [] decodedAvatarBinVal = Base64.decode(avatarBinVal);
-                        this.avatar = BitmapFactory.decodeByteArray(decodedAvatarBinVal, 0, decodedAvatarBinVal.length);
-                    } catch (IOException e) {
-                        Log.d("IOException", e.toString());
-                    }
+                    this.avatar = decodeAvatar(avatarBinVal);
                 }
             }
         }
+    }
+
+    public Bitmap decodeAvatar(String encodedAvatar) {
+        try {
+            byte [] decodedAvatarBinVal = Base64.decode(encodedAvatar);
+            return BitmapFactory.decodeByteArray(decodedAvatarBinVal, 0, decodedAvatarBinVal.length);
+        } catch (IOException e) {
+            Log.d("IOException", e.toString());
+        }
+        return null;
     }
 }
