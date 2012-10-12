@@ -70,7 +70,7 @@ public class ChatFragment extends ListFragment {
             public void onClick(View view) {
                 MyFragmentManager.getInstance().removeFragEntry(buddyid);
                 sendGoneMsg();
-                closeFragment();
+                closeFragment(buddyid);
             }
         });
         if(re!=null){
@@ -158,11 +158,13 @@ public class ChatFragment extends ListFragment {
         return  chatItemList;
     }
 
-    public void closeFragment(){
+    public void closeFragment(String jid){
         if(MyFragmentManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
-        else
+        else {
             ChatBox.notifyFragmentAdaptorInSameThread();
+            ChatBox.removeFragmentviaFragManager(jid);
+        }
     }
 
 }

@@ -2,10 +2,12 @@ package directi.androidteam.training.chatclient.Chat;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +37,7 @@ public class ChatBox extends FragmentActivity {
     private static FragmentSwipeAdaptor frag_adaptor;
     private static ViewPager viewPager;
     private static Toast toast;
+    private static FragmentManager fragmentManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,8 @@ public class ChatBox extends FragmentActivity {
 
         setContentView(R.layout.chat);
         context=this;
-        frag_adaptor = new FragmentSwipeAdaptor(getSupportFragmentManager());
+        fragmentManager = getSupportFragmentManager();
+        frag_adaptor = new FragmentSwipeAdaptor(fragmentManager);
         viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(frag_adaptor);
         viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context));
@@ -239,5 +243,10 @@ public class ChatBox extends FragmentActivity {
             }
         }
         );
+    }
+
+    public static void removeFragmentviaFragManager(String jid) {
+        Fragment fragment = fragmentManager.findFragmentByTag(jid);
+        fragmentManager.beginTransaction().remove(fragment).commit();
     }
 }
