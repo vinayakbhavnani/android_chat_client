@@ -30,32 +30,28 @@ public class ChatFragment extends ListFragment {
     private Vector<ChatListItem> chatListItems;
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
-    private Boolean bool = false;
+
+    public ChatFragment(String from) {
+        this.buddyid = from;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-
-
-
-
-
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
             chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));
-            if(bool)
-                MyFragmentManager.getInstance().addFragEntry(buddyid);
         }
+        else if(!buddyid.equals(("talk.to")))
+                chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));
         else
             chatListItems = new Vector<ChatListItem>();
-//        MessageManager.getInstance().registerFragment(this);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        bool = true;
         adaptor = new ChatListAdaptor(getActivity(), chatListItems);
 
         ListView lv = getListView();
@@ -72,8 +68,8 @@ public class ChatFragment extends ListFragment {
         closeWindow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendGoneMsg(buddyid);
                 MyFragmentManager.getInstance().removeFragEntry(buddyid);
+                sendGoneMsg();
                 closeFragment();
             }
         });
@@ -100,14 +96,14 @@ public class ChatFragment extends ListFragment {
 
     }
 
-    private void sendGoneMsg(String buddyid) {
+    private void sendGoneMsg() {
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
         messageStanza.send();
     }
 
     public static ChatFragment getInstance(String from){
-        ChatFragment chatFragment = new ChatFragment();
+        ChatFragment chatFragment = new ChatFragment(from);
         Bundle args = new Bundle();
         args.putString("from", from);
         chatFragment.setArguments(args);
@@ -159,21 +155,20 @@ public class ChatFragment extends ListFragment {
 
     private synchronized Vector<ChatListItem> toChatListItemList(Vector<MessageStanza> list){
         Vector<ChatListItem> chatItemList = new Vector<ChatListItem>();
-        for (MessageStanza s : list) {
-            ChatListItem cli = new ChatListItem(s);
+        Object[] objects = list.toArray();
+        for (Object object : objects) {
+            ChatListItem cli = new ChatListItem((MessageStanza) object);
             chatItemList.add(cli);
         }
+
         return  chatItemList;
     }
 
     public void closeFragment(){
-        MessageStanza messageStanza = new MessageStanza(buddyid);
-        messageStanza.formGoneMsg();
-        messageStanza.send();
         if(MyFragmentManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
         else
-        ChatBox.recreateFragments();
+            ChatBox.notifyFragmentAdaptorInNewUIThread();
     }
 
 }

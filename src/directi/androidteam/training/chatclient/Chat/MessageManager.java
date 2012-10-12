@@ -84,14 +84,14 @@ public class MessageManager {
 /*
         Bundle bundle;
         if(listener_frag==null || (bundle = listener_frag.getArguments())==null) {
-             ChatBox.recreateFragments();
+             ChatBox.notifyFragmentAdaptorInNewUIThread();
             return;
         }
         if(bundle.get("from").equals(ms.getFrom()) || bundle.get("from").equals(JID.getJid())) {
             listener_frag.addChatItem(ms,b);
         }
         else {
-                ChatBox.recreateFragments();
+                ChatBox.notifyFragmentAdaptorInNewUIThread();
         }
 */
 /*

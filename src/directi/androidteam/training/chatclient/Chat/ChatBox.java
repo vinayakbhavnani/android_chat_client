@@ -74,8 +74,8 @@ public class ChatBox extends FragmentActivity {
         TextView hleft = (TextView)findViewById(R.id.chatboxheader_left);
         TextView hright = (TextView)findViewById(R.id.chatboxheader_right);
 
-        String left = MyFragmentManager.getInstance().FragIdToJid(i - 1);
-        String right = MyFragmentManager.getInstance().FragIdToJid(i + 1);
+        String left = MyFragmentManager.getInstance().getJidByFragId(i - 1);
+        String right = MyFragmentManager.getInstance().getJidByFragId(i + 1);
         if(left!=null)
             hleft.setText(left.split("@")[0]);
         else
@@ -97,23 +97,15 @@ public class ChatBox extends FragmentActivity {
         );
     }
 
-    public static void deletePage() {
-        int n = viewPager.getCurrentItem();
-        viewPager.removeViewAt(n);
-        if(n>0)
-            viewPager.setCurrentItem(n-1);
-        else if(MyFragmentManager.getInstance().getSizeofActiveChats()>0)
-            viewPager.setCurrentItem(0);
-    }
-
     public static void notifyChat(MessageStanza ms, String from){
-        if(viewPager.getCurrentItem()== MyFragmentManager.getInstance().JidToFragId(ms.getFrom())) {
-            MyFragmentManager.getInstance().addFragEntry(from);
-            MessageManager.getInstance().insertMessage(from,ms);
-            return;
+        if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom())) {
+            ChatNotifier cn = new ChatNotifier(context);
+            cn.notifyChat(ms);
+            Log.d("xcxc","notficatn done when chatcontext is not null");
         }
-        ChatNotifier cn = new ChatNotifier(context);
-        cn.notifyChat(ms);
+        MyFragmentManager.getInstance().addFragEntry(from);
+        Log.d("xcxc","before insert msg");
+        MessageManager.getInstance().insertMessage(from,ms);
     }
 
     public static void cancelNotification(){
@@ -174,7 +166,7 @@ public class ChatBox extends FragmentActivity {
             return;
         int currentItem = viewPager.getCurrentItem();
 
-        String jid = MyFragmentManager.getInstance().FragIdToJid(currentItem);
+        String jid = MyFragmentManager.getInstance().getJidByFragId(currentItem);
         MessageStanza messxml = new MessageStanza(jid,message);
         messxml.formActiveMsg();
         messxml.send();
@@ -214,7 +206,7 @@ public class ChatBox extends FragmentActivity {
         viewPager.setCurrentItem(frag);
     }
 
-    public static void recreateFragments() {
+    public static void notifyFragmentAdaptorInNewUIThread() {
         if(ChatBox.getContext()==null)
             return;
         Activity a = (Activity) context;
@@ -225,13 +217,17 @@ public class ChatBox extends FragmentActivity {
         );
     }
 
+    public static void notifyFragmentAdaptorInSameThread() {
+        frag_adaptor.notifyDataSetChanged();
+    }
+
     public static void finishActivity(){
-        MyFragmentManager.getInstance().flush();
         Intent intent = new Intent(context,ChatBox.class);
         intent.putExtra("finish",true);
         context.startActivity(intent);
     }
 
+/*
     @Override
     protected void onPause(){
         super.onPause();
@@ -249,6 +245,7 @@ public class ChatBox extends FragmentActivity {
         super.onDestroy();
         MyFragmentManager.getInstance().flush();
     }
+*/
 
     public static void composeToast(final String s) {
         Activity application = (Activity) context;

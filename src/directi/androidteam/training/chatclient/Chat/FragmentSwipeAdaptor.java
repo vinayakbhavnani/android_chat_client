@@ -9,6 +9,7 @@ package directi.androidteam.training.chatclient.Chat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,16 +19,19 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  * To change this template use File | Settings | File Templates.
  */
 public  class FragmentSwipeAdaptor extends FragmentStatePagerAdapter {
+    static FragmentManager fragmentManager;
     public FragmentSwipeAdaptor(FragmentManager fm) {
         super(fm);
+        fragmentManager = fm;
     }
 
     @Override
     public Fragment getItem(int i) {
         MyFragmentManager manager = MyFragmentManager.getInstance();
-        String from = manager.FragIdToJid(i);
-        manager.addFragEntry(from);
-        return manager.getFragByJID(from);
+        String from = manager.getJidByFragId(i);
+        Fragment fragment = manager.getFragByJID(from);
+        fragmentManager.beginTransaction().add(fragment, from).commit();
+        return fragment;
     }
 
     @Override
@@ -36,15 +40,13 @@ public  class FragmentSwipeAdaptor extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public int getItemPosition(Object item){
-        return POSITION_NONE;
-    }
-
-    @Override
     public void destroyItem(android.view.ViewGroup container, int position, java.lang.Object object) {
         super.destroyItem(container,position,object);
-        if(position<getCount()) {
-            MyFragmentManager.getInstance().removeFragEntry(position);
-        }
+        Log.d("xcxc", "destroy swiper : position = "+position);
+    }
+
+
+    public static Fragment getFragment(String jid) {
+        return fragmentManager.findFragmentByTag(jid);
     }
 }
