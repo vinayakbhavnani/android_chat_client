@@ -44,7 +44,7 @@ public class DisplayRosterActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.roster);
-        ((ListView)findViewById(R.id.roster_list)).setAdapter(new RosterItemAdapter(this));
+        ((ListView)findViewById(R.id.roster_list)).setAdapter(new RosterItemAdapter(this, R.layout.rosterlistitem, new ArrayList<RosterItem>()));
         ((ListView)findViewById(R.id.roster_list)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -55,9 +55,9 @@ public class DisplayRosterActivity extends FragmentActivity {
     }
 
     public void onListItemClick(ListView view, View v, int position, long id) {
-        RosterEntry rosterEntry = (RosterEntry) view.getItemAtPosition(position);
+        RosterItem rosterItem = (RosterItem) view.getItemAtPosition(position);
         Intent intent = new Intent(this, ChatBox.class);
-        intent.putExtra("buddyid", rosterEntry.getJid());
+        intent.putExtra("buddyid", rosterItem.getBareJID());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
@@ -89,14 +89,11 @@ public class DisplayRosterActivity extends FragmentActivity {
                 (new AddContactDialog()).show(getSupportFragmentManager(), "add_contact_dialog_box_tag");
                 return true;
             case R.id.search_menu_item:
-                Intent intent = new Intent(this, SearchRosterEntry.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
                 return true;
             case R.id.logout_menu_item:
                 PresenceS presenceS = new PresenceS();
                 presenceS.addType("unavailable");
-                PacketWriter.addToWriteQueue(presenceS.getTag().setRecipientAccount(presenceS.getFrom().split("/")[0]));
+                PacketWriter.addToWriteQueue(presenceS.getTag().setRecipientAccount(this.currentAccount.getJID().split("/")[0]));
                 UserDatabaseHandler db = new UserDatabaseHandler(this);
                 db.updateState(ConnectGTalk.username, "offline");
                 startActivity(new Intent(this, UserListActivity.class));
@@ -107,9 +104,10 @@ public class DisplayRosterActivity extends FragmentActivity {
         }
     }
 
-    public void updateRosterList(ArrayList<RosterEntry> rosterList) {
-        ((RosterItemAdapter)(((ListView)findViewById(R.id.roster_list)).getAdapter())).setRosterEntries(rosterList);
-        ((RosterItemAdapter)(((ListView)findViewById(R.id.roster_list)).getAdapter())).notifyDataSetChanged();
+    public void updateRosterList(ArrayList<RosterItem> rosterList) {
+        RosterItemAdapter rosterItemAdapter = ((RosterItemAdapter)(((ListView)findViewById(R.id.roster_list)).getAdapter()));
+        rosterItemAdapter.setRosterItems(rosterList);
+        rosterItemAdapter.notifyDataSetChanged();
     }
 
     public void displayStatus(String status) {

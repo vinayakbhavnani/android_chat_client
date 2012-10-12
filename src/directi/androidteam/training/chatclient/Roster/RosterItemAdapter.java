@@ -1,106 +1,75 @@
 package directi.androidteam.training.chatclient.Roster;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import directi.androidteam.training.chatclient.R;
 
 import java.util.ArrayList;
 
-public class RosterItemAdapter extends BaseAdapter {
+public class RosterItemAdapter extends ArrayAdapter<RosterItem> {
+    private ArrayList<RosterItem> rosterItems;
     private Context context;
-    private ArrayList<RosterEntry> rosterEntries;
 
-    public RosterItemAdapter(Context context) {
+    public RosterItemAdapter(Context context, int textViewResourceID, ArrayList<RosterItem> items) {
+        super(context, textViewResourceID, items);
+        this.rosterItems = items;
         this.context = context;
-        rosterEntries = new ArrayList<RosterEntry>();
-        Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
     }
 
-    public void setRosterEntries(ArrayList<RosterEntry> rosterEntriesInput){
-        rosterEntries = rosterEntriesInput;
-        Log.d("XXXX", "roster refresh called with size " + rosterEntries.size());
+    public void setRosterItems(ArrayList<RosterItem> rosterItems){
+        this.rosterItems = rosterItems;
     }
 
     @Override
     public int getCount() {
-        return rosterEntries.size();
+        return this.rosterItems.size();
     }
 
     @Override
-    public Object getItem(int i) {
-        return rosterEntries.get(i);
+    public RosterItem getItem(int i) {
+        return rosterItems.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public boolean isEnabled(int position) {
-        return true;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return 1;
+        return (long)i;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("XXXXX", "get view is called for position " + position);
-        View v = convertView;
-        RosterItemHolder rosterItemHolder;
-        if(convertView == null) {
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-            v = inflater.inflate(R.layout.rosterlistitem,null);
-
-            rosterItemHolder = new RosterItemHolder();
-            rosterItemHolder.rosterImg = (ImageView) v.findViewById(R.id.roster_image);
-            rosterItemHolder.rosterJid = (TextView) v.findViewById(R.id.roster_item);
-            rosterItemHolder.availabilityImage = (ImageView)v.findViewById(R.id.list_availability_image);
-            rosterItemHolder.rosterStatus = (TextView) v.findViewById(R.id.roster_status);
-            v.setTag(rosterItemHolder);
-        } else {
-            rosterItemHolder = (RosterItemHolder) v.getTag();
+        View view = convertView;
+        if(view == null) {
+            LayoutInflater vi = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = vi.inflate(R.layout.rosterlistitem,null);
         }
-        RosterEntry rosterEntry = rosterEntries.get(position);
-        if(rosterEntry != null) {
-        //    new ImageResize().attachIcon(rosterItemHolder.rosterImg,context);
-            rosterItemHolder.rosterImg.setImageBitmap(rosterEntry.avatar);
-            rosterItemHolder.rosterJid.setText(rosterEntry.getJid());
-            if(rosterEntry.getPresence() != null) {
-                Log.d("ssss","jid : "+rosterEntry.getJid()+"  presence :"+rosterEntry.getPresence() + "status"+rosterEntry.getStatus());
-                if(rosterEntry.getPresence().equals("dnd")) {
-                    rosterItemHolder.availabilityImage.setImageResource(R.drawable.red);
-                } else if(rosterEntry.getPresence().equals("away")) {
-                    rosterItemHolder.availabilityImage.setImageResource(R.drawable.yellow);
-                } else if(rosterEntry.getPresence().equals("chat")) {
-                    rosterItemHolder.availabilityImage.setImageResource(R.drawable.green);
-                } else {
-                    rosterItemHolder.availabilityImage.setImageResource(R.drawable.gray);
-                }
-            } else {
-                rosterItemHolder.availabilityImage.setImageResource(R.drawable.gray);
-            }
-            if(rosterEntry.getStatus() != null) {
-                rosterItemHolder.rosterStatus.setText(rosterEntry.getStatus());
-            }
+        RosterItem rosterItem = rosterItems.get(position);
+        if (rosterItem != null) {
+            TextView JIDTextView = (TextView)view.findViewById(R.id.roster_jid);
+            JIDTextView.setText(rosterItem.getBareJID());
+            TextView statusTextView = (TextView)view.findViewById(R.id.roster_status);
+            statusTextView.setText(rosterItem.getStatus());
+            ImageView avatarImageView = (ImageView)view.findViewById(R.id.roster_image);
+            avatarImageView.setImageBitmap(rosterItem.getAvatar());
+            ImageView availabilityImageView = (ImageView)view.findViewById(R.id.list_availability_image);
+            this.setAvailabilityImage(availabilityImageView, rosterItem.getPresence());
         }
-        return v;
+        return view;
     }
 
-    static class RosterItemHolder {
-        ImageView rosterImg;
-        TextView rosterJid;
-        TextView rosterStatus;
-        ImageView availabilityImage;
+    public void setAvailabilityImage(ImageView imageView, String presenceAvailability) {
+        if (presenceAvailability.equals("chat")) {
+            imageView.setImageResource(R.drawable.green);
+        } else if (presenceAvailability.equals("dnd")) {
+            imageView.setImageResource(R.drawable.red);
+        } else if (presenceAvailability.equals("away") || presenceAvailability.equals("xa")) {
+            imageView.setImageResource(R.drawable.yellow);
+        } else if (presenceAvailability.equals("unavailable")) {
+            imageView.setImageResource(R.drawable.gray);
+        }
     }
 }

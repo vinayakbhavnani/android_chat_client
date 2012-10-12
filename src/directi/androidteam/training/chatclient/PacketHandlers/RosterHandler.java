@@ -1,7 +1,6 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
 import directi.androidteam.training.StanzaStore.PresenceS;
-import directi.androidteam.training.StanzaStore.RosterResult;
 import directi.androidteam.training.TagStore.IQTag;
 import directi.androidteam.training.TagStore.Query;
 import directi.androidteam.training.TagStore.Tag;
@@ -33,7 +32,7 @@ public class RosterHandler implements Handler {
             if (tag.contains("query")) {
                 final Tag queryTag = tag.getChildTag("query");
                 if (queryTag.getAttribute("xmlns").equals("jabber:iq:roster")) {
-                    RosterManager.getInstance().setRosterList(new RosterResult(tag));
+                    RosterManager.getInstance().setRosterList(tag);
                     PacketWriter.addToWriteQueue((new IQTag(UUID.randomUUID().toString(), tag.getAttribute("to").split("/")[0], "get", new Query("google:shared-status", "2")).setRecipientAccount(tag.getAttribute("to").split("/")[0])));
                 } else if (queryTag.getAttribute("xmlns").equals("google:shared-status")) {
                     (new SendPresence(RequestRoster.callerActivity)).execute(tag.getAttribute("to"), queryTag.getChildTag("status").getContent(), queryTag.getChildTag("show").getContent());
@@ -49,15 +48,16 @@ public class RosterHandler implements Handler {
             } else if (tag.contains("vCard")) {
                 VCard vCard = new VCard();
                 vCard.populateFromTag(tag);
-                RosterManager.getInstance().updatePhoto(vCard);
+                RosterManager.getInstance().updatePhoto(vCard, tag.getAttribute("from").split("/")[0]);
             }
         } else if(tag.getTagname().equals("presence")) {
             PresenceS presence = new PresenceS(tag);
-            if(presence.getType() == null) {
-                RosterManager.getInstance().updatePresence(presence);
-                Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
-                PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(tag.getAttribute("to").split("/")[0]));
+            if(presence.getType() != null && presence.getType().equals("unavailable")) {
+                presence.addAvailability("unavailable");
             }
+            RosterManager.getInstance().updatePresence(presence);
+            Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
+            PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(tag.getAttribute("to").split("/")[0]));
         }
     }
 }

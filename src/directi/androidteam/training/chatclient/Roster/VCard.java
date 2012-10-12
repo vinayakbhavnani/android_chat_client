@@ -18,13 +18,11 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class VCard {
-    private String bareJID;
     private String name;
     private String avatarType;
     private Bitmap avatar;
 
     public VCard() {
-        this.bareJID = "";
         this.name = "";
         this.avatar = BitmapFactory.decodeResource(ChatApplication.getAppContext().getResources(), R.drawable.default_user);
     }
@@ -33,12 +31,11 @@ public class VCard {
         return this.avatar;
     }
 
-    public String getBareJID() {
-        return this.bareJID;
+    public String getName() {
+        return this.name;
     }
 
     public void populateFromTag(Tag tag) {
-        this.bareJID = tag.getAttribute("from").split("/")[0];
         if (tag.getChildTags() != null) {
             tag = tag.getChildTag("vCard");
             if (tag.getChildTags() != null) {
