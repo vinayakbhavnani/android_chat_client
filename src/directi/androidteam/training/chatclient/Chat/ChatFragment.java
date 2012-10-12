@@ -113,12 +113,6 @@ public class ChatFragment extends ListFragment {
     public void addChatItem(MessageStanza message, boolean b){
         if(chatListItems==null) {
             return;
-/*
-            if(!(message.getFrom().equals(JID.getJid()) || message.getFrom().equals(JID.getBareJid())))
-                chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(message.getFrom()));
-            else
-                chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(message.getTo()));
-*/
         }
         ChatListItem cli = new ChatListItem(message);
         if(b && chatListItems.size()>0)

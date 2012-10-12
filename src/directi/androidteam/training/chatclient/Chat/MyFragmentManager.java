@@ -80,10 +80,6 @@ public class MyFragmentManager {
             ChatBox.notifyFragmentAdaptorInSameThread();  //changed
     }
 
-    public synchronized void flush() {
-        JIDOrderOfFragments = new Vector<String>();
-    }
-
     public ChatFragment getFragByJID(String jid) {
         return ChatFragment.getInstance(jid);
     }

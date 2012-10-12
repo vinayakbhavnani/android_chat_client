@@ -67,7 +67,6 @@ public class ChatBox extends FragmentActivity {
         RosterGet rosterGet = new RosterGet();
         rosterGet.setReceiver(from).setQueryAttribute("xmlns",queryAttr);
         rosterGet.send();
-       // PacketWriter.addToWriteQueue(rosterGet.get);
     }
 
     public void updateHeader(int i){
@@ -226,26 +225,6 @@ public class ChatBox extends FragmentActivity {
         intent.putExtra("finish",true);
         context.startActivity(intent);
     }
-
-/*
-    @Override
-    protected void onPause(){
-        super.onPause();
-        MyFragmentManager.getInstance().flush();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        MyFragmentManager.getInstance().flush();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        MyFragmentManager.getInstance().flush();
-    }
-*/
 
     public static void composeToast(final String s) {
         Activity application = (Activity) context;

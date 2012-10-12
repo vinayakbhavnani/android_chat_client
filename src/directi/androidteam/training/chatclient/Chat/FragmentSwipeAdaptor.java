@@ -1,11 +1,6 @@
 package directi.androidteam.training.chatclient.Chat;
 
 
-
-
-//import android.support.v4.app.MyFragmentManager;
-//import 	android.support.v4.app.FragmentStatePagerAdapter;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
