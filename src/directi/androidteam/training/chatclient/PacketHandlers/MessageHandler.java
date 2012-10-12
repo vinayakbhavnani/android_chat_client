@@ -38,12 +38,14 @@ public class MessageHandler implements Handler{
                 return;
             }
             else if(ms.getBody()!=null) {
-                MessageManager.getInstance().insertMessage(from,ms);
                 if(ChatBox.getContext()==null){
                     ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
                     cn.notifyChat(ms);
                 }
-                else ChatBox.notifyChat(ms);
+                else {
+                    ChatBox.notifyChat(ms,from);
+                }
+
             }
         }
         else if(tag.getTagname().equals("iq")) {

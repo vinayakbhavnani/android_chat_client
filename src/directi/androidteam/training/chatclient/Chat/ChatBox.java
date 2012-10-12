@@ -67,15 +67,14 @@ public class ChatBox extends FragmentActivity {
         RosterGet rosterGet = new RosterGet();
         rosterGet.setReceiver(from).setQueryAttribute("xmlns",queryAttr);
         rosterGet.send();
-       // PacketWriter.addToWriteQueue(rosterGet.get);
     }
 
     public void updateHeader(int i){
         TextView hleft = (TextView)findViewById(R.id.chatboxheader_left);
         TextView hright = (TextView)findViewById(R.id.chatboxheader_right);
 
-        String left = MyFragmentManager.getInstance().FragToJid(i - 1);
-        String right = MyFragmentManager.getInstance().FragToJid(i + 1);
+        String left = MyFragmentManager.getInstance().getJidByFragId(i - 1);
+        String right = MyFragmentManager.getInstance().getJidByFragId(i + 1);
         if(left!=null)
             hleft.setText(left.split("@")[0]);
         else
@@ -97,22 +96,15 @@ public class ChatBox extends FragmentActivity {
         );
     }
 
-    public static void deletePage() {
-        int n = viewPager.getCurrentItem();
-        viewPager.removeViewAt(n);
-        if(n>0)
-            viewPager.setCurrentItem(n-1);
-        else if(MyFragmentManager.getInstance().getSizeofActiveChats()>0)
-            viewPager.setCurrentItem(0);
-    }
-
-    public static void notifyChat(MessageStanza ms){
-        if(viewPager.getCurrentItem()== MyFragmentManager.getInstance().JidToFrag(ms.getFrom())) {
-            return;
+    public static void notifyChat(MessageStanza ms, String from){
+        if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom())) {
+            ChatNotifier cn = new ChatNotifier(context);
+            cn.notifyChat(ms);
+            Log.d("xcxc","notficatn done when chatcontext is not null");
         }
-
-        ChatNotifier cn = new ChatNotifier(context);
-        cn.notifyChat(ms);
+        MyFragmentManager.getInstance().addFragEntry(from);
+        Log.d("xcxc","before insert msg");
+        MessageManager.getInstance().insertMessage(from,ms);
     }
 
     public static void cancelNotification(){
@@ -137,6 +129,7 @@ public class ChatBox extends FragmentActivity {
         {
             EditText editText = (EditText) findViewById(R.id.enter_message);
             editText.addTextChangedListener(new MsgTextChangeListener(from));
+            MyFragmentManager.getInstance().addFragEntry(from);
             switchFragment(from);
             sendDiscoInfoQuery(from);
         }
@@ -173,7 +166,7 @@ public class ChatBox extends FragmentActivity {
             return;
         int currentItem = viewPager.getCurrentItem();
 
-        String jid = MyFragmentManager.getInstance().FragToJid(currentItem);
+        String jid = MyFragmentManager.getInstance().getJidByFragId(currentItem);
         MessageStanza messxml = new MessageStanza(jid,message);
         messxml.formActiveMsg();
         messxml.send();
@@ -181,7 +174,6 @@ public class ChatBox extends FragmentActivity {
         PacketStatusManager.getInstance().pushMsPacket(messxml);
         MyFragmentManager.getInstance().addFragEntry(jid);
         MessageManager.getInstance().insertMessage(jid, messxml);
-        MyFragmentManager.getInstance().updateFragment(jid);
 
         viewPager.setCurrentItem(currentItem);
 
@@ -209,12 +201,12 @@ public class ChatBox extends FragmentActivity {
         }
     }
     private void switchFragment(String from){
-        int frag = MyFragmentManager.getInstance().JidToFrag(from);
+        int frag = MyFragmentManager.getInstance().JidToFragId(from);
         updateHeader(frag);
         viewPager.setCurrentItem(frag);
     }
 
-    public static void recreateFragments() {
+    public static void notifyFragmentAdaptorInNewUIThread() {
         if(ChatBox.getContext()==null)
             return;
         Activity a = (Activity) context;
@@ -223,6 +215,10 @@ public class ChatBox extends FragmentActivity {
             frag_adaptor.notifyDataSetChanged();
         }}
         );
+    }
+
+    public static void notifyFragmentAdaptorInSameThread() {
+        frag_adaptor.notifyDataSetChanged();
     }
 
     public static void finishActivity(){

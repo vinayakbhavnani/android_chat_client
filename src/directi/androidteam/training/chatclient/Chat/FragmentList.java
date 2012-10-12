@@ -1,6 +1,5 @@
 package directi.androidteam.training.chatclient.Chat;
 
-import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 
 import java.util.Vector;
@@ -16,6 +15,10 @@ public class FragmentList extends Vector<MessageStanza> {
 
     ChatFragment listener_frag;
 
+    public FragmentList() {
+        super();
+    }
+
     public void registerFragment(ChatFragment frag){
         this.listener_frag = frag;
     }
@@ -27,7 +30,7 @@ public class FragmentList extends Vector<MessageStanza> {
     public boolean add(MessageStanza e,Boolean b){
         boolean ret = super.add(e);
         if(listener_frag!=null){
-            listener_frag.addChatItem(e,b);
+            listener_frag.addChatItem(e, b);
         }
         return ret;
     }

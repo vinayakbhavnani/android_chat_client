@@ -31,6 +31,10 @@ public class ChatFragment extends ListFragment {
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
 
+    public ChatFragment(String from) {
+        this.buddyid = from;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -38,23 +42,23 @@ public class ChatFragment extends ListFragment {
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
             chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));
-            Log.d("ASAS", "Chatfrgment : from : " + buddyid);
         }
+        else if(!buddyid.equals(("talk.to")))
+                chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));
         else
             chatListItems = new Vector<ChatListItem>();
-
-        MessageManager.getInstance().registerFragment(this);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-
         adaptor = new ChatListAdaptor(getActivity(), chatListItems);
 
         ListView lv = getListView();
         LayoutInflater linf = getLayoutInflater(savedInstanceState);
         ViewGroup header = (ViewGroup)linf.inflate(R.layout.chatlistheader,lv,false);
+        lv.addHeaderView(header,null,false);
+
         TextView tv = (TextView)(header.findViewById(R.id.chatfragment_jid));
         tv.setText(buddyid);
         TextView status = (TextView)(header.findViewById(R.id.chatfragment_status));
@@ -64,14 +68,14 @@ public class ChatFragment extends ListFragment {
         closeWindow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendGoneMsg(buddyid);
                 MyFragmentManager.getInstance().removeFragEntry(buddyid);
+                sendGoneMsg();
                 closeFragment();
             }
         });
         if(re!=null){
             status.setText(re.getStatus());
-            Log.d("statusmess",re.getPresence()+buddyid);
+            Log.d("statusmess", re.getPresence() + buddyid);
 
             if(re.getPresence().equals("dnd")){
                 presence.setTextColor(Color.RED);
@@ -88,19 +92,18 @@ public class ChatFragment extends ListFragment {
             }
         }
         else status.setText("null");
-        lv.addHeaderView(header,null,false);
         setListAdapter(adaptor);
+
     }
 
-    private void sendGoneMsg(String buddyid) {
+    private void sendGoneMsg() {
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
         messageStanza.send();
     }
 
     public static ChatFragment getInstance(String from){
-        ChatFragment chatFragment = new ChatFragment();
-//        Log.d("ASAS", "chatfrag - getinstance from  : " +from);
+        ChatFragment chatFragment = new ChatFragment(from);
         Bundle args = new Bundle();
         args.putString("from", from);
         chatFragment.setArguments(args);
@@ -108,6 +111,9 @@ public class ChatFragment extends ListFragment {
     }
 
     public void addChatItem(MessageStanza message, boolean b){
+        if(chatListItems==null) {
+            return;
+        }
         ChatListItem cli = new ChatListItem(message);
         if(b && chatListItems.size()>0)
             chatListItems.remove(chatListItems.size()-1); //added  - 3/10
@@ -142,23 +148,21 @@ public class ChatFragment extends ListFragment {
     }
 
     private synchronized Vector<ChatListItem> toChatListItemList(Vector<MessageStanza> list){
-        Vector<ChatListItem> chatItemList;
-        chatItemList = new Vector<ChatListItem>();
-        for (MessageStanza s : list) {
-            ChatListItem cli = new ChatListItem(s);
+        Vector<ChatListItem> chatItemList = new Vector<ChatListItem>();
+        Object[] objects = list.toArray();
+        for (Object object : objects) {
+            ChatListItem cli = new ChatListItem((MessageStanza) object);
             chatItemList.add(cli);
         }
+
         return  chatItemList;
     }
 
     public void closeFragment(){
-        MessageStanza messageStanza = new MessageStanza(buddyid);
-        messageStanza.formGoneMsg();
-        messageStanza.send();
         if(MyFragmentManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
         else
-        ChatBox.recreateFragments();
+            ChatBox.notifyFragmentAdaptorInSameThread();
     }
 
 }
