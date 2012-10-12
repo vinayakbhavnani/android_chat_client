@@ -162,7 +162,7 @@ public class ChatFragment extends ListFragment {
         if(MyFragmentManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
         else
-            ChatBox.notifyFragmentAdaptorInNewUIThread();
+            ChatBox.notifyFragmentAdaptorInSameThread();
     }
 
 }

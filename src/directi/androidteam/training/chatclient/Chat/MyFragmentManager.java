@@ -24,10 +24,9 @@ public class MyFragmentManager {
 
     public static MyFragmentManager getInstance() {
         return fragmentManager;
-
     }
 
-    public synchronized void addFragEntry(final String jid) {
+    public void addFragEntry(final String jid) {
         if(jid==null)
             return;
         Log.d("xcxc","addFragEntry : jid : "+jid);
@@ -42,7 +41,6 @@ public class MyFragmentManager {
             Activity application = (Activity) context;
                 application.runOnUiThread(new Runnable() {
                     public void run() {
-                        ChatFragment chatFragment = ChatFragment.getInstance(jid);
                         JIDOrderOfFragments.add(jid);
                         ChatBox.notifyFragmentAdaptorInSameThread();
                     }
@@ -50,7 +48,7 @@ public class MyFragmentManager {
         }
     }
 
-    public synchronized void removeFragEntry(String jid) {
+    public void removeFragEntry(String jid) {
         if(jid==null)
             return;
         Log.d("xcxc","addFragEntry : jid : "+jid);
@@ -59,25 +57,6 @@ public class MyFragmentManager {
                 JIDOrderOfFragments.remove(s);
             }
         }
-        if(ChatBox.getContext()!=null)
-            ChatBox.notifyFragmentAdaptorInNewUIThread();
-    }
-
-    public synchronized void removeFragEntry(int position) {
-        if(position>=getSizeofActiveChats())
-            return;
-        int i=0;
-        String jid = "";
-        for (String s : JIDOrderOfFragments) {
-            if(i==position) {
-                jid = JIDOrderOfFragments.get(i);
-                JIDOrderOfFragments.remove(s);
-                break;
-            }
-            i++;
-        }
-//        if(ChatBox.getContext()!=null)
-            ChatBox.notifyFragmentAdaptorInSameThread();  //changed
     }
 
     public ChatFragment getFragByJID(String jid) {

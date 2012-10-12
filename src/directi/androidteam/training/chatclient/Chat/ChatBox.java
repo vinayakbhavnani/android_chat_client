@@ -129,6 +129,7 @@ public class ChatBox extends FragmentActivity {
         {
             EditText editText = (EditText) findViewById(R.id.enter_message);
             editText.addTextChangedListener(new MsgTextChangeListener(from));
+            MyFragmentManager.getInstance().addFragEntry(from);
             switchFragment(from);
             sendDiscoInfoQuery(from);
         }
