@@ -13,6 +13,14 @@
         android:layout_weight="1"
         android:layout_width="fill_parent"
         />
+    <Spinner
+            android:id="@+id/accountScreen_spinner"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+
+            />
+
     <Button
         android:id="@+id/accountScreen_add"
         android:layout_height="40dp"
@@ -22,6 +30,7 @@
         android:background="@color/Gray"
         android:text="Add "
         android:textStyle="bold"
+        android:onClick="goToaddAccount"
 
         />
 

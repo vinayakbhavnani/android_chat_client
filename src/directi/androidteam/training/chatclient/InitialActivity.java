@@ -59,7 +59,7 @@ public class InitialActivity extends Activity {
         UserDatabaseHandler db = new UserDatabaseHandler(this);
         ArrayList<User> users = db.getAllUsers();
         if (users.size() == 0) {
-            Intent intent = new Intent(this, LoginActivity.class);
+            Intent intent = new Intent(this, DisplayAccounts.class);
             startActivity(intent);
             this.finish();
         } else {

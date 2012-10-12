@@ -2,6 +2,9 @@ package directi.androidteam.training;
 
 import android.app.Application;
 import android.content.Context;
+import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
+import directi.androidteam.training.chatclient.MessageQueueProcessor;
+import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +19,8 @@ public class ChatApplication extends Application {
     public void onCreate() {
         super.onCreate();
         ChatApplication.context = getApplicationContext();
+        ConnectGTalk.launchInNewThread(new MessageQueueProcessor());
+        ConnectGTalk.launchInNewThread(new PacketWriter());
     }
 
     public static Context getAppContext() {

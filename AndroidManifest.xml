@@ -41,6 +41,12 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="directi.androidteam.training.chatclient.Roster.DisplayRosterActivity" /> -->
         </activity>
+        <activity android:name="directi.androidteam.training.chatclient.Authentication.DisplayAccounts"
+                  android:label="@string/app_name">
+            <!--            <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="directi.androidteam.training.chatclient.Roster.DisplayRosterActivity" /> -->
+        </activity>
         <activity android:name="directi.androidteam.training.chatclient.Authentication.LoginErrorActivity"
                   android:label="@string/app_name">
 <!--            <meta-data

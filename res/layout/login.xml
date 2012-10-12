@@ -36,6 +36,7 @@
 
             android:src="@drawable/gtalk"
 
+
             />
      <ImageView
          android:id="@+id/pingpong_icon"
@@ -71,6 +72,43 @@
               android:layout_height="wrap_content"
               android:hint="@string/password"
             />
+    <RadioGroup
+        android:id="@+id/addaccount_radio"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        >
+        <RadioButton
+            android:id="@+id/addaccount_gtalk"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="gtalk"
+            android:textColor="@color/Black"
+            android:checked="true"
+
+            />
+        <RadioButton
+                android:id="@+id/addaccount_pingpong"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="pingpong"
+                android:textColor="@color/Black"
+                android:layout_marginLeft="20dp"
+                />
+            </RadioGroup>
+        <Button
+            android:id="@+id/addaccount_addbutton"
+            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Add"
+            android:layout_gravity="center"
+            android:onClick="addAccount"
+            />
+
 <!--    <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_login"

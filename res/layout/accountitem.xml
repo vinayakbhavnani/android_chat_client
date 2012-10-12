@@ -22,12 +22,14 @@
         android:textColor="@color/Black"
         android:text="vinayak.bhavnani@gmail.com"
         />
-    <ImageView
-        android:id="@+id/accountitem_presence"
-        android:layout_height="fill_parent"
-        android:layout_width="10dp"
-        android:src="@drawable/green"
-        android:scaleType="center"
+    <TextView
+            android:id="@+id/accountitem_presence"
+            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:text="online"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
         />
     <ImageView
         android:id="@+id/accountitem_settings"
@@ -38,7 +40,9 @@
         android:src="@drawable/settings"
         android:clickable="true"
         android:onClick="accountSettings"
+
         />
+
 
 
 </LinearLayout>

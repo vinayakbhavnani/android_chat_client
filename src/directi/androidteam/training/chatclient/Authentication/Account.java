@@ -1,6 +1,7 @@
 package directi.androidteam.training.chatclient.Authentication;
 
 import android.util.Log;
+import directi.androidteam.training.TagStore.StreamClose;
 import directi.androidteam.training.chatclient.Util.PacketReader;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.chatclient.Util.ServiceThread;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,10 +26,16 @@ public  abstract class Account {
     protected Socket socket;
     protected Thread readerThread;
     protected String accountJid;
-    protected boolean loginStatus;
+    protected LoginStatus loginStatus;
     protected XMPPLogin xmppLogin;
     protected  String serverURL;
     protected  int serverPort;
+
+    public int getServiceIcon() {
+        return serviceIcon;
+    }
+
+    protected int serviceIcon;
 
     public Thread getReaderThread() {
         return readerThread;
@@ -45,11 +53,11 @@ public  abstract class Account {
         this.accountJid = accountJid;
     }
 
-    public boolean isLoginStatus() {
+    public LoginStatus isLoginStatus() {
         return loginStatus;
     }
 
-    public void setLoginStatus(boolean loginStatus) {
+    public void setLoginStatus(LoginStatus loginStatus) {
         this.loginStatus = loginStatus;
     }
 
@@ -65,6 +73,16 @@ public  abstract class Account {
 
     public Account() {
 
+    }
+
+    public static Account createAccount(String username, String password , String service){
+        Account ret = null;
+        if(service.equals("gtalk"))
+            ret = new GtalkAccount(username,password,true);
+        else if(service.equals("pingpong"))
+            ret = new PingPongAccount(username,password);
+
+        return ret;
     }
 
     protected Socket createSocket() throws IOException {
@@ -103,12 +121,26 @@ public  abstract class Account {
     }
 
     public void Login(){
+        try {
+            this.socket = createSocket();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+            setupReaderWriter(launchInNewThread(new PacketReader(reader, accountJid)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         xmppLogin.initiateLogin();
+        loginStatus=LoginStatus.CONNECTING;
     }
 
+    public void Logout(){
+        StreamClose close = new StreamClose();
+        close.setRecipientAccount(accountJid);
+        PacketWriter.addToWriteQueue(close);
+        loginStatus=LoginStatus.OFFLINE;
+    }
+}
 
 
-
-
-
+enum LoginStatus {
+    ONLINE,OFFLINE,CONNECTING,UNABLETOCONNECT
 }

@@ -2,6 +2,7 @@ package directi.androidteam.training.chatclient.Authentication;
 
 import android.accounts.AccountManagerFuture;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
     public static String username = "";
     public static String password = "";
     public static Activity callerActivity = null;
+    String service;
 
     public ConnectGTalk(Activity parent) {
         callerActivity = parent;
@@ -42,7 +44,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         return socket;
     }
 
-    private Thread launchInNewThread(final ServiceThread serviceThread) {
+    public static Thread launchInNewThread(final ServiceThread serviceThread) {
         Thread t = new Thread() {
             public void run() {
                 serviceThread.execute();
@@ -76,6 +78,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
     public Boolean doInBackground (String ...params) {
         username = params[0];
         password = params[1];
+        service = params[2];
         boolean account = false;
         boolean tokenbased = false;
         if(tokenbased){
@@ -110,21 +113,10 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         }
         Log.d("Bootup :","Executed all start functions of threads");
         return null;*/
-        launchInNewThread(new MessageQueueProcessor());
-        launchInNewThread(new PacketWriter());
-        Account gtalk = null;
-        if(account)
-            gtalk = new PingPongAccount(username,password);
-        else
-            gtalk = new GtalkAccount(username,password,true);
-        try {
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(gtalk.getSocket().getInputStream()));
-            gtalk.setupReaderWriter(launchInNewThread(new PacketReader(reader, username)));
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        Account gtalk = Account.createAccount(username,password,service);
         gtalk.Login();
+
         return null;
     }
 }

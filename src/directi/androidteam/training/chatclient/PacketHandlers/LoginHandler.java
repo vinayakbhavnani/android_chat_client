@@ -112,11 +112,14 @@ public class LoginHandler implements Handler {
             UserDatabaseHandler db = new UserDatabaseHandler(ChatApplication.getAppContext());
             db.addUser(new User(ConnectGTalk.username, ConnectGTalk.password));
 
-            Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
+            /*Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(LoginActivity.USERNAME, ConnectGTalk.username);
             intent.putExtra("bareJID", bareJID);
-           ChatApplication.getAppContext().startActivity(intent);
+           ChatApplication.getAppContext().startActivity(intent);*/
+            Intent intent = new Intent(ChatApplication.getAppContext(),DisplayAccounts.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            ChatApplication.getAppContext().startActivity(intent);
             if (ConnectGTalk.callerActivity != null) {
                 ConnectGTalk.callerActivity.setResult(Activity.RESULT_OK);
                 ConnectGTalk.callerActivity.finish();

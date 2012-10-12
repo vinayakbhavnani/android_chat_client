@@ -25,8 +25,9 @@ public class DBManager extends SQLiteOpenHelper {
 
     public static final String TABLE_2_NAME = "users";
     public static final String KEY_2_USERNAME = "username";
-    public static final String KEY_2_PASSWORD = "password";
-    public static final String KEY_2_STATE = "login_status";
+    public static final String KEY_2_PASSWORD = "authstring";
+    public static final String KEY_2_STATE = "loginstatus";
+    public static final String KEY_2_SERVICE = "service";
 
     private static DBManager dbManager = new DBManager();
 
@@ -38,7 +39,7 @@ public class DBManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String CREATE_TABLE = "CREATE TABLE " + TABLE_1_NAME + "(" + KEY_1_JID_SENDER + " TEXT, " + KEY_1_JID_RECEIVER + " TEXT, " + KEY_1_MESSAGE + " TEXT, " + KEY_1_ID + " TEXT, " + KEY_1_TIME + " INTEGER" + ")";
         sqLiteDatabase.execSQL(CREATE_TABLE);
-        CREATE_TABLE = "CREATE TABLE " + TABLE_2_NAME + "(" + KEY_2_USERNAME + " TEXT, " + KEY_2_PASSWORD + " TEXT, " + KEY_2_STATE + " TEXT" + ")";
+        CREATE_TABLE = "CREATE TABLE " + TABLE_2_NAME + "(" + KEY_2_USERNAME + " TEXT, " + KEY_2_PASSWORD + " TEXT, " + KEY_2_STATE + " TEXT," + KEY_2_SERVICE + " TEXT" +")";
         sqLiteDatabase.execSQL(CREATE_TABLE);
     }
 

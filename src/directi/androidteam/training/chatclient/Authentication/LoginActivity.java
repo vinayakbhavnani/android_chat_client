@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import directi.androidteam.training.chatclient.R;
 
 import java.io.IOException;
@@ -92,6 +94,26 @@ public class LoginActivity extends Activity {
             /*ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
             progressBar.setVisibility(View.VISIBLE);
             (new ConnectGTalk(this)).execute(username, password);*/
+        }
+    }
+
+    public void addAccount(View view){
+        String username = ((EditText) findViewById(R.id.username)).getText().toString();
+        String password = ((EditText) findViewById(R.id.password)).getText().toString();
+        RadioGroup group = (RadioGroup) findViewById(R.id.addaccount_radio);
+        String service =   (String)((RadioButton)findViewById(group.getCheckedRadioButtonId())).getText();
+        if (username.equals("")) {
+            ((EditText) findViewById(R.id.username)).setError("This Field Cannot Be Left Blank");
+        } else if (password.equals("")) {
+            ((EditText) findViewById(R.id.password)).setError("This Field Cannot Be Left Blank");
+        } else {
+            //(new ConnectGTalk(this)).execute(username, password,service);
+            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.VISIBLE);
+            //(new ConnectGTalk(this)).execute(username, password);*/
+            Account account = Account.createAccount(username,password,service);
+            new LoginTask(account).execute();
+            AccountManager.getInstance().addAccount(account);
         }
     }
 }
