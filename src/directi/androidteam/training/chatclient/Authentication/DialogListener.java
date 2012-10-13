@@ -27,7 +27,7 @@ public class DialogListener implements DialogInterface.OnClickListener {
         Log.d("dialogclick",options.get(i));
         String option =  options.get(i);
         if(option.equals("Login"))
-            account.Login();
+            new LoginTask(account).execute();
         else if(option.equals("Logout"))
             account.Logout();
         else if(option.equals("Edit Password"))

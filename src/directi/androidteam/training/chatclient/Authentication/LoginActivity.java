@@ -111,7 +111,7 @@ public class LoginActivity extends Activity {
             ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
             progressBar.setVisibility(View.VISIBLE);
             //(new ConnectGTalk(this)).execute(username, password);*/
-            Account account = Account.createAccount(username,password,service);
+            Account account = Account.createAccount(username,password,service,LoginStatus.OFFLINE.toString());
             new LoginTask(account).execute();
             AccountManager.getInstance().addAccount(account);
         }

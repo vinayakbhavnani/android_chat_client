@@ -19,6 +19,7 @@ public class GtalkAccount extends Account {
         this.serverURL = "talk.google.com";
         this.serverPort = 5223;
         this.service="gtalk";
+        this.passwd = passwd;
         loginStatus = LoginStatus.OFFLINE;
         if(pwdbased)
             this.xmppLogin = new GtalkLogin(username,passwd);

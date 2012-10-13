@@ -114,7 +114,7 @@ public class ConnectGTalk extends AsyncTask<String, Void, Boolean> {
         Log.d("Bootup :","Executed all start functions of threads");
         return null;*/
 
-        Account gtalk = Account.createAccount(username,password,service);
+        Account gtalk = Account.createAccount(username,password,service,LoginStatus.OFFLINE.toString());
         gtalk.Login();
 
         return null;

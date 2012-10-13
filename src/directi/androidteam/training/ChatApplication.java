@@ -26,4 +26,6 @@ public class ChatApplication extends Application {
     public static Context getAppContext() {
         return ChatApplication.context;
     }
+
+
 }

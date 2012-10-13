@@ -109,9 +109,10 @@ public class LoginHandler implements Handler {
             /*MessageStanza ms = new MessageStanza("dummy.android.chat@gmail.com","testerauth");
             ms.getTag().setRecipientAccount("vinayak.bhavnani@gmail.com");
             PacketWriter.addToWriteQueue(ms.getTag());*/
-            UserDatabaseHandler db = new UserDatabaseHandler(ChatApplication.getAppContext());
-            db.addUser(new User(ConnectGTalk.username, ConnectGTalk.password));
-
+            AccountManager.getInstance().getAccount(tag.getRecipientAccount()).setLoginStatus(LoginStatus.ONLINE);
+            if(AccountManager.getInstance().initialActivity!=null){
+                AccountManager.getInstance().initialActivity.finish();
+            }
             /*Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(LoginActivity.USERNAME, ConnectGTalk.username);

@@ -7,6 +7,7 @@ import android.util.Log;
 import directi.androidteam.training.db.DBManager;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -26,7 +27,7 @@ public class DBAccount {
         SQLiteDatabase sqldb = DBManager.getDbManager().getWritableSQLiteDB();
         ContentValues values = new ContentValues();
         values.put(ACCOUNT_USERNAME,account.getAccountJid());
-        values.put(ACCOUNT_AUTHSTRING,account.getXmppLogin().authString);
+        values.put(ACCOUNT_AUTHSTRING,account.getPasswd());
         values.put(ACCOUNT_LOGINSTATUS,account.isLoginStatus().toString());
         values.put(ACCOUNT_SERVICE,account.service);
         sqldb.insert(DBManager.TABLE_2_NAME,null,values);
@@ -53,16 +54,26 @@ public class DBAccount {
             do {
                 Log.d("accountfoundDB",cursor.getString(0)+cursor.getString(1)+cursor.getString(2)+cursor.getString(3));
                 String service = cursor.getString(3);
-                account = Account.createAccount(cursor.getString(0),cursor.getString(1),service);
+                account = Account.createAccount(cursor.getString(0),cursor.getString(1),service,cursor.getString(2));
                 accountlist.put(cursor.getString(0),account);
 
-                if(cursor.getString(2).equals("true"))
-                    new LoginTask(account).execute();
+
 
             } while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
         return accountlist;
+    }
+
+    public void saveAccountState(Collection<Account> accounts){
+        SQLiteDatabase db = DBManager.getDbManager().getWritableSQLiteDB();
+        for(Account account:accounts){
+            ContentValues values = new ContentValues();
+            Log.d("loginstatussave",account.isLoginStatus().toString());
+            values.put(ACCOUNT_LOGINSTATUS,account.isLoginStatus().toString());
+            db.update(DBManager.TABLE_2_NAME,values,ACCOUNT_USERNAME+"=?",new String[]{account.getAccountJid()});
+        }
+        db.close();
     }
 }

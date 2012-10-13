@@ -97,4 +97,10 @@ public class DisplayAccounts extends Activity {
         Log.d("displayaccount","hey");
         adaptor.notifyDataSetChanged();
     }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        AccountManager.getInstance().saveAccountState();
+    }
 }

@@ -27,9 +27,24 @@ public  abstract class Account {
     protected Thread readerThread;
     protected String accountJid;
     protected LoginStatus loginStatus;
+
+    public LoginStatus getPersistedLoginStatus() {
+        return persistedLoginStatus;
+    }
+
+    public void setPersistedLoginStatus(LoginStatus persistedLoginStatus) {
+        this.persistedLoginStatus = persistedLoginStatus;
+    }
+
+    protected LoginStatus persistedLoginStatus;
     protected XMPPLogin xmppLogin;
     protected  String serverURL;
     protected  int serverPort;
+    protected String passwd;
+
+    public String getPasswd() {
+        return passwd;
+    }
 
     public int getServiceIcon() {
         return serviceIcon;
@@ -75,13 +90,21 @@ public  abstract class Account {
 
     }
 
-    public static Account createAccount(String username, String password , String service){
+    public static Account createAccount(String username, String password , String service , String prevStatus){
         Account ret = null;
-        if(service.equals("gtalk"))
+        LoginStatus status = null;
+        if(prevStatus.equals("ONLINE"))
+            status = LoginStatus.ONLINE;
+        else if(prevStatus.equals("OFFLINE"))
+            status = LoginStatus.OFFLINE;
+        if(service.equals("gtalk")){
             ret = new GtalkAccount(username,password,true);
-        else if(service.equals("pingpong"))
+            ret.setPersistedLoginStatus(status);
+        }
+        else if(service.equals("pingpong")){
             ret = new PingPongAccount(username,password);
-
+            ret.setPersistedLoginStatus(status);
+        }
         return ret;
     }
 
@@ -141,6 +164,3 @@ public  abstract class Account {
 }
 
 
-enum LoginStatus {
-    ONLINE,OFFLINE,CONNECTING,UNABLETOCONNECT
-}
