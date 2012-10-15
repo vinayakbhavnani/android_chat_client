@@ -20,6 +20,7 @@ public class AccountManager {
     public Activity initialActivity;
     private AccountManager(){
         fetchAccountAllDB();
+
     }
     public static AccountManager getInstance(){
         return accountManager;

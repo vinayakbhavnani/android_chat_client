@@ -160,6 +160,10 @@ public  abstract class Account {
         close.setRecipientAccount(accountJid);
         PacketWriter.addToWriteQueue(close);
         loginStatus=LoginStatus.OFFLINE;
+        PacketWriter.removeStream(this.accountJid);
+        readerThread.interrupt();
+        readerThread=null;
+        socket=null;
     }
 }
 

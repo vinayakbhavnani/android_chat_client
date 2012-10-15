@@ -1,6 +1,7 @@
 package directi.androidteam.training.chatclient;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,7 @@ public class InitialActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NetworkManager.setConnected((Context)this);
         Integer option = AccountManager.getInstance().loginAccounts();
         Log.d("initialActivity Option",option.toString());
         Intent intent;

@@ -3,6 +3,9 @@ package directi.androidteam.training.chatclient.Util;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import directi.androidteam.training.chatclient.Authentication.NetworkManager;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,11 +17,12 @@ import android.content.Intent;
 public class NetworkConnectionChangeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-//        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService( Context.CONNECTIVITY_SERVICE );
+
+          NetworkManager.setConnected(context);
 //        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
 //        NetworkInfo mobNetInfo = connectivityManager.getNetworkInfo( ConnectivityManager.TYPE_MOBILE );
 //        if ( activeNetInfo != null ) {
-//            Toast.makeText(context, "Active Network Type : " + activeNetInfo.getTypeName(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(conte  xt, "Active Network Type : " + activeNetInfo.getTypeName(), Toast.LENGTH_SHORT).show();
 //        }
 //        if( mobNetInfo != null ) {
 //            Toast.makeText( context, "Mobile Network Type : " + mobNetInfo.getTypeName(), Toast.LENGTH_SHORT ).show();
@@ -41,5 +45,6 @@ public class NetworkConnectionChangeReceiver extends BroadcastReceiver {
 //        }else{
 //            Toast.makeText(context, "Internet Connection Lost", Toast.LENGTH_LONG).show();
 //        }
+
     }
 }
