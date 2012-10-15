@@ -158,12 +158,13 @@ public class ChatFragment extends ListFragment {
         return  chatItemList;
     }
 
-    public void closeFragment(String jid){
+    private void closeFragment(String jid){
         if(MyFragmentManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
         else {
             ChatBox.notifyFragmentAdaptorInSameThread();
-            ChatBox.removeFragmentviaFragManager(jid);
+           // ChatBox.removeFragmentviaFragManager(jid);
+           // ChatBox.notifyFragmentAdaptorInSameThread();
         }
     }
 

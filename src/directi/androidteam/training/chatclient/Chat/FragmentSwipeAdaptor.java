@@ -42,6 +42,12 @@ public  class FragmentSwipeAdaptor extends FragmentStatePagerAdapter {
 
 
     public static Fragment getFragment(String jid) {
-        return fragmentManager.findFragmentByTag(jid);
+        Fragment fragment = fragmentManager.findFragmentByTag(jid);
+        if(fragment==null){
+            MyFragmentManager manager = MyFragmentManager.getInstance();
+            fragment = manager.getFragByJID(jid);
+            fragmentManager.beginTransaction().add(fragment, jid).commit();
+        }
+        return fragment;
     }
 }

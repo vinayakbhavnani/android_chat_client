@@ -18,7 +18,6 @@ import java.util.Vector;
 public class MessageManager {
     private static MessageManager messageManager = new MessageManager();
     HashMap<String,Vector<MessageStanza>> messageStore;
-    ChatFragment listener_frag;
 
     private MessageManager() {
         messageStore = convertListToMap(new dbAccess().getAllMsg());
@@ -98,10 +97,6 @@ public class MessageManager {
         if (listener_frag!=null)
             listener_frag.addChatItem(ms,b);
 */
-    }
-
-    public void registerFragment(ChatFragment frag){
-        this.listener_frag = frag;
     }
 
     public HashMap<String, Vector<MessageStanza>> getMessageStore() {
