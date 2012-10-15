@@ -163,8 +163,8 @@ public class ChatFragment extends ListFragment {
             ChatBox.finishActivity();
         else {
             ChatBox.notifyFragmentAdaptorInSameThread();
-           // ChatBox.removeFragmentviaFragManager(jid);
-           // ChatBox.notifyFragmentAdaptorInSameThread();
+            ChatBox.removeFragmentviaFragManager(jid);
+           ChatBox.notifyFragmentAdaptorInSameThread();
         }
     }
 

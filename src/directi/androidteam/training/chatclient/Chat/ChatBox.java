@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -213,6 +212,10 @@ public class ChatBox extends FragmentActivity {
     }
 
     public static void removeFragmentviaFragManager(String jid) {
+        frag_adaptor = new FragmentSwipeAdaptor(fragmentManager);
+        viewPager.setAdapter(frag_adaptor);
+
+/*
         Fragment fragment = fragmentManager.findFragmentByTag(jid);
         if(fragment==null)
             return;
@@ -239,6 +242,7 @@ public class ChatBox extends FragmentActivity {
         }
         fragmentManager.beginTransaction().show(newFragment).commit();
       //       viewPager.setCurrentItem(n);
+*/
     }
 
 }
