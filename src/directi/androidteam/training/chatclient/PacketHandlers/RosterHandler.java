@@ -2,11 +2,7 @@ package directi.androidteam.training.chatclient.PacketHandlers;
 
 import android.content.Context;
 import android.util.Log;
-import directi.androidteam.training.StanzaStore.PresenceS;
-import directi.androidteam.training.TagStore.IQTag;
-import directi.androidteam.training.TagStore.Query;
-import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.TagStore.VCardTag;
+import directi.androidteam.training.TagStore.*;
 import directi.androidteam.training.chatclient.Roster.*;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
@@ -67,29 +63,21 @@ public class RosterHandler implements Handler {
                     Log.d("FileNotFoundException", e.toString());
                 } catch (IOException e) {
                     Log.d("IOException", e.toString());
-                } catch (NullPointerException e) {
-                    Log.d("NullPointerException", e.toString());
                 }
             }
         } else if(tag.getTagname().equals("presence")) {
-            PresenceS presence = new PresenceS(tag);
+            Presence presence = new Presence(tag);
             if(presence.getType() != null && presence.getType().equals("unavailable")) {
-                presence.addAvailability("unavailable");
+                presence.setShow("unavailable");
             }
             RosterManager.getInstance().updatePresence(presence);
             String shaOne = tag.getChildTag("x").getChildTag("photo").getContent();
             try {
-                FileInputStream fileInputStream = RequestRoster.callerActivity.openFileInput(shaOne);
-                StringBuffer fileContent = new StringBuffer("");
-                byte [] buffer = new byte[1024];
-                int length;
-                while ((length = fileInputStream.read(buffer)) != -1) {
-                    fileContent.append(new String(buffer));
-                }
-                fileInputStream.close();
-                String encodedAvatar = new String(fileContent);
+                String encodedAvatar = getCachedAvatar(shaOne);
                 VCard vCard = new VCard();
-                vCard.setAvatar(vCard.decodeAvatar(encodedAvatar));
+                if (!(encodedAvatar.equals(""))) {
+                    vCard.setAvatar(vCard.decodeAvatar(encodedAvatar));
+                }
                 RosterManager.getInstance().updatePhoto(vCard, tag.getAttribute("from").split("/")[0]);
             } catch (FileNotFoundException e) {
                 this.jidToShaOneMap.put(tag.getAttribute("from").split("/")[0], shaOne);
@@ -97,11 +85,23 @@ public class RosterHandler implements Handler {
                 PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(tag.getAttribute("to").split("/")[0]));
             } catch (IOException e) {
                 Log.d("IOException", e.toString());
-            } catch (NullPointerException e) {
-                this.jidToShaOneMap.put(tag.getAttribute("from").split("/")[0], shaOne);
-                Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
-                PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(tag.getAttribute("to").split("/")[0]));
             }
         }
+    }
+
+    private String getCachedAvatar(String shaOne) throws IOException {
+        String encodedAvatar = "";
+        if (shaOne != null) {
+            FileInputStream fileInputStream = RequestRoster.callerActivity.openFileInput(shaOne);
+            StringBuffer fileContent = new StringBuffer("");
+            byte [] buffer = new byte[1024];
+            int length;
+            while ((length = fileInputStream.read(buffer)) != -1) {
+                fileContent.append(new String(buffer));
+            }
+            fileInputStream.close();
+            encodedAvatar = new String(fileContent);
+        }
+        return encodedAvatar;
     }
 }

@@ -1,6 +1,6 @@
 package directi.androidteam.training.chatclient.Roster;
 
-import directi.androidteam.training.StanzaStore.PresenceS;
+import directi.androidteam.training.TagStore.Presence;
 import directi.androidteam.training.TagStore.Tag;
 
 public class RosterManager {
@@ -29,14 +29,14 @@ public class RosterManager {
         });
     }
 
-    public void updatePresence(PresenceS presence) {
+    public void updatePresence(Presence presence) {
         RosterItem rosterItem = this.roster.searchRosterItem(presence.getFrom().split("/")[0]);
         if (rosterItem == null) {return;}
         rosterItem.setStatus(presence.getStatus());
-        if (presence.getAvailability() == null) {
+        if (presence.getShow() == null) {
             rosterItem.setPresence("chat");
         } else {
-            rosterItem.setPresence(presence.getAvailability());
+            rosterItem.setPresence(presence.getShow());
         }
         this.roster.insertRosterItem(rosterItem);
         SendPresence.callerActivity.runOnUiThread(new Runnable() {

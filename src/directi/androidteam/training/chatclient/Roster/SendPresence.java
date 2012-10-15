@@ -2,7 +2,7 @@ package directi.androidteam.training.chatclient.Roster;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import directi.androidteam.training.StanzaStore.PresenceS;
+import directi.androidteam.training.TagStore.Presence;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.UUID;
@@ -26,8 +26,8 @@ public class SendPresence extends AsyncTask<String, Void, Void> {
         String from = params[0];
         String status = params[1];
         String show = params[2];
-        PresenceS presenceS = new PresenceS(UUID.randomUUID().toString(), from, status, show);
-        PacketWriter.addToWriteQueue(presenceS.getTag().setRecipientAccount(from.split("/")[0]));
+        Presence presence = new Presence(UUID.randomUUID().toString(), from, status, show);
+        PacketWriter.addToWriteQueue(presence.setRecipientAccount(from.split("/")[0]));
         return null;
     }
 }

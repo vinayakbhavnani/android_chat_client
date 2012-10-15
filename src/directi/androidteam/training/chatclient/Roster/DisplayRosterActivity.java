@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import directi.androidteam.training.StanzaStore.PresenceS;
+import directi.androidteam.training.TagStore.Presence;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
 import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
@@ -91,9 +91,9 @@ public class DisplayRosterActivity extends FragmentActivity {
             case R.id.search_menu_item:
                 return true;
             case R.id.logout_menu_item:
-                PresenceS presenceS = new PresenceS();
-                presenceS.addType("unavailable");
-                PacketWriter.addToWriteQueue(presenceS.getTag().setRecipientAccount(this.currentAccount.getJID().split("/")[0]));
+                Presence presence = new Presence();
+                presence.setType("unavailable");
+                PacketWriter.addToWriteQueue(presence.setRecipientAccount(this.currentAccount.getJID().split("/")[0]));
                 UserDatabaseHandler db = new UserDatabaseHandler(this);
                 db.updateState(ConnectGTalk.username, "offline");
                 startActivity(new Intent(this, UserListActivity.class));

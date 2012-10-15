@@ -112,7 +112,7 @@ public class Tag {
                 return this.getChildTags().get(i);
             }
         }
-        return new Tag();
+        return null;
     }
     public Tag getChildTag(String childTagName, String showValue) {
         Log.d("xxxxxxxxx", showValue);
