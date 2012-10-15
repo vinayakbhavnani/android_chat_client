@@ -1,5 +1,7 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
+import android.content.Context;
+import android.util.Log;
 import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.TagStore.IQTag;
 import directi.androidteam.training.TagStore.Query;
@@ -8,10 +10,16 @@ import directi.androidteam.training.TagStore.VCardTag;
 import directi.androidteam.training.chatclient.Roster.*;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class RosterHandler implements Handler {
     private static RosterHandler rosterHandler = new RosterHandler();
+    private HashMap<String, String> jidToShaOneMap = new HashMap<String, String>();
 
     public static RosterHandler getInstance() {
         return rosterHandler;
@@ -49,6 +57,19 @@ public class RosterHandler implements Handler {
                 VCard vCard = new VCard();
                 vCard.populateFromTag(tag);
                 RosterManager.getInstance().updatePhoto(vCard, tag.getAttribute("from").split("/")[0]);
+                String shaOne = this.jidToShaOneMap.get(tag.getAttribute("from").split("/")[0]);
+                this.jidToShaOneMap.remove(tag.getAttribute("from").split("/")[0]);
+                try {
+                    FileOutputStream fileOutputStream = RequestRoster.callerActivity.openFileOutput(shaOne, Context.MODE_PRIVATE);
+                    fileOutputStream.write(tag.getChildTag("vCard").getChildTag("PHOTO").getChildTag("BINVAL").getContent().getBytes());
+                    fileOutputStream.close();
+                } catch (FileNotFoundException e) {
+                    Log.d("FileNotFoundException", e.toString());
+                } catch (IOException e) {
+                    Log.d("IOException", e.toString());
+                } catch (NullPointerException e) {
+                    Log.d("NullPointerException", e.toString());
+                }
             }
         } else if(tag.getTagname().equals("presence")) {
             PresenceS presence = new PresenceS(tag);
@@ -56,8 +77,31 @@ public class RosterHandler implements Handler {
                 presence.addAvailability("unavailable");
             }
             RosterManager.getInstance().updatePresence(presence);
-            Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
-            PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(tag.getAttribute("to").split("/")[0]));
+            String shaOne = tag.getChildTag("x").getChildTag("photo").getContent();
+            try {
+                FileInputStream fileInputStream = RequestRoster.callerActivity.openFileInput(shaOne);
+                StringBuffer fileContent = new StringBuffer("");
+                byte [] buffer = new byte[1024];
+                int length;
+                while ((length = fileInputStream.read(buffer)) != -1) {
+                    fileContent.append(new String(buffer));
+                }
+                fileInputStream.close();
+                String encodedAvatar = new String(fileContent);
+                VCard vCard = new VCard();
+                vCard.setAvatar(vCard.decodeAvatar(encodedAvatar));
+                RosterManager.getInstance().updatePhoto(vCard, tag.getAttribute("from").split("/")[0]);
+            } catch (FileNotFoundException e) {
+                this.jidToShaOneMap.put(tag.getAttribute("from").split("/")[0], shaOne);
+                Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
+                PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(tag.getAttribute("to").split("/")[0]));
+            } catch (IOException e) {
+                Log.d("IOException", e.toString());
+            } catch (NullPointerException e) {
+                this.jidToShaOneMap.put(tag.getAttribute("from").split("/")[0], shaOne);
+                Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
+                PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(tag.getAttribute("to").split("/")[0]));
+            }
         }
     }
 }
