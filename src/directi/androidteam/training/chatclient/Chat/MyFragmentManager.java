@@ -48,15 +48,18 @@ public class MyFragmentManager {
         }
     }
 
-    public void removeFragEntry(String jid) {
+    public synchronized void removeFragEntry(String jid) {
         if(jid==null)
             return;
         Log.d("xcxc","addFragEntry : jid : "+jid);
+        JIDOrderOfFragments.remove(jid);
+/*
         for (String s : JIDOrderOfFragments) {
             if(s.equals(jid)) {
                 JIDOrderOfFragments.remove(s);
             }
         }
+*/
     }
 
     public ChatFragment getFragByJID(String jid) {

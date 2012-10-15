@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 import directi.androidteam.training.chatclient.Chat.MyFragmentManager;
-import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.R;
 
 /**
@@ -29,8 +29,8 @@ public class ChatViewPageChangeListner implements ViewPager.OnPageChangeListener
 
     @Override
     public void onPageSelected(int i) {
-        Log.d(Constants.DEBUG_CHATBOX, "page listener - index: " + i);
-        updateHeader(i);
+        Log.d("qwqw", "page listener - index: " + i);
+        updatePageUI(i);
     }
 
     @Override
@@ -38,7 +38,14 @@ public class ChatViewPageChangeListner implements ViewPager.OnPageChangeListener
         return;
     }
 
-    public void updateHeader(int i){
+    private void updatePageUI(int i){
+        String from = MyFragmentManager.getInstance().getJidByFragId(i);
+        if(from!=null)
+        {
+            EditText editText = (EditText) ((Activity)context).findViewById(R.id.enter_message);
+            editText.addTextChangedListener(new MsgTextChangeListener(from));
+        }
+
         TextView hleft = (TextView)((Activity)context).findViewById(R.id.chatboxheader_left);
         TextView hright = (TextView)((Activity)context).findViewById(R.id.chatboxheader_right);
 
