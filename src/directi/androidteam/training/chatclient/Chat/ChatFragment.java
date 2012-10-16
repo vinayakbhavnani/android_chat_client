@@ -2,10 +2,8 @@ package directi.androidteam.training.chatclient.Chat;
 
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,9 +59,13 @@ public class ChatFragment extends ListFragment {
 
         TextView tv = (TextView)(header.findViewById(R.id.chatfragment_jid));
         tv.setText(buddyid);
+        ImageView imageView = (ImageView) (header.findViewById(R.id.chatfragment_image));
         TextView status = (TextView)(header.findViewById(R.id.chatfragment_status));
         RosterItem re = RosterManager.getInstance().getRosterItem(buddyid);
-        TextView presence = (TextView)(header.findViewById(R.id.chatheader_presence));
+        imageView.setImageBitmap(re.getAvatar());
+
+        ImageView presence = (ImageView)(header.findViewById(R.id.chatfragment_availability_image));
+
         ImageView closeWindow = (ImageView)(header.findViewById(R.id.chatlistheader_close));
         closeWindow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,16 +78,13 @@ public class ChatFragment extends ListFragment {
         if(re!=null){
             status.setText(re.getStatus());
             if(re.getPresence().equals("dnd")){
-                presence.setTextColor(Color.RED);
-                presence.setText("Busy");
+                presence.setImageResource(R.drawable.red);
             }
             else if(re.getPresence().equals("chat")){
-                presence.setTextColor(Color.GREEN);
-                presence.setText("Available");
+                presence.setImageResource(R.drawable.green);
             }
             else if(re.getPresence().equals("away")){
-                presence.setTextColor(Color.YELLOW);
-                presence.setText("away");
+                presence.setImageResource(R.drawable.yellow);
             }
         }
         else status.setText("null");
