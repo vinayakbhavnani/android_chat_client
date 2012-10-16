@@ -17,11 +17,13 @@ public class Presence extends Tag {
     }
 
     public Presence(String id, String from, String show, String status) {
+        this.tagname = "presence";
         this.addAttribute("id", id);
         this.addAttribute("from", from);
         this.addChildTag(new Show(show));
         this.addChildTag(new Status(status));
     }
+
     public String getShow() {
         Tag show = this.getChildTag("show");
         if (show != null) {
