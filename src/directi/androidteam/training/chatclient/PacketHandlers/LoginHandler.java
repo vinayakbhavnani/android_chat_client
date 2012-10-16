@@ -95,12 +95,11 @@ public class LoginHandler implements Handler {
                 AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().sendAuthPacket();
                 return;
             }
-            ConnectGTalk.callerActivity.runOnUiThread(new Runnable() {
-                public void run() {
-                    ConnectGTalk.callerActivity.findViewById(R.id.progress_bar).setVisibility(View.GONE);
-                    (Toast.makeText(ConnectGTalk.callerActivity, "Wrong username or password. Please try again.", Toast.LENGTH_LONG)).show();
-                }
-            });
+            else {
+                Log.d("not authorized","invalid credentials");
+                AccountManager.getInstance().getAccount(tag.getRecipientAccount()).Logout();
+                AccountManager.getInstance().getAccount(tag.getRecipientAccount()).setLoginStatus(LoginStatus.INVALIDCREDENTIALS);
+            }
         } else if (tag.getTagname().equals("iq")) {
             Log.d("Login Flow", "Iq tag with a child bind tag received.");
             String bareJID = extractJID(tag);
