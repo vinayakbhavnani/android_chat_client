@@ -206,10 +206,10 @@ public final class R {
         public static final int chatboxheader_left=0x7f08000a;
         public static final int chatboxheader_right=0x7f08000c;
         public static final int chatboxheader_roster=0x7f08000b;
-        public static final int chatfragment_image=0x7f080012;
-        public static final int chatfragment_jid=0x7f080013;
-        public static final int chatfragment_status=0x7f080014;
-        public static final int chatheader_presence=0x7f080015;
+        public static final int chatfragment_availability_image=0x7f080012;
+        public static final int chatfragment_image=0x7f080013;
+        public static final int chatfragment_jid=0x7f080014;
+        public static final int chatfragment_status=0x7f080015;
         public static final int chatlistheader_close=0x7f080016;
         public static final int chatlistitemR_time=0x7f08001c;
         public static final int chatlistitem_status=0x7f080019;
