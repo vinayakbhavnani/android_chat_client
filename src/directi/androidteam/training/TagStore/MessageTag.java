@@ -1,7 +1,5 @@
 package directi.androidteam.training.TagStore;
 
-import directi.androidteam.training.StanzaStore.JID;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,7 +15,7 @@ public class MessageTag extends Tag{
         tagname="message";
         attributes = new HashMap<String, String>();
         attributes.put("type","chat");
-        attributes.put("to",to);
+        this.addAttribute("to", to);
         if(subject!=null)
             attributes.put("subject",subject);
         childTags = new ArrayList<Tag>();
@@ -25,8 +23,8 @@ public class MessageTag extends Tag{
         content=null;
     }
     public MessageTag(String to) {
-        super("message",null,null,null);
-        addAttribute("to",to);
+        super("message", null, null, null);
+        this.addAttribute("to", to);
         childTags = new ArrayList<Tag>();
     }
 

@@ -11,6 +11,7 @@ import directi.androidteam.training.chatclient.Chat.MessageManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,7 +27,7 @@ public class MessageHandler implements Handler{
 
     @Override
     public void processPacket(Tag tag){
-        HashMap<String,ArrayList<MessageStanza>> chatLists = MessageManager.getInstance().getMessageStore();
+        HashMap<String,Vector<MessageStanza>> chatLists = MessageManager.getInstance().getMessageStore();
         if(tag.getTagname().equals("message")) {
             MessageStanza ms = new MessageStanza(tag);
             String from = ms.getTag().getAttribute("from").split("/")[0];
@@ -37,12 +38,14 @@ public class MessageHandler implements Handler{
                 return;
             }
             else if(ms.getBody()!=null) {
-                MessageManager.getInstance().insertMessage(from,ms);
                 if(ChatBox.getContext()==null){
                     ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
                     cn.notifyChat(ms);
                 }
-                else ChatBox.notifyChat(ms);
+                else {
+                    ChatBox.notifyChat(ms,from);
+                }
+
             }
         }
         else if(tag.getTagname().equals("iq")) {

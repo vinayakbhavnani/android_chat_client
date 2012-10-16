@@ -8,7 +8,7 @@ import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.db.DBManager;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,24 +20,26 @@ import java.util.ArrayList;
 public class dbAccess {
 
     public void addMessage(MessageStanza messageStanza) {
-        SQLiteDatabase db = DBManager.getDbManager().getWritableSQLiteDB();
         ContentValues values = new ContentValues();
         values.put(DBManager.KEY_1_JID_SENDER,messageStanza.getFrom());
         values.put(DBManager.KEY_1_JID_RECEIVER,messageStanza.getTo());
         values.put(DBManager.KEY_1_MESSAGE,messageStanza.getBody());
         values.put(DBManager.KEY_1_ID,messageStanza.getID());
-        values.put(DBManager.KEY_1_TIME,messageStanza.getTime());
-        db.insert(DBManager.TABLE_1_NAME,null,values);
-        db.close();
-        Log.d("DBDB","db 2");
+        values.put(DBManager.KEY_1_TIME, messageStanza.getTime());
+        Log.d("dbdb", "msg : " + messageStanza.getBody());
+        DBInsert(values);
         return;
     }
 
-    public ArrayList<MessageStanza> getAllMsg() {
-        Log.d("DBDB","DB READING");
+    private synchronized void DBInsert(ContentValues values) {
+        SQLiteDatabase db = DBManager.getDbManager().getWritableSQLiteDB();
+        db.insert(DBManager.TABLE_1_NAME, null, values);
+    }
+
+    public Vector<MessageStanza> getAllMsg() {
         SQLiteDatabase db = DBManager.getDbManager().getReadableSQLiteDB();
         Cursor cursor = db.query(DBManager.TABLE_1_NAME, null, null , null, null, null, null);
-        ArrayList<MessageStanza> messageStanzas = new ArrayList<MessageStanza>();
+        Vector<MessageStanza> messageStanzas = new Vector<MessageStanza>();
         if (cursor==null) {
             Log.d("DBDB","cursur null");
             return messageStanzas;
@@ -45,7 +47,6 @@ public class dbAccess {
         cursor.moveToFirst();
         try {
              do {
-                 Log.d("DBDB","cursur loop");
                  String to = cursor.getString(1);
                  String body = cursor.getString(2);
                  MessageStanza messageStanza = new MessageStanza(to,body);
@@ -57,15 +58,13 @@ public class dbAccess {
              } while (cursor.moveToNext());
         } catch (CursorIndexOutOfBoundsException e) {
             cursor.close();
-            db.close();
             return messageStanzas;
         }
         cursor.close();
-        db.close();
         return messageStanzas;
     }
 
-    public ArrayList<MessageStanza> getMsgByJID(String jid) {
+    public Vector<MessageStanza> getMsgByJID(String jid) {
         return null;
     }
 

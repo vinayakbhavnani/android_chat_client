@@ -1,6 +1,7 @@
 package directi.androidteam.training.chatclient.Authentication;
 
 import android.util.Log;
+
 import directi.androidteam.training.TagStore.StreamClose;
 import directi.androidteam.training.chatclient.Util.PacketReader;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
@@ -25,6 +26,7 @@ public  abstract class Account {
     public  String service;
     protected Socket socket;
     protected Thread readerThread;
+
     protected String accountJid;
     protected LoginStatus loginStatus;
 
@@ -37,6 +39,7 @@ public  abstract class Account {
     }
 
     protected LoginStatus persistedLoginStatus;
+
     protected XMPPLogin xmppLogin;
     protected  String serverURL;
     protected  int serverPort;

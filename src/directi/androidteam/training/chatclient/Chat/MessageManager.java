@@ -1,11 +1,12 @@
 package directi.androidteam.training.chatclient.Chat;
 
 import android.util.Log;
+import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.Chat.dbAccess.dbAccess;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,8 +17,7 @@ import java.util.HashMap;
  */
 public class MessageManager {
     private static MessageManager messageManager = new MessageManager();
-    HashMap<String,ArrayList<MessageStanza>> messageStore;
-    ChatFragment listener_frag;
+    HashMap<String,Vector<MessageStanza>> messageStore;
 
     private MessageManager() {
         messageStore = convertListToMap(new dbAccess().getAllMsg());
@@ -25,7 +25,6 @@ public class MessageManager {
             messageStore.put(s,new MsgGroupFormating().formatMsgList(messageStore.get(s)));
             Log.d("DBDB","key : "+s);
         }
-        //messageStore = new HashMap<String, ArrayList<MessageStanza>>();
     }
 
     public static MessageManager getInstance() {
@@ -33,14 +32,15 @@ public class MessageManager {
     }
 
     public void insertMessage(String from, MessageStanza ms) {
+        addToDB(ms);
         if(!messageStore.containsKey(from)) {
-            ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
+            Vector<MessageStanza> arrayList = new Vector<MessageStanza>();
             arrayList.add(ms);
             messageStore.put(from,arrayList);
-            propagateChangesToFragments(ms, false);
+            propagateChangesToFragments(from, ms, false);
         }
         else {
-            ArrayList<MessageStanza> arrayList = messageStore.get(from);
+            Vector<MessageStanza> arrayList = messageStore.get(from);
             if(arrayList.size()>0) {
                 MessageStanza lastMessageStanza = arrayList.get(arrayList.size()-1);
                 if(lastMessageStanza.getFrom()!=null && lastMessageStanza.getFrom().equals(ms.getFrom())) {
@@ -48,24 +48,23 @@ public class MessageManager {
                     Boolean bool = msgGroupFormating.formatMsg();
                     if(bool) {
                         lastMessageStanza.appendBody(ms.getBody());
-                        propagateChangesToFragments(lastMessageStanza, true);
+                        propagateChangesToFragments(from, lastMessageStanza, true);
                     }
                     else {
                         arrayList.add(ms);
-                        propagateChangesToFragments(ms, false);
+                        propagateChangesToFragments(from, ms, false);
                     }
                 }
                 else {
                     arrayList.add(ms);
-                    propagateChangesToFragments(ms, false);
+                    propagateChangesToFragments(from, ms, false);
                 }
             }
             else {
                 arrayList.add(ms);
-                propagateChangesToFragments(ms, false);
+                propagateChangesToFragments(from, ms, false);
             }
         }
-        addToDB(ms);
     }
 
     private void removeFromDB(final String id) {
@@ -79,24 +78,32 @@ public class MessageManager {
         t.start();
     }
 
-    private void propagateChangesToFragments(MessageStanza ms, boolean b) {
-        if(ChatBox.getContext()!=null)
-            ChatBox.recreateFragments();
+    private void propagateChangesToFragments(String from, MessageStanza ms, boolean b) {
+        MyFragmentManager.getInstance().updateFragment(from , ms, b);
+/*
+        Bundle bundle;
+        if(listener_frag==null || (bundle = listener_frag.getArguments())==null) {
+             ChatBox.notifyFragmentAdaptorInNewUIThread();
+            return;
+        }
+        if(bundle.get("from").equals(ms.getFrom()) || bundle.get("from").equals(JID.getJid())) {
+            listener_frag.addChatItem(ms,b);
+        }
+        else {
+                ChatBox.notifyFragmentAdaptorInNewUIThread();
+        }
+*/
 /*
         if (listener_frag!=null)
             listener_frag.addChatItem(ms,b);
 */
     }
 
-    public void registerFragment(ChatFragment frag){
-        this.listener_frag = frag;
-    }
-
-    public HashMap<String, ArrayList<MessageStanza>> getMessageStore() {
+    public HashMap<String, Vector<MessageStanza>> getMessageStore() {
         return messageStore;
     }
 
-    public ArrayList<MessageStanza> getMsgList(String from) {
+    public Vector<MessageStanza> getMsgList(String from) {
         if(from==null || !messageStore.containsKey(from))
             return null;
         return messageStore.get(from);
@@ -104,9 +111,9 @@ public class MessageManager {
 
     public void insertEntry(String from) {
         if(messageStore==null)
-            messageStore = new HashMap<String, ArrayList<MessageStanza>>();
+            messageStore = new HashMap<String, Vector<MessageStanza>>();
         if(!messageStore.containsKey(from)) {
-            messageStore.put(from, new ArrayList<MessageStanza>());
+            messageStore.put(from, new Vector<MessageStanza>());
         }
     }
 
@@ -130,18 +137,33 @@ public class MessageManager {
         }
     }
 
-    public HashMap<String,ArrayList<MessageStanza>> convertListToMap(ArrayList<MessageStanza> messageStanzas) {
-        HashMap<String,ArrayList<MessageStanza>> map = new HashMap<String, ArrayList<MessageStanza>>();
-        if(messageStanzas==null)
+    public HashMap<String,Vector<MessageStanza>> convertListToMap(Vector<MessageStanza> messageStanzas) {
+        HashMap<String,Vector<MessageStanza>> map = new HashMap<String, Vector<MessageStanza>>();
+        if(messageStanzas==null || messageStanzas.isEmpty())
             return map;
         for (MessageStanza messageStanza : messageStanzas) {
-            if(map.containsKey(messageStanza.getFrom())) {
-                map.get(messageStanza.getFrom()).add(messageStanza);
+            String from = messageStanza.getFrom().split("/")[0];
+            String to = messageStanza.getTo().split("/")[0];
+            String myJid = JID.getBareJid().split("/")[0];
+            if(from.equals(myJid)) {
+                if(map.containsKey(to)) {
+                    map.get(to).add(messageStanza);
+                }
+                else {
+                    Vector<MessageStanza> arrayList = new Vector<MessageStanza>();
+                    arrayList.add(messageStanza);
+                    map.put(to,arrayList);
+                }
             }
             else {
-                ArrayList<MessageStanza> arrayList = new ArrayList<MessageStanza>();
-                arrayList.add(messageStanza);
-                map.put(messageStanza.getFrom(),arrayList);
+                if(map.containsKey(from)) {
+                    map.get(from).add(messageStanza);
+                }
+                else {
+                    Vector<MessageStanza> arrayList = new Vector<MessageStanza>();
+                    arrayList.add(messageStanza);
+                    map.put(from,arrayList);
+                }
             }
         }
         return map;

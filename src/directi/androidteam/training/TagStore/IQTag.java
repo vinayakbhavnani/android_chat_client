@@ -33,6 +33,7 @@ public class IQTag extends Tag{
         this.addAttribute("id", id);
         this.addChildTag(child);
     }
+
     public void addAttribute(String attributeName,String attributeVal){
         if(attributes==null)
             attributes = new HashMap<String, String>();

@@ -5,8 +5,7 @@
               android:layout_height="fill_parent"
               android:orientation="vertical"
         >
-    <EditText
-            android:id = "@+id/Roster_enter_search"
+    <EditText android:id = "@+id/Roster_enter_search"
             android:hint="@string/enter_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

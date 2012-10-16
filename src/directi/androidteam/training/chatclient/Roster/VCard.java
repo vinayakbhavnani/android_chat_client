@@ -3,9 +3,8 @@ package directi.androidteam.training.chatclient.Roster;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
-import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.R;
+import directi.androidteam.training.chatclient.PacketHandlers.RosterHandler;
 import directi.androidteam.training.chatclient.Util.Base64;
 
 import java.io.IOException;
@@ -18,27 +17,28 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class VCard {
-    private String bareJID;
     private String name;
     private String avatarType;
     private Bitmap avatar;
 
     public VCard() {
-        this.bareJID = "";
         this.name = "";
-        this.avatar = BitmapFactory.decodeResource(ChatApplication.getAppContext().getResources(), R.drawable.default_user);
+        this.avatar = RosterHandler.defaultUserImage;//BitmapFactory.decodeResource(ChatApplication.getAppContext().getResources(), R.drawable.default_user);
     }
 
     public Bitmap getAvatar() {
         return this.avatar;
     }
 
-    public String getBareJID() {
-        return this.bareJID;
+    public void setAvatar(Bitmap avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public void populateFromTag(Tag tag) {
-        this.bareJID = tag.getAttribute("from").split("/")[0];
         if (tag.getChildTags() != null) {
             tag = tag.getChildTag("vCard");
             if (tag.getChildTags() != null) {
@@ -52,14 +52,19 @@ public class VCard {
                     this.avatarType = TYPE.getContent().split("/")[1];
                     Tag BINVAL = PHOTO.getChildTag("BINVAL");
                     String avatarBinVal = BINVAL.getContent();
-                    try {
-                        byte [] decodedAvatarBinVal = Base64.decode(avatarBinVal);
-                        this.avatar = BitmapFactory.decodeByteArray(decodedAvatarBinVal, 0, decodedAvatarBinVal.length);
-                    } catch (IOException e) {
-                        Log.d("IOException", e.toString());
-                    }
+                    this.avatar = decodeAvatar(avatarBinVal);
                 }
             }
         }
+    }
+
+    public Bitmap decodeAvatar(String encodedAvatar) {
+        try {
+            byte [] decodedAvatarBinVal = Base64.decode(encodedAvatar);
+            return BitmapFactory.decodeByteArray(decodedAvatarBinVal, 0, decodedAvatarBinVal.length);
+        } catch (IOException e) {
+            Log.d("IOException", e.toString());
+        }
+        return null;
     }
 }

@@ -1,13 +1,16 @@
 package directi.androidteam.training.chatclient.Chat;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,7 +20,6 @@ import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.Chat.Listeners.ChatViewPageChangeListner;
-import directi.androidteam.training.chatclient.Chat.Listeners.MsgTextChangeListener;
 import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
@@ -34,55 +36,63 @@ public class ChatBox extends FragmentActivity {
     private static Context context;
     private static FragmentSwipeAdaptor frag_adaptor;
     private static ViewPager viewPager;
+    private static Toast toast;
+    private static FragmentManager fragmentManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
+        Log.d(Constants.DEBUG_CHATBOX,"on create intent");
 
         setContentView(R.layout.chat);
         context=this;
-        frag_adaptor = new FragmentSwipeAdaptor(getSupportFragmentManager());
+        fragmentManager = getSupportFragmentManager();
+        frag_adaptor = new FragmentSwipeAdaptor(fragmentManager);
         viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(frag_adaptor);
-        viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context));
         String from =  (String) getIntent().getExtras().get("buddyid");
-        if(getIntent().getExtras().containsKey("notification"))
-            cancelNotification();
         if(from != null) {
             MyFragmentManager.getInstance().addFragEntry(from);
-            EditText editText = (EditText) findViewById(R.id.enter_message);
-            editText.addTextChangedListener(new MsgTextChangeListener(from));
-            switchFragment(from);
-            sendDiscoInfoQuery(from);
         }
-        ActionBar ab = getActionBar();
-        ab.hide();
-        Log.d("DDDD","oncreate done");
+        viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context));
+        if(getIntent().getExtras().containsKey("notification"))
+            cancelNotification();
+        switchFragment(from);
+        sendDiscoInfoQuery(from);
+        Log.d(Constants.DEBUG_CHATBOX,"oncreate completed");
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.global_navigation_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.global_navigation_account:
+                Log.d(Constants.DEBUG_CHATBOX,"account clicked");
+                return true;
+            case R.id.global_navigation_chat:
+                Log.d(Constants.DEBUG_CHATBOX,"chat clicked");
+                return true;
+            case R.id.global_navigation_contact:
+                Log.d(Constants.DEBUG_CHATBOX,"contact clicked");
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
+    }
+
 
     private void sendDiscoInfoQuery(String from) {
         String queryAttr = "http://jabber.org/protocol/disco#info";
         RosterGet rosterGet = new RosterGet();
         rosterGet.setReceiver(from).setQueryAttribute("xmlns",queryAttr);
         rosterGet.send();
-       // PacketWriter.addToWriteQueue(rosterGet.get);
-    }
-
-    public void updateHeader(int i){
-        TextView hleft = (TextView)findViewById(R.id.chatboxheader_left);
-        TextView hright = (TextView)findViewById(R.id.chatboxheader_right);
-
-        String left = MyFragmentManager.getInstance().FragToJid(i - 1);
-        String right = MyFragmentManager.getInstance().FragToJid(i + 1);
-        if(left!=null)
-            hleft.setText(left.split("@")[0]);
-        else
-            hleft.setText("");
-        if(right!=null)
-            hright.setText(right.split("@")[0]);
-        else
-            hright.setText("");
     }
 
     public static void adaptorNotify(final ChatFragment cfrag){
@@ -96,22 +106,13 @@ public class ChatBox extends FragmentActivity {
         );
     }
 
-    public static void deletePage() {
-        int n = viewPager.getCurrentItem();
-        viewPager.removeViewAt(n);
-        if(n>0)
-            viewPager.setCurrentItem(n-1);
-        else if(MyFragmentManager.getInstance().getSizeofActiveChats()>0)
-            viewPager.setCurrentItem(0);
-    }
-
-    public static void notifyChat(MessageStanza ms){
-        if(viewPager.getCurrentItem()== MyFragmentManager.getInstance().JidToFrag(ms.getFrom())) {
-            return;
+    public static void notifyChat(MessageStanza ms, String from){
+        if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom())) {
+            ChatNotifier cn = new ChatNotifier(context);
+            cn.notifyChat(ms);
         }
-
-        ChatNotifier cn = new ChatNotifier(context);
-        cn.notifyChat(ms);
+        MyFragmentManager.getInstance().addFragEntry(from);
+        MessageManager.getInstance().insertMessage(from,ms);
     }
 
     public static void cancelNotification(){
@@ -122,6 +123,7 @@ public class ChatBox extends FragmentActivity {
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
+        Log.d(Constants.DEBUG_CHATBOX,"on new intent");
         if(intent.getExtras().containsKey("error")){
             notifyConnectionError();
             return;
@@ -134,8 +136,7 @@ public class ChatBox extends FragmentActivity {
             cancelNotification();
         if(from!=null)
         {
-            EditText editText = (EditText) findViewById(R.id.enter_message);
-            editText.addTextChangedListener(new MsgTextChangeListener(from));
+            MyFragmentManager.getInstance().addFragEntry(from);
             switchFragment(from);
             sendDiscoInfoQuery(from);
         }
@@ -149,7 +150,7 @@ public class ChatBox extends FragmentActivity {
     @Override
     public void onResume(){
         super.onResume();
-        Log.d("Chatboxresumed","true");
+        Log.d(Constants.DEBUG_CHATBOX,"resumed");
     }
 
     public void onClick(View view) {
@@ -172,7 +173,7 @@ public class ChatBox extends FragmentActivity {
             return;
         int currentItem = viewPager.getCurrentItem();
 
-        String jid = MyFragmentManager.getInstance().FragToJid(currentItem);
+        String jid = MyFragmentManager.getInstance().getJidByFragId(currentItem);
         MessageStanza messxml = new MessageStanza(jid,message);
         messxml.formActiveMsg();
         messxml.send();
@@ -207,18 +208,12 @@ public class ChatBox extends FragmentActivity {
         }
     }
     private void switchFragment(String from){
-        int frag = MyFragmentManager.getInstance().JidToFrag(from);
-        updateHeader(frag);
+        int frag = MyFragmentManager.getInstance().JidToFragId(from);
         viewPager.setCurrentItem(frag);
     }
 
-    public static void recreateFragments() {
-        Activity a = (Activity) context;
-        if(context!=null)
-        a.runOnUiThread(new Runnable() { public void run() {
-            frag_adaptor.notifyDataSetChanged();
-        }}
-        );
+    public static void notifyFragmentAdaptorInSameThread() {
+        frag_adaptor.notifyDataSetChanged();
     }
 
     public static void finishActivity(){
@@ -232,9 +227,47 @@ public class ChatBox extends FragmentActivity {
         if(context!=null)
         application.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(ChatApplication.getAppContext(), s, Toast.LENGTH_LONG).show();
+                if(toast!=null)
+                    toast.cancel();
+                toast = Toast.makeText(ChatApplication.getAppContext(), s, Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
         );
     }
+
+    public static void removeFragmentviaFragManager(String jid) {
+        frag_adaptor = new FragmentSwipeAdaptor(fragmentManager);
+        viewPager.setAdapter(frag_adaptor);
+
+/*
+        Fragment fragment = fragmentManager.findFragmentByTag(jid);
+        if(fragment==null)
+            return;
+        Log.d(Constants.DEBUG_CHATBOX,"frag to be removed : "+jid);
+        int itemNumber = viewPager.getCurrentItem();
+        String next_jid_to_be_shown;
+        int n;
+        if(itemNumber>0) {
+            next_jid_to_be_shown = MyFragmentManager.getInstance().getJidByFragId(0);//itemNumber-1);
+            //n = itemNumber-1;
+            n=0;
+        }
+        else {
+            next_jid_to_be_shown =MyFragmentManager.getInstance().getJidByFragId(0);
+            n=0;
+        }
+        Log.d(Constants.DEBUG_CHATBOX,"frag to be shown : "+next_jid_to_be_shown);
+        Fragment newFragment = fragmentManager.findFragmentByTag(next_jid_to_be_shown);
+        fragmentManager.beginTransaction().remove(fragment).commit();
+        if(newFragment==null) {
+            MyFragmentManager manager = MyFragmentManager.getInstance();
+            newFragment = manager.getFragByJID(next_jid_to_be_shown);
+            fragmentManager.beginTransaction().add(newFragment, next_jid_to_be_shown).commit();
+        }
+        fragmentManager.beginTransaction().show(newFragment).commit();
+      //       viewPager.setCurrentItem(n);
+*/
+    }
+
 }

@@ -128,6 +128,8 @@ public class MessageStanza extends TagWrapper{
 
     public String getChatState() {
         ArrayList<Tag> childList = tag.getChildTags();
+        if(childList==null)
+            return "null";
         for (Tag tag1 : childList) {
             if(tag1.getTagname().equals("cha:active"))
                 return "active";
@@ -152,6 +154,7 @@ public class MessageStanza extends TagWrapper{
 
     public void send() {
         setFrom(JID.getJid());
+        tag.setRecipientAccount(JID.getBareJid());
         setID(UUID.randomUUID().toString());
         PacketWriter.addToWriteQueue(getTag());
     }

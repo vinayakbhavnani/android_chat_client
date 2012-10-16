@@ -1,8 +1,10 @@
 package directi.androidteam.training.chatclient.Chat;
 
+import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 
-import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -14,67 +16,89 @@ import java.util.Vector;
  */
 public class MyFragmentManager {
 
-    private Vector<String> FragToJID;
+    private Vector<String> JIDOrderOfFragments;
     private static MyFragmentManager fragmentManager  = new MyFragmentManager();
     private MyFragmentManager() {
-        FragToJID = new Vector<String>();
+        JIDOrderOfFragments = new Vector<String>();
     }
 
     public static MyFragmentManager getInstance() {
         return fragmentManager;
-
     }
 
-    public synchronized void addFragEntry(String jid) {
-        for (String s : FragToJID) {
+    public void addFragEntry(final String jid) {
+        if(jid==null)
+            return;
+        Log.d("xcxc","addFragEntry : jid : "+jid);
+        if(JIDOrderOfFragments.size()>0)
+        for (String s : JIDOrderOfFragments) {
             if(s.equals(jid))
                 return;
         }
-        FragToJID.add(jid);
-        if(ChatBox.getContext()!=null)
-            ChatBox.recreateFragments();
-    }
-
-    public void removeFragEntry(int index) {
-        FragToJID.remove(index);
+        Log.d("xcxc","addFragEntry : jid : "+jid + "actual insert");
+        Context context = ChatBox.getContext();
+        if(context!=null) {
+            Activity application = (Activity) context;
+                application.runOnUiThread(new Runnable() {
+                    public void run() {
+                        JIDOrderOfFragments.add(jid);
+                        ChatBox.notifyFragmentAdaptorInSameThread();
+                    }
+                });
+        }
     }
 
     public synchronized void removeFragEntry(String jid) {
-        for (String s : FragToJID) {
-            if(s.equals(jid))
-                FragToJID.remove(s);
+        if(jid==null)
+            return;
+        Log.d("xcxc","addFragEntry : jid : "+jid);
+        JIDOrderOfFragments.remove(jid);
+/*
+        for (String s : JIDOrderOfFragments) {
+            if(s.equals(jid)) {
+                JIDOrderOfFragments.remove(s);
+            }
         }
-        if(ChatBox.getContext()!=null)
-            ChatBox.recreateFragments();
+*/
     }
 
-    public String FragToJid(int queryJID){
+    public ChatFragment getFragByJID(String jid) {
+        return ChatFragment.getInstance(jid);
+    }
+
+    public String getJidByFragId(int queryJID){
         if(queryJID<0 || queryJID>= getSizeofActiveChats())
             return null;
-        return FragToJID.get(queryJID);
-        //return MessageManager.getInstance().getRequiredJiD(i);
+        return JIDOrderOfFragments.get(queryJID);
     }
 
-    public int JidToFrag(String from){
+    public int JidToFragId(String from){
         if(from==null)
             return -1;
         int i =0;
-        for (String s : FragToJID) {
+        for (String s : JIDOrderOfFragments) {
             if(s.equals(from))
                 return i;
             i++;
         }
-
         return -1;
     }
 
-    public  ArrayList<MessageStanza> getFragList(String from){
+    public  Vector<MessageStanza> getFragList(String from){
         addFragEntry(from);
         MessageManager.getInstance().insertEntry(from);
         return MessageManager.getInstance().getMsgList(from);
     }
 
     public int getSizeofActiveChats() {
-        return FragToJID.size();
+        return JIDOrderOfFragments.size();
+    }
+
+    public void updateFragment(String jid, MessageStanza ms, boolean b) {
+        if(jid==null)
+            return;
+        ChatFragment chatFragment = (ChatFragment) FragmentSwipeAdaptor.getFragment(jid);
+        if(chatFragment!=null)
+            chatFragment.addChatItem(ms,b);
     }
 }
