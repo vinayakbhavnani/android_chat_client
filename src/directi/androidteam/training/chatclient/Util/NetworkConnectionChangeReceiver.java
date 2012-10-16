@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import directi.androidteam.training.chatclient.Authentication.NetworkManager;
 
 /**
@@ -45,6 +46,6 @@ public class NetworkConnectionChangeReceiver extends BroadcastReceiver {
 //        }else{
 //            Toast.makeText(context, "Internet Connection Lost", Toast.LENGTH_LONG).show();
 //        }
-
+        Log.d("network Changed",NetworkManager.connected.toString());
     }
 }
