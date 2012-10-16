@@ -10,12 +10,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class RosterHandler implements Handler {
     private static RosterHandler rosterHandler = new RosterHandler();
-    private HashMap<String, String> jidToShaOneMap = new HashMap<String, String>();
+    private Map<String, String> jidToShaOneMap = Collections.synchronizedMap(new HashMap<String, String>());
 
     public static RosterHandler getInstance() {
         return rosterHandler;
@@ -80,9 +82,11 @@ public class RosterHandler implements Handler {
                 }
                 RosterManager.getInstance().updatePhoto(vCard, tag.getAttribute("from").split("/")[0]);
             } catch (FileNotFoundException e) {
-                this.jidToShaOneMap.put(tag.getAttribute("from").split("/")[0], shaOne);
-                Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
-                PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(tag.getAttribute("to").split("/")[0]));
+                if (!(this.jidToShaOneMap.containsKey(tag.getAttribute("from").split("/")[0]))) {
+                    this.jidToShaOneMap.put(tag.getAttribute("from").split("/")[0], shaOne);
+                    Tag vCardTag = new IQTag("getVCard", tag.getAttribute("from"), "get", new VCardTag("vcard-temp"));
+                    PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(tag.getAttribute("to").split("/")[0]));
+                }
             } catch (IOException e) {
                 Log.d("IOException", e.toString());
             }
