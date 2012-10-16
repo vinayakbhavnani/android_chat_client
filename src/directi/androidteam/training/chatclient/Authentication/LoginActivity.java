@@ -4,6 +4,7 @@ import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -114,6 +115,8 @@ public class LoginActivity extends Activity {
             Account account = Account.createAccount(username,password,service,LoginStatus.OFFLINE.toString());
             new LoginTask(account).execute();
             AccountManager.getInstance().addAccount(account);
+            Intent intent = new Intent(this,DisplayAccounts.class);
+            startActivity(intent);
         }
     }
 }

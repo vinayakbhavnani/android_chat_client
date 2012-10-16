@@ -38,7 +38,7 @@ public abstract class XMPPLogin {
     }
     private void sendInitStream(){
         StreamTag streamTag = new StreamTag("stream:stream",serviceName,"jabber:client","http://etherx.jabber.org/streams","1.0");
-        streamTag.addAttribute("from",accountJID);
+        //streamTag.addAttribute("from",accountJID);
         streamTag.setRecipientAccount(accountJID);
         PacketWriter.addToWriteQueue(streamTag);
     }

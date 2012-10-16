@@ -95,7 +95,7 @@ public  abstract class Account {
         LoginStatus status = null;
         if(prevStatus.equals("ONLINE"))
             status = LoginStatus.ONLINE;
-        else if(prevStatus.equals("OFFLINE"))
+        else
             status = LoginStatus.OFFLINE;
         if(service.equals("gtalk")){
             ret = new GtalkAccount(username,password,true);
