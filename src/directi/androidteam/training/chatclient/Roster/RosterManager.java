@@ -62,4 +62,8 @@ public class RosterManager {
     public RosterItem getRosterItem(String bareJID) {
         return roster.searchRosterItem(bareJID);
     }
+
+    public void clearRoster() {
+        this.roster = new Roster(new LexicalCumPresenceComparator());
+    }
 }
