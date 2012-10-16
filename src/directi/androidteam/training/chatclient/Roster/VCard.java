@@ -3,9 +3,8 @@ package directi.androidteam.training.chatclient.Roster;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
-import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.R;
+import directi.androidteam.training.chatclient.PacketHandlers.RosterHandler;
 import directi.androidteam.training.chatclient.Util.Base64;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class VCard {
 
     public VCard() {
         this.name = "";
-        this.avatar = BitmapFactory.decodeResource(ChatApplication.getAppContext().getResources(), R.drawable.default_user);
+        this.avatar = RosterHandler.defaultUserImage;//BitmapFactory.decodeResource(ChatApplication.getAppContext().getResources(), R.drawable.default_user);
     }
 
     public Bitmap getAvatar() {

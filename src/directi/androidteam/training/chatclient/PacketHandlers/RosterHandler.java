@@ -1,8 +1,12 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
+import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.TagStore.*;
+import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.*;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
@@ -18,6 +22,7 @@ import java.util.UUID;
 public class RosterHandler implements Handler {
     private static RosterHandler rosterHandler = new RosterHandler();
     private Map<String, String> jidToShaOneMap = Collections.synchronizedMap(new HashMap<String, String>());
+    public static Bitmap defaultUserImage = BitmapFactory.decodeResource(ChatApplication.getAppContext().getResources(), R.drawable.default_user);
 
     public static RosterHandler getInstance() {
         return rosterHandler;
