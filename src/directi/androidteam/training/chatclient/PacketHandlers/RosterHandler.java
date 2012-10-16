@@ -73,13 +73,16 @@ public class RosterHandler implements Handler {
                 presence.setShow("unavailable");
             }
             RosterManager.getInstance().updatePresence(presence);
-            String shaOne = tag.getChildTag("x").getChildTag("photo").getContent();
+            Tag x = tag.getChildTag("x");
+            if (x == null) {return;}
+            Tag photo = x.getChildTag("photo");
+            if (photo == null) {return;}
+            String shaOne = photo.getContent();
+            if (shaOne == null) {return;}
             try {
                 String encodedAvatar = getCachedAvatar(shaOne);
                 VCard vCard = new VCard();
-                if (!(encodedAvatar.equals(""))) {
-                    vCard.setAvatar(vCard.decodeAvatar(encodedAvatar));
-                }
+                vCard.setAvatar(vCard.decodeAvatar(encodedAvatar));
                 RosterManager.getInstance().updatePhoto(vCard, tag.getAttribute("from").split("/")[0]);
             } catch (FileNotFoundException e) {
                 if (!(this.jidToShaOneMap.containsKey(tag.getAttribute("from").split("/")[0]))) {
@@ -95,17 +98,15 @@ public class RosterHandler implements Handler {
 
     private String getCachedAvatar(String shaOne) throws IOException {
         String encodedAvatar = "";
-        if (shaOne != null) {
-            FileInputStream fileInputStream = RequestRoster.callerActivity.openFileInput(shaOne);
-            StringBuffer fileContent = new StringBuffer("");
-            byte [] buffer = new byte[1024];
-            int length;
-            while ((length = fileInputStream.read(buffer)) != -1) {
-                fileContent.append(new String(buffer));
-            }
-            fileInputStream.close();
-            encodedAvatar = new String(fileContent);
+        FileInputStream fileInputStream = RequestRoster.callerActivity.openFileInput(shaOne);
+        StringBuffer fileContent = new StringBuffer("");
+        byte [] buffer = new byte[1024];
+        int length;
+        while ((length = fileInputStream.read(buffer)) != -1) {
+            fileContent.append(new String(buffer));
         }
+        fileInputStream.close();
+        encodedAvatar = new String(fileContent);
         return encodedAvatar;
     }
 }
