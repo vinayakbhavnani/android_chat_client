@@ -1,15 +1,8 @@
 package directi.androidteam.training.TagStore;
 
-/**
- * Created with IntelliJ IDEA.
- * User: ssumit
- * Date: 8/31/12
- * Time: 2:09 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Presence extends Tag {
     public Presence() {
-        super("presence", null,null,null);
+        super("presence", null, null, null);
     }
 
     public Presence(Tag tag) {
@@ -65,5 +58,12 @@ public class Presence extends Tag {
     public void setType(String type) {
         this.addAttribute("type", type);
     }
-}
 
+    public String getAvatarShaOne() {
+        Tag x = this.getChildTag("x");
+        if (x == null) {return null;}
+        Tag photo = x.getChildTag("photo");
+        if (photo == null) {return null;}
+        return photo.getContent();
+    }
+}
