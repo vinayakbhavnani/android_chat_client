@@ -17,18 +17,12 @@ public class PingPongAccount extends Account {
     public PingPongAccount(String username , String passwd){
         this.accountJid=username;
         this.serviceIcon = R.drawable.pingpong_icon;
-        this.serverURL = "10.10.100.162";
+        this.serverURL = "10.10.100.163";
         this.serverPort = 5222;
+        this.service="pingpong";
+        this.passwd = passwd;
         this.xmppLogin = new PingPongLogin(username,passwd);
-        try {
-            //setupReaderWriter();
-            this.socket = createSocket();
-            Log.d("accountinfo", "created");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        AccountManager.getInstance().addAccount(this);
-        //this.Login();
+        loginStatus = LoginStatus.OFFLINE;
     }
 
     @Override
