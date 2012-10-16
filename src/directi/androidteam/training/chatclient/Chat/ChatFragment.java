@@ -75,11 +75,8 @@ public class ChatFragment extends ListFragment {
         });
         if(re!=null){
             status.setText(re.getStatus());
-            Log.d("statusmess", re.getPresence() + buddyid);
-
             if(re.getPresence().equals("dnd")){
                 presence.setTextColor(Color.RED);
-                Log.d("statusmess1",re.getPresence());
                 presence.setText("Busy");
             }
             else if(re.getPresence().equals("chat")){

@@ -54,6 +54,8 @@ public class DisplayRosterActivity extends FragmentActivity {
         (new RequestRoster(this)).execute();
     }
 
+
+
     public void onListItemClick(ListView view, View v, int position, long id) {
         RosterItem rosterItem = (RosterItem) view.getItemAtPosition(position);
         Intent intent = new Intent(this, ChatBox.class);
