@@ -1,6 +1,5 @@
 package directi.androidteam.training.chatclient.Chat;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +8,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -41,7 +43,7 @@ public class ChatBox extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
-        Log.d("qwqw","on create intent");
+        Log.d(Constants.DEBUG_CHATBOX,"on create intent");
 
         setContentView(R.layout.chat);
         context=this;
@@ -58,10 +60,33 @@ public class ChatBox extends FragmentActivity {
             cancelNotification();
         switchFragment(from);
         sendDiscoInfoQuery(from);
-        ActionBar ab = getActionBar();
-        ab.hide();
-        Log.d("DDDD","oncreate done");
+        Log.d(Constants.DEBUG_CHATBOX,"oncreate completed");
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.global_navigation_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.global_navigation_account:
+                Log.d(Constants.DEBUG_CHATBOX,"account clicked");
+                return true;
+            case R.id.global_navigation_chat:
+                Log.d(Constants.DEBUG_CHATBOX,"chat clicked");
+                return true;
+            case R.id.global_navigation_contact:
+                Log.d(Constants.DEBUG_CHATBOX,"contact clicked");
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
+    }
+
 
     private void sendDiscoInfoQuery(String from) {
         String queryAttr = "http://jabber.org/protocol/disco#info";
@@ -98,7 +123,7 @@ public class ChatBox extends FragmentActivity {
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
-        Log.d("qwqw","on new intent");
+        Log.d(Constants.DEBUG_CHATBOX,"on new intent");
         if(intent.getExtras().containsKey("error")){
             notifyConnectionError();
             return;
@@ -125,7 +150,7 @@ public class ChatBox extends FragmentActivity {
     @Override
     public void onResume(){
         super.onResume();
-        Log.d("qwqw","true");
+        Log.d(Constants.DEBUG_CHATBOX,"resumed");
     }
 
     public void onClick(View view) {
@@ -219,7 +244,7 @@ public class ChatBox extends FragmentActivity {
         Fragment fragment = fragmentManager.findFragmentByTag(jid);
         if(fragment==null)
             return;
-        Log.d("QWQW","frag to be removed : "+jid);
+        Log.d(Constants.DEBUG_CHATBOX,"frag to be removed : "+jid);
         int itemNumber = viewPager.getCurrentItem();
         String next_jid_to_be_shown;
         int n;
@@ -232,7 +257,7 @@ public class ChatBox extends FragmentActivity {
             next_jid_to_be_shown =MyFragmentManager.getInstance().getJidByFragId(0);
             n=0;
         }
-        Log.d("QWQW","frag to be shown : "+next_jid_to_be_shown);
+        Log.d(Constants.DEBUG_CHATBOX,"frag to be shown : "+next_jid_to_be_shown);
         Fragment newFragment = fragmentManager.findFragmentByTag(next_jid_to_be_shown);
         fragmentManager.beginTransaction().remove(fragment).commit();
         if(newFragment==null) {
