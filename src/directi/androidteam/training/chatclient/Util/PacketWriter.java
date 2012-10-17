@@ -1,7 +1,9 @@
 package directi.androidteam.training.chatclient.Util;
 
+
 import android.util.Log;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Authentication.AccountManager;
 import directi.androidteam.training.chatclient.Chat.PacketStatusManager;
 
 import java.io.PrintWriter;
@@ -41,6 +43,9 @@ public class PacketWriter implements ServiceThread{
 
                 String id = tag.getAttribute("id");
                 PacketStatusManager.getInstance().setFailure(id);
+            }
+            if(tag.getTagId()!=null && tag.getTagId().equals("streamclose")){
+                AccountManager.getInstance().getAccount(tag.getRecipientAccount()).freeResources();
             }
         }
 
