@@ -43,6 +43,7 @@ public class DisplayRosterActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //TODO : change the roster layout to not show your own jid and photo since you may now be logged in from multiple accounts
         setContentView(R.layout.roster);
         ((ListView)findViewById(R.id.roster_list)).setAdapter(new RosterItemAdapter(this, R.layout.rosterlistitem, new ArrayList<RosterItem>()));
         ((ListView)findViewById(R.id.roster_list)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -51,6 +52,9 @@ public class DisplayRosterActivity extends FragmentActivity {
                 onListItemClick((ListView) adapterView, view, position, id);
             }
         });
+        //TODO : by passing activity to it we are also passing the accounts list, now instead of getting accounts details from jid.getJID
+        //TODO : get them from accounts in account array .. iterate over this array and ask for roster of each account .. iteration is done
+        //TODO : in request roster itself .. not on ui thread
         (new RequestRoster(this)).execute();
     }
 
