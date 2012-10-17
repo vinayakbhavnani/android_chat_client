@@ -9,6 +9,7 @@ import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.TagStore.*;
 import directi.androidteam.training.chatclient.Authentication.*;
+import directi.androidteam.training.chatclient.GlobalTabActivity;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 import directi.androidteam.training.chatclient.Util.Base64;
@@ -117,7 +118,7 @@ public class LoginHandler implements Handler {
             intent.putExtra(LoginActivity.USERNAME, ConnectGTalk.username);
             intent.putExtra("bareJID", bareJID);
            ChatApplication.getAppContext().startActivity(intent);*/
-            Intent intent = new Intent(ChatApplication.getAppContext(),DisplayAccounts.class);
+            Intent intent = new Intent(ChatApplication.getAppContext(),GlobalTabActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             ChatApplication.getAppContext().startActivity(intent);
             if (ConnectGTalk.callerActivity != null) {

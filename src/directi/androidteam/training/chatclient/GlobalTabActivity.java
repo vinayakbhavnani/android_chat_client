@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
 import directi.androidteam.training.ChatApplication;
+import directi.androidteam.training.chatclient.Authentication.DisplayAccounts;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 
 /**
@@ -20,14 +21,14 @@ public class GlobalTabActivity extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         TabHost tabHost = getTabHost();
-/*
+
 
         TabHost.TabSpec accountSpec = tabHost.newTabSpec("Accounts");
-        Intent accountIntent = new Intent(this, DisplayRosterActivity.class);
+        Intent accountIntent = new Intent(this, DisplayAccounts.class);
         accountSpec.setIndicator("Accounts");
         accountSpec.setContent(accountIntent);
         tabHost.addTab(accountSpec);
-*/
+
 
         TabHost.TabSpec contactSpec = tabHost.newTabSpec("Contacts");
         Intent contactIntent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
