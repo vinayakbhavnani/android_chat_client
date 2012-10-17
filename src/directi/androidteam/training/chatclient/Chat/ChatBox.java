@@ -21,8 +21,8 @@ import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.Chat.Listeners.ChatViewPageChangeListner;
 import directi.androidteam.training.chatclient.Constants;
+import directi.androidteam.training.chatclient.GlobalTabActivity;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 
 
 /**
@@ -44,6 +44,7 @@ public class ChatBox extends FragmentActivity {
         super.onCreate(savedInstanceState);
         BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
         Log.d(Constants.DEBUG_CHATBOX,"on create intent");
+        Log.d("adad","oncreate");
 
         setContentView(R.layout.chat);
         context=this;
@@ -63,6 +64,17 @@ public class ChatBox extends FragmentActivity {
         Log.d(Constants.DEBUG_CHATBOX,"oncreate completed");
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle bundle) {
+//        super.onSaveInstanceState(bundle);
+        Log.d("adad","onsave");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle bundle) {
+        super.onRestoreInstanceState(bundle);
+        Log.d("adad","restore");
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -150,7 +162,7 @@ public class ChatBox extends FragmentActivity {
     @Override
     public void onResume(){
         super.onResume();
-        Log.d(Constants.DEBUG_CHATBOX,"resumed");
+        Log.d("adad","resumed");
     }
 
     public void onClick(View view) {
@@ -197,7 +209,7 @@ public class ChatBox extends FragmentActivity {
     }
 
     private void GotoRoster(){
-        Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
+        Intent intent = new Intent(ChatApplication.getAppContext(), GlobalTabActivity.class); //DisplayRosterActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         Object[] objects = MessageManager.getInstance().getMessageStore().keySet().toArray();
@@ -237,6 +249,7 @@ public class ChatBox extends FragmentActivity {
     }
 
     public static void removeFragmentviaFragManager(String jid) {
+        frag_adaptor.setPosition(true);
         frag_adaptor = new FragmentSwipeAdaptor(fragmentManager);
         viewPager.setAdapter(frag_adaptor);
 

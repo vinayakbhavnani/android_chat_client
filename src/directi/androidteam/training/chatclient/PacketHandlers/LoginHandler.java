@@ -6,13 +6,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import directi.androidteam.training.ChatApplication;
-import directi.androidteam.training.StanzaStore.MessageStanza;
-import directi.androidteam.training.TagStore.*;
+import directi.androidteam.training.TagStore.JIDTag;
+import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Authentication.*;
+import directi.androidteam.training.chatclient.GlobalTabActivity;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
-import directi.androidteam.training.chatclient.Util.Base64;
-import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 /**
@@ -112,7 +110,7 @@ public class LoginHandler implements Handler {
             UserDatabaseHandler db = new UserDatabaseHandler(ChatApplication.getAppContext());
             db.addUser(new User(ConnectGTalk.username, ConnectGTalk.password));
 
-            Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
+            Intent intent = new Intent(ChatApplication.getAppContext(), GlobalTabActivity.class);//DisplayRosterActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(LoginActivity.USERNAME, ConnectGTalk.username);
             intent.putExtra("bareJID", bareJID);

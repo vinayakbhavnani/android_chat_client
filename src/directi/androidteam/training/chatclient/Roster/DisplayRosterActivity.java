@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.TagStore.Presence;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
@@ -56,7 +57,7 @@ public class DisplayRosterActivity extends FragmentActivity {
 
     public void onListItemClick(ListView view, View v, int position, long id) {
         RosterItem rosterItem = (RosterItem) view.getItemAtPosition(position);
-        Intent intent = new Intent(this, ChatBox.class);
+        Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
         intent.putExtra("buddyid", rosterItem.getBareJID());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
