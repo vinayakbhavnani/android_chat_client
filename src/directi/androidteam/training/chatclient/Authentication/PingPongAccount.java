@@ -1,6 +1,5 @@
 package directi.androidteam.training.chatclient.Authentication;
 
-import android.util.Log;
 import directi.androidteam.training.chatclient.R;
 
 import java.io.IOException;
@@ -15,7 +14,7 @@ import java.net.Socket;
  */
 public class PingPongAccount extends Account {
     public PingPongAccount(String username , String passwd){
-        this.accountJid=username;
+        this.accountUid =username;
         this.serviceIcon = R.drawable.pingpong_icon;
         this.serverURL = "10.10.100.163";
         this.serverPort = 5222;

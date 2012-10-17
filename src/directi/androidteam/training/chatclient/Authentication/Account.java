@@ -26,7 +26,7 @@ public  abstract class Account {
     protected Socket socket;
     protected Thread readerThread;
 
-    protected String accountJid;
+    protected String accountUid;
     protected LoginStatus loginStatus;
     public String presence;
     public Tag queryTag;
@@ -61,6 +61,15 @@ public  abstract class Account {
     protected  String serverURL;
     protected  int serverPort;
     protected String passwd;
+    protected String bareJID;
+
+    public String getBareJID() {
+        return bareJID;
+    }
+
+    public void setBareJID(String bareJID) {
+        this.bareJID = bareJID;
+    }
 
     public String getPasswd() {
         return passwd;
@@ -80,12 +89,12 @@ public  abstract class Account {
         this.readerThread = readerThread;
     }
 
-    public String getAccountJid() {
-        return accountJid;
+    public String getAccountUid() {
+        return accountUid;
     }
 
-    public void setAccountJid(String accountJid) {
-        this.accountJid = accountJid;
+    public void setAccountUid(String accountUid) {
+        this.accountUid = accountUid;
     }
 
     public LoginStatus isLoginStatus() {
@@ -159,7 +168,7 @@ public  abstract class Account {
         readerThread = thread;
 
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
-        PacketWriter.addStream(writer,accountJid);
+        PacketWriter.addStream(writer, accountUid);
         Log.d("readerwriter","setup");
     }
 
@@ -167,7 +176,7 @@ public  abstract class Account {
         try {
             this.socket = createSocket();
             BufferedReader reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-            setupReaderWriter(launchInNewThread(new PacketReader(reader, accountJid)));
+            setupReaderWriter(launchInNewThread(new PacketReader(reader, accountUid)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -177,13 +186,13 @@ public  abstract class Account {
 
     public void Logout(){
         StreamClose close = new StreamClose();
-        close.setRecipientAccount(accountJid);
+        close.setRecipientAccount(accountUid);
         PacketWriter.addToWriteQueue(close);
         loginStatus=LoginStatus.OFFLINE;
 
         readerThread.interrupt();
         readerThread=null;
-        PacketWriter.removeStream(this.accountJid);
+        PacketWriter.removeStream(this.accountUid);
         socket=null;
     }
 }

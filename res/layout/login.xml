@@ -65,12 +65,14 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:hint="@string/username"
-           />
+              android:textColor="@color/Black"
+                        />
     <EditText android:id="@+id/password"
               android:password="true"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:hint="@string/password"
+              android:textColor="@color/Black"
             />
     <RadioGroup
         android:id="@+id/addaccount_radio"
