@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import directi.androidteam.training.db.DBManager;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -26,7 +25,7 @@ public class DBAccount {
     public boolean addAccountdb(Account account){
         SQLiteDatabase sqldb = DBManager.getDbManager().getWritableSQLiteDB();
         ContentValues values = new ContentValues();
-        values.put(ACCOUNT_USERNAME,account.getAccountJid());
+        values.put(ACCOUNT_USERNAME,account.getAccountUid());
         values.put(ACCOUNT_AUTHSTRING,account.getPasswd());
         values.put(ACCOUNT_LOGINSTATUS,account.isLoginStatus().toString());
         values.put(ACCOUNT_SERVICE,account.service);
@@ -37,7 +36,7 @@ public class DBAccount {
 
     public boolean removeAccountdb(Account account){
         SQLiteDatabase db = DBManager.getDbManager().getWritableSQLiteDB();
-        db.delete(DBManager.TABLE_2_NAME,ACCOUNT_USERNAME+"=?",new String[]{account.getAccountJid()});
+        db.delete(DBManager.TABLE_2_NAME,ACCOUNT_USERNAME+"=?",new String[]{account.getAccountUid()});
         db.close();
         return true;
     }
@@ -72,7 +71,7 @@ public class DBAccount {
             ContentValues values = new ContentValues();
             Log.d("loginstatussave",account.isLoginStatus().toString());
             values.put(ACCOUNT_LOGINSTATUS,account.isLoginStatus().toString());
-            db.update(DBManager.TABLE_2_NAME,values,ACCOUNT_USERNAME+"=?",new String[]{account.getAccountJid()});
+            db.update(DBManager.TABLE_2_NAME,values,ACCOUNT_USERNAME+"=?",new String[]{account.getAccountUid()});
         }
         db.close();
     }

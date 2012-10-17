@@ -2,19 +2,13 @@ package directi.androidteam.training.chatclient.Authentication;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import directi.androidteam.training.chatclient.Chat.ChatListItem;
 import directi.androidteam.training.chatclient.R;
-
-import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -94,9 +88,9 @@ public class AccountListAdaptor extends BaseAdapter {
             holder = (ChatListHolder)row.getTag();
         }*/
 
-        holder.username.setText(cli.accountJid);
+        holder.username.setText(cli.accountUid);
         holder.settings.setImageResource(R.drawable.settings);
-        holder.settings.setTag(cli.getAccountJid());
+        holder.settings.setTag(cli.getAccountUid());
         if(cli.isLoginStatus().equals(LoginStatus.ONLINE)){
             holder.status.setText("online");
             holder.status.setTextColor(R.color.Black);

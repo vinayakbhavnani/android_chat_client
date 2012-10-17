@@ -27,12 +27,12 @@ public class AccountManager {
     }
 
     public void addAccount(Account account){
-        this.userAccounts.put(account.accountJid,account);
+        this.userAccounts.put(account.accountUid,account);
         DBAccount dba = new DBAccount();
         dba.addAccountdb(account);
     }
     public void removeAccount(Account account){
-        this.userAccounts.remove(account.getAccountJid());
+        this.userAccounts.remove(account.getAccountUid());
         DBAccount dba = new DBAccount();
         dba.removeAccountdb(account);
     }

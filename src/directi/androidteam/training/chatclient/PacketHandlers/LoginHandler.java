@@ -106,6 +106,7 @@ public class LoginHandler implements Handler {
             String bareJID = extractJID(tag);
             //PacketWriter.addToWriteQueue(new IQTag("sess_1", "talk.google.com", "set", new SessionTag("urn:ietf:params:xml:ns:xmpp-session")));
             AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().sendStartSession();
+            AccountManager.getInstance().getAccount(tag.getRecipientAccount()).setBareJID(bareJID);
             /*MessageStanza ms = new MessageStanza("dummy.android.chat@gmail.com","testerauth");
             ms.getTag().setRecipientAccount("vinayak.bhavnani@gmail.com");
             PacketWriter.addToWriteQueue(ms.getTag());*/
