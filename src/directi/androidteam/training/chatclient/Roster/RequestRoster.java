@@ -2,8 +2,9 @@ package directi.androidteam.training.chatclient.Roster;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.RosterGet;
+import directi.androidteam.training.chatclient.Authentication.AccountManager;
+import directi.androidteam.training.chatclient.Authentication.LoginStatus;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.UUID;
@@ -22,11 +23,19 @@ public class RequestRoster extends AsyncTask<Void, Void, Void> {
         callerActivity = parent;
     }
 
+    public void sendFetchRosterRequest(String jid) {
+        RosterGet rosterGet = new RosterGet();
+        rosterGet.setSender(jid).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext", "2");
+        PacketWriter.addToWriteQueue(rosterGet.getTag().setRecipientAccount(jid));
+    }
     @Override
     public Void doInBackground(Void ...voids) {
-        RosterGet rosterGet = new RosterGet();
-        rosterGet.setSender(JID.getJid()).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext", "2");
-        PacketWriter.addToWriteQueue(rosterGet.getTag().setRecipientAccount(JID.getJid().split("/")[0]));
+        DisplayRosterActivity.setAccounts(AccountManager.getInstance().getAccountList());
+        for (int i = 0; i < DisplayRosterActivity.getAccounts().size(); i++) {
+            if (DisplayRosterActivity.getAccounts().get(i).isLoginStatus().equals(LoginStatus.ONLINE)) {
+                sendFetchRosterRequest(DisplayRosterActivity.getAccounts().get(i).getAccountJid());
+            }
+        }
         return null;
     }
 }

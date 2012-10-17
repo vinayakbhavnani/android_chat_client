@@ -12,14 +12,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import directi.androidteam.training.ChatApplication;
-import directi.androidteam.training.TagStore.Presence;
-import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
-import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
-import directi.androidteam.training.chatclient.Authentication.UserListActivity;
+import directi.androidteam.training.chatclient.Authentication.Account;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
 
@@ -31,16 +26,18 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class DisplayRosterActivity extends FragmentActivity {
-    private Account currentAccount;
+    private static ArrayList<Account> accounts;
 
-    public Account getCurrentAccount() {
-        return this.currentAccount;
+//    public void setCurrentAccount(String JID, String status, String presence, Tag queryTag) {
+//        this.currentAccount = new Account(JID, status, presence, queryTag);
+//    }
+//
+    public static void setAccounts(ArrayList<Account> a) {
+        accounts = a;
     }
-
-    public void setCurrentAccount(String JID, String status, String presence, Tag queryTag) {
-        this.currentAccount = new Account(JID, status, presence, queryTag);
+    public static ArrayList<Account> getAccounts() {
+        return accounts;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,14 +71,14 @@ public class DisplayRosterActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.status_busy_menu_item:
-                (new SendStatusCumPresence(this)).execute(this.currentAccount.getJID(), this.currentAccount.getStatus(), "dnd");
-                this.currentAccount.setPresence("dnd");
-                displayPresence("dnd");
+//                (new SendStatusCumPresence(this)).execute(this.currentAccount.getJID(), this.currentAccount.getStatus(), "dnd");
+//                this.currentAccount.setPresence("dnd");
+//                displayPresence("dnd");
                 return true;
             case R.id.status_available_menu_item:
-                (new SendStatusCumPresence(this)).execute(this.currentAccount.getJID(), this.currentAccount.getStatus(), "default");
-                this.currentAccount.setPresence("default");
-                displayPresence("default");
+//                (new SendStatusCumPresence(this)).execute(this.currentAccount.getJID(), this.currentAccount.getStatus(), "default");
+//                this.currentAccount.setPresence("default");
+//                displayPresence("default");
                 return true;
             case R.id.set_status_menu_item:
                 (new SetStatusDialog()).show(getSupportFragmentManager(), "add_status_dialog_box_tag");
@@ -92,14 +89,14 @@ public class DisplayRosterActivity extends FragmentActivity {
             case R.id.search_menu_item:
                 return true;
             case R.id.logout_menu_item:
-                Presence presence = new Presence();
-                presence.setType("unavailable");
-                PacketWriter.addToWriteQueue(presence.setRecipientAccount(this.currentAccount.getJID().split("/")[0]));
-                UserDatabaseHandler db = new UserDatabaseHandler(this);
-                db.updateState(ConnectGTalk.username, "offline");
-                startActivity(new Intent(this, UserListActivity.class));
-                RosterManager.getInstance().clearRoster();
-                this.finish();
+//                Presence presence = new Presence();
+//                presence.setType("unavailable");
+//                PacketWriter.addToWriteQueue(presence.setRecipientAccount(this.currentAccount.getJID().split("/")[0]));
+//                UserDatabaseHandler db = new UserDatabaseHandler(this);
+//                db.updateState(ConnectGTalk.username, "offline");
+//                startActivity(new Intent(this, UserListActivity.class));
+//                RosterManager.getInstance().clearRoster();
+//                this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(menuItem);
