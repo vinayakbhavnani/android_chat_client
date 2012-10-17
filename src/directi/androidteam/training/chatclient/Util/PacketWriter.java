@@ -3,7 +3,6 @@ package directi.androidteam.training.chatclient.Util;
 import android.util.Log;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Chat.PacketStatusManager;
-import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -38,13 +37,11 @@ public class PacketWriter implements ServiceThread{
             out.write(tag.toXml());
             Log.d("packetwriter","streamfound " +str );
             out.flush();
-        }
-        //writer.write(tag.toXml());
-        //writer.flush();
-        if(out.checkError()){
+            if(out.checkError()){
 
-            String id = tag.getAttribute("id");
-            PacketStatusManager.getInstance().setFailure(id);
+                String id = tag.getAttribute("id");
+                PacketStatusManager.getInstance().setFailure(id);
+            }
         }
 
 
