@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient.Util;
 import android.util.Log;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Chat.PacketStatusManager;
+import directi.androidteam.training.lib.xml.XMLHelper;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -29,15 +30,7 @@ public class PacketWriter implements ServiceThread{
     }
 
     public void write(Tag tag){
-        if (tag == null) return;
-        Log.d("QQQQ","tagname"+tag.getTagname() + "body" + tag.toXml());
-        if(tag.getRecipientAccount()==null)
-            return;
-        if (tag.getRecipientAccount().contains("@")) {
-            tag.setRecipientAccount(tag.getRecipientAccount().split("@")[0]);
-        }
         PrintWriter out = outputStreams.get(tag.getRecipientAccount());
-
         Log.d("packetwriter","entry "+tag.toXml());
         if(out!=null){
 
