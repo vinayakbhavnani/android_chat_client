@@ -78,11 +78,7 @@ public class RosterHandler implements Handler {
                 presence.setShow("unavailable");
             }
             RosterManager.getInstance().updatePresence(presence);
-            Tag x = tag.getChildTag("x");
-            if (x == null) {return;}
-            Tag photo = x.getChildTag("photo");
-            if (photo == null) {return;}
-            String shaOne = photo.getContent();
+            String shaOne = presence.getAvatarShaOne();
             if (shaOne == null) {return;}
             try {
                 String encodedAvatar = getCachedAvatar(shaOne);
