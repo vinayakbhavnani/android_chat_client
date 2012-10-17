@@ -29,6 +29,9 @@ public class ChatFragment extends ListFragment {
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
 
+    public ChatFragment() {
+    }
+
     public ChatFragment(String from) {
         this.buddyid = from;
     }
@@ -158,7 +161,7 @@ public class ChatFragment extends ListFragment {
         if(MyFragmentManager.getInstance().getSizeofActiveChats()==0)
             ChatBox.finishActivity();
         else {
-            ChatBox.notifyFragmentAdaptorInSameThread();
+         //   ChatBox.notifyFragmentAdaptorInSameThread();
             ChatBox.removeFragmentviaFragManager(jid);
            ChatBox.notifyFragmentAdaptorInSameThread();
         }

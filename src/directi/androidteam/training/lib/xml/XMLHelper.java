@@ -99,7 +99,6 @@ public class XMLHelper {
         int event;
         try{
             String name = xpp.getName();
-            Log.d("XML : Name",name);
             String content = null;
             HashMap<String,String> map = null;
             if(xpp.getAttributeCount()!=0){
