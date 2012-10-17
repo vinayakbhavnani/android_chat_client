@@ -30,9 +30,9 @@ public class SetStatusDialog extends DialogFragment {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
                        String status = ((EditText) view.findViewById(R.id.new_status)).getText().toString();
-                       Account currentAccount = ((DisplayRosterActivity)(Activity)getActivity()).getCurrentAccount();
-                       (new SendStatusCumPresence(getActivity())).execute(currentAccount.getJID(), status, currentAccount.getPresence());
-                       currentAccount.setStatus(status);
+                  //     Account currentAccount = ((DisplayRosterActivity)(Activity)getActivity()).getCurrentAccount();
+                  //     (new SendStatusCumPresence(getActivity())).execute(currentAccount.getJID(), status, currentAccount.getPresence());
+                  //     currentAccount.setStatus(status);
                        ((DisplayRosterActivity)(Activity)getActivity()).displayStatus(status);
                        dismiss();
                    }

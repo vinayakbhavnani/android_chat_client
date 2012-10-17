@@ -1,8 +1,8 @@
 package directi.androidteam.training.chatclient.Authentication;
 
 import android.util.Log;
-
 import directi.androidteam.training.TagStore.StreamClose;
+import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Util.PacketReader;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.chatclient.Util.ServiceThread;
@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,6 +28,24 @@ public  abstract class Account {
 
     protected String accountJid;
     protected LoginStatus loginStatus;
+    public String presence;
+    public Tag queryTag;
+
+    public String getPresence() {
+        return this.presence;
+    }
+
+    public void setPresence(String presence) {
+        this.presence = presence;
+    }
+
+    public Tag getQueryTag() {
+        return this.queryTag;
+    }
+
+    public void setQueryTag(Tag queryTag) {
+        this.queryTag = queryTag;
+    }
 
     public LoginStatus getPersistedLoginStatus() {
         return persistedLoginStatus;
