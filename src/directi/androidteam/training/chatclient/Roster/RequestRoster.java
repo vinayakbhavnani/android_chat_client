@@ -23,17 +23,17 @@ public class RequestRoster extends AsyncTask<Void, Void, Void> {
         callerActivity = parent;
     }
 
-    public void sendFetchRosterRequest(String jid) {
+    public void sendFetchRosterRequest(String uid, String jid) {
         RosterGet rosterGet = new RosterGet();
         rosterGet.setSender(jid).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext", "2");
-        PacketWriter.addToWriteQueue(rosterGet.getTag().setRecipientAccount(jid));
+        PacketWriter.addToWriteQueue(rosterGet.getTag().setRecipientAccount(uid));
     }
     @Override
     public Void doInBackground(Void ...voids) {
         DisplayRosterActivity.setAccounts(AccountManager.getInstance().getAccountList());
         for (int i = 0; i < DisplayRosterActivity.getAccounts().size(); i++) {
             if (DisplayRosterActivity.getAccounts().get(i).isLoginStatus().equals(LoginStatus.ONLINE)) {
-                sendFetchRosterRequest(DisplayRosterActivity.getAccounts().get(i).get());
+                sendFetchRosterRequest(DisplayRosterActivity.getAccounts().get(i).getAccountUid(), DisplayRosterActivity.getAccounts().get(i).getBareJID());
             }
         }
         return null;
