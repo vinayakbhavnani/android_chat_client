@@ -54,5 +54,10 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
+        <receiver android:name="directi.androidteam.training.chatclient.Notification.CancellationReceiver">
+            <intent-filter>
+                <action android:name="directi.androidteam.training.chatclient.Notification.CancellationReceiver.CANCEL"></action>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
