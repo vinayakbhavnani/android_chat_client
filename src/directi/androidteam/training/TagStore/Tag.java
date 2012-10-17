@@ -19,6 +19,15 @@ public class Tag {
     protected ArrayList<Tag> childTags;
     protected String content;
     protected String recipientAccount;
+    protected String tagId;
+
+    public String getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(String tagId) {
+        this.tagId = tagId;
+    }
 
     public String getRecipientAccount() {
         return recipientAccount;

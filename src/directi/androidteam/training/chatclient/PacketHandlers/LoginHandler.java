@@ -37,7 +37,7 @@ public class LoginHandler implements Handler {
     private String extractJID(Tag iqTag) {
         JIDTag jidTag  = new JIDTag(iqTag.getChildTags().get(0).getChildTags().get(0));
         Log.d("JID intialize", jidTag.getContent());
-        return jidTag.getContent().split("/")[0];
+        return jidTag.getContent();
     }
 
     private boolean contains(Tag parent, String childTagName) {

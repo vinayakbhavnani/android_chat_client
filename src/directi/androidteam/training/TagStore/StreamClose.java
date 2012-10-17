@@ -10,6 +10,7 @@ package directi.androidteam.training.TagStore;
 public class StreamClose extends Tag {
     public StreamClose(){
         tagname = "stream:stream";
+        tagId = "streamclose";
     }
 
     @Override

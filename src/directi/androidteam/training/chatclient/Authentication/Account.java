@@ -190,6 +190,10 @@ public  abstract class Account {
         PacketWriter.addToWriteQueue(close);
         loginStatus=LoginStatus.OFFLINE;
 
+
+    }
+
+    public void freeResources(){
         readerThread.interrupt();
         readerThread=null;
         PacketWriter.removeStream(this.accountUid);
