@@ -67,7 +67,7 @@ public class DisplayRosterActivity extends FragmentActivity {
 
     public void updateRosterList(ArrayList<RosterItem> rosterList) {
         RosterItemAdapter rosterItemAdapter = ((RosterItemAdapter)(((ListView)findViewById(R.id.roster_list)).getAdapter()));
-        rosterItemAdapter.setRosterItems(rosterList);
+        rosterItemAdapter.setRosterItems(new ArrayList<RosterItem>(rosterList));
         rosterItemAdapter.notifyDataSetChanged();
     }
 
