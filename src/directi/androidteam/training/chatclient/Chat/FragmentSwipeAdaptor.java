@@ -27,7 +27,7 @@ public  class FragmentSwipeAdaptor extends FragmentStatePagerAdapter {
         MyFragmentManager manager = MyFragmentManager.getInstance();
         String from = manager.getJidByFragId(i);
         Fragment fragment = manager.getFragByJID(from);
-        //fragmentManager.beginTransaction().add(fragment, from).commit();
+        //fragmentManager.beginTransaction().addSubscriber(fragment, from).commit();
         Fragment oldFragment = fragmentManager.findFragmentByTag(from);
         if(oldFragment!=null)
             fragmentManager.beginTransaction().remove(oldFragment).commitAllowingStateLoss();

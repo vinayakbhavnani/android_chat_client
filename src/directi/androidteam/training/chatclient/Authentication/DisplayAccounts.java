@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Time: 1:58 PM
  * To change this template use File | Settings | File Templates.
  */
-public class DisplayAccounts extends Activity {
+public class DisplayAccounts extends Activity implements Subscriber{
     ArrayList<String> loginList;
     ArrayList<String> logoutList;
     AccountListAdaptor adaptor;
@@ -29,7 +29,7 @@ public class DisplayAccounts extends Activity {
         setContentView(R.layout.accounts);
         ListView lv = (ListView)findViewById(R.id.accountScreen_list);
         adaptor = new AccountListAdaptor(this);
-
+        AccountManager.getInstance().addSubscribers(this);
         lv.setAdapter(adaptor);
         setLoginList();
         setLogoutList();
@@ -102,5 +102,18 @@ public class DisplayAccounts extends Activity {
     public void onDestroy(){
         super.onDestroy();
         AccountManager.getInstance().saveAccountState();
+        AccountManager.getInstance().removeSubscribers(this);
+    }
+
+    @Override
+    public void receivedNotification(Publisher s) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adaptor.notifyDataSetChanged();
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+
     }
 }

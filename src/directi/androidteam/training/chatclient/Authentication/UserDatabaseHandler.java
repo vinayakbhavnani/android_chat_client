@@ -80,7 +80,7 @@ public class UserDatabaseHandler  {
                 user.setUsername(cursor.getString(0));
                 user.setPassword(cursor.getString(1));
                 user.setState(cursor.getString(2));
-                userList.add(user);
+                userList.addSubscriber(user);
             } while (cursor.moveToNext());
         }
         cursor.close();

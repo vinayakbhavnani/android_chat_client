@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,13 +22,14 @@ import java.net.Socket;
  * Time: 3:56 PM
  * To change this template use File | Settings | File Templates.
  */
-public  abstract class Account {
+public  abstract class Account implements Publisher{
     public  String service;
     protected Socket socket;
     protected Thread readerThread;
 
     protected String accountUid;
     protected LoginStatus loginStatus;
+    private static Vector<Subscriber> subscribers = new Vector<Subscriber>();
     public String presence;
     public Tag queryTag;
 
@@ -122,6 +124,7 @@ public  abstract class Account {
 
     public void setLoginStatus(LoginStatus loginStatus) {
         this.loginStatus = loginStatus;
+        publish();
     }
 
     public XMPPLogin getXmppLogin() {
@@ -218,6 +221,30 @@ public  abstract class Account {
         PacketWriter.removeStream(this.accountUid);
         socket=null;
     }
+
+
+    //Publisher Methods
+    @Override
+    public void addSubscriber(Subscriber subscriber){
+        subscribers.add(subscriber);
+
+    }
+
+    @Override
+    public void removeSubscriber(Subscriber subscriber){
+        subscribers.remove(subscriber);
+    }
+
+    @Override
+    public void publish(){
+        Subscriber[] store = subscribers.toArray(new Subscriber[subscribers.size()]);
+        for (Subscriber subscriber : store) {
+            subscriber.receivedNotification(this);
+        }
+
+    }
+
+
 }
 
 
