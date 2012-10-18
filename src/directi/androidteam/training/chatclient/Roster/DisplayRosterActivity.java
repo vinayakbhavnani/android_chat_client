@@ -41,7 +41,7 @@ public class DisplayRosterActivity extends FragmentActivity {
         RosterItem rosterItem = (RosterItem) view.getItemAtPosition(position);
         Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
         intent.putExtra("buddyid", rosterItem.getBareJID());
-        //TODO : there will be an account field in roster item , use that to put extra values about the account in the intent as needed
+        intent.putExtra("accountid", rosterItem.getAccount());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

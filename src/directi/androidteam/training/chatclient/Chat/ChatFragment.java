@@ -28,12 +28,18 @@ public class ChatFragment extends ListFragment {
     private Vector<ChatListItem> chatListItems;
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
+    private String accountid = "talk.to";
 
     public ChatFragment() {
     }
 
     public ChatFragment(String from) {
         this.buddyid = from;
+    }
+
+    public ChatFragment(String accountid, String from) {
+        this.buddyid = from;
+        this.accountid = accountid;
     }
 
     @Override
@@ -64,7 +70,7 @@ public class ChatFragment extends ListFragment {
         tv.setText(buddyid);
         ImageView imageView = (ImageView) (header.findViewById(R.id.chatfragment_image));
         TextView status = (TextView)(header.findViewById(R.id.chatfragment_status));
-        RosterItem re = RosterManager.getInstance().getRosterItem(buddyid);
+        RosterItem re = RosterManager.getInstance().getRosterItem(accountid, buddyid);
         imageView.setImageBitmap(re.getAvatar());
 
         ImageView presence = (ImageView)(header.findViewById(R.id.chatfragment_availability_image));

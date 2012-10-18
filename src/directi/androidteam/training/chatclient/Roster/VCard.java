@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.TagStore.VCardTag;
 import directi.androidteam.training.chatclient.PacketHandlers.RosterHandler;
 import directi.androidteam.training.chatclient.Util.Base64;
 
@@ -38,22 +39,20 @@ public class VCard {
         return this.name;
     }
 
-    public void populateFromTag(Tag tag) {
-        if (tag.getChildTags() != null) {
-            tag = tag.getChildTag("vCard");
-            if (tag.getChildTags() != null) {
-                Tag FN = tag.getChildTag("FN");
-                if (FN.getTagname() != null) {
-                    this.name = FN.getContent();
-                }
-                Tag PHOTO = tag.getChildTag("PHOTO");
-                if (PHOTO.getChildTags() != null) {
-                    Tag TYPE = PHOTO.getChildTag("TYPE");
-                    this.avatarType = TYPE.getContent().split("/")[1];
-                    Tag BINVAL = PHOTO.getChildTag("BINVAL");
-                    String avatarBinVal = BINVAL.getContent();
-                    this.avatar = decodeAvatar(avatarBinVal);
-                }
+    public void populateFromTag(VCardTag tag) {
+        Tag FNTag = tag.getChildTag("FN");
+        if (FNTag != null) {
+            this.name = FNTag.getContent();
+        }
+        Tag PHOTOTag = tag.getChildTag("PHOTO");
+        if (PHOTOTag != null) {
+            Tag TYPETag = PHOTOTag.getChildTag("TYPE");
+            if (TYPETag != null) {
+                this.avatarType = TYPETag.getContent().split("/")[1];
+            }
+            Tag BINVALTag = PHOTOTag.getChildTag("BINVAL");
+            if (BINVALTag != null) {
+                this.avatar = decodeAvatar(BINVALTag.getContent());
             }
         }
     }
