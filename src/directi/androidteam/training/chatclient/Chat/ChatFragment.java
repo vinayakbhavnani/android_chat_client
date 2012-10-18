@@ -1,7 +1,6 @@
 package directi.androidteam.training.chatclient.Chat;
 
 
-
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -28,18 +27,17 @@ public class ChatFragment extends ListFragment {
     private Vector<ChatListItem> chatListItems;
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
-    private String accountid = "talk.to";
+    private String myAccountUID;
+
+    public String getMyAccountUID() {
+        return myAccountUID;
+    }
 
     public ChatFragment() {
     }
 
     public ChatFragment(String from) {
         this.buddyid = from;
-    }
-
-    public ChatFragment(String accountid, String from) {
-        this.buddyid = from;
-        this.accountid = accountid;
     }
 
     @Override
@@ -49,6 +47,7 @@ public class ChatFragment extends ListFragment {
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
             chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));
+            myAccountUID = (String)getArguments().get("accountUID");
         }
         else if(!buddyid.equals(("talk.to")))
                 chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));
@@ -70,7 +69,7 @@ public class ChatFragment extends ListFragment {
         tv.setText(buddyid);
         ImageView imageView = (ImageView) (header.findViewById(R.id.chatfragment_image));
         TextView status = (TextView)(header.findViewById(R.id.chatfragment_status));
-        RosterItem re = RosterManager.getInstance().getRosterItem(accountid, buddyid);
+        RosterItem re = RosterManager.getInstance().getRosterItem(myAccountUID, buddyid);
         imageView.setImageBitmap(re.getAvatar());
 
         ImageView presence = (ImageView)(header.findViewById(R.id.chatfragment_availability_image));
@@ -104,7 +103,7 @@ public class ChatFragment extends ListFragment {
     private void sendGoneMsg() {
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
-        messageStanza.send();
+        messageStanza.send(getMyAccountUID());
     }
 
     public static ChatFragment getInstance(String from){

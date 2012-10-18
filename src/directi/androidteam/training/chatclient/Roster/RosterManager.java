@@ -16,8 +16,8 @@ public class RosterManager {
         for (Tag tag : rosterResult.getChildTags()) {
             if (tag.getAttribute("subscription").equals("both")) {
                 RosterItem rosterItem = new RosterItem();
-                rosterItem.setAccount(accountUID);
                 rosterItem.setBareJID(tag.getAttribute("jid"));
+                rosterItem.setAccount(accountUID);
                 rosterItem.setPresence("unavailable");
                 rosterItem.setStatus("");
                 rosterItem.setVCard(new VCard());

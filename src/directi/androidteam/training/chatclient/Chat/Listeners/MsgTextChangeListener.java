@@ -14,9 +14,11 @@ import directi.androidteam.training.StanzaStore.MessageStanza;
 public class MsgTextChangeListener implements TextWatcher {
     private Boolean msgSent =false;
     private String to;
+    String AccountUID;
 
-    public MsgTextChangeListener(String from) {
+    public MsgTextChangeListener(String from, String AccountUID) {
         this.to = from;
+        this.AccountUID = AccountUID;
     }
 
     @Override
@@ -29,7 +31,7 @@ public class MsgTextChangeListener implements TextWatcher {
         if(charSequence.length()==1 && !msgSent) {
             MessageStanza messageStanza = new MessageStanza(to);
             messageStanza.formComposingMsg();
-            messageStanza.send();
+            messageStanza.send(AccountUID);
             msgSent = true;
         }
     }
