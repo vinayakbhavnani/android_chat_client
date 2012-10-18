@@ -28,6 +28,7 @@ public class ChatFragment extends ListFragment {
     private Vector<ChatListItem> chatListItems;
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
+    private String myAccountUID;
 
     public ChatFragment() {
     }
@@ -43,6 +44,7 @@ public class ChatFragment extends ListFragment {
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
             chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));
+            myAccountUID = (String)getArguments().get("accountUID");
         }
         else if(!buddyid.equals(("talk.to")))
                 chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));

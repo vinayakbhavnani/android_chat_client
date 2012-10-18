@@ -60,6 +60,7 @@ public class DisplayRosterActivity extends FragmentActivity {
         RosterItem rosterItem = (RosterItem) view.getItemAtPosition(position);
         Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
         intent.putExtra("buddyid", rosterItem.getBareJID());
+        intent.putExtra("accountUID",rosterItem.getAccount());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

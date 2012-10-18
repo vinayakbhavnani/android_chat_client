@@ -12,10 +12,12 @@ public class RosterManager {
     }
 
     public void setRosterList(Tag rosterResult) {
+        String accountUID = rosterResult.getRecipientAccount();
         for (Tag tag : rosterResult.getChildTags()) {
             if (tag.getAttribute("subscription").equals("both")) {
                 RosterItem rosterItem = new RosterItem();
                 rosterItem.setBareJID(tag.getAttribute("jid"));
+                rosterItem.setAccount(accountUID);
                 rosterItem.setPresence("unavailable");
                 rosterItem.setStatus("");
                 rosterItem.setVCard(new VCard());
