@@ -10,12 +10,12 @@ public class Presence extends Tag {
         this.setRecipientAccount(tag.getRecipientAccount());
     }
 
-    public Presence(String id, String from, String show, String status) {
+    public Presence(String id, String from, String status, String show) {
         this.tagname = "presence";
         this.addAttribute("id", id);
         this.addAttribute("from", from);
-        this.addChildTag(new Show(show));
         this.addChildTag(new Status(status));
+        this.addChildTag(new Show(show));
     }
 
     public String getShow() {
