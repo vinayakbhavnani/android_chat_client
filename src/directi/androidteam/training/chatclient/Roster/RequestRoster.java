@@ -3,10 +3,12 @@ package directi.androidteam.training.chatclient.Roster;
 import android.app.Activity;
 import android.os.AsyncTask;
 import directi.androidteam.training.StanzaStore.RosterGet;
+import directi.androidteam.training.chatclient.Authentication.Account;
 import directi.androidteam.training.chatclient.Authentication.AccountManager;
 import directi.androidteam.training.chatclient.Authentication.LoginStatus;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -23,18 +25,19 @@ public class RequestRoster extends AsyncTask<Void, Void, Void> {
         callerActivity = parent;
     }
 
-    public void sendFetchRosterRequest(String uid, String jid) {
-        RosterGet rosterGet = new RosterGet();
-        rosterGet.setSender(jid).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext", "2");
-        PacketWriter.addToWriteQueue(rosterGet.getTag().setRecipientAccount(uid));
+    public void requestRosterForAccount(Account account) {
+        if (account.isLoginStatus().equals(LoginStatus.ONLINE)) {
+            RosterGet rosterGet = new RosterGet();
+            rosterGet.setSender(account.getFullJID()).setID(UUID.randomUUID().toString()).setQueryAttribute("xmlns","jabber:iq:roster").setQueryAttribute("xmlns:gr","google:roster").setQueryAttribute("gr:ext", "2");
+            PacketWriter.addToWriteQueue(rosterGet.getTag().setRecipientAccount(account.getAccountUid()));
+        }
     }
+
     @Override
     public Void doInBackground(Void ...voids) {
-        DisplayRosterActivity.setAccounts(AccountManager.getInstance().getAccountList());
-        for (int i = 0; i < DisplayRosterActivity.getAccounts().size(); i++) {
-            if (DisplayRosterActivity.getAccounts().get(i).isLoginStatus().equals(LoginStatus.ONLINE)) {
-                sendFetchRosterRequest(DisplayRosterActivity.getAccounts().get(i).getAccountUid(), DisplayRosterActivity.getAccounts().get(i).getFullJID());
-            }
+        ArrayList<Account> accounts = AccountManager.getInstance().getAccountList();
+        for (int i = 0; i < accounts.size(); i++) {
+            requestRosterForAccount(accounts.get(i));
         }
         return null;
     }

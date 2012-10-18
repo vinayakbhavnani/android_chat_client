@@ -9,7 +9,10 @@ import directi.androidteam.training.TagStore.*;
 import directi.androidteam.training.chatclient.Authentication.Account;
 import directi.androidteam.training.chatclient.Authentication.AccountManager;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.*;
+import directi.androidteam.training.chatclient.Roster.RequestRoster;
+import directi.androidteam.training.chatclient.Roster.RosterManager;
+import directi.androidteam.training.chatclient.Roster.SendPresence;
+import directi.androidteam.training.chatclient.Roster.VCard;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.io.FileInputStream;
@@ -35,7 +38,7 @@ public class RosterHandler implements Handler {
         if(tag.getTagname().equals("message")){
         } else if (tag.getTagname().equals("stream:stream") || tag.getTagname().equals("success") || tag.getTagname().equals("failure")) {
         } else if (tag.getTagname().equals("iq") && tag.contains("bind")) {
-        } else if (tag.getChildTags() == null && tag.getAttribute("id").equals("sess_1")) {
+        } else if (tag.getChildTags() == null) {
         } else {
             if (tag.getTagname().equals("iq")) {
                 processIqPacket(new IQTag(tag));
@@ -92,6 +95,7 @@ public class RosterHandler implements Handler {
     }
 
     private void processPresencePacket(Presence presence) {
+        Account account = AccountManager.getInstance().getAccount(presence.getRecipientAccount());
         if(presence.getType() != null && presence.getType().equals("unavailable")) {
             presence.setShow("unavailable");
         }
@@ -109,7 +113,7 @@ public class RosterHandler implements Handler {
             if (!(this.jidToShaOneMap.containsKey(senderBareJID))) {
                 this.jidToShaOneMap.put(senderBareJID, shaOne);
                 Tag vCardTag = new IQTag("getVCard", senderFullJID, "get", new VCardTag("vcard-temp"));
-                PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(senderBareJID));
+                PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(account.getAccountUid()));
             }
         } catch (IOException e) {
             Log.d("IOException", e.toString());
