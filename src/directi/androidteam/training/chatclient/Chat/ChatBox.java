@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -56,7 +57,7 @@ public class ChatBox extends FragmentActivity {
         if(from != null) {
             MyFragmentManager.getInstance().addFragEntry(from);
         }
-        viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context));
+        viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context,fragmentManager));
         if(getIntent().getExtras().containsKey("notification"))
             cancelNotification();
         switchFragment(from);
@@ -186,9 +187,10 @@ public class ChatBox extends FragmentActivity {
         int currentItem = viewPager.getCurrentItem();
 
         String jid = MyFragmentManager.getInstance().getJidByFragId(currentItem);
+        Fragment fragment =  fragmentManager.findFragmentByTag(jid);
         MessageStanza messxml = new MessageStanza(jid,message);
         messxml.formActiveMsg();
-        messxml.send();
+        messxml.send(((ChatFragment)fragment).getMyAccountUID());
 
         PacketStatusManager.getInstance().pushMsPacket(messxml);
         MyFragmentManager.getInstance().addFragEntry(jid);
@@ -197,6 +199,7 @@ public class ChatBox extends FragmentActivity {
         viewPager.setCurrentItem(currentItem);
 
         mess.setText("");
+
     }
 
     private void resendMessage(){
@@ -216,7 +219,7 @@ public class ChatBox extends FragmentActivity {
         for (Object object : objects) {
             MessageStanza messageStanza = new MessageStanza((String) object);
             messageStanza.formInActiveMsg();
-            messageStanza.send();
+            //messageStanza.send();
         }
     }
     private void switchFragment(String from){

@@ -2,10 +2,12 @@ package directi.androidteam.training.chatclient.Chat.Listeners;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
+import directi.androidteam.training.chatclient.Chat.ChatFragment;
 import directi.androidteam.training.chatclient.Chat.MyFragmentManager;
 import directi.androidteam.training.chatclient.R;
 
@@ -18,8 +20,10 @@ import directi.androidteam.training.chatclient.R;
  */
 public class ChatViewPageChangeListner implements ViewPager.OnPageChangeListener {
     Context context;
-    public ChatViewPageChangeListner(Context context) {
+    FragmentManager fragmentManager;
+    public ChatViewPageChangeListner(Context context, FragmentManager fragmentManager) {
         this.context = context;
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
@@ -40,10 +44,12 @@ public class ChatViewPageChangeListner implements ViewPager.OnPageChangeListener
 
     private void updatePageUI(int i){
         String from = MyFragmentManager.getInstance().getJidByFragId(i);
+        String accountUID = ((ChatFragment)fragmentManager.findFragmentByTag(from)).getMyAccountUID();
+
         if(from!=null)
         {
             EditText editText = (EditText) ((Activity)context).findViewById(R.id.enter_message);
-            editText.addTextChangedListener(new MsgTextChangeListener(from));
+            editText.addTextChangedListener(new MsgTextChangeListener(from,accountUID));
         }
 
         TextView hleft = (TextView)((Activity)context).findViewById(R.id.chatboxheader_left);

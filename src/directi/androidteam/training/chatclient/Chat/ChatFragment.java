@@ -1,7 +1,6 @@
 package directi.androidteam.training.chatclient.Chat;
 
 
-
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -29,6 +28,10 @@ public class ChatFragment extends ListFragment {
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
     private String myAccountUID;
+
+    public String getMyAccountUID() {
+        return myAccountUID;
+    }
 
     public ChatFragment() {
     }
@@ -100,7 +103,7 @@ public class ChatFragment extends ListFragment {
     private void sendGoneMsg() {
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
-        messageStanza.send();
+        messageStanza.send(getMyAccountUID());
     }
 
     public static ChatFragment getInstance(String from){
