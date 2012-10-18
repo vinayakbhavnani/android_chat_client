@@ -7,6 +7,7 @@ public class Presence extends Tag {
 
     public Presence(Tag tag) {
         super("presence",tag.attributes,tag.childTags,tag.content);
+        this.setRecipientAccount(tag.getRecipientAccount());
     }
 
     public Presence(String id, String from, String show, String status) {

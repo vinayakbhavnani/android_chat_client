@@ -12,7 +12,7 @@ public class RosterManager {
     }
 
     public void setRosterList(Tag rosterResult) {
-        for (Tag tag : rosterResult.getChildTag("query").getChildTags()) {
+        for (Tag tag : rosterResult.getChildTags()) {
             if (tag.getAttribute("subscription").equals("both")) {
                 RosterItem rosterItem = new RosterItem();
                 rosterItem.setBareJID(tag.getAttribute("jid"));

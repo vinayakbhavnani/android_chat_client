@@ -3,17 +3,13 @@ package directi.androidteam.training.chatclient.PacketHandlers;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 import directi.androidteam.training.ChatApplication;
-import directi.androidteam.training.StanzaStore.MessageStanza;
-import directi.androidteam.training.TagStore.*;
-import directi.androidteam.training.chatclient.Authentication.*;
+import directi.androidteam.training.TagStore.JIDTag;
+import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Authentication.AccountManager;
+import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
+import directi.androidteam.training.chatclient.Authentication.LoginStatus;
 import directi.androidteam.training.chatclient.GlobalTabActivity;
-import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
-import directi.androidteam.training.chatclient.Util.Base64;
-import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 /**
@@ -106,7 +102,7 @@ public class LoginHandler implements Handler {
             String bareJID = extractJID(tag);
             //PacketWriter.addToWriteQueue(new IQTag("sess_1", "talk.google.com", "set", new SessionTag("urn:ietf:params:xml:ns:xmpp-session")));
             AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().sendStartSession();
-            AccountManager.getInstance().getAccount(tag.getRecipientAccount()).setBareJID(bareJID);
+            AccountManager.getInstance().getAccount(tag.getRecipientAccount()).setFullJID(bareJID);
             /*MessageStanza ms = new MessageStanza("dummy.android.chat@gmail.com","testerauth");
             ms.getTag().setRecipientAccount("vinayak.bhavnani@gmail.com");
             PacketWriter.addToWriteQueue(ms.getTag());*/

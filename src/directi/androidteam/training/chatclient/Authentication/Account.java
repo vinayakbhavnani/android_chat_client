@@ -31,6 +31,25 @@ public  abstract class Account {
     public String presence;
     public Tag queryTag;
 
+    private String status;
+    private String show;
+
+    public String getShow() {
+        return this.show;
+    }
+
+    public void setShow(String show) {
+        this.show = show;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getPresence() {
         return this.presence;
     }
@@ -61,14 +80,14 @@ public  abstract class Account {
     protected  String serverURL;
     protected  int serverPort;
     protected String passwd;
-    protected String bareJID;
+    protected String fullJID;
 
-    public String getBareJID() {
-        return bareJID;
+    public String getFullJID() {
+        return fullJID;
     }
 
-    public void setBareJID(String bareJID) {
-        this.bareJID = bareJID;
+    public void setFullJID(String fullJID) {
+        this.fullJID = fullJID;
     }
 
     public String getPasswd() {

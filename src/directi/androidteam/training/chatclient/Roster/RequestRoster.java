@@ -33,7 +33,7 @@ public class RequestRoster extends AsyncTask<Void, Void, Void> {
         DisplayRosterActivity.setAccounts(AccountManager.getInstance().getAccountList());
         for (int i = 0; i < DisplayRosterActivity.getAccounts().size(); i++) {
             if (DisplayRosterActivity.getAccounts().get(i).isLoginStatus().equals(LoginStatus.ONLINE)) {
-                sendFetchRosterRequest(DisplayRosterActivity.getAccounts().get(i).getAccountUid(), DisplayRosterActivity.getAccounts().get(i).getBareJID());
+                sendFetchRosterRequest(DisplayRosterActivity.getAccounts().get(i).getAccountUid(), DisplayRosterActivity.getAccounts().get(i).getFullJID());
             }
         }
         return null;

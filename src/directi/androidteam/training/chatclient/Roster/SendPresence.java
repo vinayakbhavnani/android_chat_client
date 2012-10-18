@@ -23,11 +23,12 @@ public class SendPresence extends AsyncTask<String, Void, Void> {
 
     @Override
     public Void doInBackground(String ...params) {
-        String from = params[0];
-        String status = params[1];
-        String show = params[2];
+        String uid = params[0];
+        String from = params[1];
+        String status = params[2];
+        String show = params[3];
         Presence presence = new Presence(UUID.randomUUID().toString(), from, status, show);
-        PacketWriter.addToWriteQueue(presence.setRecipientAccount(from.split("/")[0]));
+        PacketWriter.addToWriteQueue(presence.setRecipientAccount(uid));
         return null;
     }
 }

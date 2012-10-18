@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.TagStore.*;
+import directi.androidteam.training.chatclient.Authentication.Account;
+import directi.androidteam.training.chatclient.Authentication.AccountManager;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.*;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
@@ -33,6 +35,7 @@ public class RosterHandler implements Handler {
         if(tag.getTagname().equals("message")){
         } else if (tag.getTagname().equals("stream:stream") || tag.getTagname().equals("success") || tag.getTagname().equals("failure")) {
         } else if (tag.getTagname().equals("iq") && tag.contains("bind")) {
+        } else if (tag.getChildTags() == null && tag.getAttribute("id").equals("sess_1")) {
         } else {
             if (tag.getTagname().equals("iq")) {
                 processIqPacket(new IQTag(tag));
@@ -43,22 +46,11 @@ public class RosterHandler implements Handler {
     }
 
     private void processIqPacket(final IQTag tag) {
+        Account account = AccountManager.getInstance().getAccount(tag.getRecipientAccount());
+        account.setFullJID(tag.getAttribute("to"));
+        account.setQueryTag(tag);
         if (tag.contains("query")) {
-            final Tag queryTag = tag.getChildTag("query");
-            if (queryTag.getAttribute("xmlns").equals("jabber:iq:roster")) {
-                RosterManager.getInstance().setRosterList(tag);
-                PacketWriter.addToWriteQueue((new IQTag(UUID.randomUUID().toString(), tag.getAttribute("to").split("/")[0], "get", new Query("google:shared-status", "2")).setRecipientAccount(tag.getAttribute("to").split("/")[0])));
-            } else if (queryTag.getAttribute("xmlns").equals("google:shared-status")) {
-                (new SendPresence(RequestRoster.callerActivity)).execute(tag.getAttribute("to"), queryTag.getChildTag("status").getContent(), queryTag.getChildTag("show").getContent());
- //               ((DisplayRosterActivity) RequestRoster.callerActivity).setCurrentAccount(tag.getAttribute("to"), queryTag.getChildTag("status").getContent(), queryTag.getChildTag("show").getContent(), tag);
-                SendPresence.callerActivity.runOnUiThread(new Runnable() {
-                    public void run() {
-                        ((DisplayRosterActivity) SendPresence.callerActivity).displayJID(tag.getAttribute("to").split("/")[0]);
-                        ((DisplayRosterActivity) SendPresence.callerActivity).displayStatus(queryTag.getChildTag("status").getContent());
-                        ((DisplayRosterActivity) SendPresence.callerActivity).displayPresence(queryTag.getChildTag("show").getContent());
-                    }
-                });
-            }
+            processQueryPacket(new Query(tag.getChildTag("query")), account);
         } else if (tag.contains("vCard")) {
             VCard vCard = new VCard();
             vCard.populateFromTag(tag);
@@ -74,6 +66,28 @@ public class RosterHandler implements Handler {
             } catch (IOException e) {
                 Log.d("IOException", e.toString());
             }
+        }
+    }
+
+    private void processQueryPacket(final Query queryTag, final Account account) {
+        if (queryTag.getAttribute("xmlns").equals("jabber:iq:roster")) {
+            RosterManager.getInstance().setRosterList(queryTag);
+            if (queryTag.getAttribute("xmlns:ros") != null && queryTag.getAttribute("xmlns:ros").equals("google:roster")) {
+                PacketWriter.addToWriteQueue((new IQTag(UUID.randomUUID().toString(), account.getFullJID().split("/")[0], "get", new Query("google:shared-status", "2")).setRecipientAccount(account.getAccountUid())));
+            } else {
+                (new SendPresence(RequestRoster.callerActivity)).execute(account.getAccountUid(), account.getFullJID(), "Loving Talk.to for Android", "chat");
+            }
+        } else if (queryTag.getAttribute("xmlns").equals("google:shared-status")) {
+            (new SendPresence(RequestRoster.callerActivity)).execute(account.getAccountUid(), account.getFullJID(), queryTag.getChildTag("status").getContent(), queryTag.getChildTag("show").getContent());
+            account.setStatus(queryTag.getChildTag("status").getContent());
+            account.setShow(queryTag.getChildTag("show").getContent());
+//            SendPresence.callerActivity.runOnUiThread(new Runnable() {
+//                public void run() {
+//                    ((DisplayRosterActivity) SendPresence.callerActivity).displayJID(account.getFullJID().split("/")[0]);
+//                    ((DisplayRosterActivity) SendPresence.callerActivity).displayStatus(queryTag.getChildTag("status").getContent());
+//                    ((DisplayRosterActivity) SendPresence.callerActivity).displayPresence(queryTag.getChildTag("show").getContent());
+//                }
+//            });
         }
     }
 

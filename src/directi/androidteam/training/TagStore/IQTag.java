@@ -10,6 +10,7 @@ public class IQTag extends Tag {
 
     public IQTag(Tag tag) {
         super(tag.tagname, tag.attributes, tag.childTags, tag.content);
+        this.setRecipientAccount(tag.getRecipientAccount());
     }
 
     public IQTag(String id, String type, Tag child) {
