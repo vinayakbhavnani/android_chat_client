@@ -82,4 +82,20 @@ public class AccountManager {
         DBAccount dba = new DBAccount();
         dba.saveAccountState(userAccounts.values());
     }
+
+    public void addSubscribers(Subscriber subscriber){
+        if(userAccounts.size()>0){
+            String s = (String)userAccounts.keySet().toArray()[0];
+            userAccounts.get(s).addSubscriber(subscriber);
+
+        }
+    }
+
+    public void removeSubscribers(Subscriber subscriber){
+        if(userAccounts.size()>0){
+            String s = (String)userAccounts.keySet().toArray()[0];
+            userAccounts.get(s).removeSubscriber(subscriber);
+
+        }
+    }
 }

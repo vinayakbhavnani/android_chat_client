@@ -276,7 +276,7 @@ public class ChatBox extends FragmentActivity {
         if(newFragment==null) {
             MyFragmentManager manager = MyFragmentManager.getInstance();
             newFragment = manager.getFragByJID(next_jid_to_be_shown);
-            fragmentManager.beginTransaction().add(newFragment, next_jid_to_be_shown).commit();
+            fragmentManager.beginTransaction().addSubscriber(newFragment, next_jid_to_be_shown).commit();
         }
         fragmentManager.beginTransaction().show(newFragment).commit();
       //       viewPager.setCurrentItem(n);
