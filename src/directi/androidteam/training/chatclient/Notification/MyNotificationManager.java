@@ -12,8 +12,6 @@ import android.os.Parcelable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import directi.androidteam.training.chatclient.Notification.CancellationReceiver;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -53,35 +51,27 @@ public class MyNotificationManager {
         notificationBuilder.setTicker(tickerText );
         notificationBuilder.setContentTitle(contentTitle );
         notificationBuilder.setContentText(contentText );
-        Intent deleteIntent = new Intent(CancellationReceiver.CANCEL);
-        deleteIntent.putExtra(NOTIFICATION_ID,notificationID);
-        deleteIntent.putExtra(NOTIFICATION_TYPE,notificationType);
-        notificationBuilder.setDeleteIntent(TaskStackBuilder.create(notificationContext).addNextIntent(deleteIntent).getPendingIntent(0,PendingIntent.FLAG_CANCEL_CURRENT));
+        notificationBuilder.setAutoCancel(true);
         notificationBuilder.setWhen(System.currentTimeMillis());
         notificationBuilder.setAutoCancel(true);
 
     }
 
     public void setTask(Class targetActivityClass , Class homeActivityClass ,Bundle targetBundle) {
-        Log.d("setTask","inside");
         Intent targetIntent = new Intent(notificationContext,targetActivityClass);
         Log.d("setTask","target intent created");
         if(targetBundle == null) {
             Log.d("setTask" , "target bundle is null");
         } else {
         Set<String> keySet = targetBundle.keySet();
-        Log.d("setTask","keyset obtained");
         if(keySet == null) {
             Log.d("setTask","keyset is null");
         } else {
         Iterator iter = keySet.iterator();
-        Log.d("setTask","iterator obtained");
         while(iter.hasNext()) {
-            Log.d("setTask","inside loop");
             String key =  (String) iter.next();
             Log.d("setTask" , "key obtained");
             Object obj =  targetBundle.get(key);
-            Log.d("setTask","object obtained");
             if( obj.getClass().equals(ArrayList.class) ) {
                 targetIntent.putCharSequenceArrayListExtra(key, (ArrayList<CharSequence>) obj);
             } else if ( obj.getClass().equals(double.class))  {
@@ -136,7 +126,6 @@ public class MyNotificationManager {
             }   else if ( obj.getClass().equals(CharSequence[].class)) {
                 targetIntent.putExtra(key,(CharSequence[]) obj);
             }
-            Log.d("setTask","finishing loop");
         }
 
         }
@@ -149,11 +138,6 @@ public class MyNotificationManager {
 
     public void markOngoing() {
         notificationBuilder.setOngoing(true);
-    }
-
-    public void removeNotification(int notificationID) {
-        notificationManager.cancel("note"+notificationID,notificationID);
-        Log.d("removeNotification" ,"notification cancelled");
     }
 
     public void fireNotification(int notificationID ,boolean sound , boolean vibrate , boolean ledFlash , Uri ringURI ,  long[] vibrationPattern , int ledColor) {

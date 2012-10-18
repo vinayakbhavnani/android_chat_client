@@ -9,7 +9,6 @@ import android.util.Log;
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.Notification.IncompleteNotificationException;
-import directi.androidteam.training.chatclient.Notification.NoNotificationToCancelException;
 import directi.androidteam.training.chatclient.Notification.NotificationWrapper;
 import directi.androidteam.training.chatclient.R;
 
@@ -31,34 +30,12 @@ public class ChatNotifier {
         CharSequence messageSender = stanza.getFrom();
         CharSequence message = stanza.getBody();
         try {
-            Log.d("chat notifier","sending message notification");
             NotificationWrapper.sendMessageNotification(context,messageSender.toString(),message.toString());
-            Log.d("chat notifier" , "done sending message notification");
         } catch (IncompleteNotificationException ine) {
-            Log.d("chat notifier","incomplete notification exception in chat notifier");
+            Log.e("chat notifier","incomplete notification exception in chat notifier",ine);
             //ine.printStackTrace();
         }
         Log.d("chat notifier" , "i am successfully exiting , not my bug");
-    }
-
-    public void cancelAllNotification(){
-        Log.d("chat notifier" , "cancel notification entry point reached");
-        try {
-            NotificationWrapper.cancelAllMessageNotification();
-        } catch (NoNotificationToCancelException nntce) {
-            //nntce.printStackTrace();
-        }
-        Log.d("chat notifier" , "cancel notification is successfully exiting");
-    }
-
-    public void cancelNotification(int notificationID){
-        Log.d("chat notifier" , "cancel notification entry point reached");
-        try {
-            NotificationWrapper.cancelMessageNotification(notificationID);
-        } catch (NoNotificationToCancelException nntce) {
-            //nntce.printStackTrace();
-        }
-        Log.d("chat notifier" , "cancel notification is successfully exiting");
     }
 
 }

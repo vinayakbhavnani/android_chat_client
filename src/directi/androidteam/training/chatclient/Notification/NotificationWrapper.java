@@ -36,21 +36,4 @@ public class NotificationWrapper {
         Log.d("message notification" , "successfully exiting dispatch notification");
     }
 
-    public static void cancelAllMessageNotification() throws NoNotificationToCancelException {
-        if(messageHandler == null) {
-            Log.d("cancelAllMessageNotification","message handler is null");
-            throw new NoNotificationToCancelException("no message notification session is on " );
-        } else {
-            messageHandler.cancelAllNotification();
-        }
-    }
-
-    public static void cancelMessageNotification(int notificationID) throws NoNotificationToCancelException {
-        if(messageHandler == null) {
-            Log.d("cancelAllMessageNotification","message handler is null");
-            throw new NoNotificationToCancelException("no message notification session is on " );
-        } else {
-            messageHandler.cancelNotification(notificationID);
-        }
-    }
 }

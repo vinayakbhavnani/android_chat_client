@@ -40,11 +40,8 @@ public class ChatBox extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         Log.d("onCreate for ChatBox" , "entered");
         super.onCreate(savedInstanceState);
-        Log.d("onCreate for ChatBox","super called succcessfullY");
         BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
-
         setContentView(R.layout.chat);
-        Log.d("onCreate for ChatBox" , "content view is set");
         context=this;
         frag_adaptor = new FragmentSwipeAdaptor(getSupportFragmentManager());
         viewPager = (ViewPager)findViewById(R.id.pager);
@@ -52,21 +49,13 @@ public class ChatBox extends FragmentActivity {
         viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context));
         Log.d("onCreate for ChatBox","getIntent() will be called");
         Intent intent = getIntent();
-        Log.d("onCreate for ChatBox","getExtras() will be called");
         Bundle bundle = intent.getExtras();
         Log.d("onCreate for ChatBox","will try to get from from bundle");
         if(bundle == null) {
             Log.d("onCreate for ChatBox","bundle is null");
         }
         String from =  (String) bundle.get("buddyid");
-        Log.d("onCreate for ChatBox" , "from string extracted from intent = " + from);
-        if(bundle.containsKey("notification"))  {
-            int notificationID = (Integer) bundle.get("notificationID");
-            Log.d("onCreate for ChatBox" , "cancel notification will be called");
-            cancelNotification(notificationID);
-        }
         if(from != null) {
-            Log.d("onCreate for ChatBox","from is not null");
             MyFragmentManager.getInstance().addFragEntry(from);
             EditText editText = (EditText) findViewById(R.id.enter_message);
             editText.addTextChangedListener(new MsgTextChangeListener(from));
@@ -75,9 +64,8 @@ public class ChatBox extends FragmentActivity {
             Log.d("onCreate for ChatBox","from != null if block finished");
         }
         ActionBar ab = getActionBar();
-        Log.d("onCreate for ChatBox" , "action bar obtained");
         ab.hide();
-        Log.d("DDDD","oncreate done");
+        Log.d("onCreate for ChatBox","oncreate done");
     }
 
     private void sendDiscoInfoQuery(String from) {
@@ -125,16 +113,10 @@ public class ChatBox extends FragmentActivity {
         MessageManager.getInstance().insertMessage(from,ms);
     }
 
-    public static void cancelNotification(int notificationID){
-        ChatNotifier cn = new ChatNotifier(context);
-        cn.cancelNotification(notificationID);
-    }
-
     @Override
     public void onNewIntent(Intent intent){
         Log.d("onNewIntent" , " got inside");
         super.onNewIntent(intent);
-        Log.d("onNewIntent","super method successfully executed");
         if(intent.getExtras().containsKey("error")){
             Log.d("onNewIntent","intent contains error key");
             notifyConnectionError();
@@ -145,17 +127,9 @@ public class ChatBox extends FragmentActivity {
             this.finish();
         }
         Bundle bundle =  intent.getExtras();
-        String from = (String)bundle.get("buddyid");
-        Log.d("onNewIntent","from string obtained from extras : " + from)  ;
-        if(intent.getExtras().containsKey("notification")) {
-            Log.d("onNewIntent","intent contains notification key " );
-            int notificationID = (Integer) bundle.get("notificationID");
-            cancelNotification(notificationID);
-            Log.d("onNewIntent" , "finished executing cancel notification");
-        }
+        String from = (String)bundle.get("buddyid")  ;
         if(from!=null)
         {
-            Log.d("onNewIntent" , "from is not null");
             EditText editText = (EditText) findViewById(R.id.enter_message);
             editText.addTextChangedListener(new MsgTextChangeListener(from));
             MyFragmentManager.getInstance().addFragEntry(from);

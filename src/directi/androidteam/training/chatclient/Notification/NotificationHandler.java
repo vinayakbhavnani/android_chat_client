@@ -53,34 +53,14 @@ public abstract class NotificationHandler {
 
     public abstract void sendNotification() ;
 
-    public abstract void cancelNotification(int notificationID) throws NoNotificationToCancelException ;
-
     public void dispatchNotification() {
         notificationManager.setNotification(icon , contentTitle , contentText , tickerText ,notificationID, notificationType);
-        if(targetBundle == null) {
-            Log.d("dispatchNotification","target bundle is null" );
-        } else {
-            Log.d("dispatchNotification","target bundle is not null");
-        }
         notificationManager.setTask(targetActivityClass , homeActivityClass , targetBundle );
-        Log.d("dispatch notification" , " finished setting task");
         notificationManager.fireNotification(notificationID , sound , vibrate , ledFlash , ringURI , vibrationPattern , ledColor );
-        Log.d("dispatch notification" , " finished firing notification");
         if(notificationType == TYPE_ONGOING ) {
             notificationManager.markOngoing();
         }
         Log.d("dispatch notification" , " successfully exiting dispatch notification");
-    }
-
-    public static void backtrackNotification(int notificationID,int notificationType) throws NoNotificationToCancelException {
-        if(notificationType == TYPE_MESSAGE) {
-            if(notificationContext != null) {
-              Log.d("backtrackNotification","notificationContext is not null");
-              new MyNotificationManager(notificationContext).removeNotification(notificationID);
-            } else {
-                throw new NoNotificationToCancelException("No pending notifications present");
-            }
-        }
     }
 
     public static void setNumberOfNotifications(int numberOfNotifications) {

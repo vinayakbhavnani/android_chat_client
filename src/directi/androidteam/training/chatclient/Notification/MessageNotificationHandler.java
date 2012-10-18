@@ -16,7 +16,6 @@ import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
  */
 public class MessageNotificationHandler extends NotificationHandler {
 
-    private static boolean messageFlag = false;
     private String messageSender ;
     private String message ;
 
@@ -47,30 +46,6 @@ public class MessageNotificationHandler extends NotificationHandler {
         bundle.putBoolean("notification",true);
         bundle.putInt("notificationID",getNotificationID());
         setTargetBundle(bundle);
-        if(getTargetBundle() == null) {
-            Log.d("send notification","target bundle is null");
-        } else {
-            Log.d("send notification" , "target bundle is not null");
-        }
-    }
-
-    public void cancelNotification(int notificationID) throws NoNotificationToCancelException {
-         backtrackNotification(notificationID,NotificationHandler.TYPE_MESSAGE);
-    }
-
-    public void cancelAllNotification() {
-        Log.d("cancelAllNotification","entered");
-        int notificationID = getNotificationID();
-        while( notificationID > 100000) {
-            try {
-                cancelNotification(notificationID );
-                setNotificationID(getNotificationID()-1);
-            } catch ( NoNotificationToCancelException nntce){
-                Log.d("cancel all notification " ,"this notification was already cancelled " + notificationID);
-            }
-            notificationID = getNotificationID();
-        }
-        Log.d("cancelAllNotification","exiting");
     }
 
     public String getMessageSender() {
