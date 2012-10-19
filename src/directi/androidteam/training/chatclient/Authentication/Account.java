@@ -248,7 +248,7 @@ public  abstract class Account implements Publisher{
     public void publish(){
         Subscriber[] store = subscribers.toArray(new Subscriber[subscribers.size()]);
         for (Subscriber subscriber : store) {
-            subscriber.receivedNotification(this);
+            subscriber.receivedNotification(PublicationType.ACCOUNT_STATE_CHANGED,accountUid);
         }
 
     }
