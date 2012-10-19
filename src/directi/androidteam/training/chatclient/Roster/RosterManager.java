@@ -65,7 +65,12 @@ public class RosterManager {
         return roster.searchRosterItem(accountUID, bareJID);
     }
 
-    public void clearRoster() {
-        this.roster = new Roster(new LexicalCumPresenceComparator());
+    public void removeAccount(String accountUID) {
+        roster.deleteRosterItemsWithAccount(accountUID);
+        RequestRoster.callerActivity.runOnUiThread(new Runnable() {
+            public void run() {
+                ((DisplayRosterActivity) RequestRoster.callerActivity).updateRosterList(roster.getRoster());
+            }
+        });
     }
 }

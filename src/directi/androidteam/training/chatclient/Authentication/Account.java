@@ -35,6 +35,15 @@ public  abstract class Account implements Publisher{
 
     private String status;
     private String show;
+    private RosterFetchStatus rosterFetchStatus;
+
+    public RosterFetchStatus isRosterFetchStatus() {
+        return this.rosterFetchStatus;
+    }
+
+    public void setRosterFetchStatus(RosterFetchStatus rosterFetchStatus) {
+        this.rosterFetchStatus = rosterFetchStatus;
+    }
 
     public String getShow() {
         return this.show;

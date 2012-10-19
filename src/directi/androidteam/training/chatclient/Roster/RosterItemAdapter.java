@@ -61,7 +61,7 @@ public class RosterItemAdapter extends ArrayAdapter<RosterItem> {
         return view;
     }
 
-    public void setAvailabilityImage(ImageView imageView, String presenceAvailability) {
+    private void setAvailabilityImage(ImageView imageView, String presenceAvailability) {
         if (presenceAvailability.equals("chat")) {
             imageView.setImageResource(R.drawable.green);
         } else if (presenceAvailability.equals("dnd")) {
