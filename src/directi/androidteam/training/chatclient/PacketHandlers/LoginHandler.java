@@ -107,9 +107,11 @@ public class LoginHandler implements Handler {
             ms.getTag().setRecipientAccount("vinayak.bhavnani@gmail.com");
             PacketWriter.addToWriteQueue(ms.getTag());*/
             AccountManager.getInstance().getAccount(tag.getRecipientAccount()).setLoginStatus(LoginStatus.ONLINE);
+/*
             if(AccountManager.getInstance().initialActivity!=null){
                 AccountManager.getInstance().initialActivity.finish();
             }
+*/
             /*Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(LoginActivity.USERNAME, ConnectGTalk.username);

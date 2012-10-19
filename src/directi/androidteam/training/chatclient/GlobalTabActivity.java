@@ -1,12 +1,13 @@
 package directi.androidteam.training.chatclient;
 
-import android.app.TabActivity;
-import android.content.Intent;
+import android.app.ActionBar;
+import android.app.Activity;
 import android.os.Bundle;
-import android.widget.TabHost;
-import directi.androidteam.training.ChatApplication;
-import directi.androidteam.training.chatclient.Authentication.DisplayAccounts;
-import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
+import android.app.Fragment;
+import directi.androidteam.training.chatclient.Authentication.MyTabListener;
+import directi.androidteam.training.chatclient.Authentication.accountsFragment;
+
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,34 +16,32 @@ import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
  * Time: 5:22 PM
  * To change this template use File | Settings | File Templates.
  */
-public class GlobalTabActivity extends TabActivity {
+public class GlobalTabActivity extends Activity {
+    public static final int FRAGMENT_ACCOUNTS = 1;
+    public static final int FRAGMENT_ROSTER = 2;
+    private Vector<ActionBar.Tab> tabs;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        TabHost tabHost = getTabHost();
+        tabs = new Vector<ActionBar.Tab>();
+        setContentView(R.layout.main);
+        ActionBar actionbar = getActionBar();
+        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        ActionBar.Tab accountsTab = actionbar.newTab().setText("Accounts");
+        Fragment accountsFragment = new accountsFragment();
+        accountsTab.setTabListener(new MyTabListener(accountsFragment));
+        actionbar.addTab(accountsTab);
+        tabs.add(accountsTab);
+        actionbar.selectTab(accountsTab);
+    }
 
-
-        TabHost.TabSpec accountSpec = tabHost.newTabSpec("Accounts");
-        Intent accountIntent = new Intent(this, DisplayAccounts.class);
-        accountSpec.setIndicator("Accounts");
-        accountSpec.setContent(accountIntent);
-        tabHost.addTab(accountSpec);
-
-
-        TabHost.TabSpec contactSpec = tabHost.newTabSpec("Contacts");
-        Intent contactIntent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
-        contactSpec.setIndicator("Contacts");
-        contactSpec.setContent(contactIntent);
-        tabHost.addTab(contactSpec);
-
-/*
-        TabHost.TabSpec chatSpec = tabHost.newTabSpec("Chats");
-        Intent chatIntent = new Intent(this, DisplayRosterActivity.class);
-        chatSpec.setIndicator("Chats");
-        chatSpec.setContent(chatIntent);
-        tabHost.addTab(chatSpec);
-*/
-
+    public void switchFragment(int fragmentNumber) {
+        ActionBar actionbar = getActionBar();
+        if(fragmentNumber==FRAGMENT_ACCOUNTS) {
+            actionbar.selectTab(tabs.get(0));
+        }
+        else
+            actionbar.selectTab(tabs.get(1));
     }
 }
