@@ -11,7 +11,7 @@ public class RosterManager {
         return rosterManager;
     }
 
-    public void setRosterList(Tag rosterResult) {
+    public void updateRosterList(Tag rosterResult) {
         String accountUID = rosterResult.getRecipientAccount();
         for (Tag tag : rosterResult.getChildTags()) {
             if (tag.getAttribute("subscription").equals("both")) {
@@ -32,7 +32,7 @@ public class RosterManager {
     }
 
     public void updatePresence(Presence presence) {
-        RosterItem rosterItem = this.roster.searchRosterItem(presence.getFrom().split("/")[0]);
+        RosterItem rosterItem = this.roster.searchRosterItem(presence.getRecipientAccount(), presence.getFrom().split("/")[0]);
         if (rosterItem == null) {return;}
         rosterItem.setStatus(presence.getStatus());
         if (presence.getShow() == null) {
@@ -41,28 +41,28 @@ public class RosterManager {
             rosterItem.setPresence(presence.getShow());
         }
         this.roster.insertRosterItem(rosterItem);
-        SendPresence.callerActivity.runOnUiThread(new Runnable() {
+        RequestRoster.callerActivity.runOnUiThread(new Runnable() {
             public void run() {
-                ((DisplayRosterActivity) SendPresence.callerActivity).updateRosterList(roster.getRoster());
+                ((DisplayRosterActivity) RequestRoster.callerActivity).updateRosterList(roster.getRoster());
             }
         });
     }
 
-    public void updatePhoto(VCard vCard, String from) {
-        RosterItem rosterItem = this.roster.searchRosterItem(from);
+    public void updatePhoto(VCard vCard, String accountUID, String from) {
+        RosterItem rosterItem = this.roster.searchRosterItem(accountUID, from);
         if (rosterItem == null) {return;}
         if (vCard.getAvatar() != null) {
             rosterItem.setVCard(vCard);
         }
-        SendPresence.callerActivity.runOnUiThread(new Runnable() {
+        RequestRoster.callerActivity.runOnUiThread(new Runnable() {
             public void run() {
-                ((DisplayRosterActivity) SendPresence.callerActivity).updateRosterList(roster.getRoster());
+                ((DisplayRosterActivity) RequestRoster.callerActivity).updateRosterList(roster.getRoster());
             }
         });
     }
 
-    public RosterItem getRosterItem(String bareJID) {
-        return roster.searchRosterItem(bareJID);
+    public RosterItem getRosterItem(String accountUID, String bareJID) {
+        return roster.searchRosterItem(accountUID, bareJID);
     }
 
     public void clearRoster() {
