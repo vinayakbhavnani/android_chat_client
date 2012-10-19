@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,5 +21,10 @@ public class BackgroundService extends Service {
     @Override
     public int onStartCommand(Intent intent,int flags,int temp){
         return START_STICKY;
+    }
+
+    @Override
+    public void onCreate(){
+        Log.d("BackgroundService","Service");
     }
 }
