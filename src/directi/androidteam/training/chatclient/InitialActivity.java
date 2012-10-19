@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import directi.androidteam.training.chatclient.Authentication.AccountManager;
-import directi.androidteam.training.chatclient.Authentication.DisplayAccounts;
 import directi.androidteam.training.chatclient.Authentication.LoginActivity;
 import directi.androidteam.training.chatclient.Authentication.NetworkManager;
 
@@ -53,7 +52,7 @@ public class InitialActivity extends Activity {
                 this.finish();
                 break;
             case 0 :
-                intent = new Intent(this,DisplayAccounts.class);
+                intent = new Intent(this,GlobalTabActivity.class);
                 startActivity(intent);
                 this.finish();
                 break;

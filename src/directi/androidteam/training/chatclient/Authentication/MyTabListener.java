@@ -1,6 +1,7 @@
 package directi.androidteam.training.chatclient.Authentication;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.app.Fragment;
 import android.util.Log;
@@ -14,21 +15,32 @@ import android.util.Log;
  */
 public class MyTabListener implements ActionBar.TabListener {
     private Fragment fragment;
-    public MyTabListener(Fragment fragment) {
+    private Activity activity;
+    private String className;
+    public MyTabListener(Fragment fragment,Activity activity,String className) {
         this.fragment = fragment;
+        this.activity = activity;
+        this.className = className;
     }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         Log.d("ioio","tab select");
-        fragmentTransaction.add(fragment,"accounts");
-        fragmentTransaction.show(fragment);
+        if(fragment==null){
+            fragment = Fragment.instantiate(activity,className);
+            fragmentTransaction.add(fragment,"accounts");
+        }
+        else {
+            fragmentTransaction.attach(fragment);
+        }
     }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         Log.d("ioio","tab unselect");
-        fragmentTransaction.remove(fragment);
+        if(fragment!=null) {
+            fragmentTransaction.remove(fragment);
+        }
     }
 
     @Override

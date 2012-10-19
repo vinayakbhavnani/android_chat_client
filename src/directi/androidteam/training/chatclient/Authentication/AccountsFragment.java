@@ -2,6 +2,7 @@ package directi.androidteam.training.chatclient.Authentication;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,29 +17,35 @@ import java.util.ArrayList;
  * Time: 5:37 PM
  * To change this template use File | Settings | File Templates.
  */
-public class accountsFragment extends Fragment implements Subscriber{
+public class AccountsFragment extends Fragment implements Subscriber{
     private ArrayList<String> loginList;
     private ArrayList<String> logoutList;
     private AccountListAdaptor adaptor;
 
+    public AccountsFragment() {
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        AccountManager.getInstance().addSubscribers(this);
+        Log.d("ioio", "oncreate - acct fragment");
+//        AccountManager.getInstance().addSubscribers(this);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-
+        Log.d("ioio", "onacitvity created- acct fragment");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d("ioio", "oncreate view- acct fragment");
         TextView textView = new TextView(getActivity());
         textView.setText("SimpleFragmentText");
         textView.setVisibility(View.VISIBLE);
-        adaptor = new AccountListAdaptor(getActivity());
+        textView.setTextSize(20);
+       // adaptor = new AccountListAdaptor(getActivity());
         return textView;
 /*
             View view;
@@ -81,7 +88,7 @@ public class accountsFragment extends Fragment implements Subscriber{
     @Override
     public void onResume(){
         super.onResume();
-        adaptor.notifyDataSetChanged();
+//        adaptor.notifyDataSetChanged();
     }
 
 
