@@ -35,14 +35,5 @@ public class GlobalTabActivity extends TabActivity {
         contactSpec.setIndicator("Contacts");
         contactSpec.setContent(contactIntent);
         tabHost.addTab(contactSpec);
-
-/*
-        TabHost.TabSpec chatSpec = tabHost.newTabSpec("Chats");
-        Intent chatIntent = new Intent(this, DisplayRosterActivity.class);
-        chatSpec.setIndicator("Chats");
-        chatSpec.setContent(chatIntent);
-        tabHost.addTab(chatSpec);
-*/
-
     }
 }

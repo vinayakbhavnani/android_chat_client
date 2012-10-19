@@ -56,4 +56,15 @@ public class Roster {
         }
         this.roster.add(rosterItem);
     }
+
+    public void deleteRosterItemsWithAccount(String accountUID) {
+        int i = 0;
+        ArrayList<RosterItem> newRoster = new ArrayList<RosterItem>();
+        for (i = 0; i < this.roster.size(); i++) {
+            if (!(this.roster.get(i).getAccount().equals(accountUID))) {
+                newRoster.add(this.roster.get(i));
+            }
+        }
+        this.roster = newRoster;
+    }
 }

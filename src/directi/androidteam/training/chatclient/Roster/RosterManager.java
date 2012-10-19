@@ -5,6 +5,7 @@ import directi.androidteam.training.TagStore.Tag;
 
 public class RosterManager {
     private Roster roster = new Roster(new LexicalCumPresenceComparator());
+    private DisplayRosterActivity displayRosterActivity;
     private static RosterManager rosterManager = new RosterManager();
 
     public static RosterManager getInstance() {
@@ -24,9 +25,9 @@ public class RosterManager {
                 this.roster.insertRosterItem(rosterItem);
             }
         }
-        RequestRoster.callerActivity.runOnUiThread(new Runnable() {
+        this.displayRosterActivity.runOnUiThread(new Runnable() {
             public void run() {
-                ((DisplayRosterActivity) RequestRoster.callerActivity).updateRosterList(roster.getRoster());
+                displayRosterActivity.updateRosterList(roster.getRoster());
             }
         });
     }
@@ -41,9 +42,9 @@ public class RosterManager {
             rosterItem.setPresence(presence.getShow());
         }
         this.roster.insertRosterItem(rosterItem);
-        RequestRoster.callerActivity.runOnUiThread(new Runnable() {
+        this.displayRosterActivity.runOnUiThread(new Runnable() {
             public void run() {
-                ((DisplayRosterActivity) RequestRoster.callerActivity).updateRosterList(roster.getRoster());
+                displayRosterActivity.updateRosterList(roster.getRoster());
             }
         });
     }
@@ -54,9 +55,9 @@ public class RosterManager {
         if (vCard.getAvatar() != null) {
             rosterItem.setVCard(vCard);
         }
-        RequestRoster.callerActivity.runOnUiThread(new Runnable() {
+        this.displayRosterActivity.runOnUiThread(new Runnable() {
             public void run() {
-                ((DisplayRosterActivity) RequestRoster.callerActivity).updateRosterList(roster.getRoster());
+                displayRosterActivity.updateRosterList(roster.getRoster());
             }
         });
     }
@@ -65,7 +66,20 @@ public class RosterManager {
         return roster.searchRosterItem(accountUID, bareJID);
     }
 
-    public void clearRoster() {
-        this.roster = new Roster(new LexicalCumPresenceComparator());
+    public DisplayRosterActivity getDisplayRosterActivity() {
+        return this.displayRosterActivity;
+    }
+
+    public void setDisplayRosterActivity(DisplayRosterActivity displayRosterActivity) {
+        this.displayRosterActivity = displayRosterActivity;
+    }
+
+    public void removeAccount(String accountUID) {
+        roster.deleteRosterItemsWithAccount(accountUID);
+        this.displayRosterActivity.runOnUiThread(new Runnable() {
+            public void run() {
+                displayRosterActivity.updateRosterList(roster.getRoster());
+            }
+        });
     }
 }
