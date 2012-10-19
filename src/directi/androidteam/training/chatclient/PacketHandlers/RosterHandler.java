@@ -9,7 +9,6 @@ import directi.androidteam.training.TagStore.*;
 import directi.androidteam.training.chatclient.Authentication.Account;
 import directi.androidteam.training.chatclient.Authentication.AccountManager;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.RequestRoster;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
 import directi.androidteam.training.chatclient.Roster.VCard;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
@@ -91,7 +90,7 @@ public class RosterHandler implements Handler {
         String shaOne = this.jidToShaOneMap.get(senderBareJID);
         this.jidToShaOneMap.remove(senderBareJID);
         try {
-            FileOutputStream fileOutputStream = RequestRoster.callerActivity.openFileOutput(shaOne, Context.MODE_PRIVATE);
+            FileOutputStream fileOutputStream = RosterManager.getInstance().getDisplayRosterActivity().openFileOutput(shaOne, Context.MODE_PRIVATE);
             fileOutputStream.write(vCardTag.getChildTag("PHOTO").getChildTag("BINVAL").getContent().getBytes());
             fileOutputStream.close();
         } catch (FileNotFoundException e) {
@@ -104,6 +103,11 @@ public class RosterHandler implements Handler {
 
     private void processQueryPacket(final Query queryTag, final Account account) {
         if (queryTag.getAttribute("xmlns").equals("jabber:iq:roster")) {
+            while(true) {
+                if (RosterManager.getInstance().getDisplayRosterActivity() != null) {
+                    break;
+                }
+            }
             RosterManager.getInstance().updateRosterList(queryTag);
             PacketWriter.addToWriteQueue(new Presence(UUID.randomUUID().toString(), account.getFullJID(), account.getStatus(), account.getShow()).setRecipientAccount(account.getAccountUid()));
         }
@@ -111,7 +115,7 @@ public class RosterHandler implements Handler {
 
     private String getCachedAvatar(String shaOne) throws IOException {
         String encodedAvatar = "";
-        FileInputStream fileInputStream = RequestRoster.callerActivity.openFileInput(shaOne);
+        FileInputStream fileInputStream = RosterManager.getInstance().getDisplayRosterActivity().openFileInput(shaOne);
         StringBuffer fileContent = new StringBuffer("");
         byte [] buffer = new byte[1024];
         int length;

@@ -34,7 +34,7 @@ public class DisplayRosterActivity extends FragmentActivity {
                 onListItemClick((ListView) adapterView, view, position, id);
             }
         });
-        (new RequestRoster(this)).execute();
+        RosterManager.getInstance().setDisplayRosterActivity(this);
     }
 
     public void onListItemClick(ListView view, View v, int position, long id) {
