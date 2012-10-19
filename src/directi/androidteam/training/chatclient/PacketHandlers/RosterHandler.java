@@ -90,7 +90,7 @@ public class RosterHandler implements Handler {
         String shaOne = this.jidToShaOneMap.get(senderBareJID);
         this.jidToShaOneMap.remove(senderBareJID);
         try {
-            FileOutputStream fileOutputStream = RosterManager.getInstance().getDisplayRosterActivity().openFileOutput(shaOne, Context.MODE_PRIVATE);
+            FileOutputStream fileOutputStream = ChatApplication.getAppContext().openFileOutput(shaOne, Context.MODE_PRIVATE);
             fileOutputStream.write(vCardTag.getChildTag("PHOTO").getChildTag("BINVAL").getContent().getBytes());
             fileOutputStream.close();
         } catch (FileNotFoundException e) {
@@ -103,11 +103,6 @@ public class RosterHandler implements Handler {
 
     private void processQueryPacket(final Query queryTag, final Account account) {
         if (queryTag.getAttribute("xmlns").equals("jabber:iq:roster")) {
-            while(true) {
-                if (RosterManager.getInstance().getDisplayRosterActivity() != null) {
-                    break;
-                }
-            }
             RosterManager.getInstance().updateRosterList(queryTag);
             PacketWriter.addToWriteQueue(new Presence(UUID.randomUUID().toString(), account.getFullJID(), account.getStatus(), account.getShow()).setRecipientAccount(account.getAccountUid()));
         }
@@ -115,7 +110,7 @@ public class RosterHandler implements Handler {
 
     private String getCachedAvatar(String shaOne) throws IOException {
         String encodedAvatar = "";
-        FileInputStream fileInputStream = RosterManager.getInstance().getDisplayRosterActivity().openFileInput(shaOne);
+        FileInputStream fileInputStream = ChatApplication.getAppContext().openFileInput(shaOne);
         StringBuffer fileContent = new StringBuffer("");
         byte [] buffer = new byte[1024];
         int length;

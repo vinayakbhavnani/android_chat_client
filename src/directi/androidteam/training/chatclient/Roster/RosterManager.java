@@ -3,6 +3,8 @@ package directi.androidteam.training.chatclient.Roster;
 import directi.androidteam.training.TagStore.Presence;
 import directi.androidteam.training.TagStore.Tag;
 
+import java.util.ArrayList;
+
 public class RosterManager {
     private Roster roster = new Roster(new LexicalCumPresenceComparator());
     private DisplayRosterActivity displayRosterActivity;
@@ -10,6 +12,18 @@ public class RosterManager {
 
     public static RosterManager getInstance() {
         return rosterManager;
+    }
+
+    public RosterItem getRosterItem(String accountUID, String bareJID) {
+        return roster.searchRosterItem(accountUID, bareJID);
+    }
+
+    public void setDisplayRosterActivity(DisplayRosterActivity displayRosterActivity) {
+        this.displayRosterActivity = displayRosterActivity;
+    }
+
+    public ArrayList<RosterItem> getRoster() {
+        return roster.getRoster();
     }
 
     public void updateRosterList(Tag rosterResult) {
@@ -25,11 +39,7 @@ public class RosterManager {
                 this.roster.insertRosterItem(rosterItem);
             }
         }
-        this.displayRosterActivity.runOnUiThread(new Runnable() {
-            public void run() {
-                displayRosterActivity.updateRosterList(roster.getRoster());
-            }
-        });
+        updateRosterDisplay();
     }
 
     public void updatePresence(Presence presence) {
@@ -42,11 +52,7 @@ public class RosterManager {
             rosterItem.setPresence(presence.getShow());
         }
         this.roster.insertRosterItem(rosterItem);
-        this.displayRosterActivity.runOnUiThread(new Runnable() {
-            public void run() {
-                displayRosterActivity.updateRosterList(roster.getRoster());
-            }
-        });
+        updateRosterDisplay();
     }
 
     public void updatePhoto(VCard vCard, String accountUID, String from) {
@@ -55,31 +61,21 @@ public class RosterManager {
         if (vCard.getAvatar() != null) {
             rosterItem.setVCard(vCard);
         }
-        this.displayRosterActivity.runOnUiThread(new Runnable() {
-            public void run() {
-                displayRosterActivity.updateRosterList(roster.getRoster());
-            }
-        });
+        updateRosterDisplay();
     }
 
-    public RosterItem getRosterItem(String accountUID, String bareJID) {
-        return roster.searchRosterItem(accountUID, bareJID);
-    }
-
-    public DisplayRosterActivity getDisplayRosterActivity() {
-        return this.displayRosterActivity;
-    }
-
-    public void setDisplayRosterActivity(DisplayRosterActivity displayRosterActivity) {
-        this.displayRosterActivity = displayRosterActivity;
+    private void updateRosterDisplay() {
+        if (this.displayRosterActivity != null) {
+            this.displayRosterActivity.runOnUiThread(new Runnable() {
+                public void run() {
+                    displayRosterActivity.updateRosterList(roster.getRoster());
+                }
+            });
+        }
     }
 
     public void removeAccount(String accountUID) {
         roster.deleteRosterItemsWithAccount(accountUID);
-        this.displayRosterActivity.runOnUiThread(new Runnable() {
-            public void run() {
-                displayRosterActivity.updateRosterList(roster.getRoster());
-            }
-        });
+        updateRosterDisplay();
     }
 }

@@ -37,6 +37,12 @@ public class DisplayRosterActivity extends FragmentActivity {
         RosterManager.getInstance().setDisplayRosterActivity(this);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.updateRosterList(RosterManager.getInstance().getRoster());
+    }
+
     public void onListItemClick(ListView view, View v, int position, long id) {
         RosterItem rosterItem = (RosterItem) view.getItemAtPosition(position);
         Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
