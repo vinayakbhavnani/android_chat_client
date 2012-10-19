@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.app.Fragment;
 import android.util.Log;
+import directi.androidteam.training.chatclient.R;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,10 +29,11 @@ public class MyTabListener implements ActionBar.TabListener {
         Log.d("ioio","tab select");
         if(fragment==null){
             fragment = Fragment.instantiate(activity,className);
-            fragmentTransaction.add(fragment,"accounts");
+            fragmentTransaction.add(R.id.tab_container,fragment);
         }
         else {
-            fragmentTransaction.attach(fragment);
+            fragmentTransaction.add(R.id.tab_container,fragment);
+            fragmentTransaction.show(fragment);
         }
     }
 
