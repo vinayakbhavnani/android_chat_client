@@ -212,14 +212,14 @@ public  abstract class Account implements Publisher{
             e.printStackTrace();
         }
         xmppLogin.initiateLogin();
-        loginStatus=LoginStatus.CONNECTING;
+       setLoginStatus(LoginStatus.CONNECTING);
     }
 
     public void Logout(){
         StreamClose close = new StreamClose();
         close.setRecipientAccount(accountUid);
         PacketWriter.addToWriteQueue(close);
-        loginStatus=LoginStatus.OFFLINE;
+        setLoginStatus(LoginStatus.OFFLINE);
 
 
     }
