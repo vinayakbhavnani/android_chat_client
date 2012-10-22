@@ -15,7 +15,6 @@ public class TalkToNotificationManager {
 
     private Context notificationContext ;
     private static final String LOGTAG = "TalkToNotificationManager";
-    private static final String NOTIFICATION_TAG = "note";
 
     public TalkToNotificationManager(Context currentContext) {
         notificationContext = currentContext;
@@ -24,7 +23,7 @@ public class TalkToNotificationManager {
 
     public void notify(TalkToNotification notification) {
         Notification androidNotification = getNotification(notification.getIcon(), notification.getContentTitle(), notification.getContentText(), notification.getTickerText(), notification.getNotificationID(),notification.getTargetIntent(), notification.getHomeActivityClass());
-        notificationManager.notify(NOTIFICATION_TAG+notification.getNotificationID(),notification.getNotificationID(),androidNotification);
+        notificationManager.notify(notification.getNotificationID(),androidNotification);
         Log.d(LOGTAG , " successfully exiting notify");
     }
 
