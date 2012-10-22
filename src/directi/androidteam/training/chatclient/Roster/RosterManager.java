@@ -35,7 +35,7 @@ public class RosterManager {
                 rosterItem.setAccount(accountUID);
                 rosterItem.setPresence("unavailable");
                 rosterItem.setStatus("");
-                rosterItem.setVCard(new VCard());
+                rosterItem.setVCard(new VCard(tag.getAttribute("jid")));
                 this.roster.insertRosterItem(rosterItem);
             }
         }
@@ -51,8 +51,8 @@ public class RosterManager {
         } else {
             rosterItem.setPresence(presence.getShow());
         }
-        this.roster.insertRosterItem(rosterItem);
-        updateRosterDisplay();
+//        this.roster.insertRosterItem(rosterItem);
+//        updateRosterDisplay();
     }
 
     public void updatePhoto(VCard vCard, String accountUID, String from) {
@@ -61,6 +61,7 @@ public class RosterManager {
         if (vCard.getAvatar() != null) {
             rosterItem.setVCard(vCard);
         }
+        this.roster.insertRosterItem(rosterItem);
         updateRosterDisplay();
     }
 

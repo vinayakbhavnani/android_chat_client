@@ -234,9 +234,9 @@ public final class R {
         public static final int receive_mess_body=0x7f08001e;
         public static final int receive_mess_name=0x7f08001c;
         public static final int roster_image=0x7f080031;
-        public static final int roster_jid=0x7f08002f;
         public static final int roster_list=0x7f08002a;
         public static final int roster_list_item=0x7f08002d;
+        public static final int roster_name=0x7f08002f;
         public static final int roster_root=0x7f080029;
         public static final int roster_status=0x7f080030;
         public static final int rostersearchlist=0x7f080033;

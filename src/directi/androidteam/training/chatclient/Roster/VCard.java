@@ -22,8 +22,8 @@ public class VCard {
     private String avatarType;
     private Bitmap avatar;
 
-    public VCard() {
-        this.name = "";
+    public VCard(String name) {
+        this.name = name;
         this.avatar = RosterHandler.defaultUserImage;//BitmapFactory.decodeResource(ChatApplication.getAppContext().getResources(), R.drawable.default_user);
     }
 

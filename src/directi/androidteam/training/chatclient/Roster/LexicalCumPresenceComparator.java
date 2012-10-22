@@ -20,7 +20,7 @@ public class LexicalCumPresenceComparator implements Comparator<RosterItem> {
     public int compare(RosterItem rosterItem1, RosterItem rosterItem2) {
         int presenceOrder = this.presenceComparator.compare(rosterItem1, rosterItem2);
         if (presenceOrder == 0) {
-            return rosterItem1.getBareJID().compareTo(rosterItem2.getBareJID());
+            return rosterItem1.getName().compareTo(rosterItem2.getName());
         } else {
             return presenceOrder;
         }
