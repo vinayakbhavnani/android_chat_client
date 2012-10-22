@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import directi.androidteam.training.chatclient.R;
 
@@ -20,9 +21,9 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class AccountsFragment extends Fragment implements Subscriber{
-    private ArrayList<String> loginList;
-    private ArrayList<String> logoutList;
-    private AccountListAdaptor adaptor;
+    private static ArrayList<String> loginList;
+    private static ArrayList<String> logoutList;
+    private static AccountListAdaptor adaptor;
 
     public AccountsFragment() {
     }
@@ -43,17 +44,14 @@ public class AccountsFragment extends Fragment implements Subscriber{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("ioio", "oncreate view- acct fragment");
-/*
-        if(container!=null)
-            container.removeAllViews();
-*/
         View view = inflater.inflate(R.layout.accounts,container,false);
 
         ListView lv = (ListView)view.findViewById(R.id.accountScreen_list);
         adaptor = new AccountListAdaptor(getActivity());
         lv.setAdapter(adaptor);
-        //          ImageView settings_icon_click = (ImageView) view.findViewById(R.id.accountitem_settings);
-//            settings_icon_click.setOnClickListener(new AcctSettingsIconOnClickListener(loginList, logoutList, adaptor, getActivity()));
+        ImageView settings_icon_click = (ImageView) view.findViewById(R.id.accountitem_settings);
+        if(settings_icon_click!=null)
+            settings_icon_click.setOnClickListener(new AcctSettingsIconOnClickListener(loginList, logoutList, adaptor, getActivity()));
         Button accountAddButton = (Button) view.findViewById(R.id.accountScreen_add);
         accountAddButton.setOnClickListener(new AcctScreenAddOnClickListener(getActivity()));
         setLoginList();
@@ -66,7 +64,7 @@ public class AccountsFragment extends Fragment implements Subscriber{
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("ioio","onpause acct frag");
+        Log.d("ioio", "onpause acct frag");
     }
 
     @Override
@@ -92,6 +90,18 @@ public class AccountsFragment extends Fragment implements Subscriber{
         logoutList.add("Logout");
         logoutList.add("Edit Password");
         logoutList.add("Remove Account");
+    }
+
+    public static ArrayList<String> getLoginList() {
+        return loginList;
+    }
+
+    public static ArrayList<String> getLogoutList() {
+        return logoutList;
+    }
+
+    public static AccountListAdaptor getAdaptor() {
+        return adaptor;
     }
 
     @Override

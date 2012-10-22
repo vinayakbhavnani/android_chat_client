@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import directi.androidteam.training.chatclient.R;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,14 +24,13 @@ public class RosterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Log.d("ioio", "oncreate - roster fragment");
+        (new RequestRoster(getActivity())).execute();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("ioio", "rosterfragment oncreate view- acct fragment");
-/*
-        if(container!=null)
-           container.removeAllViews();
-*/
+        View view = inflater.inflate(R.layout.accounts,container,false);
+
         TextView textView = new TextView(getActivity());
         textView.setText("SimpleFragmentText");
         textView.setVisibility(View.VISIBLE);

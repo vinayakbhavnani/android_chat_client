@@ -1,15 +1,17 @@
 package directi.androidteam.training.chatclient;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import directi.androidteam.training.chatclient.Authentication.AccountsFragment;
-import directi.androidteam.training.chatclient.Authentication.MyTabListener;
+import android.view.View;
+import directi.androidteam.training.chatclient.Authentication.*;
 import directi.androidteam.training.chatclient.Roster.RosterFragment;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -63,6 +65,27 @@ public class GlobalTabActivity extends FragmentActivity {
         }
         else
             actionbar.selectTab(tabs.get(1));
+    }
+
+    public void  onClickHandler(View view){
+        if(view.getId()==R.id.accountitem_settings)
+            accountSettings(view);
+    }
+
+    public void  accountSettings(View view){
+        Account account = AccountManager.getInstance().getAccount((String)view.getTag());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Settings");
+        final ArrayList<String> temp;
+        if(account.isLoginStatus().equals(LoginStatus.ONLINE)){
+            temp = AccountsFragment.getLogoutList();
+        }
+        else
+            temp = AccountsFragment.getLoginList();
+        builder.setItems(temp.toArray(new CharSequence[temp.size()]),new DialogListener(temp,account,AccountsFragment.getAdaptor()));
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
 }
