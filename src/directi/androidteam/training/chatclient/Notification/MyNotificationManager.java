@@ -57,82 +57,8 @@ public class MyNotificationManager {
 
     }
 
-    public void setTask(Class targetActivityClass , Class homeActivityClass ,Bundle targetBundle) {
-        Intent targetIntent = new Intent(notificationContext,targetActivityClass);
-        Log.d("setTask","target intent created");
-        if(targetBundle == null) {
-            Log.d("setTask" , "target bundle is null");
-        } else {
-        Set<String> keySet = targetBundle.keySet();
-        if(keySet == null) {
-            Log.d("setTask","keyset is null");
-        } else {
-        Iterator iter = keySet.iterator();
-        while(iter.hasNext()) {
-            String key =  (String) iter.next();
-            Log.d("setTask" , "key obtained");
-            Object obj =  targetBundle.get(key);
-            if( obj.getClass().equals(ArrayList.class) ) {
-                targetIntent.putCharSequenceArrayListExtra(key, (ArrayList<CharSequence>) obj);
-            } else if ( obj.getClass().equals(double.class))  {
-                targetIntent.putExtra(key,(Double) obj);
-            }  else if ( obj.getClass().equals(int.class)) {
-                targetIntent.putExtra(key, (Integer) obj) ;
-                Log.d("setTask","integer object put in target intent" + ((Integer) obj));
-            }   else if ( obj.getClass().equals(CharSequence.class)) {
-                targetIntent.putExtra(key,(CharSequence) obj);
-            }   else if ( obj.getClass().equals(char.class)) {
-                targetIntent.putExtra(key,(Character) obj);
-            }   else if ( obj.getClass().equals(Bundle.class)) {
-                targetIntent.putExtra(key,(Bundle) obj) ;
-            }   else if ( obj.getClass().equals(Parcelable[].class)) {
-                targetIntent.putExtra(key,(Parcelable[]) obj);
-            }   else if ( obj.getClass().equals(Serializable.class)) {
-                targetIntent.putExtra(key,(Serializable) obj);
-            }   else if ( obj.getClass().equals(int[].class)) {
-                targetIntent.putExtra(key,(int []) obj);
-            }   else if ( obj.getClass().equals(float.class)) {
-                targetIntent.putExtra(key,(Float) obj);
-            }   else if ( obj.getClass().equals(byte[].class)) {
-                targetIntent.putExtra(key,(byte[]) obj);
-            }   else if ( obj.getClass().equals(long[].class)) {
-                targetIntent.putExtra(key,(long[]) obj);
-            }   else if ( obj.getClass().equals(Parcelable.class)) {
-                targetIntent.putExtra(key,(Parcelable) obj);
-            }   else if ( obj.getClass().equals(float[].class)) {
-                targetIntent.putExtra(key,(float[]) obj);
-            }   else if ( obj.getClass().equals(long.class)) {
-                targetIntent.putExtra(key,(Long) obj);
-            }   else if ( obj.getClass().equals(String[].class)) {
-                targetIntent.putExtra(key,(String[]) obj) ;
-            }   else if ( obj.getClass().equals(boolean.class)) {
-                targetIntent.putExtra(key,(Boolean) obj);
-                Log.d("setTask","boolean object put in target intent");
-            }   else if ( obj.getClass().equals(boolean[].class)) {
-                targetIntent.putExtra(key,(boolean[]) obj );
-            }   else if ( obj.getClass().equals(short.class)) {
-                targetIntent.putExtra(key,(Short) obj) ;
-            }   else if ( obj.getClass().equals(double.class)) {
-                targetIntent.putExtra(key,(Double) obj);
-            }   else if ( obj.getClass().equals(short[].class)) {
-                targetIntent.putExtra(key,(short[]) obj);
-            }   else if ( obj.getClass().equals(String.class)) {
-                targetIntent.putExtra(key,(String) obj) ;
-                Log.d("setTask" ,"string object put in target intent");
-            }   else if ( obj.getClass().equals(byte.class)) {
-                targetIntent.putExtra(key,(Byte) obj);
-            }   else if ( obj.getClass().equals(char[].class)) {
-                targetIntent.putExtra(key,(char[]) obj);
-            }   else if ( obj.getClass().equals(CharSequence[].class)) {
-                targetIntent.putExtra(key,(CharSequence[]) obj);
-            }
-        }
-
-        }
-        }
-        Log.d("setTask","entering last line");
+    public void setTask(Intent targetIntent , Class homeActivityClass) {
         notificationBuilder.setContentIntent( TaskStackBuilder.create(notificationContext).addParentStack(homeActivityClass).addNextIntent(new Intent(notificationContext,homeActivityClass)).addNextIntent(targetIntent).getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT));
-        Log.d("setTask","should successfully exit");
     }
 
 
@@ -176,8 +102,6 @@ public class MyNotificationManager {
             notification.ledOnMS = 1 ;
             notification.flags = notification.flags | Notification.FLAG_SHOW_LIGHTS ;
         }
-
-        Log.d("fire notification","prepared to call fire notification");
         notificationManager.notify("note"+notificationID,notificationID,notification);
         Log.d("fire notification" , "successfully exiting fire notification");
     }

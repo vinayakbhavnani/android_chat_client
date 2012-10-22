@@ -19,6 +19,8 @@ import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.Chat.Listeners.ChatViewPageChangeListner;
 import directi.androidteam.training.chatclient.Chat.Listeners.MsgTextChangeListener;
 import directi.androidteam.training.chatclient.Constants;
+import directi.androidteam.training.chatclient.Notification.IncompleteNotificationException;
+import directi.androidteam.training.chatclient.Notification.TalkToNotifier;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 
@@ -103,10 +105,14 @@ public class ChatBox extends FragmentActivity {
     }
 
     public static void notifyChat(MessageStanza ms, String from){
+        Log.d("notifyChat","entered notify chat");
         if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom())) {
-            ChatNotifier cn = new ChatNotifier(context);
-            cn.notifyChat(ms);
-            Log.d("xcxc","notficatn done when chatcontext is not null");
+            try {
+                Log.d("notifyChat","sending notification");
+             TalkToNotifier.sendMessageNotification(context,ms);
+            } catch ( IncompleteNotificationException ine ) {
+                Log.d("notifyChat" ," incomplete notification");
+            }
         }
         MyFragmentManager.getInstance().addFragEntry(from);
         Log.d("xcxc","before insert msg");

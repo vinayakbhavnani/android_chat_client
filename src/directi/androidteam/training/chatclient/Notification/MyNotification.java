@@ -1,8 +1,8 @@
 package directi.androidteam.training.chatclient.Notification;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 
 /**
@@ -12,7 +12,7 @@ import android.util.Log;
  * Time: 3:41 PM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class NotificationHandler {
+public class MyNotification {
 
     /*
     Maintain notification ids .
@@ -21,16 +21,12 @@ public abstract class NotificationHandler {
     private static int numberOfNotifications ;
     private static Context notificationContext ;
 
-    protected MyNotificationManager notificationManager ;
-    protected static int notificationType ;
+    public MyNotificationManager notificationManager ;
+    public static int notificationType ;
 
-    protected static final int TYPE_MESSAGE = 0 ;
-    protected static final int TYPE_ERROR = 1;
-    protected static final  int TYPE_ROSTER_STATUS = 2;
-    protected static final int TYPE_ROSTER_REQUEST = 3;
-    protected static final int TYPE_ONGOING = 4;
+    public static final int TYPE_MESSAGE = 0 ;
 
-    private Class targetActivityClass ;
+    private Intent targetIntent ;
     private Class homeActivityClass ;
     private int icon ;
     private String contentTitle ;
@@ -43,32 +39,31 @@ public abstract class NotificationHandler {
     private long[] vibrationPattern ;
     private boolean ledFlash ;
     private int ledColor;
-    private Bundle targetBundle;
 
     private int notificationID;
 
-    public NotificationHandler(Context context) {
-         notificationContext = context.getApplicationContext() ;
+    public MyNotification(Context context) {
+         notificationContext = context ;
+        synchronized(this) {
+            if(notificationManager == null ) {
+                notificationManager = new MyNotificationManager(context);
+            }
+        } ;
     }
-
-    public abstract void sendNotification() ;
 
     public void dispatchNotification() {
         notificationManager.setNotification(icon , contentTitle , contentText , tickerText ,notificationID, notificationType);
-        notificationManager.setTask(targetActivityClass , homeActivityClass , targetBundle );
+        notificationManager.setTask(targetIntent , homeActivityClass );
         notificationManager.fireNotification(notificationID , sound , vibrate , ledFlash , ringURI , vibrationPattern , ledColor );
-        if(notificationType == TYPE_ONGOING ) {
-            notificationManager.markOngoing();
-        }
         Log.d("dispatch notification" , " successfully exiting dispatch notification");
     }
 
     public static void setNumberOfNotifications(int numberOfNotifications) {
-        NotificationHandler.numberOfNotifications = numberOfNotifications;
+        MyNotification.numberOfNotifications = numberOfNotifications;
     }
 
-    public void setTargetActivityClass(Class targetActivityClass) {
-        this.targetActivityClass = targetActivityClass;
+    public void setTargetIntent(Intent targetIntent) {
+        this.targetIntent = targetIntent;
     }
 
     public void setHomeActivityClass(Class homeActivityClass) {
@@ -124,8 +119,16 @@ public abstract class NotificationHandler {
         return numberOfNotifications;
     }
 
-    public Class getTargetActivityClass() {
-        return targetActivityClass;
+    public static Context getNotificationContext() {
+        return notificationContext;
+    }
+
+    public static void setNotificationContext(Context notificationContext) {
+        MyNotification.notificationContext = notificationContext;
+    }
+
+    public Intent getTargetActivityClass() {
+        return targetIntent;
     }
 
     public Class getHomeActivityClass() {
@@ -174,14 +177,6 @@ public abstract class NotificationHandler {
 
     public int getNotificationID() {
         return notificationID;
-    }
-
-    public Bundle getTargetBundle() {
-        return targetBundle;
-    }
-
-    public void setTargetBundle(Bundle targetBundle) {
-        this.targetBundle = targetBundle;
     }
 
 }
