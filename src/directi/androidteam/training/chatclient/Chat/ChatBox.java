@@ -22,20 +22,12 @@ import directi.androidteam.training.chatclient.Notification.TalkToNotifier;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 
-
-/**
- * Created with IntelliJ IDEA.
- * User: vinayak
- * Date: 3/9/12
- * Time: 7:22 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ChatBox extends FragmentActivity {
     private static Context context;
     private static FragmentSwipeAdaptor frag_adaptor;
     private static ViewPager viewPager;
     private static Toast toast;
-    public static String BUDDY_ID = "buddyid";
+    public static final String BUDDY_ID = "buddyid";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
