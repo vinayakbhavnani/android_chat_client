@@ -10,6 +10,7 @@ import directi.androidteam.training.chatclient.Authentication.AccountManager;
 import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
 import directi.androidteam.training.chatclient.Authentication.LoginStatus;
 import directi.androidteam.training.chatclient.GlobalTabActivity;
+import directi.androidteam.training.chatclient.Roster.RemoveRoster;
 import directi.androidteam.training.chatclient.Roster.RequestRoster;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
@@ -77,6 +78,7 @@ public class LoginHandler implements Handler {
         } else if (tag.getTagname().equals("success")) {
             Log.d("Login Flow", "Success tag received.");
             AccountManager.getInstance().addSubscribers(new RequestRoster());
+            AccountManager.getInstance().addSubscribers(new RemoveRoster());
             //PacketWriter.addToWriteQueue(new StreamTag("stream:stream","gmail.com","jabber:client","http://etherx.jabber.org/streams","1.0"));
             AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().restartStream();
         } else if (tag.getTagname().equals("failure")) {
