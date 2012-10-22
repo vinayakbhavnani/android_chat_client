@@ -1,9 +1,7 @@
 package directi.androidteam.training.chatclient.Notification;
 
-import android.app.Notification;
 import android.content.Context;
 import android.util.Log;
-import directi.androidteam.training.StanzaStore.MessageStanza;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,32 +13,42 @@ import directi.androidteam.training.StanzaStore.MessageStanza;
 public class TalkToNotifier {
 
     private  MessageNotificationHandler messageHandler ;
-    MyNotificationManager notificationManager;
+    private TalkToNotificationManager notificationManager;
+    private static  TalkToNotifier instance;
 
     public TalkToNotifier(Context context) {
         synchronized(TalkToNotifier.class) {
             if(messageHandler == null) {
-                messageHandler = new MessageNotificationHandler();
+                messageHandler = new MessageNotificationHandler(context);
             }
         }
         synchronized(TalkToNotifier.class) {
             if(notificationManager == null) {
-                notificationManager = new MyNotificationManager(context);
+                notificationManager = new TalkToNotificationManager(context);
             }
         }
     }
 
+    public static TalkToNotifier getInstance(Context context) {
+        synchronized(TalkToNotifier.class ) {
+            if(instance == null) {
+                 instance = new TalkToNotifier(context);
+            }
+        };
+            return instance;
+    }
+
     public void sendMessageNotification(String messageSender , String message )  {
         Log.d("TalkToNotifier" , "received request");
-        MyNotification notification = messageHandler.setNotification(notificationManager.getNotificationContext(),messageSender, message);
+        MyNotification notification = messageHandler.getNotification(messageSender, message);
         dispatchNotification(notification);
         Log.d("TalkToNotifier","finished request");
     }
 
     private void dispatchNotification(MyNotification notification) {
         notificationManager.setNotification(notification.getIcon(), notification.getContentTitle(), notification.getContentText(), notification.getTickerText(), notification.getNotificationID(), notification.getNotificationType());
-        notificationManager.setTask(notification.getTargetIntent() , notification.getHomeActivityClass() );
-        notificationManager.fireNotification(notification.getNotificationID() , notification.isSound() , notification.isVibrate() , notification.isLedFlash() , notification.getRingURI() , notification.getVibrationPattern() , notification.getLedColor() );
+        notificationManager.setTask(notification.getTargetIntent(), notification.getHomeActivityClass());
+        notificationManager.fireNotification(notification.getNotificationID());
         Log.d("dispatch notification" , " successfully exiting dispatch notification");
     }
 }

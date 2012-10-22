@@ -26,10 +26,9 @@ import android.app.NotificationManager;
  * Time: 10:47 AM
  * To change this template use File | Settings | File Templates.
  */
-public class MyNotificationManager {
+public class TalkToNotificationManager {
 
     private static NotificationManager notificationManager ;
-    Notification notification ;
 
     public Context getNotificationContext() {
         return notificationContext;
@@ -41,13 +40,9 @@ public class MyNotificationManager {
     public static String NOTIFICATION_ID = "NOTIFICATION_ID" ;
     public static String NOTIFICATION_TYPE = "NOTIFICATION_TYPE";
 
-    public MyNotificationManager(Context currentContext) {
+    public TalkToNotificationManager(Context currentContext) {
         notificationContext = currentContext;
-        synchronized (this) {
-            if(notificationManager == null ) {
-             notificationManager = (NotificationManager) notificationContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            }
-        }
+        notificationManager = (NotificationManager) notificationContext.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
     public void setNotification ( int icon , String contentTitle , String contentText , String tickerText, int notificationID , int notificationType) {
@@ -66,9 +61,10 @@ public class MyNotificationManager {
         notificationBuilder.setContentIntent( TaskStackBuilder.create(notificationContext).addParentStack(homeActivityClass).addNextIntent(new Intent(notificationContext,homeActivityClass)).addNextIntent(targetIntent).getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT));
     }
 
-
-    public void markOngoing() {
-        notificationBuilder.setOngoing(true);
+    public void fireNotification(int notificationID) {
+        Notification notification = notificationBuilder.build();
+        notificationManager.notify("note"+notificationID,notificationID,notification);
+        Log.d("fire notification" , "successfully exiting fire notification");
     }
 
     public void fireNotification(int notificationID ,boolean sound , boolean vibrate , boolean ledFlash , Uri ringURI ,  long[] vibrationPattern , int ledColor) {
@@ -84,7 +80,7 @@ public class MyNotificationManager {
             notDefaults |= Notification.DEFAULT_LIGHTS ;
         }
         notificationBuilder.setDefaults( notDefaults );
-        notification = notificationBuilder.build();
+        Notification notification = notificationBuilder.build();
         if(sound) {
             // Uri ringURI =  Uri.parse( "android.resource://com.directi.talkto.api.notification/"+ R.raw.barfi_whistle) ;  ]]
             if(ringURI == null) {

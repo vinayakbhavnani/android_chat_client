@@ -16,21 +16,12 @@ public class MyNotification {
 
     public static int notificationType ;
 
-    public static final int TYPE_MESSAGE = 0 ;
-
     private Intent targetIntent ;
     private Class homeActivityClass ;
     private int icon ;
     private String contentTitle ;
     private String contentText ;
     private String tickerText ;
-    private boolean sound ;
-    private Uri ringURI ;
-
-    private boolean vibrate ;
-    private long[] vibrationPattern ;
-    private boolean ledFlash ;
-    private int ledColor;
 
     private int notificationID;
 
@@ -62,37 +53,12 @@ public class MyNotification {
         this.tickerText = tickerText;
     }
 
-    public void setSound(boolean sound) {
-        this.sound = sound;
-    }
-
-    public void setRingURI(Uri ringURI) {
-        this.ringURI = ringURI;
-    }
-
-    public void setVibrate(boolean vibrate) {
-        this.vibrate = vibrate;
-    }
-
-    public void setVibrationPattern(long[] vibrationPattern) {
-        this.vibrationPattern = vibrationPattern;
-    }
-
-    public void setLedFlash(boolean ledFlash) {
-        this.ledFlash = ledFlash;
-    }
-
     public static int getNotificationType() {
         return notificationType;
     }
 
     public static void setNotificationType(int notificationType) {
         MyNotification.notificationType = notificationType;
-    }
-
-    public void setLedColor(int ledColor) {
-        this.ledColor = ledColor;
-
     }
 
     public void setNotificationID(int notificationID) {
@@ -123,37 +89,9 @@ public class MyNotification {
         return targetIntent;
     }
 
-    public static int getTypeMessage() {
-        return TYPE_MESSAGE;
-    }
-
     public String getTickerText() {
         return tickerText;
 
-    }
-
-    public boolean isSound() {
-        return sound;
-    }
-
-    public Uri getRingURI() {
-        return ringURI;
-    }
-
-    public boolean isVibrate() {
-        return vibrate;
-    }
-
-    public long[] getVibrationPattern() {
-        return vibrationPattern;
-    }
-
-    public boolean isLedFlash() {
-        return ledFlash;
-    }
-
-    public int getLedColor() {
-        return ledColor;
     }
 
     public int getNotificationID() {
