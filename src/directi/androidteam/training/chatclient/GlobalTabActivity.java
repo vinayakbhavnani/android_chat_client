@@ -8,8 +8,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import directi.androidteam.training.chatclient.Authentication.*;
 import directi.androidteam.training.chatclient.Roster.RosterFragment;
+import directi.androidteam.training.chatclient.Roster.RosterItem;
+import directi.androidteam.training.chatclient.Roster.RosterItemAdapter;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -87,5 +90,12 @@ public class GlobalTabActivity extends FragmentActivity {
         dialog.show();
 
     }
+
+    public void updateRosterList(ArrayList<RosterItem> rosterList) {
+        RosterItemAdapter rosterItemAdapter = ((RosterItemAdapter)(((ListView)findViewById(R.id.roster_list)).getAdapter()));
+        rosterItemAdapter.setRosterItems(new ArrayList<RosterItem>(rosterList));
+        rosterItemAdapter.notifyDataSetChanged();
+    }
+
 
 }

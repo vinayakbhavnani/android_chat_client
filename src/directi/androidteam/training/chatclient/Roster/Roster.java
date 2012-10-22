@@ -19,19 +19,23 @@ public class Roster {
         this.roster = new ArrayList<RosterItem>();
     }
 
-    public RosterItem searchRosterItem(String bareJID) {
+    public ArrayList<RosterItem> getRoster() {
+        return this.roster;
+    }
+
+    public RosterItem searchRosterItem(String accountUID, String bareJID) {
         for (RosterItem rosterItem : this.roster) {
-            if (rosterItem.getBareJID().equals(bareJID)) {
+            if (rosterItem.getAccount().equals(accountUID) && rosterItem.getBareJID().equals(bareJID)) {
                 return rosterItem;
             }
         }
         return null;
     }
 
-    private void deleteRosterItem(String bareJID) {
+    private void deleteRosterItem(String accountUID, String bareJID) {
         int i = 0;
         for (i = 0; i < this.roster.size(); i++) {
-            if (this.roster.get(i).getBareJID().equals(bareJID)) {
+            if (this.roster.get(i).getAccount().equals(accountUID) && this.roster.get(i).getBareJID().equals(bareJID)) {
                 break;
             }
         }
@@ -39,8 +43,8 @@ public class Roster {
     }
 
     public void insertRosterItem(RosterItem rosterItem) {
-        if (this.searchRosterItem(rosterItem.getBareJID()) != null) {
-            this.deleteRosterItem(rosterItem.getBareJID());
+        if (this.searchRosterItem(rosterItem.getAccount(), rosterItem.getBareJID()) != null) {
+            this.deleteRosterItem(rosterItem.getAccount(), rosterItem.getBareJID());
         }
         int i = 0;
         while (i < this.roster.size() && this.comparator.compare(this.roster.get(i), rosterItem) < 0) {
@@ -53,16 +57,14 @@ public class Roster {
         this.roster.add(rosterItem);
     }
 
-    public ArrayList<RosterItem> getRoster() {
-        return this.roster;
-    }
-
-    public ArrayList<RosterItem> searchRosterItems(String searchString) {
-        ArrayList<RosterItem> rosterItemsResult = new ArrayList<RosterItem>();
-        for (RosterItem rosterItem : this.roster) {
-            if (rosterItem.getBareJID().contains(searchString))
-                rosterItemsResult.add(rosterItem);
+    public void deleteRosterItemsWithAccount(String accountUID) {
+        int i = 0;
+        ArrayList<RosterItem> newRoster = new ArrayList<RosterItem>();
+        for (i = 0; i < this.roster.size(); i++) {
+            if (!(this.roster.get(i).getAccount().equals(accountUID))) {
+                newRoster.add(this.roster.get(i));
+            }
         }
-        return rosterItemsResult;
+        this.roster = newRoster;
     }
 }

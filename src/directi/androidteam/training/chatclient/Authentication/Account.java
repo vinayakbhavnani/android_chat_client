@@ -35,6 +35,15 @@ public  abstract class Account implements Publisher{
 
     private String status;
     private String show;
+    private RosterFetchStatus rosterFetchStatus;
+
+    public RosterFetchStatus isRosterFetchStatus() {
+        return this.rosterFetchStatus;
+    }
+
+    public void setRosterFetchStatus(RosterFetchStatus rosterFetchStatus) {
+        this.rosterFetchStatus = rosterFetchStatus;
+    }
 
     public String getShow() {
         return this.show;
@@ -203,14 +212,14 @@ public  abstract class Account implements Publisher{
             e.printStackTrace();
         }
         xmppLogin.initiateLogin();
-        loginStatus=LoginStatus.CONNECTING;
+       setLoginStatus(LoginStatus.CONNECTING);
     }
 
     public void Logout(){
         StreamClose close = new StreamClose();
         close.setRecipientAccount(accountUid);
         PacketWriter.addToWriteQueue(close);
-        loginStatus=LoginStatus.OFFLINE;
+        setLoginStatus(LoginStatus.OFFLINE);
 
 
     }
@@ -239,7 +248,7 @@ public  abstract class Account implements Publisher{
     public void publish(){
         Subscriber[] store = subscribers.toArray(new Subscriber[subscribers.size()]);
         for (Subscriber subscriber : store) {
-            subscriber.receivedNotification(this);
+            subscriber.receivedNotification(PublicationType.ACCOUNT_STATE_CHANGED,accountUid);
         }
 
     }

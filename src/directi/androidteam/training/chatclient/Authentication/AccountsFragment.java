@@ -112,17 +112,6 @@ public class AccountsFragment extends Fragment implements Subscriber{
 
 
     @Override
-    public void receivedNotification(Publisher s) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                adaptor.notifyDataSetChanged();
-            }
-        });
-    }
-
-
-    @Override
     public void onDestroy(){
         super.onDestroy();
         Log.d("ioio","ondetroy acct frag");
@@ -130,4 +119,13 @@ public class AccountsFragment extends Fragment implements Subscriber{
         AccountManager.getInstance().removeSubscribers(this);
     }
 
+    @Override
+    public void receivedNotification(PublicationType publicationType, String message) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adaptor.notifyDataSetChanged();
+            }
+        });
+    }
 }

@@ -9,9 +9,7 @@ import directi.androidteam.training.TagStore.*;
 import directi.androidteam.training.chatclient.Authentication.Account;
 import directi.androidteam.training.chatclient.Authentication.AccountManager;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.RequestRoster;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
-import directi.androidteam.training.chatclient.Roster.SendPresence;
 import directi.androidteam.training.chatclient.Roster.VCard;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
@@ -53,76 +51,66 @@ public class RosterHandler implements Handler {
         account.setFullJID(tag.getAttribute("to"));
         account.setQueryTag(tag);
         if (tag.contains("query")) {
-            processQueryPacket(new Query(tag.getChildTag("query")), account);
+            processQueryPacket(new Query(tag.getChildTag("query").setRecipientAccount(tag.getRecipientAccount())), account);
         } else if (tag.contains("vCard")) {
-            VCard vCard = new VCard();
-            vCard.populateFromTag(tag);
-            RosterManager.getInstance().updatePhoto(vCard, tag.getAttribute("from").split("/")[0]);
-            String shaOne = this.jidToShaOneMap.get(tag.getAttribute("from").split("/")[0]);
-            this.jidToShaOneMap.remove(tag.getAttribute("from").split("/")[0]);
-            try {
-                FileOutputStream fileOutputStream = RequestRoster.callerActivity.openFileOutput(shaOne, Context.MODE_PRIVATE);
-                fileOutputStream.write(tag.getChildTag("vCard").getChildTag("PHOTO").getChildTag("BINVAL").getContent().getBytes());
-                fileOutputStream.close();
-            } catch (FileNotFoundException e) {
-                Log.d("FileNotFoundException", e.toString());
-            } catch (IOException e) {
-                Log.d("IOException", e.toString());
-            }
-        }
-    }
-
-    private void processQueryPacket(final Query queryTag, final Account account) {
-        if (queryTag.getAttribute("xmlns").equals("jabber:iq:roster")) {
-            RosterManager.getInstance().setRosterList(queryTag);
-            if (queryTag.getAttribute("xmlns:ros") != null && queryTag.getAttribute("xmlns:ros").equals("google:roster")) {
-                PacketWriter.addToWriteQueue((new IQTag(UUID.randomUUID().toString(), account.getFullJID().split("/")[0], "get", new Query("google:shared-status", "2")).setRecipientAccount(account.getAccountUid())));
-            } else {
-                (new SendPresence(RequestRoster.callerActivity)).execute(account.getAccountUid(), account.getFullJID(), "Loving Talk.to for Android", "chat");
-            }
-        } else if (queryTag.getAttribute("xmlns").equals("google:shared-status")) {
-            (new SendPresence(RequestRoster.callerActivity)).execute(account.getAccountUid(), account.getFullJID(), queryTag.getChildTag("status").getContent(), queryTag.getChildTag("show").getContent());
-            account.setStatus(queryTag.getChildTag("status").getContent());
-            account.setShow(queryTag.getChildTag("show").getContent());
-//            SendPresence.callerActivity.runOnUiThread(new Runnable() {
-//                public void run() {
-//                    ((DisplayRosterActivity) SendPresence.callerActivity).displayJID(account.getFullJID().split("/")[0]);
-//                    ((DisplayRosterActivity) SendPresence.callerActivity).displayStatus(queryTag.getChildTag("status").getContent());
-//                    ((DisplayRosterActivity) SendPresence.callerActivity).displayPresence(queryTag.getChildTag("show").getContent());
-//                }
-//            });
+            processVCardPacket(new VCardTag(tag.getChildTag("vCard").setRecipientAccount(tag.getRecipientAccount())), tag.getAttribute("from").split("/")[0]);
         }
     }
 
     private void processPresencePacket(Presence presence) {
-        Account account = AccountManager.getInstance().getAccount(presence.getRecipientAccount());
         if(presence.getType() != null && presence.getType().equals("unavailable")) {
             presence.setShow("unavailable");
         }
         RosterManager.getInstance().updatePresence(presence);
-        String shaOne = presence.getAvatarShaOne();
-        String senderFullJID = presence.getFrom();
+        setPhoto(presence.getRecipientAccount(), presence.getAvatarShaOne(), presence.getFrom());
+    }
+
+    private void setPhoto(String accountUID, String shaOne, String senderFullJID) {
         String senderBareJID = senderFullJID.split("/")[0];
         if (shaOne == null) {return;}
         try {
-            String encodedAvatar = getCachedAvatar(shaOne);
             VCard vCard = new VCard();
-            vCard.setAvatar(vCard.decodeAvatar(encodedAvatar));
-            RosterManager.getInstance().updatePhoto(vCard, senderBareJID);
+            vCard.setAvatar(vCard.decodeAvatar(getCachedAvatar(shaOne)));
+            RosterManager.getInstance().updatePhoto(vCard, accountUID, senderBareJID);
         } catch (FileNotFoundException e) {
             if (!(this.jidToShaOneMap.containsKey(senderBareJID))) {
                 this.jidToShaOneMap.put(senderBareJID, shaOne);
                 Tag vCardTag = new IQTag("getVCard", senderFullJID, "get", new VCardTag("vcard-temp"));
-                PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(account.getAccountUid()));
+                PacketWriter.addToWriteQueue(vCardTag.setRecipientAccount(accountUID));
             }
         } catch (IOException e) {
             Log.d("IOException", e.toString());
         }
     }
 
+    private void processVCardPacket(VCardTag vCardTag, String senderBareJID) {
+        VCard vCard = new VCard();
+        vCard.populateFromTag(vCardTag);
+        RosterManager.getInstance().updatePhoto(vCard, vCardTag.getRecipientAccount(), senderBareJID);
+        String shaOne = this.jidToShaOneMap.get(senderBareJID);
+        this.jidToShaOneMap.remove(senderBareJID);
+        try {
+            FileOutputStream fileOutputStream = ChatApplication.getAppContext().openFileOutput(shaOne, Context.MODE_PRIVATE);
+            fileOutputStream.write(vCardTag.getChildTag("PHOTO").getChildTag("BINVAL").getContent().getBytes());
+            fileOutputStream.close();
+        } catch (FileNotFoundException e) {
+            Log.d("FileNotFoundException", e.toString());
+        } catch (IOException e) {
+            Log.d("IOException", e.toString());
+        }
+
+    }
+
+    private void processQueryPacket(final Query queryTag, final Account account) {
+        if (queryTag.getAttribute("xmlns").equals("jabber:iq:roster")) {
+            RosterManager.getInstance().updateRosterList(queryTag);
+            PacketWriter.addToWriteQueue(new Presence(UUID.randomUUID().toString(), account.getFullJID(), account.getStatus(), account.getShow()).setRecipientAccount(account.getAccountUid()));
+        }
+    }
+
     private String getCachedAvatar(String shaOne) throws IOException {
         String encodedAvatar = "";
-        FileInputStream fileInputStream = RequestRoster.callerActivity.openFileInput(shaOne);
+        FileInputStream fileInputStream = ChatApplication.getAppContext().openFileInput(shaOne);
         StringBuffer fileContent = new StringBuffer("");
         byte [] buffer = new byte[1024];
         int length;

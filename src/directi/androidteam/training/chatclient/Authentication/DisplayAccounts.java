@@ -105,7 +105,7 @@ public class DisplayAccounts extends Activity implements Subscriber{
     }
 
     @Override
-    public void receivedNotification(Publisher s) {
+    public void receivedNotification(PublicationType publicationType , String message) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

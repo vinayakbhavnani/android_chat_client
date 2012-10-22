@@ -34,18 +34,20 @@ public class DisplayRosterActivity extends FragmentActivity {
                 onListItemClick((ListView) adapterView, view, position, id);
             }
         });
-        (new RequestRoster(this)).execute();
+        //RosterManager.getInstance().setDisplayRosterActivity(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.updateRosterList(RosterManager.getInstance().getRoster());
     }
 
     public void onListItemClick(ListView view, View v, int position, long id) {
         RosterItem rosterItem = (RosterItem) view.getItemAtPosition(position);
         Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
         intent.putExtra("buddyid", rosterItem.getBareJID());
-
-        intent.putExtra("accountUID",rosterItem.getAccount());
-
-        //TODO : there will be an account field in roster item , use that to put extra values about the account in the intent as needed
-
+        intent.putExtra("accountUID", rosterItem.getAccount());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
@@ -71,7 +73,7 @@ public class DisplayRosterActivity extends FragmentActivity {
 
     public void updateRosterList(ArrayList<RosterItem> rosterList) {
         RosterItemAdapter rosterItemAdapter = ((RosterItemAdapter)(((ListView)findViewById(R.id.roster_list)).getAdapter()));
-        rosterItemAdapter.setRosterItems(rosterList);
+        rosterItemAdapter.setRosterItems(new ArrayList<RosterItem>(rosterList));
         rosterItemAdapter.notifyDataSetChanged();
     }
 
