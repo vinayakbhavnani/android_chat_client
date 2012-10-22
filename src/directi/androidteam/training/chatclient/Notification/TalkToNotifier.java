@@ -16,17 +16,9 @@ public class TalkToNotifier {
     private TalkToNotificationManager notificationManager;
     private static  TalkToNotifier instance;
 
-    public TalkToNotifier(Context context) {
-        synchronized(TalkToNotifier.class) {
-            if(messageHandler == null) {
-                messageHandler = new MessageNotificationHandler(context);
-            }
-        }
-        synchronized(TalkToNotifier.class) {
-            if(notificationManager == null) {
-                notificationManager = new TalkToNotificationManager(context);
-            }
-        }
+    private TalkToNotifier(Context context) {
+          messageHandler = new MessageNotificationHandler(context);
+          notificationManager = new TalkToNotificationManager(context);
     }
 
     public static TalkToNotifier getInstance(Context context) {
@@ -41,14 +33,8 @@ public class TalkToNotifier {
     public void sendMessageNotification(String messageSender , String message )  {
         Log.d("TalkToNotifier" , "received request");
         MyNotification notification = messageHandler.getNotification(messageSender, message);
-        dispatchNotification(notification);
+        notificationManager.notify(notification);
         Log.d("TalkToNotifier","finished request");
     }
 
-    private void dispatchNotification(MyNotification notification) {
-        notificationManager.setNotification(notification.getIcon(), notification.getContentTitle(), notification.getContentText(), notification.getTickerText(), notification.getNotificationID(), notification.getNotificationType());
-        notificationManager.setTask(notification.getTargetIntent(), notification.getHomeActivityClass());
-        notificationManager.fireNotification(notification.getNotificationID());
-        Log.d("dispatch notification" , " successfully exiting dispatch notification");
-    }
 }

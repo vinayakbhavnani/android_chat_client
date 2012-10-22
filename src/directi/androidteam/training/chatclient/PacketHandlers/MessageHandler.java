@@ -40,7 +40,7 @@ public class MessageHandler implements Handler{
             else if(ms.getBody()!=null) {
                 if(ChatBox.getContext()==null){
                         Log.d("process packet" , "sending notification");
-                    TalkToNotifier ttn = new TalkToNotifier(ChatApplication.getAppContext());
+                    TalkToNotifier ttn = TalkToNotifier.getInstance(ChatApplication.getAppContext());
                     ttn.sendMessageNotification(ms.getFrom(),ms.getBody());
                 }
                 else {

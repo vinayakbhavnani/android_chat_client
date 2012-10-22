@@ -25,20 +25,14 @@ public class MessageNotificationHandler  {
     }
 
     public MyNotification getNotification(String messageSender,String message ) {
-        MyNotification notification = new MyNotification();
+        Intent targetIntent = new Intent(context,ChatBox.class);
+        targetIntent.putExtra("buddyid", messageSender);
+        MyNotification notification = new MyNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender,message,messageSender + " : " + message);
         notificationID++;
         if(notificationID == 1000000) {
             notificationID =  100000 ;
         }
-        notification.setNotificationID(notificationID);
-        notification.setIcon(R.drawable.ic_launcher);
-        notification.setTickerText(messageSender + " : " + message);
-        notification.setContentText(message);
-        notification.setContentTitle("Talk.to");
-        notification.setHomeActivityClass(DisplayRosterActivity.class);
-        Intent targetIntent = new Intent(context,ChatBox.class);
-        targetIntent.putExtra("buddyid", messageSender);
-        notification.setTargetIntent(targetIntent);
+
         return notification;
     }
 

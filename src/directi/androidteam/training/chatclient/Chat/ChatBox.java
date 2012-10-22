@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -97,12 +96,10 @@ public class ChatBox extends FragmentActivity {
 
     public static void notifyChat(MessageStanza ms, String from){
         if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom())) {
-                Log.d("notifyChat","sending notification");
-            TalkToNotifier ttn = new TalkToNotifier(context);
+            TalkToNotifier ttn = TalkToNotifier.getInstance(context);
              ttn.sendMessageNotification(ms.getFrom(),ms.getBody());
         }
         MyFragmentManager.getInstance().addFragEntry(from);
-        Log.d("xcxc","before insert msg");
         MessageManager.getInstance().insertMessage(from,ms);
     }
 
@@ -136,7 +133,6 @@ public class ChatBox extends FragmentActivity {
     @Override
     public void onResume(){
         super.onResume();
-        Log.d("Chatboxresumed","true");
     }
 
     public void onClick(View view) {

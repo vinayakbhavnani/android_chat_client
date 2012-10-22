@@ -30,10 +30,6 @@ public class TalkToNotificationManager {
 
     private static NotificationManager notificationManager ;
 
-    public Context getNotificationContext() {
-        return notificationContext;
-    }
-
     Context notificationContext ;
     NotificationCompat.Builder  notificationBuilder ;
     private long [] DEFAULT_VIBRATION_PATTERN  = new long[] { 1000 , 1000 , 1000 , 1000 , 1000 } ;
@@ -45,7 +41,7 @@ public class TalkToNotificationManager {
         notificationManager = (NotificationManager) notificationContext.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
-    public void setNotification ( int icon , String contentTitle , String contentText , String tickerText, int notificationID , int notificationType) {
+    private void setNotification ( int icon , String contentTitle , String contentText , String tickerText, int notificationID ) {
         notificationBuilder = new NotificationCompat.Builder(notificationContext);
         notificationBuilder.setSmallIcon(icon);
         notificationBuilder.setTicker(tickerText );
@@ -57,53 +53,20 @@ public class TalkToNotificationManager {
 
     }
 
-    public void setTask(Intent targetIntent , Class homeActivityClass) {
+    private void setTask(Intent targetIntent , Class homeActivityClass) {
         notificationBuilder.setContentIntent( TaskStackBuilder.create(notificationContext).addParentStack(homeActivityClass).addNextIntent(new Intent(notificationContext,homeActivityClass)).addNextIntent(targetIntent).getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT));
     }
 
-    public void fireNotification(int notificationID) {
+    private void fireNotification(int notificationID) {
         Notification notification = notificationBuilder.build();
         notificationManager.notify("note"+notificationID,notificationID,notification);
         Log.d("fire notification" , "successfully exiting fire notification");
     }
 
-    public void fireNotification(int notificationID ,boolean sound , boolean vibrate , boolean ledFlash , Uri ringURI ,  long[] vibrationPattern , int ledColor) {
-        Log.d("fire notification" ,"entered fire notification");
-        int notDefaults = 0 ;
-        if(sound) {
-            notDefaults |= Notification.DEFAULT_SOUND ;
-        }
-        if(vibrate) {
-            notDefaults |= Notification.DEFAULT_VIBRATE ;
-        }
-        if(ledFlash) {
-            notDefaults |= Notification.DEFAULT_LIGHTS ;
-        }
-        notificationBuilder.setDefaults( notDefaults );
-        Notification notification = notificationBuilder.build();
-        if(sound) {
-            // Uri ringURI =  Uri.parse( "android.resource://com.directi.talkto.api.notification/"+ R.raw.barfi_whistle) ;  ]]
-            if(ringURI == null) {
-                ringURI = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            }
-            notification.sound = ringURI ;
-        }
-        if(vibrate) {
-
-            if(vibrationPattern == null) {
-                notification.vibrate = DEFAULT_VIBRATION_PATTERN;
-            } else {
-                notification.vibrate = vibrationPattern ;
-            }
-        }
-        if(ledFlash) {
-
-            notification.ledARGB = ledColor ;
-            notification.ledOffMS = 0 ;
-            notification.ledOnMS = 1 ;
-            notification.flags = notification.flags | Notification.FLAG_SHOW_LIGHTS ;
-        }
-        notificationManager.notify("note"+notificationID,notificationID,notification);
-        Log.d("fire notification" , "successfully exiting fire notification");
+    public void notify(MyNotification notification) {
+        setNotification(notification.getIcon(), notification.getContentTitle(), notification.getContentText(), notification.getTickerText(), notification.getNotificationID());
+        setTask(notification.getTargetIntent(), notification.getHomeActivityClass());
+        fireNotification(notification.getNotificationID());
+        Log.d("dispatch notification" , " successfully exiting dispatch notification");
     }
 }

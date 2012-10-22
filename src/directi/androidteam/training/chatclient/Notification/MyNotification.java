@@ -14,8 +14,6 @@ import android.util.Log;
  */
 public class MyNotification {
 
-    public static int notificationType ;
-
     private Intent targetIntent ;
     private Class homeActivityClass ;
     private int icon ;
@@ -25,44 +23,13 @@ public class MyNotification {
 
     private int notificationID;
 
-    public MyNotification() {
-
-    }
-
-    public void setTargetIntent(Intent targetIntent) {
+    public MyNotification(Intent targetIntent , Class homeActivityClass , int icon , String contentTitle , String contentText , String tickerText ) {
         this.targetIntent = targetIntent;
-    }
-
-    public void setHomeActivityClass(Class homeActivityClass) {
         this.homeActivityClass = homeActivityClass;
-    }
-
-    public void setIcon(int icon) {
         this.icon = icon;
-    }
-
-    public void setContentTitle(String contentTitle) {
         this.contentTitle = contentTitle;
-    }
-
-    public void setContentText(String contentText) {
         this.contentText = contentText;
-    }
-
-    public void setTickerText(String tickerText) {
         this.tickerText = tickerText;
-    }
-
-    public static int getNotificationType() {
-        return notificationType;
-    }
-
-    public static void setNotificationType(int notificationType) {
-        MyNotification.notificationType = notificationType;
-    }
-
-    public void setNotificationID(int notificationID) {
-        this.notificationID = notificationID;
     }
 
     public Intent getTargetActivityClass() {
