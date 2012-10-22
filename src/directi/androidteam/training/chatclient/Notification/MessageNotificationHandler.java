@@ -17,27 +17,30 @@ import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
  */
 public class MessageNotificationHandler  {
 
-    MyNotification notification ;
+    static int notificationID = 100000 * MyNotification.TYPE_MESSAGE;
 
-    public MessageNotificationHandler(Context context) {
-        MyNotification notification = new MyNotification(context);
-        notification.notificationType = MyNotification.TYPE_MESSAGE;
-        notification.setNotificationID((100000 * MyNotification.TYPE_MESSAGE));
+    public MessageNotificationHandler() {
     }
 
-    public void sendNotification(String messageSender,String message ) {
+    public MyNotification setNotification(Context context,String messageSender,String message ) {
+        MyNotification notification = new MyNotification();
+        notification.notificationType = MyNotification.TYPE_MESSAGE;
+        notificationID++;
+        if(notificationID == 1000000) {
+            notificationID =  100000 * MyNotification.TYPE_MESSAGE;
+        }
+        notification.setNotificationID(notificationID);
         notification.setIcon(R.drawable.ic_launcher);
         notification.setTickerText(messageSender + " : " + message);
         notification.setContentText(message);
         notification.setContentTitle("Talk.to");
         notification.setHomeActivityClass(DisplayRosterActivity.class);
-        notification.setNotificationID(notification.getNotificationID() + 1);
-        Intent targetIntent = new Intent(notification.getNotificationContext(),ChatBox.class);
+        Intent targetIntent = new Intent(context,ChatBox.class);
         targetIntent.putExtra("buddyid", messageSender);
         targetIntent.putExtra("notification", true);
         targetIntent.putExtra("notificationID", notification.getNotificationID());
         notification.setTargetIntent(targetIntent);
-        notification.dispatchNotification();
+        return notification;
     }
 
 }

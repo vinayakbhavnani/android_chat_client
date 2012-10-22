@@ -14,14 +14,6 @@ import android.util.Log;
  */
 public class MyNotification {
 
-    /*
-    Maintain notification ids .
-     */
-
-    private static int numberOfNotifications ;
-    private static Context notificationContext ;
-
-    public MyNotificationManager notificationManager ;
     public static int notificationType ;
 
     public static final int TYPE_MESSAGE = 0 ;
@@ -42,24 +34,8 @@ public class MyNotification {
 
     private int notificationID;
 
-    public MyNotification(Context context) {
-         notificationContext = context ;
-        synchronized(this) {
-            if(notificationManager == null ) {
-                notificationManager = new MyNotificationManager(context);
-            }
-        } ;
-    }
+    public MyNotification() {
 
-    public void dispatchNotification() {
-        notificationManager.setNotification(icon , contentTitle , contentText , tickerText ,notificationID, notificationType);
-        notificationManager.setTask(targetIntent , homeActivityClass );
-        notificationManager.fireNotification(notificationID , sound , vibrate , ledFlash , ringURI , vibrationPattern , ledColor );
-        Log.d("dispatch notification" , " successfully exiting dispatch notification");
-    }
-
-    public static void setNumberOfNotifications(int numberOfNotifications) {
-        MyNotification.numberOfNotifications = numberOfNotifications;
     }
 
     public void setTargetIntent(Intent targetIntent) {
@@ -106,25 +82,21 @@ public class MyNotification {
         this.ledFlash = ledFlash;
     }
 
+    public static int getNotificationType() {
+        return notificationType;
+    }
+
+    public static void setNotificationType(int notificationType) {
+        MyNotification.notificationType = notificationType;
+    }
+
     public void setLedColor(int ledColor) {
         this.ledColor = ledColor;
+
     }
 
     public void setNotificationID(int notificationID) {
         this.notificationID = notificationID;
-    }
-
-    public static int getNumberOfNotifications() {
-
-        return numberOfNotifications;
-    }
-
-    public static Context getNotificationContext() {
-        return notificationContext;
-    }
-
-    public static void setNotificationContext(Context notificationContext) {
-        MyNotification.notificationContext = notificationContext;
     }
 
     public Intent getTargetActivityClass() {
@@ -147,8 +119,17 @@ public class MyNotification {
         return contentText;
     }
 
+    public Intent getTargetIntent() {
+        return targetIntent;
+    }
+
+    public static int getTypeMessage() {
+        return TYPE_MESSAGE;
+    }
+
     public String getTickerText() {
         return tickerText;
+
     }
 
     public boolean isSound() {

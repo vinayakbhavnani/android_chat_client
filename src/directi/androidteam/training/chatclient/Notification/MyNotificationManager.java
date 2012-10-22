@@ -30,6 +30,11 @@ public class MyNotificationManager {
 
     private static NotificationManager notificationManager ;
     Notification notification ;
+
+    public Context getNotificationContext() {
+        return notificationContext;
+    }
+
     Context notificationContext ;
     NotificationCompat.Builder  notificationBuilder ;
     private long [] DEFAULT_VIBRATION_PATTERN  = new long[] { 1000 , 1000 , 1000 , 1000 , 1000 } ;
