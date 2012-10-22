@@ -5,8 +5,10 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import directi.androidteam.training.chatclient.Authentication.AccountsFragment;
 import directi.androidteam.training.chatclient.Authentication.MyTabListener;
+import directi.androidteam.training.chatclient.Roster.RosterFragment;
 
 import java.util.Vector;
 
@@ -38,23 +40,29 @@ public class GlobalTabActivity extends FragmentActivity {
         actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         ActionBar.Tab accountsTab = actionbar.newTab().setText("Accounts");
+        Log.d("ioio", "before acctfrag()");
         Fragment accountsFragment = new AccountsFragment();
+        Log.d("ioio", "after acctfrag()");
         accountsTab.setTabListener(new MyTabListener(accountsFragment,this,AccountsFragment.class.getName()));
         actionbar.addTab(accountsTab);
+        tabs.add(accountsTab);
 
         ActionBar.Tab contactsTab = actionbar.newTab().setText("Contacts");
-        Fragment contactsFragment = new AccountsFragment();
-        contactsTab.setTabListener(new MyTabListener(contactsFragment,this,AccountsFragment.class.getName()));
+        Fragment contactsFragment = new RosterFragment();
+        contactsTab.setTabListener(new MyTabListener(contactsFragment, this, RosterFragment.class.getName()));
         actionbar.addTab(contactsTab);
-        tabs.add(accountsTab);
+        tabs.add(contactsTab);
     }
+
 
     public void switchFragment(int fragmentNumber) {
         ActionBar actionbar = getActionBar();
+
         if(fragmentNumber==FRAGMENT_ACCOUNTS) {
             actionbar.selectTab(tabs.get(0));
         }
         else
             actionbar.selectTab(tabs.get(1));
     }
+
 }

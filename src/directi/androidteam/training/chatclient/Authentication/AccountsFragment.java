@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.ListView;
+import directi.androidteam.training.chatclient.R;
 
 import java.util.ArrayList;
 
@@ -29,7 +31,7 @@ public class AccountsFragment extends Fragment implements Subscriber{
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Log.d("ioio", "oncreate - acct fragment");
-//        AccountManager.getInstance().addSubscribers(this);
+        AccountManager.getInstance().addSubscribers(this);
     }
 
     @Override
@@ -41,15 +43,10 @@ public class AccountsFragment extends Fragment implements Subscriber{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("ioio", "oncreate view- acct fragment");
-        TextView textView = new TextView(getActivity());
-        textView.setText("SimpleFragmentText");
-        textView.setVisibility(View.VISIBLE);
-        textView.setTextSize(20);
-       // adaptor = new AccountListAdaptor(getActivity());
-        return textView;
-/*
-            View view;
-//        if(container==null) {
+        if(container!=null)
+            container.removeAllViews();
+        View view;
+        if(container==null) {
             view = inflater.inflate(R.layout.accounts,container,false);
             ListView lv = (ListView)view.findViewById(R.id.accountScreen_list);
             adaptor = new AccountListAdaptor(getActivity());
@@ -61,15 +58,11 @@ public class AccountsFragment extends Fragment implements Subscriber{
             setLoginList();
             setLogoutList();
             Log.d("ioio","pppp");
-*/
-/*
         }
         else
             view = container;
-*//*
 
         return view;
-*/
     }
 
     public void setLoginList(){
@@ -88,7 +81,7 @@ public class AccountsFragment extends Fragment implements Subscriber{
     @Override
     public void onResume(){
         super.onResume();
-//        adaptor.notifyDataSetChanged();
+        adaptor.notifyDataSetChanged();
     }
 
 
