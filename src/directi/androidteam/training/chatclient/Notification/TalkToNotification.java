@@ -5,13 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-/**
- * Created with IntelliJ IDEA.
- * User: vineet
- * Date: 9/10/12
- * Time: 3:41 PM
- * To change this template use File | Settings | File Templates.
- */
 public class TalkToNotification {
 
     private Intent targetIntent ;

@@ -3,13 +3,6 @@ package directi.androidteam.training.chatclient.Notification;
 import android.content.Context;
 import android.util.Log;
 
-/**
- * Created with IntelliJ IDEA.
- * User: vineet
- * Date: 12/10/12
- * Time: 3:20 PM
- * To change this template use File | Settings | File Templates.
- */
 public class TalkToNotifier {
 
     private  MessageNotificationHandler messageHandler ;
