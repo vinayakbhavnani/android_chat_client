@@ -8,6 +8,7 @@ public class TalkToNotifier {
     private  MessageNotificationHandler messageHandler ;
     private TalkToNotificationManager notificationManager;
     private static  TalkToNotifier instance;
+    private static final String LOGTAG = "TalkToNotifier";
 
     private TalkToNotifier(Context context) {
           messageHandler = new MessageNotificationHandler(context);
@@ -22,10 +23,10 @@ public class TalkToNotifier {
     }
 
     public void sendMessageNotification(String messageSender , String message )  {
-        Log.d("TalkToNotifier" , "received request");
+        Log.d(LOGTAG , "received request");
         TalkToNotification notification = messageHandler.getNotification(messageSender, message);
         notificationManager.notify(notification);
-        Log.d("TalkToNotifier","finished request");
+        Log.d(LOGTAG,"finished request");
     }
 
 }

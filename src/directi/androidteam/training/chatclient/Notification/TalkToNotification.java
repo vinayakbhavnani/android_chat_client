@@ -13,8 +13,8 @@ public class TalkToNotification {
     private String contentTitle ;
     private String contentText ;
     private String tickerText ;
-
     private int notificationID;
+    private static final String LOGTAG = "TalkToNotification";
 
     public TalkToNotification(Intent targetIntent, Class homeActivityClass, int icon, String contentTitle, String contentText, String tickerText) {
         this.targetIntent = targetIntent;
@@ -23,6 +23,7 @@ public class TalkToNotification {
         this.contentTitle = contentTitle;
         this.contentText = contentText;
         this.tickerText = tickerText;
+        Log.d(LOGTAG,"notification initialized");
     }
 
     public Intent getTargetActivityClass() {

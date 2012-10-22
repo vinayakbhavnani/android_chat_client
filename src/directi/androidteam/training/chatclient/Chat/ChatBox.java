@@ -35,6 +35,7 @@ public class ChatBox extends FragmentActivity {
     private static FragmentSwipeAdaptor frag_adaptor;
     private static ViewPager viewPager;
     private static Toast toast;
+    public static String BUDDY_ID = "buddyid";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class ChatBox extends FragmentActivity {
         viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context));
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        String from =  (String) bundle.get("buddyid");
+        String from =  (String) bundle.get(BUDDY_ID);
         if(from != null) {
             MyFragmentManager.getInstance().addFragEntry(from);
             EditText editText = (EditText) findViewById(R.id.enter_message);
@@ -114,7 +115,7 @@ public class ChatBox extends FragmentActivity {
             this.finish();
         }
         Bundle bundle =  intent.getExtras();
-        String from = (String)bundle.get("buddyid")  ;
+        String from = (String)bundle.get(BUDDY_ID)  ;
         if(from!=null)
         {
             EditText editText = (EditText) findViewById(R.id.enter_message);
