@@ -48,8 +48,8 @@ public class RosterHandler implements Handler {
 
     private void processIqPacket(final IQTag tag) {
         Account account = AccountManager.getInstance().getAccount(tag.getRecipientAccount());
-        account.setFullJID(tag.getAttribute("to"));
-        account.setQueryTag(tag);
+        //account.setFullJID(tag.getAttribute("to"));
+        //account.setQueryTag(tag);
         if (tag.contains("query")) {
             processQueryPacket(new Query(tag.getChildTag("query").setRecipientAccount(tag.getRecipientAccount())), account);
         } else if (tag.contains("vCard")) {

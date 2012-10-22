@@ -1,8 +1,10 @@
 package directi.androidteam.training.chatclient.Authentication;
 
 import android.util.Log;
+import directi.androidteam.training.TagStore.IQTag;
 import directi.androidteam.training.TagStore.StreamClose;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.TagStore.VCardTag;
 import directi.androidteam.training.chatclient.Util.PacketReader;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.chatclient.Util.ServiceThread;
@@ -30,20 +32,13 @@ public  abstract class Account implements Publisher{
     protected String accountUid;
     protected LoginStatus loginStatus;
     private static Vector<Subscriber> subscribers = new Vector<Subscriber>();
-    public String presence;
-    public Tag queryTag;
+
 
     private String status;
     private String show;
-    private RosterFetchStatus rosterFetchStatus;
 
-    public RosterFetchStatus isRosterFetchStatus() {
-        return this.rosterFetchStatus;
-    }
 
-    public void setRosterFetchStatus(RosterFetchStatus rosterFetchStatus) {
-        this.rosterFetchStatus = rosterFetchStatus;
-    }
+
 
     public String getShow() {
         return this.show;
@@ -61,21 +56,9 @@ public  abstract class Account implements Publisher{
         this.status = status;
     }
 
-    public String getPresence() {
-        return this.presence;
-    }
 
-    public void setPresence(String presence) {
-        this.presence = presence;
-    }
 
-    public Tag getQueryTag() {
-        return this.queryTag;
-    }
 
-    public void setQueryTag(Tag queryTag) {
-        this.queryTag = queryTag;
-    }
 
     public LoginStatus getPersistedLoginStatus() {
         return persistedLoginStatus;
@@ -134,6 +117,8 @@ public  abstract class Account implements Publisher{
     public void setLoginStatus(LoginStatus loginStatus) {
         this.loginStatus = loginStatus;
         publish();
+        if(loginStatus.equals(LoginStatus.ONLINE))
+            postLogin();
     }
 
     public XMPPLogin getXmppLogin() {
@@ -213,6 +198,12 @@ public  abstract class Account implements Publisher{
         }
         xmppLogin.initiateLogin();
        setLoginStatus(LoginStatus.CONNECTING);
+    }
+
+    public void postLogin(){
+        IQTag selfVcard = new IQTag("self",fullJID,"get",new VCardTag("vcard-temp"));
+        selfVcard.setRecipientAccount(accountUid);
+        PacketWriter.addToWriteQueue(selfVcard);
     }
 
     public void Logout(){
