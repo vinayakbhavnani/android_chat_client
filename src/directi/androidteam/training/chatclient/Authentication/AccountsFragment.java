@@ -46,21 +46,25 @@ public class AccountsFragment extends Fragment implements Subscriber{
         if(container!=null)
             container.removeAllViews();
         View view;
+/*
         if(container==null) {
             view = inflater.inflate(R.layout.accounts,container,false);
-            ListView lv = (ListView)view.findViewById(R.id.accountScreen_list);
-            adaptor = new AccountListAdaptor(getActivity());
-            lv.setAdapter(adaptor);
-        //          ImageView settings_icon_click = (ImageView) view.findViewById(R.id.accountitem_settings);
-//            settings_icon_click.setOnClickListener(new AcctSettingsIconOnClickListener(loginList, logoutList, adaptor, getActivity()));
-            Button accountAddButton = (Button) view.findViewById(R.id.accountScreen_add);
-            accountAddButton.setOnClickListener(new AcctScreenAddOnClickListener(getActivity()));
-            setLoginList();
-            setLogoutList();
-            Log.d("ioio","pppp");
         }
         else
             view = container;
+*/
+        view = inflater.inflate(R.layout.accounts,container,false);
+
+        ListView lv = (ListView)view.findViewById(R.id.accountScreen_list);
+        adaptor = new AccountListAdaptor(getActivity());
+        lv.setAdapter(adaptor);
+        //          ImageView settings_icon_click = (ImageView) view.findViewById(R.id.accountitem_settings);
+//            settings_icon_click.setOnClickListener(new AcctSettingsIconOnClickListener(loginList, logoutList, adaptor, getActivity()));
+        Button accountAddButton = (Button) view.findViewById(R.id.accountScreen_add);
+        accountAddButton.setOnClickListener(new AcctScreenAddOnClickListener(getActivity()));
+        setLoginList();
+        setLogoutList();
+        Log.d("ioio","pppp");
 
         return view;
     }
