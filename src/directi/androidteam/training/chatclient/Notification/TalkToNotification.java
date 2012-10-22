@@ -12,7 +12,7 @@ import android.util.Log;
  * Time: 3:41 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MyNotification {
+public class TalkToNotification {
 
     private Intent targetIntent ;
     private Class homeActivityClass ;
@@ -23,7 +23,7 @@ public class MyNotification {
 
     private int notificationID;
 
-    public MyNotification(Intent targetIntent , Class homeActivityClass , int icon , String contentTitle , String contentText , String tickerText ) {
+    public TalkToNotification(Intent targetIntent, Class homeActivityClass, int icon, String contentTitle, String contentText, String tickerText) {
         this.targetIntent = targetIntent;
         this.homeActivityClass = homeActivityClass;
         this.icon = icon;

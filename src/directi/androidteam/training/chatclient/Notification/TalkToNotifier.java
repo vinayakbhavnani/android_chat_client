@@ -32,7 +32,7 @@ public class TalkToNotifier {
 
     public void sendMessageNotification(String messageSender , String message )  {
         Log.d("TalkToNotifier" , "received request");
-        MyNotification notification = messageHandler.getNotification(messageSender, message);
+        TalkToNotification notification = messageHandler.getNotification(messageSender, message);
         notificationManager.notify(notification);
         Log.d("TalkToNotifier","finished request");
     }

@@ -2,7 +2,6 @@ package directi.androidteam.training.chatclient.Notification;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
@@ -24,10 +23,10 @@ public class MessageNotificationHandler  {
         this.context = context;
     }
 
-    public MyNotification getNotification(String messageSender,String message ) {
+    public TalkToNotification getNotification(String messageSender,String message ) {
         Intent targetIntent = new Intent(context,ChatBox.class);
         targetIntent.putExtra("buddyid", messageSender);
-        MyNotification notification = new MyNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender,message,messageSender + " : " + message);
+        TalkToNotification notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender,message,messageSender + " : " + message);
         notificationID++;
         if(notificationID == 1000000) {
             notificationID =  100000 ;
