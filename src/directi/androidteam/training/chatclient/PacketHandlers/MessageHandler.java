@@ -7,7 +7,6 @@ import directi.androidteam.training.TagStore.Query;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.Chat.MessageManager;
-import directi.androidteam.training.chatclient.Notification.IncompleteNotificationException;
 import directi.androidteam.training.chatclient.Notification.TalkToNotifier;
 
 import java.util.ArrayList;
@@ -28,15 +27,10 @@ public class MessageHandler implements Handler{
 
     @Override
     public void processPacket(Tag tag){
-        Log.d("processPacket","entered process packet");
         HashMap<String,Vector<MessageStanza>> chatLists = MessageManager.getInstance().getMessageStore();
-        Log.d("processPacket","got chatLists hashmap");
         if(tag.getTagname().equals("message")) {
-            Log.d("processPacket","entered if block");
             MessageStanza ms = new MessageStanza(tag);
-            Log.d("process packet","extracting from");
             String from = ms.getTag().getAttribute("from").split("/")[0];
-            Log.d("process packet","finished extracting from ");
             String chatState = ms.getChatState();
             if(chatLists.containsKey(from) && chatState.equals("composing")) {
                 Log.d("CHAT STATE","Compose received from :" + from);
@@ -45,32 +39,23 @@ public class MessageHandler implements Handler{
             }
             else if(ms.getBody()!=null) {
                 if(ChatBox.getContext()==null){
-                    try {
                         Log.d("process packet" , "sending notification");
-                    TalkToNotifier.sendMessageNotification(ChatApplication.getAppContext(),ms);
-                    } catch ( IncompleteNotificationException ine ) {
-                        Log.d("process packet" , " incomplete notification");
-                    }
+                    TalkToNotifier ttn = new TalkToNotifier(ChatApplication.getAppContext());
+                    ttn.sendMessageNotification(ms.getFrom(),ms.getBody());
                 }
                 else {
                     ChatBox.notifyChat(ms,from);
                 }
 
             }
-            Log.d("processPacket" , "finished");
         }
         else if(tag.getTagname().equals("iq")) {
-            Log.d("process packet","entered else if");
             ArrayList<Tag> childlist = tag.getChildTags();
-            Log.d("process packet","got childlist");
             if(childlist==null)
                 return;
             if(childlist.get(0).getTagname().equals("query")) {
-                Log.d("process packet","entered query if");
                 Query query = new Query(childlist.get(0));
-                Log.d("process packet","got query");
                 String xmlnsQuery = query.getAttribute("xmlns");
-                Log.d("process packet", " got xmlns");
                 if(xmlnsQuery==null)
                     return;
                 if(xmlnsQuery.equals("http://jabber.org/protocol/disc#info"))
@@ -86,6 +71,5 @@ public class MessageHandler implements Handler{
                 }
             }
         }
-        Log.d("process packet" , "leaving successfully");
    }
 }

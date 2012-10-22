@@ -13,24 +13,19 @@ import directi.androidteam.training.StanzaStore.MessageStanza;
  */
 public class TalkToNotifier {
 
-    private static MessageNotificationHandler messageHandler = null ;
+    private  MessageNotificationHandler messageHandler = null ;
 
-    public static void sendMessageNotification(Context context ,MessageStanza stanza ) throws IncompleteNotificationException {
-        Log.d("TalkToNotifier" , "received request");
-        String messageSender = stanza.getFrom();
-        String message = stanza.getBody();
-         if( (context == null) || (messageSender == null ) || (message == null )  ) {
-             throw new IncompleteNotificationException("Incomplete specification of notification parameters ");
-         }
-        if ((messageSender.equalsIgnoreCase("")) || (message.equalsIgnoreCase(""))  ) {
-            throw new IncompleteNotificationException("Incomplete specification of notification parameters ");
-        }
+    public TalkToNotifier(Context context) {
         synchronized(TalkToNotifier.class) {
             if(messageHandler == null) {
-                messageHandler = new MessageNotificationHandler(context,messageSender,message);
+                messageHandler = new MessageNotificationHandler(context);
             }
         }
-        messageHandler.sendNotification();
+    }
+
+    public void sendMessageNotification(String messageSender , String message )  {
+        Log.d("TalkToNotifier" , "received request");
+        messageHandler.sendNotification(messageSender,message);
         Log.d("TalkToNotifier","finished request");
     }
 

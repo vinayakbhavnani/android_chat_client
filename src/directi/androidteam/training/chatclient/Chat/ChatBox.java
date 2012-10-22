@@ -19,7 +19,6 @@ import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.Chat.Listeners.ChatViewPageChangeListner;
 import directi.androidteam.training.chatclient.Chat.Listeners.MsgTextChangeListener;
 import directi.androidteam.training.chatclient.Constants;
-import directi.androidteam.training.chatclient.Notification.IncompleteNotificationException;
 import directi.androidteam.training.chatclient.Notification.TalkToNotifier;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
@@ -40,7 +39,6 @@ public class ChatBox extends FragmentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d("onCreate for ChatBox" , "entered");
         super.onCreate(savedInstanceState);
         BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
         setContentView(R.layout.chat);
@@ -49,13 +47,8 @@ public class ChatBox extends FragmentActivity {
         viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(frag_adaptor);
         viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context));
-        Log.d("onCreate for ChatBox","getIntent() will be called");
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        Log.d("onCreate for ChatBox","will try to get from from bundle");
-        if(bundle == null) {
-            Log.d("onCreate for ChatBox","bundle is null");
-        }
         String from =  (String) bundle.get("buddyid");
         if(from != null) {
             MyFragmentManager.getInstance().addFragEntry(from);
@@ -63,11 +56,9 @@ public class ChatBox extends FragmentActivity {
             editText.addTextChangedListener(new MsgTextChangeListener(from));
             switchFragment(from);
             sendDiscoInfoQuery(from);
-            Log.d("onCreate for ChatBox","from != null if block finished");
         }
         ActionBar ab = getActionBar();
         ab.hide();
-        Log.d("onCreate for ChatBox","oncreate done");
     }
 
     private void sendDiscoInfoQuery(String from) {
@@ -105,14 +96,10 @@ public class ChatBox extends FragmentActivity {
     }
 
     public static void notifyChat(MessageStanza ms, String from){
-        Log.d("notifyChat","entered notify chat");
         if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom())) {
-            try {
                 Log.d("notifyChat","sending notification");
-             TalkToNotifier.sendMessageNotification(context,ms);
-            } catch ( IncompleteNotificationException ine ) {
-                Log.d("notifyChat" ," incomplete notification");
-            }
+            TalkToNotifier ttn = new TalkToNotifier(context);
+             ttn.sendMessageNotification(ms.getFrom(),ms.getBody());
         }
         MyFragmentManager.getInstance().addFragEntry(from);
         Log.d("xcxc","before insert msg");
@@ -121,15 +108,12 @@ public class ChatBox extends FragmentActivity {
 
     @Override
     public void onNewIntent(Intent intent){
-        Log.d("onNewIntent" , " got inside");
         super.onNewIntent(intent);
         if(intent.getExtras().containsKey("error")){
-            Log.d("onNewIntent","intent contains error key");
             notifyConnectionError();
             return;
         }
         if (intent.getExtras().containsKey("finish")){
-            Log.d("onNewIntent" ,"intent contains finish key");
             this.finish();
         }
         Bundle bundle =  intent.getExtras();
@@ -141,7 +125,6 @@ public class ChatBox extends FragmentActivity {
             MyFragmentManager.getInstance().addFragEntry(from);
             switchFragment(from);
             sendDiscoInfoQuery(from);
-            Log.d("onNewIntent","finished executing within from != null if block ");
         }
     }
 
