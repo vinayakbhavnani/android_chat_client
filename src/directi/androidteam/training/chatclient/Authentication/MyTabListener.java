@@ -29,6 +29,7 @@ public class MyTabListener implements ActionBar.TabListener {
         Log.d("ioio","tab select" + className);
         if(fragment==null){
             fragment = Fragment.instantiate(activity,className);
+            Log.d("ioio","tab select - frag null" + className);
         }
         fragmentTransaction.add(R.id.tab_container, fragment);
         fragmentTransaction.show(fragment);
@@ -38,6 +39,7 @@ public class MyTabListener implements ActionBar.TabListener {
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         Log.d("ioio","tab unselect" + className);
         if(fragment!=null) {
+            fragmentTransaction.hide(fragment);
             fragmentTransaction.detach(fragment);
         }
     }

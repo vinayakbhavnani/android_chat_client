@@ -27,8 +27,10 @@ public class RosterFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("ioio", "rosterfragment oncreate view- acct fragment");
+/*
         if(container!=null)
            container.removeAllViews();
+*/
         TextView textView = new TextView(getActivity());
         textView.setText("SimpleFragmentText");
         textView.setVisibility(View.VISIBLE);

@@ -43,17 +43,11 @@ public class AccountsFragment extends Fragment implements Subscriber{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("ioio", "oncreate view- acct fragment");
+/*
         if(container!=null)
             container.removeAllViews();
-        View view;
-/*
-        if(container==null) {
-            view = inflater.inflate(R.layout.accounts,container,false);
-        }
-        else
-            view = container;
 */
-        view = inflater.inflate(R.layout.accounts,container,false);
+        View view = inflater.inflate(R.layout.accounts,container,false);
 
         ListView lv = (ListView)view.findViewById(R.id.accountScreen_list);
         adaptor = new AccountListAdaptor(getActivity());
