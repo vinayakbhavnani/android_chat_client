@@ -63,6 +63,24 @@ public class AccountsFragment extends Fragment implements Subscriber{
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("ioio","onpause acct frag");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("ioio","onstop acct frag");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("ioio","ondestroy view acct frag");
+    }
+
     public void setLoginList(){
         loginList = new ArrayList<String>();
         loginList.add("Login");
@@ -97,6 +115,7 @@ public class AccountsFragment extends Fragment implements Subscriber{
     @Override
     public void onDestroy(){
         super.onDestroy();
+        Log.d("ioio","ondetroy acct frag");
         AccountManager.getInstance().saveAccountState();
         AccountManager.getInstance().removeSubscribers(this);
     }

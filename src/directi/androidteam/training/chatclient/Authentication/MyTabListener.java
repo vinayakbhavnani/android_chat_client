@@ -27,12 +27,12 @@ public class MyTabListener implements ActionBar.TabListener {
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         Log.d("ioio","tab select" + className);
-        if(fragment==null){
+//        if(fragment==null){
             fragment = Fragment.instantiate(activity,className);
             Log.d("ioio","tab select - frag null" + className);
-        }
-        fragmentTransaction.add(R.id.tab_container, fragment);
-        fragmentTransaction.show(fragment);
+  //      }
+        fragmentTransaction.replace(R.id.tab_container, fragment);
+   //     fragmentTransaction.show(fragment);
     }
 
     @Override
