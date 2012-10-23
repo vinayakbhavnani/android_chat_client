@@ -3,9 +3,6 @@ package directi.androidteam.training.chatclient.Roster;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -52,6 +49,7 @@ public class DisplayRosterActivity extends FragmentActivity {
         startActivity(intent);
     }
 
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -70,6 +68,7 @@ public class DisplayRosterActivity extends FragmentActivity {
                 return super.onOptionsItemSelected(menuItem);
         }
     }
+*/
 
     public void updateRosterList(ArrayList<RosterItem> rosterList) {
         RosterItemAdapter rosterItemAdapter = ((RosterItemAdapter)(((ListView)findViewById(R.id.roster_list)).getAdapter()));
