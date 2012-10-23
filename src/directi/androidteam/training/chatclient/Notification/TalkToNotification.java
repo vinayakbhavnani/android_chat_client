@@ -16,13 +16,14 @@ public class TalkToNotification {
     private int notificationID;
     private static final String LOGTAG = "TalkToNotification";
 
-    public TalkToNotification(Intent targetIntent, Class homeActivityClass, int icon, String contentTitle, String contentText, String tickerText) {
+    public TalkToNotification(Intent targetIntent, Class homeActivityClass, int icon, String contentTitle, String contentText, String tickerText,int notificationID) {
         this.targetIntent = targetIntent;
         this.homeActivityClass = homeActivityClass;
         this.icon = icon;
         this.contentTitle = contentTitle;
         this.contentText = contentText;
         this.tickerText = tickerText;
+        this.notificationID = notificationID;
         Log.d(LOGTAG,"notification initialized");
     }
 

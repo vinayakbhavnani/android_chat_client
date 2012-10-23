@@ -33,7 +33,6 @@ public class TalkToNotificationManager {
         notificationBuilder.setTicker(tickerText );
         notificationBuilder.setContentTitle(contentTitle );
         notificationBuilder.setContentText(contentText );
-        notificationBuilder.setAutoCancel(true);
         notificationBuilder.setWhen(System.currentTimeMillis());
         notificationBuilder.setAutoCancel(true);
         notificationBuilder.setContentIntent( TaskStackBuilder.create(notificationContext).addParentStack(homeActivityClass).addNextIntent(new Intent(notificationContext,homeActivityClass)).addNextIntent(targetIntent).getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT));
