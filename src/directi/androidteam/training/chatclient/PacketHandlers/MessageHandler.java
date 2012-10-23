@@ -7,11 +7,8 @@ import directi.androidteam.training.TagStore.Query;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.Chat.ChatNotifier;
-import directi.androidteam.training.chatclient.Chat.MessageManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,13 +24,16 @@ public class MessageHandler implements Handler{
 
     @Override
     public void processPacket(Tag tag){
-        HashMap<String,Vector<MessageStanza>> chatLists = MessageManager.getInstance().getMessageStore();
+      //  HashMap<String,Vector<MessageStanza>> chatLists = MessageManager.getInstance().getMessageStore();
+        if(tag==null || tag.getTagname()==null)
+            return;
         if(tag.getTagname().equals("message")) {
             MessageStanza ms = new MessageStanza(tag);
             String from = ms.getTag().getAttribute("from").split("/")[0];
             String chatState = ms.getChatState();
-            if(chatLists.containsKey(from) && chatState.equals("composing")) {
-                Log.d("CHAT STATE","Compose received from :" + from);
+           // if(chatLists.containsKey(from) && chatState.equals("composing")) {
+                if(chatState.equals("composing")) {
+                    Log.d("CHAT STATE","Compose received from :" + from);
                 ChatBox.composeToast(from +" is composing");
                 return;
             }

@@ -56,6 +56,7 @@ public class ChatBox extends FragmentActivity {
         String from =  (String) getIntent().getExtras().get("buddyid");
         if(from != null) {
             MyFragmentManager.getInstance().addFragEntry(from);
+            ChatStore.getInstance().addEntry(from,(String) getIntent().getExtras().get("accountUID"));
         }
         viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context,fragmentManager));
         if(getIntent().getExtras().containsKey("notification"))
@@ -150,6 +151,7 @@ public class ChatBox extends FragmentActivity {
         if(from!=null)
         {
             MyFragmentManager.getInstance().addFragEntry(from);
+            ChatStore.getInstance().addEntry(from, (String) getIntent().getExtras().get("accountUID"));
             switchFragment(from);
             sendDiscoInfoQuery(from);
         }
@@ -188,13 +190,17 @@ public class ChatBox extends FragmentActivity {
 
         String jid = MyFragmentManager.getInstance().getJidByFragId(currentItem);
         Fragment fragment =  fragmentManager.findFragmentByTag(jid);
-        MessageStanza messxml = new MessageStanza(jid,message);
-        messxml.formActiveMsg();
-        messxml.send(((ChatFragment)fragment).getMyAccountUID());
+        MessageStanza msgStanza = new MessageStanza(jid,message);
+//        msgStanza.formActiveMsg();
+        msgStanza.send(ChatStore.getInstance().getAcctUID(jid));
+        if(msgStanza==null)
+            Log.d("ioio","msgstanza null");
+        else
+        Log.d("ioio","chatbox from : "+msgStanza.getFrom() + " body :"+msgStanza.getBody() + " acc id : "+ChatStore.getInstance().getAcctUID(jid));
 
-        PacketStatusManager.getInstance().pushMsPacket(messxml);
+        PacketStatusManager.getInstance().pushMsPacket(msgStanza);
         MyFragmentManager.getInstance().addFragEntry(jid);
-        MessageManager.getInstance().insertMessage(jid, messxml);
+        MessageManager.getInstance().insertMessage(jid, msgStanza);
 
         viewPager.setCurrentItem(currentItem);
 

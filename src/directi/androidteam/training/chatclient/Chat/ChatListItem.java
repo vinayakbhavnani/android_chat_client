@@ -1,6 +1,6 @@
 package directi.androidteam.training.chatclient.Chat;
 
-import directi.androidteam.training.StanzaStore.JID;
+import android.util.Log;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.chatclient.R;
 
@@ -57,7 +57,8 @@ public class ChatListItem {
 
     public ChatListItem(MessageStanza message){
         this.message=message.getBody();
-        this.sender=message.getFrom().equals(JID.getJid().split("/")[0]);
+        Log.d("ioio","mes :"+message.getFrom() + " acct :"+ChatStore.getInstance().getAcctUID(message.getFrom()));
+        this.sender=message.getFrom().equals(ChatStore.getInstance().getAcctUID(message.getFrom()));
         this.username=message.getFrom();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         this.time = dateFormat.format(new Date(message.getTime()));

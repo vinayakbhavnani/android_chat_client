@@ -38,6 +38,7 @@ public class ChatFragment extends ListFragment {
 
     public ChatFragment(String from) {
         this.buddyid = from;
+        this.myAccountUID = ChatStore.getInstance().getAcctUID(from);
     }
 
     @Override

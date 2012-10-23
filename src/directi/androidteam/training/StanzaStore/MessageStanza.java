@@ -116,7 +116,11 @@ public class MessageStanza extends TagWrapper{
         return tag;
     }
     public String getFrom(){
-        return tag.getAttribute("from").split("/")[0];
+        String from  = tag.getAttribute("from");
+        if(from==null)
+            return null;
+        else
+            return from.split("/")[0];
     }
 
     public String getTo(){
@@ -153,7 +157,7 @@ public class MessageStanza extends TagWrapper{
     }
 
     public void send(String myAccountUID) {
-        //setFrom(JID.getJid());
+        tag.addAttribute("from",myAccountUID);
         tag.setRecipientAccount(myAccountUID);
         setID(UUID.randomUUID().toString());
         PacketWriter.addToWriteQueue(getTag());
