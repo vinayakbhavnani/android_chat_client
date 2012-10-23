@@ -28,17 +28,18 @@ public class MessageNotificationHandler  {
         Intent targetIntent = new Intent(context,ChatBox.class);
         targetIntent.putExtra(ChatBox.BUDDY_ID, messageSender);
         TalkToNotification notification;
-        if(idMap.isEmpty() || (!idMap.containsKey(messageSender))  ) {
-            notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender,message,messageSender + " : " + message,notificationID);
-            idMap.put(messageSender, notificationID);
-            messageMap.put(messageSender,1);
-            notificationID++;
-        } else {
+        if(idMap.containsKey(messageSender)  ) {
             int ID = (Integer) idMap.get(messageSender);
             int times = (Integer) messageMap.remove(messageSender);
             times++;
             messageMap.put(messageSender,times);
-            notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender + " (" + times + ")",message,messageSender + " : " + message,ID);
+            notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender ,message,messageSender + " : " + message,ID,times);
+     } else {
+            notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender,message,messageSender + " : " + message,notificationID,1);
+            idMap.put(messageSender, notificationID);
+            messageMap.put(messageSender,1);
+            notificationID++;
+
         }
         Log.d(LOGTAG,"notification created successfully");
         return notification;
