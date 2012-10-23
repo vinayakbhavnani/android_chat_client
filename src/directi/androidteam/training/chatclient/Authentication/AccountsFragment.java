@@ -49,9 +49,7 @@ public class AccountsFragment extends Fragment implements Subscriber{
         ListView lv = (ListView)view.findViewById(R.id.accountScreen_list);
         adaptor = new AccountListAdaptor(getActivity());
         lv.setAdapter(adaptor);
-        ImageView settings_icon_click = (ImageView) view.findViewById(R.id.accountitem_settings);
-        if(settings_icon_click!=null)
-            settings_icon_click.setOnClickListener(new AcctSettingsIconOnClickListener(loginList, logoutList, adaptor, getActivity()));
+
         Button accountAddButton = (Button) view.findViewById(R.id.accountScreen_add);
         accountAddButton.setOnClickListener(new AcctScreenAddOnClickListener(getActivity()));
         setLoginList();
@@ -84,12 +82,16 @@ public class AccountsFragment extends Fragment implements Subscriber{
         loginList.add("Login");
         loginList.add("Edit Password");
         loginList.add("Remove Account");
+        loginList.add("Remove Account");
+        loginList.add("Set Status");
     }
     public void setLogoutList(){
         logoutList = new ArrayList<String>();
         logoutList.add("Logout");
         logoutList.add("Edit Password");
         logoutList.add("Remove Account");
+        logoutList.add("Remove Account");
+        logoutList.add("Set Status");
     }
 
     public static ArrayList<String> getLoginList() {
@@ -128,4 +130,6 @@ public class AccountsFragment extends Fragment implements Subscriber{
             }
         });
     }
+
+
 }

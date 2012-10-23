@@ -2,6 +2,7 @@ package directi.androidteam.training.chatclient.Authentication;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,7 +50,7 @@ public class DisplayAccounts extends Activity implements Subscriber{
         logoutList.add("Set Status");
     }
 
-    public void  accountSettings(View view){
+    public void  accountSettingss(View view){
         //Spinner spinner = (Spinner)findViewById(R.id.accountScreen_spinner);
         Account account = AccountManager.getInstance().getAccount((String)view.getTag());
         /*ArrayAdapter<String> adapter = null;

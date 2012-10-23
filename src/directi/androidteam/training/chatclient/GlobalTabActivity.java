@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -70,13 +71,32 @@ public class GlobalTabActivity extends FragmentActivity {
             actionbar.selectTab(tabs.get(1));
     }
 
-    public void  onClickHandler(View view){
-        if(view.getId()==R.id.accountitem_settings)
-            accountSettings(view);
-    }
+
 
     public void  accountSettings(View view){
+        //Spinner spinner = (Spinner)findViewById(R.id.accountScreen_spinner);
         Account account = AccountManager.getInstance().getAccount((String)view.getTag());
+        /*ArrayAdapter<String> adapter = null;
+        if(account.isLoginStatus()){
+            adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,logoutList);
+        }
+        else
+            adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,loginList);*/
+        /*//spinner.setAdapter(adapter);
+        //spinner.setVisibility(0);
+        //spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                view.setVisibility(2);
+                Log.d("spinner",adapterView.getItemAtPosition(i).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+*/
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Settings");
         final ArrayList<String> temp;
@@ -85,11 +105,26 @@ public class GlobalTabActivity extends FragmentActivity {
         }
         else
             temp = AccountsFragment.getLoginList();
+        builder.setPositiveButton("Available",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.d("presence","available");
+            }
+        }) ;
+        builder.setNegativeButton("Busy",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.d("presence","busy");
+            }
+        });
+
         builder.setItems(temp.toArray(new CharSequence[temp.size()]),new DialogListener(temp,account,AccountsFragment.getAdaptor()));
+
         AlertDialog dialog = builder.create();
         dialog.show();
 
     }
+
 
     public void updateRosterList(ArrayList<RosterItem> rosterList) {
         RosterItemAdapter rosterItemAdapter = ((RosterItemAdapter)(((ListView)findViewById(R.id.roster_list)).getAdapter()));

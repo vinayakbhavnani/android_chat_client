@@ -57,8 +57,8 @@ public class InitialActivity extends Activity {
                 this.finish();
                 break;
             default:
-              //  showLoading();
-               // AccountManager.getInstance().initialActivity = this;
+                showLoading();
+                AccountManager.getInstance().initialActivity = this;
                 break;
         }
     }
