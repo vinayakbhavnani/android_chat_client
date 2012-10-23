@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.TagStore.JIDTag;
+import directi.androidteam.training.TagStore.Presence;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Authentication.AccountManager;
 import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
@@ -58,7 +59,11 @@ public class LoginHandler implements Handler {
             processPacketAux(tag);
         } else if (tag.getTagname().equals("iq") && contains(tag, "bind")) {
             processPacketAux(tag);
-        } else {
+        } else if(tag.getTagname().equals("presence")){
+            AccountManager.getInstance().getAccount(tag.getRecipientAccount()).initPresence(new Presence(tag));
+        }
+        else {
+
         }
     }
 

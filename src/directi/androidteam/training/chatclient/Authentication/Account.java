@@ -1,10 +1,7 @@
 package directi.androidteam.training.chatclient.Authentication;
 
 import android.util.Log;
-import directi.androidteam.training.TagStore.IQTag;
-import directi.androidteam.training.TagStore.StreamClose;
-import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.TagStore.VCardTag;
+import directi.androidteam.training.TagStore.*;
 import directi.androidteam.training.chatclient.Util.PacketReader;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 import directi.androidteam.training.chatclient.Util.ServiceThread;
@@ -201,9 +198,14 @@ public  abstract class Account implements Publisher{
     }
 
     public void postLogin(){
-        IQTag selfVcard = new IQTag("self",fullJID,"get",new VCardTag("vcard-temp"));
+        /*IQTag selfVcard = new IQTag("self",fullJID,"get",new VCardTag("vcard-temp"));
         selfVcard.setRecipientAccount(accountUid);
-        PacketWriter.addToWriteQueue(selfVcard);
+        PacketWriter.addToWriteQueue(selfVcard);*/
+       /* Presence presence = new Presence();
+        //presence.addAttribute("id","selfpresence");
+        presence.setRecipientAccount(accountUid);
+        PacketWriter.addToWriteQueue(presence);*/
+
     }
 
     public void Logout(){
@@ -245,6 +247,13 @@ public  abstract class Account implements Publisher{
     }
 
 
+    public void initPresence(Presence presence) {
+        if(!presence.getFrom().equals(fullJID))
+            return;
+        Log.d("presenceSet","ok");
+        this.setShow(presence.getShow());
+        this.setStatus(presence.getStatus());
+    }
 }
 
 

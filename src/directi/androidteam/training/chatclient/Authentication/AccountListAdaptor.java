@@ -74,12 +74,12 @@ public class AccountListAdaptor extends BaseAdapter {
 
         holder.username = (TextView)row.findViewById(R.id.accountitem_jid);
         holder.icon = (ImageView)row.findViewById(R.id.accountitem_icon);
-        holder.status = (TextView)row.findViewById(R.id.accountitem_presence);
-        holder.settings = (ImageView)row.findViewById(R.id.accountitem_settings);
+        holder.status = (TextView)row.findViewById(R.id.accountitem_status);
+        holder.presence = (ImageView)row.findViewById(R.id.accountitem_presence);
 
         row.setTag(holder);
 
-
+        row.findViewById(R.id.accountitem_group).setTag(cli.getAccountUid());
         /*}
         else
         {
@@ -89,8 +89,8 @@ public class AccountListAdaptor extends BaseAdapter {
         }*/
 
         holder.username.setText(cli.accountUid);
-        holder.settings.setImageResource(R.drawable.settings);
-        holder.settings.setTag(cli.getAccountUid());
+        //holder.settings.setImageResource(R.drawable.settings);
+        //holder.settings.setTag(cli.getAccountUid());
         if(cli.isLoginStatus().equals(LoginStatus.ONLINE)){
             holder.status.setText("online");
             holder.status.setTextColor(R.color.Black);
@@ -116,6 +116,6 @@ public class AccountListAdaptor extends BaseAdapter {
         TextView username;
         ImageView icon;
         TextView status;
-        ImageView settings;
+        ImageView presence;
     }
 }
