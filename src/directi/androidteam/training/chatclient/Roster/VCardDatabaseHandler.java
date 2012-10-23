@@ -21,8 +21,8 @@ public class VCardDatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ACCOUNT_CUM_JID = "account_cum_jid";
     private static final String KEY_FULL_NAME = "full_name";
     private static final String KEY_AVATAR_EXISTS = "avatar_exist";
-    private static final String YES = "avatar_exists";
-    private static final String NO = "avatar_does_not_exist";
+    public static final String AVATAR_EXISTS = "avatar_exists";
+    public static final String AVATAR_DOES_NOT_EXIST = "avatar_does_not_exist";
 
     public VCardDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

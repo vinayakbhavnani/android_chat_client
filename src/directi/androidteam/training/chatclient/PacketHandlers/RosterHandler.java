@@ -1,14 +1,11 @@
 package directi.androidteam.training.chatclient.PacketHandlers;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.TagStore.*;
 import directi.androidteam.training.chatclient.Authentication.Account;
 import directi.androidteam.training.chatclient.Authentication.AccountManager;
-import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.RosterManager;
 import directi.androidteam.training.chatclient.Roster.VCard;
 import directi.androidteam.training.chatclient.Roster.VCardDatabaseHandler;
@@ -22,8 +19,7 @@ import java.util.UUID;
 
 public class RosterHandler implements Handler {
     private static RosterHandler rosterHandler = new RosterHandler();
-    public static Bitmap defaultUserImage = BitmapFactory.decodeResource(ChatApplication.getAppContext().getResources(), R.drawable.default_user);
-    //todo : remove above variable , remove concurrent exception , reloading image from database check
+
     public static RosterHandler getInstance() {
         return rosterHandler;
     }
@@ -75,10 +71,10 @@ public class RosterHandler implements Handler {
         RosterManager.getInstance().updatePhoto(vCard, vCardTag.getRecipientAccount(), senderBareJID);
         VCardDatabaseHandler db = new VCardDatabaseHandler(ChatApplication.getAppContext());
         String key = vCardTag.getRecipientAccount() + "_" + senderBareJID;
-        if (vCardTag.getChildTag("PHOTO") == null || vCardTag.getChildTag("PHOTO").getContent() == null) {
-            db.addVCard(key, vCard.getName(), "avatar_does_not_exist");
+        if (vCardTag.getChildTag("PHOTO") == null || vCardTag.getChildTag("PHOTO").getChildTags() == null) {
+            db.addVCard(key, vCard.getName(), VCardDatabaseHandler.AVATAR_DOES_NOT_EXIST);
         } else {
-            db.addVCard(key, vCard.getName(), "avatar_exists");
+            db.addVCard(key, vCard.getName(), VCardDatabaseHandler.AVATAR_EXISTS);
             try {
                 FileOutputStream fileOutputStream = ChatApplication.getAppContext().openFileOutput(key, Context.MODE_PRIVATE);
                 fileOutputStream.write(vCardTag.getChildTag("PHOTO").getChildTag("BINVAL").getContent().getBytes());
@@ -89,6 +85,7 @@ public class RosterHandler implements Handler {
                 Log.d("IOException", e.toString());
             }
         }
+        db.close();
     }
 
     private void requestVCards(Tag rosterResult) {
@@ -112,7 +109,7 @@ public class RosterHandler implements Handler {
         VCard vCard = null;
         if (fullName != null) {
             vCard = new VCard(fullName);
-            if (db.avatarExists(key).equals("avatar_exists")) {
+            if (db.avatarExists(key).equals(VCardDatabaseHandler.AVATAR_EXISTS)) {
                 vCard.setAvatar(vCard.decodeAvatar(getCachedAvatar(key)));
             }
         }

@@ -51,8 +51,8 @@ public class RosterManager {
         } else {
             rosterItem.setPresence(presence.getShow());
         }
-//        this.roster.insertRosterItem(rosterItem);
-//        updateRosterDisplay();
+        this.roster.insertRosterItem(rosterItem);
+        updateRosterDisplay();
     }
 
     public void updatePhoto(VCard vCard, String accountUID, String from) {
