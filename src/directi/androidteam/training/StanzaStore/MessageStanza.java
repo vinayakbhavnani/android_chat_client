@@ -157,7 +157,7 @@ public class MessageStanza extends TagWrapper{
     }
 
     public void send(String myAccountUID) {
-        tag.addAttribute("from",myAccountUID);
+        tag.addAttribute("from",myAccountUID+"@gmail.com");
         tag.setRecipientAccount(myAccountUID);
         setID(UUID.randomUUID().toString());
         PacketWriter.addToWriteQueue(getTag());

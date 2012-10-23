@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
-import directi.androidteam.training.chatclient.Chat.ChatFragment;
+import directi.androidteam.training.chatclient.Chat.ChatStore;
 import directi.androidteam.training.chatclient.Chat.MyFragmentManager;
 import directi.androidteam.training.chatclient.R;
 
@@ -44,7 +44,7 @@ public class ChatViewPageChangeListner implements ViewPager.OnPageChangeListener
 
     private void updatePageUI(int i){
         String from = MyFragmentManager.getInstance().getJidByFragId(i);
-        String accountUID = ((ChatFragment)fragmentManager.findFragmentByTag(from)).getMyAccountUID();
+        String accountUID = ChatStore.getInstance().getAcctUID(from);
 
         if(from!=null)
         {

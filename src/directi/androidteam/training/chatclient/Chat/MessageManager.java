@@ -1,10 +1,12 @@
 package directi.androidteam.training.chatclient.Chat;
 
 import android.util.Log;
-import directi.androidteam.training.StanzaStore.JID;
 import directi.androidteam.training.StanzaStore.MessageStanza;
+import directi.androidteam.training.chatclient.Authentication.Account;
+import directi.androidteam.training.chatclient.Authentication.AccountManager;
 import directi.androidteam.training.chatclient.Chat.dbAccess.dbAccess;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -78,25 +80,15 @@ public class MessageManager {
         t.start();
     }
 
-    private void propagateChangesToFragments(String from, MessageStanza ms, boolean b) {
-        MyFragmentManager.getInstance().updateFragment(from , ms, b);
-/*
-        Bundle bundle;
-        if(listener_frag==null || (bundle = listener_frag.getArguments())==null) {
-             ChatBox.notifyFragmentAdaptorInNewUIThread();
+    private void propagateChangesToFragments(final String from, final MessageStanza ms, final boolean b) {
+        if(ChatBox.getContext()==null)
             return;
-        }
-        if(bundle.get("from").equals(ms.getFrom()) || bundle.get("from").equals(JID.getJid())) {
-            listener_frag.addChatItem(ms,b);
-        }
-        else {
-                ChatBox.notifyFragmentAdaptorInNewUIThread();
-        }
-*/
 /*
-        if (listener_frag!=null)
-            listener_frag.addChatItem(ms,b);
+        ((Activity)ChatBox.getContext()).runOnUiThread(new Runnable() {
+            public void run() {        MyFragmentManager.getInstance().updateFragment(from , ms, b);
+            } });
 */
+        MyFragmentManager.getInstance().updateFragment(from , ms, b);
     }
 
     public HashMap<String, Vector<MessageStanza>> getMessageStore() {
@@ -142,29 +134,39 @@ public class MessageManager {
         if(messageStanzas==null || messageStanzas.isEmpty())
             return map;
         for (MessageStanza messageStanza : messageStanzas) {
-            String from = messageStanza.getFrom().split("/")[0];
-            String to = messageStanza.getTo().split("/")[0];
-            String myJid = JID.getBareJid().split("/")[0];
-            if(from.equals(myJid)) {
-                if(map.containsKey(to)) {
-                    map.get(to).add(messageStanza);
+            String from = messageStanza.getFrom().split("@")[0];
+            String to = messageStanza.getTo().split("@")[0];
+            String myJid ;
+            ArrayList<Account> accounts = AccountManager.getInstance().getAccountList();
+            Account[] accounts1 = accounts.toArray(new Account[accounts.size()]);
+            for (Account account : accounts1) {
+                myJid = account.getAccountUid();
+                if(from.equals(myJid)) {
+                    if(map.containsKey(to)) {
+                        map.get(to).add(messageStanza);
+                        break;
+                    }
+                    else {
+                        Vector<MessageStanza> arrayList = new Vector<MessageStanza>();
+                        arrayList.add(messageStanza);
+                        map.put(to,arrayList);
+                        break;
+                    }
                 }
                 else {
-                    Vector<MessageStanza> arrayList = new Vector<MessageStanza>();
-                    arrayList.add(messageStanza);
-                    map.put(to,arrayList);
+                    if(map.containsKey(from)) {
+                        map.get(from).add(messageStanza);
+                        break;
+                    }
+                    else {
+                        Vector<MessageStanza> arrayList = new Vector<MessageStanza>();
+                        arrayList.add(messageStanza);
+                        map.put(from,arrayList);
+                        break;
+                    }
                 }
             }
-            else {
-                if(map.containsKey(from)) {
-                    map.get(from).add(messageStanza);
-                }
-                else {
-                    Vector<MessageStanza> arrayList = new Vector<MessageStanza>();
-                    arrayList.add(messageStanza);
-                    map.put(from,arrayList);
-                }
-            }
+
         }
         return map;
     }

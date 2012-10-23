@@ -121,7 +121,7 @@ public class ChatBox extends FragmentActivity {
     }
 
     public static void notifyChat(MessageStanza ms, String from){
-        if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom())) {
+        if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("@")[0])) {
             ChatNotifier cn = new ChatNotifier(context);
             cn.notifyChat(ms);
         }

@@ -105,7 +105,7 @@ public class ChatFragment extends ListFragment {
     private void sendGoneMsg() {
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
-        messageStanza.send(getMyAccountUID());
+        messageStanza.send(ChatStore.getInstance().getAcctUID(buddyid));
     }
 
     public static ChatFragment getInstance(String from){
@@ -172,6 +172,11 @@ public class ChatFragment extends ListFragment {
             ChatBox.removeFragmentviaFragManager(jid);
            ChatBox.notifyFragmentAdaptorInSameThread();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(android.os.Bundle outState){
+        return;
     }
 
 }
