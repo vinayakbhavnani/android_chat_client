@@ -1,7 +1,6 @@
 package directi.androidteam.training.TagStore;
 
 import android.util.Log;
-import directi.androidteam.training.StanzaStore.JID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +12,6 @@ import directi.androidteam.training.StanzaStore.JID;
 public class JIDTag extends Tag{
     public JIDTag(Tag tag){
         super(tag.tagname,tag.attributes,tag.getChildTags(),tag.content);
-        JID.setJID(tag.content);
         Log.d("JID : ",tag.content);
     }
 

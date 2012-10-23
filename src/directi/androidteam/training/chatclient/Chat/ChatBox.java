@@ -100,7 +100,7 @@ public class ChatBox extends FragmentActivity {
         String queryAttr = "http://jabber.org/protocol/disco#info";
         RosterGet rosterGet = new RosterGet();
         rosterGet.setReceiver(from).setQueryAttribute("xmlns",queryAttr);
-        rosterGet.send();
+//        rosterGet.send();
     }
 
     public static void adaptorNotify(final ChatFragment cfrag){
@@ -185,7 +185,6 @@ public class ChatBox extends FragmentActivity {
         MessageStanza msgStanza = new MessageStanza(jid,message);
         msgStanza.formActiveMsg();
         msgStanza.send(jid);
-//        Log.d("ioio","chatbox from : "+msgStanza.getFrom() + " body :"+msgStanza.getBody() + " acc id : "+ChatStore.getInstance().getAcctUID(jid));
 
         PacketStatusManager.getInstance().pushMsPacket(msgStanza);
         MyFragmentManager.getInstance().addFragEntry(jid);

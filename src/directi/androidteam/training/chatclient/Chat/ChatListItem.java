@@ -57,7 +57,7 @@ public class ChatListItem {
     public ChatListItem(MessageStanza message){
         this.message=message.getBody();
         this.sender=(message.getFrom().split("@")[0]).equals(ChatStore.getInstance().getAcctUID(message.getFrom().split("@")[0]));
-        this.username=message.getFrom();
+        this.username=message.getFrom().split("@")[0];
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         this.time = dateFormat.format(new Date(message.getTime()));
         this.id = message.getID();

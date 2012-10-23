@@ -40,8 +40,7 @@ public class RosterGet extends TagWrapper {
     }
 
     public void send() {
-        setSender(JID.getJid());
-        tag.setRecipientAccount(JID.getBareJid());
+    //    tag.setRecipientAccount(JID.getBareJid());
         setID(UUID.randomUUID().toString());
         PacketWriter.addToWriteQueue(getTag());
     }
