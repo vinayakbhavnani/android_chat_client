@@ -22,20 +22,20 @@ public class TalkToNotificationManager {
     }
 
     public void notify(TalkToNotification notification) {
-        Notification androidNotification = getNotification(notification.getIcon(), notification.getContentTitle(), notification.getContentText(), notification.getTickerText(), notification.getNotificationID(),notification.getTargetIntent(), notification.getHomeActivityClass());
+        Notification androidNotification = getNotification(notification.getIcon(), notification.getContentTitle(), notification.getContentText(), notification.getTickerText(), notification.getNotificationID(),notification.getTargetIntent(), notification.getHomeActivityClass(),notification.getNumber());
         notificationManager.notify(notification.getNotificationID(),androidNotification);
         Log.d(LOGTAG , " successfully exiting notify");
     }
 
-    private Notification getNotification ( int icon , String contentTitle , String contentText , String tickerText, int notificationID ,Intent targetIntent , Class homeActivityClass) {
+    private Notification getNotification ( int icon , String contentTitle , String contentText , String tickerText, int notificationID ,Intent targetIntent , Class homeActivityClass , int number) {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(notificationContext);
         notificationBuilder.setSmallIcon(icon);
         notificationBuilder.setTicker(tickerText );
         notificationBuilder.setContentTitle(contentTitle );
         notificationBuilder.setContentText(contentText );
-        notificationBuilder.setAutoCancel(true);
         notificationBuilder.setWhen(System.currentTimeMillis());
         notificationBuilder.setAutoCancel(true);
+        notificationBuilder.setNumber(number);
         notificationBuilder.setContentIntent( TaskStackBuilder.create(notificationContext).addParentStack(homeActivityClass).addNextIntent(new Intent(notificationContext,homeActivityClass)).addNextIntent(targetIntent).getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT));
         Notification notification = notificationBuilder.build();
         Log.d(LOGTAG,"successfully created android notification") ;
