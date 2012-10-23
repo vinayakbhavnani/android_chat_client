@@ -27,15 +27,21 @@ public class MessageNotificationHandler  {
     public TalkToNotification getNotification(String messageSender,String message ) {
         Intent targetIntent = new Intent(context,ChatBox.class);
         targetIntent.putExtra(ChatBox.BUDDY_ID, messageSender);
+<<<<<<< HEAD
         TalkToNotification notification;
         int times ;
         int ID;
+=======
+        int ID;
+        int times;
+>>>>>>> multiMessageNotification
         if(idMap.containsKey(messageSender)  ) {
             ID = (Integer) idMap.get(messageSender);
             times = (Integer) messageMap.remove(messageSender);
             times++;
             messageMap.put(messageSender,times);
 
+<<<<<<< HEAD
         } else {
             notificationID++;
             ID = notificationID;
@@ -44,6 +50,16 @@ public class MessageNotificationHandler  {
             messageMap.put(messageSender,times);
         }
         notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender ,message,messageSender + " : " + message,ID,times);
+=======
+     } else {
+            notificationID++;
+            ID = notificationID;
+            times = 1;
+            idMap.put(messageSender, notificationID);
+            messageMap.put(messageSender,times);
+        }
+        TalkToNotification notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender ,message,messageSender + " : " + message,ID,times);
+>>>>>>> multiMessageNotification
         Log.d(LOGTAG,"notification created successfully");
         return notification;
     }
