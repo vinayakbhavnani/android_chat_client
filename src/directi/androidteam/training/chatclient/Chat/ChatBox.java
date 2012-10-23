@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,37 +18,30 @@ import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.Chat.Listeners.ChatViewPageChangeListner;
 import directi.androidteam.training.chatclient.Chat.Listeners.MsgTextChangeListener;
 import directi.androidteam.training.chatclient.Constants;
+import directi.androidteam.training.chatclient.Notification.TalkToNotifier;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 
-
-/**
- * Created with IntelliJ IDEA.
- * User: vinayak
- * Date: 3/9/12
- * Time: 7:22 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ChatBox extends FragmentActivity {
     private static Context context;
     private static FragmentSwipeAdaptor frag_adaptor;
     private static ViewPager viewPager;
     private static Toast toast;
+    public static final String BUDDY_ID = "buddyid";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
-
         setContentView(R.layout.chat);
         context=this;
         frag_adaptor = new FragmentSwipeAdaptor(getSupportFragmentManager());
         viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(frag_adaptor);
         viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context));
-        String from =  (String) getIntent().getExtras().get("buddyid");
-        if(getIntent().getExtras().containsKey("notification"))
-            cancelNotification();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String from =  (String) bundle.get(BUDDY_ID);
         if(from != null) {
             MyFragmentManager.getInstance().addFragEntry(from);
             EditText editText = (EditText) findViewById(R.id.enter_message);
@@ -59,7 +51,6 @@ public class ChatBox extends FragmentActivity {
         }
         ActionBar ab = getActionBar();
         ab.hide();
-        Log.d("DDDD","oncreate done");
     }
 
     private void sendDiscoInfoQuery(String from) {
@@ -67,15 +58,14 @@ public class ChatBox extends FragmentActivity {
         RosterGet rosterGet = new RosterGet();
         rosterGet.setReceiver(from).setQueryAttribute("xmlns",queryAttr);
         rosterGet.send();
-       // PacketWriter.addToWriteQueue(rosterGet.get);
     }
 
     public void updateHeader(int i){
         TextView hleft = (TextView)findViewById(R.id.chatboxheader_left);
         TextView hright = (TextView)findViewById(R.id.chatboxheader_right);
 
-        String left = MyFragmentManager.getInstance().FragToJid(i - 1);
-        String right = MyFragmentManager.getInstance().FragToJid(i + 1);
+        String left = MyFragmentManager.getInstance().getJidByFragId(i - 1);
+        String right = MyFragmentManager.getInstance().getJidByFragId(i + 1);
         if(left!=null)
             hleft.setText(left.split("@")[0]);
         else
@@ -97,27 +87,13 @@ public class ChatBox extends FragmentActivity {
         );
     }
 
-    public static void deletePage() {
-        int n = viewPager.getCurrentItem();
-        viewPager.removeViewAt(n);
-        if(n>0)
-            viewPager.setCurrentItem(n-1);
-        else if(MyFragmentManager.getInstance().getSizeofActiveChats()>0)
-            viewPager.setCurrentItem(0);
-    }
-
-    public static void notifyChat(MessageStanza ms){
-        if(viewPager.getCurrentItem()== MyFragmentManager.getInstance().JidToFrag(ms.getFrom())) {
-            return;
+    public static void notifyChat(MessageStanza ms, String from){
+        if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom())) {
+            TalkToNotifier ttn = TalkToNotifier.getInstance(context);
+             ttn.sendMessageNotification(ms.getFrom(),ms.getBody());
         }
-
-        ChatNotifier cn = new ChatNotifier(context);
-        cn.notifyChat(ms);
-    }
-
-    public static void cancelNotification(){
-        ChatNotifier cn = new ChatNotifier(context);
-        cn.cancelNotification();
+        MyFragmentManager.getInstance().addFragEntry(from);
+        MessageManager.getInstance().insertMessage(from,ms);
     }
 
     @Override
@@ -130,13 +106,13 @@ public class ChatBox extends FragmentActivity {
         if (intent.getExtras().containsKey("finish")){
             this.finish();
         }
-        String from = (String)intent.getExtras().get("buddyid");
-        if(intent.getExtras().containsKey("notification"))
-            cancelNotification();
+        Bundle bundle =  intent.getExtras();
+        String from = (String)bundle.get(BUDDY_ID)  ;
         if(from!=null)
         {
             EditText editText = (EditText) findViewById(R.id.enter_message);
             editText.addTextChangedListener(new MsgTextChangeListener(from));
+            MyFragmentManager.getInstance().addFragEntry(from);
             switchFragment(from);
             sendDiscoInfoQuery(from);
         }
@@ -150,7 +126,6 @@ public class ChatBox extends FragmentActivity {
     @Override
     public void onResume(){
         super.onResume();
-        Log.d("Chatboxresumed","true");
     }
 
     public void onClick(View view) {
@@ -173,7 +148,7 @@ public class ChatBox extends FragmentActivity {
             return;
         int currentItem = viewPager.getCurrentItem();
 
-        String jid = MyFragmentManager.getInstance().FragToJid(currentItem);
+        String jid = MyFragmentManager.getInstance().getJidByFragId(currentItem);
         MessageStanza messxml = new MessageStanza(jid,message);
         messxml.formActiveMsg();
         messxml.send();
@@ -181,7 +156,6 @@ public class ChatBox extends FragmentActivity {
         PacketStatusManager.getInstance().pushMsPacket(messxml);
         MyFragmentManager.getInstance().addFragEntry(jid);
         MessageManager.getInstance().insertMessage(jid, messxml);
-        MyFragmentManager.getInstance().updateFragment(jid);
 
         viewPager.setCurrentItem(currentItem);
 
@@ -209,12 +183,12 @@ public class ChatBox extends FragmentActivity {
         }
     }
     private void switchFragment(String from){
-        int frag = MyFragmentManager.getInstance().JidToFrag(from);
+        int frag = MyFragmentManager.getInstance().JidToFragId(from);
         updateHeader(frag);
         viewPager.setCurrentItem(frag);
     }
 
-    public static void recreateFragments() {
+    public static void notifyFragmentAdaptorInNewUIThread() {
         if(ChatBox.getContext()==null)
             return;
         Activity a = (Activity) context;
@@ -223,6 +197,10 @@ public class ChatBox extends FragmentActivity {
             frag_adaptor.notifyDataSetChanged();
         }}
         );
+    }
+
+    public static void notifyFragmentAdaptorInSameThread() {
+        frag_adaptor.notifyDataSetChanged();
     }
 
     public static void finishActivity(){

@@ -1,11 +1,6 @@
 package directi.androidteam.training.chatclient.Chat;
 
 
-
-
-//import android.support.v4.app.MyFragmentManager;
-//import 	android.support.v4.app.FragmentStatePagerAdapter;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -19,15 +14,19 @@ import android.util.Log;
  * To change this template use File | Settings | File Templates.
  */
 public  class FragmentSwipeAdaptor extends FragmentStatePagerAdapter {
+    static FragmentManager fragmentManager;
     public FragmentSwipeAdaptor(FragmentManager fm) {
         super(fm);
+        fragmentManager = fm;
     }
 
     @Override
     public Fragment getItem(int i) {
-        String from = MyFragmentManager.getInstance().FragToJid(i);
-        Log.d("ASAS","fragswipeadap - getitem" + from);
-        return ChatFragment.getInstance(from);
+        MyFragmentManager manager = MyFragmentManager.getInstance();
+        String from = manager.getJidByFragId(i);
+        Fragment fragment = manager.getFragByJID(from);
+        fragmentManager.beginTransaction().add(fragment, from).commit();
+        return fragment;
     }
 
     @Override
@@ -36,8 +35,13 @@ public  class FragmentSwipeAdaptor extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public int getItemPosition(Object item){
-        return POSITION_NONE;
+    public void destroyItem(android.view.ViewGroup container, int position, java.lang.Object object) {
+        super.destroyItem(container,position,object);
+        Log.d("xcxc", "destroy swiper : position = "+position);
     }
 
+
+    public static Fragment getFragment(String jid) {
+        return fragmentManager.findFragmentByTag(jid);
+    }
 }

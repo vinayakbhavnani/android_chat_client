@@ -128,6 +128,8 @@ public class MessageStanza extends TagWrapper{
 
     public String getChatState() {
         ArrayList<Tag> childList = tag.getChildTags();
+        if(childList==null)
+            return "null";
         for (Tag tag1 : childList) {
             if(tag1.getTagname().equals("cha:active"))
                 return "active";
