@@ -4,11 +4,14 @@ import directi.androidteam.training.TagStore.Presence;
 import directi.androidteam.training.TagStore.Tag;
 
 import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class RosterManager {
     private Roster roster = new Roster(new LexicalCumPresenceComparator());
     private DisplayRosterActivity displayRosterActivity;
     private static RosterManager rosterManager = new RosterManager();
+    private final Lock lock = new ReentrantLock();
 
     public static RosterManager getInstance() {
         return rosterManager;
@@ -36,7 +39,9 @@ public class RosterManager {
                 rosterItem.setPresence("unavailable");
                 rosterItem.setStatus("");
                 rosterItem.setVCard(new VCard(tag.getAttribute("jid")));
+                this.lock.lock();
                 this.roster.insertRosterItem(rosterItem);
+                this.lock.unlock();
             }
         }
         updateRosterDisplay();
@@ -51,7 +56,9 @@ public class RosterManager {
         } else {
             rosterItem.setPresence(presence.getShow());
         }
+        this.lock.lock();
         this.roster.insertRosterItem(rosterItem);
+        this.lock.unlock();
         updateRosterDisplay();
     }
 
@@ -61,7 +68,9 @@ public class RosterManager {
         if (vCard.getAvatar() != null) {
             rosterItem.setVCard(vCard);
         }
+        this.lock.lock();
         this.roster.insertRosterItem(rosterItem);
+        this.lock.unlock();
         updateRosterDisplay();
     }
 
