@@ -27,7 +27,6 @@ public class MessageNotificationHandler  {
     public TalkToNotification getNotification(String messageSender,String message ) {
         Intent targetIntent = new Intent(context,ChatBox.class);
         targetIntent.putExtra(ChatBox.BUDDY_ID, messageSender);
-        TalkToNotification notification;
         int ID;
         int times;
         if(idMap.containsKey(messageSender)  ) {
@@ -43,7 +42,7 @@ public class MessageNotificationHandler  {
             idMap.put(messageSender, notificationID);
             messageMap.put(messageSender,times);
         }
-        notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender ,message,messageSender + " : " + message,ID,times);
+        TalkToNotification notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender ,message,messageSender + " : " + message,ID,times);
         Log.d(LOGTAG,"notification created successfully");
         return notification;
     }
