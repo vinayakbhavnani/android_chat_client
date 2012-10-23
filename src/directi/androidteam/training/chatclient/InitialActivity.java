@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import directi.androidteam.training.chatclient.Authentication.*;
-
-import java.util.ArrayList;
+import directi.androidteam.training.chatclient.Authentication.AccountManager;
+import directi.androidteam.training.chatclient.Authentication.LoginActivity;
+import directi.androidteam.training.chatclient.Authentication.NetworkManager;
 
 /**
  * Created with IntelliJ IDEA.
@@ -52,13 +52,13 @@ public class InitialActivity extends Activity {
                 this.finish();
                 break;
             case 0 :
-                intent = new Intent(this,DisplayAccounts.class);
+                intent = new Intent(this,GlobalTabActivity.class);
                 startActivity(intent);
                 this.finish();
                 break;
             default:
-                showLoading();
-                AccountManager.getInstance().initialActivity = this;
+              //  showLoading();
+               // AccountManager.getInstance().initialActivity = this;
                 break;
         }
     }

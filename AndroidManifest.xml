@@ -15,7 +15,9 @@
     <application android:name="directi.androidteam.training.ChatApplication"
                  android:label="@string/app_name"
                  android:icon="@drawable/app_icon">
-        <activity android:name="directi.androidteam.training.chatclient.GlobalTabActivity"></activity>
+        <activity android:name="directi.androidteam.training.chatclient.GlobalTabActivity"
+                  android:launchMode="singleTask">
+                  </activity>
 
         <activity android:name="directi.androidteam.training.chatclient.InitialActivity"
                   android:label="@string/app_name">
@@ -40,15 +42,9 @@
 
         <activity android:name="directi.androidteam.training.chatclient.Authentication.UserListActivity"
                   android:label="@string/app_name">
-<!--            <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="directi.androidteam.training.chatclient.Roster.DisplayRosterActivity" /> -->
         </activity>
         <activity android:name="directi.androidteam.training.chatclient.Authentication.DisplayAccounts"
                   android:label="@string/app_name">
-            <!--            <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="directi.androidteam.training.chatclient.Roster.DisplayRosterActivity" /> -->
         </activity>
         <activity android:name="directi.androidteam.training.chatclient.Authentication.LoginErrorActivity"
                   android:label="@string/app_name">

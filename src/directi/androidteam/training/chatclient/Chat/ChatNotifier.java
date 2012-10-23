@@ -28,11 +28,11 @@ public class ChatNotifier {
         int icon = R.drawable.android;
         long when = System.currentTimeMillis();
         CharSequence text = "new message";
-        CharSequence contentTitle = stanza.getFrom();  // message title
+        CharSequence contentTitle = stanza.getFrom().split("@")[0];  // message title
         CharSequence contentText = stanza.getBody();      // message text
 
         Intent notificationIntent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
-        notificationIntent.putExtra("buddyid",stanza.getFrom());
+        notificationIntent.putExtra("buddyid",stanza.getFrom().split("@")[0]);
         notificationIntent.putExtra("notification",true);
 
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);

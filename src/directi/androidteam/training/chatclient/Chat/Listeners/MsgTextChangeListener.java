@@ -31,7 +31,7 @@ public class MsgTextChangeListener implements TextWatcher {
         if(charSequence.length()==1 && !msgSent) {
             MessageStanza messageStanza = new MessageStanza(to);
             messageStanza.formComposingMsg();
-            messageStanza.send(AccountUID);
+            messageStanza.send(to);
             msgSent = true;
         }
     }

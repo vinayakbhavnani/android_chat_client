@@ -2,12 +2,13 @@ package directi.androidteam.training.chatclient.Roster;
 
 import directi.androidteam.training.TagStore.Presence;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.GlobalTabActivity;
 
 import java.util.ArrayList;
 
 public class RosterManager {
     private Roster roster = new Roster(new LexicalCumPresenceComparator());
-    private DisplayRosterActivity displayRosterActivity;
+    private GlobalTabActivity displayRosterActivity;
     private static RosterManager rosterManager = new RosterManager();
 
     public static RosterManager getInstance() {
@@ -18,7 +19,7 @@ public class RosterManager {
         return roster.searchRosterItem(accountUID, bareJID);
     }
 
-    public void setDisplayRosterActivity(DisplayRosterActivity displayRosterActivity) {
+    public void setDisplayRosterActivity(GlobalTabActivity displayRosterActivity) {
         this.displayRosterActivity = displayRosterActivity;
     }
 

@@ -1,12 +1,8 @@
 package directi.androidteam.training.chatclient.Authentication;
 
-import android.accounts.AccountManagerFuture;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,9 +11,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import directi.androidteam.training.chatclient.GlobalTabActivity;
 import directi.androidteam.training.chatclient.R;
-
-import java.io.IOException;
 
 public class LoginActivity extends Activity {
     public static final String USERNAME = "directi.androidteam.training.chatclient.Authentication.LoginActivity.USERNAME";
@@ -115,7 +110,7 @@ public class LoginActivity extends Activity {
             Account account = Account.createAccount(username,password,service,LoginStatus.OFFLINE.toString());
             new LoginTask(account).execute();
             AccountManager.getInstance().addAccount(account);
-            Intent intent = new Intent(this,DisplayAccounts.class);
+            Intent intent = new Intent(this,GlobalTabActivity.class);
             startActivity(intent);
         }
     }

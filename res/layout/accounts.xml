@@ -30,8 +30,6 @@
         android:background="@color/Gray"
         android:text="Add "
         android:textStyle="bold"
-        android:onClick="goToaddAccount"
-
         />
 
 </LinearLayout>

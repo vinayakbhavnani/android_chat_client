@@ -38,6 +38,7 @@ public class ChatFragment extends ListFragment {
 
     public ChatFragment(String from) {
         this.buddyid = from;
+        this.myAccountUID = ChatStore.getInstance().getAcctUID(from);
     }
 
     @Override
@@ -70,7 +71,8 @@ public class ChatFragment extends ListFragment {
         ImageView imageView = (ImageView) (header.findViewById(R.id.chatfragment_image));
         TextView status = (TextView)(header.findViewById(R.id.chatfragment_status));
         RosterItem re = RosterManager.getInstance().getRosterItem(myAccountUID, buddyid);
-        imageView.setImageBitmap(re.getAvatar());
+        if(imageView!=null && re!=null)
+            imageView.setImageBitmap(re.getAvatar());
 
         ImageView presence = (ImageView)(header.findViewById(R.id.chatfragment_availability_image));
 
@@ -103,7 +105,7 @@ public class ChatFragment extends ListFragment {
     private void sendGoneMsg() {
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
-        messageStanza.send(getMyAccountUID());
+        messageStanza.send(buddyid);
     }
 
     public static ChatFragment getInstance(String from){
@@ -120,7 +122,7 @@ public class ChatFragment extends ListFragment {
         }
         ChatListItem cli = new ChatListItem(message);
         if(b && chatListItems.size()>0)
-            chatListItems.remove(chatListItems.size()-1); //added  - 3/10
+            chatListItems.remove(chatListItems.size()-1);
         chatListItems.add(cli);
         PacketStatusManager.getInstance().pushCliPacket(cli);
         ChatBox.adaptorNotify(this);
@@ -170,6 +172,11 @@ public class ChatFragment extends ListFragment {
             ChatBox.removeFragmentviaFragManager(jid);
            ChatBox.notifyFragmentAdaptorInSameThread();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(android.os.Bundle outState){
+        return;
     }
 
 }

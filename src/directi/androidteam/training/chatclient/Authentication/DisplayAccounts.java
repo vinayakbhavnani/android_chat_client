@@ -2,12 +2,11 @@ package directi.androidteam.training.chatclient.Authentication;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.ListView;
 import directi.androidteam.training.chatclient.R;
 
 import java.util.ArrayList;
