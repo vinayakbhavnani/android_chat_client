@@ -2,6 +2,7 @@ package directi.androidteam.training.chatclient.Authentication;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -81,10 +82,10 @@ public class DisplayAccounts extends Activity implements Subscriber{
         }
         else
             temp = loginList;
-        builder.setPositiveButton("Available",new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Available", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Log.d("presence","available");
+                Log.d("presence", "available");
             }
         }) ;
         builder.setNegativeButton("Busy",new DialogInterface.OnClickListener() {

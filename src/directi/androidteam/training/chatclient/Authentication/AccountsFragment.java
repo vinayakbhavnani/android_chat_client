@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import directi.androidteam.training.chatclient.R;
 
@@ -49,9 +48,6 @@ public class AccountsFragment extends Fragment implements Subscriber{
         ListView lv = (ListView)view.findViewById(R.id.accountScreen_list);
         adaptor = new AccountListAdaptor(getActivity());
         lv.setAdapter(adaptor);
-        ImageView settings_icon_click = (ImageView) view.findViewById(R.id.accountitem_settings);
-        if(settings_icon_click!=null)
-            settings_icon_click.setOnClickListener(new AcctSettingsIconOnClickListener(loginList, logoutList, adaptor, getActivity()));
         Button accountAddButton = (Button) view.findViewById(R.id.accountScreen_add);
         accountAddButton.setOnClickListener(new AcctScreenAddOnClickListener(getActivity()));
         setLoginList();

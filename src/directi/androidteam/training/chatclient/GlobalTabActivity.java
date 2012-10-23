@@ -70,11 +70,6 @@ public class GlobalTabActivity extends FragmentActivity {
             actionbar.selectTab(tabs.get(1));
     }
 
-    public void  onClickHandler(View view){
-        if(view.getId()==R.id.accountitem_settings)
-            accountSettings(view);
-    }
-
     public void  accountSettings(View view){
         Account account = AccountManager.getInstance().getAccount((String)view.getTag());
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
