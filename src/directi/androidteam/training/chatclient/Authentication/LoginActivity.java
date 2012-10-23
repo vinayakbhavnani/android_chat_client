@@ -27,12 +27,12 @@ public class LoginActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String username = extras.getString("username");
-            EditText username_edit_text = (EditText) findViewById(R.id.username);
+            EditText username_edit_text = (EditText) findViewById(R.id.username_login);
             username_edit_text.setText(username);
         }
         View.OnFocusChangeListener usernamePasswordFocusChangeListener = new EditTextFocusChangeListener();
-        ((EditText) findViewById(R.id.username)).setOnFocusChangeListener(usernamePasswordFocusChangeListener);
-        ((EditText)findViewById(R.id.password)).setOnFocusChangeListener(usernamePasswordFocusChangeListener);
+        ((EditText) findViewById(R.id.username_login)).setOnFocusChangeListener(usernamePasswordFocusChangeListener);
+        ((EditText)findViewById(R.id.password_login)).setOnFocusChangeListener(usernamePasswordFocusChangeListener);
 //        this.registerReceiver(new NetworkConnectionChangeReceiver(), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
@@ -70,8 +70,8 @@ public class LoginActivity extends Activity {
      * Called when the user clicks the Login button
      */
     public void loginUser(View view) {
-        String username = ((EditText) findViewById(R.id.username)).getText().toString();
-        String password = ((EditText) findViewById(R.id.password)).getText().toString();
+        String username = ((EditText) findViewById(R.id.username_login)).getText().toString();
+        String password = ((EditText) findViewById(R.id.password_login)).getText().toString();
         /*android.accounts.Account[] accounts = android.accounts.AccountManager.get(this).getAccountsByType("com.google");
         android.accounts.Account account = accounts[0];
 
@@ -83,9 +83,9 @@ public class LoginActivity extends Activity {
         Log.d("username",account.name);*/
         (new ConnectGTalk(this)).execute(username, password);
         if (username.equals("")) {
-            ((EditText) findViewById(R.id.username)).setError("This Field Cannot Be Left Blank");
+            ((EditText) findViewById(R.id.username_login)).setError("This Field Cannot Be Left Blank");
         } else if (password.equals("")) {
-            ((EditText) findViewById(R.id.password)).setError("This Field Cannot Be Left Blank");
+            ((EditText) findViewById(R.id.password_login)).setError("This Field Cannot Be Left Blank");
         } else {
             /*ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
             progressBar.setVisibility(View.VISIBLE);
@@ -94,14 +94,14 @@ public class LoginActivity extends Activity {
     }
 
     public void addAccount(View view){
-        String username = ((EditText) findViewById(R.id.username)).getText().toString();
-        String password = ((EditText) findViewById(R.id.password)).getText().toString();
+        String username = ((EditText) findViewById(R.id.username_login)).getText().toString();
+        String password = ((EditText) findViewById(R.id.password_login)).getText().toString();
         RadioGroup group = (RadioGroup) findViewById(R.id.addaccount_radio);
         String service =   (String)((RadioButton)findViewById(group.getCheckedRadioButtonId())).getText();
         if (username.equals("")) {
-            ((EditText) findViewById(R.id.username)).setError("This Field Cannot Be Left Blank");
+            ((EditText) findViewById(R.id.username_login)).setError("This Field Cannot Be Left Blank");
         } else if (password.equals("")) {
-            ((EditText) findViewById(R.id.password)).setError("This Field Cannot Be Left Blank");
+            ((EditText) findViewById(R.id.password_login)).setError("This Field Cannot Be Left Blank");
         } else {
             //(new ConnectGTalk(this)).execute(username, password,service);
             ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);

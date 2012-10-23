@@ -228,7 +228,7 @@ public final class R {
         public static final int new_contact=0x7f080008;
         public static final int new_status=0x7f080009;
         public static final int pager=0x7f08000f;
-        public static final int password=0x7f080025;
+        public static final int password_login=0x7f080025;
         public static final int pingpong_icon=0x7f080022;
         public static final int progress_bar=0x7f080023;
         public static final int progress_bar_loading=0x7f080020;
@@ -249,7 +249,7 @@ public final class R {
         public static final int tab_container=0x7f08002c;
         public static final int tab_pager=0x7f08002b;
         public static final int user_item=0x7f080038;
-        public static final int username=0x7f080024;
+        public static final int username_login=0x7f080024;
         public static final int widget33=0x7f08000a;
         public static final int widget38=0x7f080011;
     }

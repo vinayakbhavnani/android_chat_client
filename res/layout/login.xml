@@ -61,13 +61,13 @@
             android:visibility="gone"
             android:layout_gravity="center_horizontal"
             />
-    <EditText android:id="@+id/username"
+    <EditText android:id="@+id/username_login"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:hint="@string/username"
               android:textColor="@color/Black"
                         />
-    <EditText android:id="@+id/password"
+    <EditText android:id="@+id/password_login"
               android:password="true"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
