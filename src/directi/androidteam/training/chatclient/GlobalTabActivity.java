@@ -72,7 +72,6 @@ public class GlobalTabActivity extends FragmentActivity {
     }
 
 
-
     public void  accountSettings(View view){
         //Spinner spinner = (Spinner)findViewById(R.id.accountScreen_spinner);
         Account account = AccountManager.getInstance().getAccount((String)view.getTag());
