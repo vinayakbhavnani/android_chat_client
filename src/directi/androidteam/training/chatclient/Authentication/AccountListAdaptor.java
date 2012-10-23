@@ -2,6 +2,7 @@ package directi.androidteam.training.chatclient.Authentication;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.AndroidCharacter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,13 +92,24 @@ public class AccountListAdaptor extends BaseAdapter {
         holder.username.setText(cli.accountUid);
         //holder.settings.setImageResource(R.drawable.settings);
         //holder.settings.setTag(cli.getAccountUid());
+        String show = cli.getShow();
+        if(show!=null){
+        if(show.equals("dnd"))
+            holder.presence.setImageResource(R.color.Red);
+        else if(show.equals("available"))
+            holder.presence.setImageResource(R.color.Green);
+        else if(show.equals("away"))
+            holder.presence.setImageResource(R.color.Yellow);
+        }
         if(cli.isLoginStatus().equals(LoginStatus.ONLINE)){
-            holder.status.setText("online");
+            //holder.status.setText("online");
+            holder.status.setText(cli.getStatus());
             holder.status.setTextColor(R.color.Black);
         }
         else if(cli.isLoginStatus().equals(LoginStatus.OFFLINE)){
             holder.status.setText("offline");
             holder.status.setTextColor(R.color.Gray);
+            holder.presence.setImageResource(R.color.Gray);
         }
         else if(cli.isLoginStatus().equals(LoginStatus.CONNECTING)){
             holder.status.setText("connecting");

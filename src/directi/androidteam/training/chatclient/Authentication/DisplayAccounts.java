@@ -40,12 +40,14 @@ public class DisplayAccounts extends Activity implements Subscriber{
         loginList.add("Login");
         loginList.add("Edit Password");
         loginList.add("Remove Account");
+        loginList.add("Set Status");
     }
     public void setLogoutList(){
         logoutList = new ArrayList<String>();
         logoutList.add("Logout");
         logoutList.add("Edit Password");
         logoutList.add("Remove Account");
+        logoutList.add("Set Status");
     }
 
     public void  accountSettings(View view){
@@ -80,7 +82,21 @@ public class DisplayAccounts extends Activity implements Subscriber{
         }
         else
             temp = loginList;
+        builder.setPositiveButton("Available",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.d("presence","available");
+            }
+        }) ;
+        builder.setNegativeButton("Busy",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.d("presence","busy");
+            }
+        });
+
         builder.setItems(temp.toArray(new CharSequence[temp.size()]),new DialogListener(temp,account,adaptor));
+
         AlertDialog dialog = builder.create();
         dialog.show();
 

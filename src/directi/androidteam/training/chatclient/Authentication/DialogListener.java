@@ -34,6 +34,9 @@ public class DialogListener implements DialogInterface.OnClickListener {
             Log.d("editpass","TODO");
         else if(option.equals("Remove Account"))
             AccountManager.getInstance().removeAccount(account);
+        else if(option.equals("Set Status")){
+            //TODO
+        }
         adaptor.notifyDataSetChanged();
         dialogInterface.dismiss();
 
