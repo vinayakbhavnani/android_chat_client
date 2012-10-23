@@ -62,7 +62,7 @@ public class ChatListAdaptor extends ArrayAdapter<ChatListItem> {
            holder.message.setText(cli.getMessage());
            holder.time.setText(cli.getTime());
 
-           if(!cli.isStatus())
+           if(!cli.isStatus() && holder.status!=null)
                holder.status.setVisibility(0);
        }
         return row;
