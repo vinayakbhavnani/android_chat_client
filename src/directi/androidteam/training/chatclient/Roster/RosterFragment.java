@@ -24,6 +24,7 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class RosterFragment extends Fragment {
+    private View view;
     public RosterFragment() {
     }
 
@@ -36,28 +37,30 @@ public class RosterFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("ioio", "rosterfragment oncreate view- acct fragment");
-        View view = inflater.inflate(R.layout.roster,container,false);
+        view = inflater.inflate(R.layout.roster,container,false);
         ListView listView = ((ListView)view.findViewById(R.id.roster_list));
         if(listView!=null) {
-            listView.setAdapter(new RosterItemAdapter(getActivity(), R.layout.rosterlistitem, new ArrayList<RosterItem>()));
+            RosterItemAdapter rosterItemAdapter = new RosterItemAdapter(getActivity(), R.layout.rosterlistitem, new ArrayList<RosterItem>());
+            listView.setAdapter(rosterItemAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     onListItemClick((ListView) adapterView, view, position, id);
                 }
             });
+            updateRosterList(RosterManager.getInstance().getRoster());
         }
         return view;
-
-/*
-
-        TextView textView = new TextView(getActivity());
-        textView.setText("SimpleFragmentText");
-        textView.setVisibility(View.VISIBLE);
-        textView.setTextSize(20);
-        return textView;
-*/
     }
+
+    private void updateRosterList(ArrayList<RosterItem> rosterList) {
+        if(view==null)
+            return;
+        RosterItemAdapter rosterItemAdapter = ((RosterItemAdapter)(((ListView)view.findViewById(R.id.roster_list)).getAdapter()));
+        rosterItemAdapter.setRosterItems(new ArrayList<RosterItem>(rosterList));
+        rosterItemAdapter.notifyDataSetChanged();
+    }
+
 
 
     public void onListItemClick(ListView view, View v, int position, long id) {

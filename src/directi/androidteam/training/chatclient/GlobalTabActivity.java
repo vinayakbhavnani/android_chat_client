@@ -1,11 +1,11 @@
 package directi.androidteam.training.chatclient;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +25,7 @@ import java.util.Vector;
  * Time: 5:22 PM
  * To change this template use File | Settings | File Templates.
  */
-public class GlobalTabActivity extends FragmentActivity {
+public class GlobalTabActivity extends Activity {
     public static final int FRAGMENT_ACCOUNTS = 1;
     public static final int FRAGMENT_ROSTER = 2;
 
