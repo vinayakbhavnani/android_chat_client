@@ -105,7 +105,7 @@ public class ChatFragment extends ListFragment {
     private void sendGoneMsg() {
         MessageStanza messageStanza = new MessageStanza(buddyid);
         messageStanza.formGoneMsg();
-        messageStanza.send(ChatStore.getInstance().getAcctUID(buddyid));
+        messageStanza.send(buddyid);
     }
 
     public static ChatFragment getInstance(String from){
@@ -122,7 +122,7 @@ public class ChatFragment extends ListFragment {
         }
         ChatListItem cli = new ChatListItem(message);
         if(b && chatListItems.size()>0)
-            chatListItems.remove(chatListItems.size()-1); //added  - 3/10
+            chatListItems.remove(chatListItems.size()-1);
         chatListItems.add(cli);
         PacketStatusManager.getInstance().pushCliPacket(cli);
         ChatBox.adaptorNotify(this);

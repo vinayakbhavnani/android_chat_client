@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -44,10 +43,8 @@ public class ChatBox extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
-        Log.d(Constants.DEBUG_CHATBOX,"on create intent");
-        Log.d("adad","oncreate");
-
         setContentView(R.layout.chat);
+
         context=this;
         fragmentManager = getSupportFragmentManager();
         frag_adaptor = new FragmentSwipeAdaptor(fragmentManager);
@@ -55,27 +52,24 @@ public class ChatBox extends FragmentActivity {
         viewPager.setAdapter(frag_adaptor);
         String from =  (String) getIntent().getExtras().get("buddyid");
         if(from != null) {
-            MyFragmentManager.getInstance().addFragEntry(from);
             ChatStore.getInstance().addEntry(from,(String) getIntent().getExtras().get("accountUID"));
+            MyFragmentManager.getInstance().addFragEntry(from);
         }
         viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context,fragmentManager));
         if(getIntent().getExtras().containsKey("notification"))
             cancelNotification();
         switchFragment(from);
         sendDiscoInfoQuery(from);
-        Log.d(Constants.DEBUG_CHATBOX,"oncreate completed");
     }
 
     @Override
     protected void onSaveInstanceState(Bundle bundle) {
-//        super.onSaveInstanceState(bundle);
-        Log.d("adad","onsave");
+        return;
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle bundle) {
         super.onRestoreInstanceState(bundle);
-        Log.d("adad","restore");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -137,7 +131,6 @@ public class ChatBox extends FragmentActivity {
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
-        Log.d(Constants.DEBUG_CHATBOX,"on new intent");
         if(intent.getExtras().containsKey("error")){
             notifyConnectionError();
             return;
@@ -145,13 +138,13 @@ public class ChatBox extends FragmentActivity {
         if (intent.getExtras().containsKey("finish")){
             this.finish();
         }
-        String from = (String)intent.getExtras().get("buddyid");
         if(intent.getExtras().containsKey("notification"))
             cancelNotification();
+        String from = (String)intent.getExtras().get("buddyid");
         if(from!=null)
         {
-            MyFragmentManager.getInstance().addFragEntry(from);
             ChatStore.getInstance().addEntry(from, (String) getIntent().getExtras().get("accountUID"));
+            MyFragmentManager.getInstance().addFragEntry(from);
             switchFragment(from);
             sendDiscoInfoQuery(from);
         }
@@ -189,14 +182,10 @@ public class ChatBox extends FragmentActivity {
         int currentItem = viewPager.getCurrentItem();
 
         String jid = MyFragmentManager.getInstance().getJidByFragId(currentItem);
-        Fragment fragment =  fragmentManager.findFragmentByTag(jid);
         MessageStanza msgStanza = new MessageStanza(jid,message);
-//        msgStanza.formActiveMsg();
-        msgStanza.send(ChatStore.getInstance().getAcctUID(jid));
-        if(msgStanza==null)
-            Log.d("ioio","msgstanza null");
-        else
-        Log.d("ioio","chatbox from : "+msgStanza.getFrom() + " body :"+msgStanza.getBody() + " acc id : "+ChatStore.getInstance().getAcctUID(jid));
+        msgStanza.formActiveMsg();
+        msgStanza.send(jid);
+//        Log.d("ioio","chatbox from : "+msgStanza.getFrom() + " body :"+msgStanza.getBody() + " acc id : "+ChatStore.getInstance().getAcctUID(jid));
 
         PacketStatusManager.getInstance().pushMsPacket(msgStanza);
         MyFragmentManager.getInstance().addFragEntry(jid);

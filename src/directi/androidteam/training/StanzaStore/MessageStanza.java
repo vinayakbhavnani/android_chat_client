@@ -2,6 +2,9 @@ package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.MessageTag;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Authentication.Account;
+import directi.androidteam.training.chatclient.Authentication.AccountManager;
+import directi.androidteam.training.chatclient.Chat.ChatStore;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
@@ -120,11 +123,11 @@ public class MessageStanza extends TagWrapper{
         if(from==null)
             return null;
         else
-            return from.split("/")[0];
+            return from.split("@")[0];
     }
 
     public String getTo(){
-        return tag.getAttribute("to").split("/")[0];
+        return tag.getAttribute("to").split("@")[0];
     }
     public String getID(){
         return tag.getAttribute("id");
@@ -156,9 +159,10 @@ public class MessageStanza extends TagWrapper{
         tag.addAttribute("from",from);
     }
 
-    public void send(String myAccountUID) {
-        tag.addAttribute("from",myAccountUID+"@gmail.com");
-        tag.setRecipientAccount(myAccountUID);
+    public void send(String jid) {
+        Account account = AccountManager.getInstance().getAccount(ChatStore.getInstance().getAcctUID(jid));
+        tag.addAttribute("from", account.getFullJID());
+        tag.setRecipientAccount(account.getAccountUid());
         setID(UUID.randomUUID().toString());
         PacketWriter.addToWriteQueue(getTag());
     }
