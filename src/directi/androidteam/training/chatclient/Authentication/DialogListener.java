@@ -2,6 +2,8 @@ package directi.androidteam.training.chatclient.Authentication;
 
 import android.content.DialogInterface;
 import android.util.Log;
+import directi.androidteam.training.TagStore.Presence;
+import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
 
@@ -30,15 +32,33 @@ public class DialogListener implements DialogInterface.OnClickListener {
             new LoginTask(account).execute();
         else if(option.equals("Logout"))
             account.Logout();
-        else if(option.equals("Edit Password"))
+        else if(option.equals("Edit Password")) {
             Log.d("editpass","TODO");
+            setAvail("dnd");
+        }
         else if(option.equals("Remove Account"))
             AccountManager.getInstance().removeAccount(account);
         else if(option.equals("Set Status")){
-            //TODO
+            setStatus("status9");
+
         }
         adaptor.notifyDataSetChanged();
         dialogInterface.dismiss();
 
+    }
+
+    private void setStatus(String status) {
+        Presence presence = new Presence();
+        presence.setStatus(status);
+  //      presence.setShow("dnd");//account.getShow());
+        account.setStatus(status);
+        PacketWriter.addToWriteQueue(presence);
+    }
+    private void setAvail(String avail) {
+        Presence presence = new Presence();
+        presence.setShow(avail);
+//        presence.setStatus("stat2");//account.getStatus());
+        account.setShow(avail);
+        PacketWriter.addToWriteQueue(presence);
     }
 }
