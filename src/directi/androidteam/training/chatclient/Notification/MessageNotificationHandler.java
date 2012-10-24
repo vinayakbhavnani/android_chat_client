@@ -27,22 +27,21 @@ public class MessageNotificationHandler {
         Intent targetIntent = new Intent(context,ChatBox.class);
         targetIntent.putExtra(ChatBox.BUDDY_ID, messageSender);
         int index =  senderList.indexOf(messageSender);
-        if( index != -1) {
-            senderList.remove(index);
+        if( index == -1) {
+            senderList.add(messageSender);
         }
-        senderList.add(0,messageSender);
         int numberOfContacts = senderList.size();
         String contentTitle;
         if(numberOfContacts > 1) {
              contentTitle = "New messages from " + numberOfContacts + " contacts" ;
-            if(numberOfContacts == 2) {
-                message = messageSender + " , " + senderList.get(1);
-            } else {
-                int others = numberOfContacts - 2;
-                message = messageSender + " , " + senderList.get(1) + " and " + others + " other contacts " ;
-            }
+             int others = numberOfContacts - 1;
+             if(others == 1) {
+                 message = messageSender + " and " + others + " other contact " ;
+             } else {
+                 message = messageSender + " and " + others + " other contacts " ;
+             }
         }   else {
-            contentTitle = messageSender;
+             contentTitle = messageSender;
         }
         TalkToNotification notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,contentTitle ,message,messageSender + " : " + message,notificationID,numberOfContacts);
         Log.d(LOGTAG,"notification created successfully");
