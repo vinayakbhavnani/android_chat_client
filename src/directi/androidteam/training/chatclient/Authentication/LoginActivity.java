@@ -58,8 +58,8 @@ public class LoginActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-            case R.id.login_via_gtalk:
-                loginUser(new View(this));
+            case R.id.addaccount_signin:
+                addAccount(new View(this));
                 return true;
             default:
                 return super.onOptionsItemSelected(menuItem);

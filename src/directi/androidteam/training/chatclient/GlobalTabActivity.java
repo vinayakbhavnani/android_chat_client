@@ -107,7 +107,10 @@ public class GlobalTabActivity extends Activity {
 
 
     public void updateRosterList(ArrayList<RosterItem> rosterList) {
-        RosterItemAdapter rosterItemAdapter = ((RosterItemAdapter)(((ListView)findViewById(R.id.roster_list)).getAdapter()));
+        ListView lv  = (((ListView)findViewById(R.id.roster_list)));
+        if(lv==null)
+            return;
+        RosterItemAdapter rosterItemAdapter = (RosterItemAdapter)lv.getAdapter();
         rosterItemAdapter.setRosterItems(new ArrayList<RosterItem>(rosterList));
         rosterItemAdapter.notifyDataSetChanged();
     }
