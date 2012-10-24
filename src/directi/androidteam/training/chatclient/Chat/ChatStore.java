@@ -1,5 +1,9 @@
 package directi.androidteam.training.chatclient.Chat;
 
+import directi.androidteam.training.chatclient.Authentication.Account;
+import directi.androidteam.training.chatclient.Authentication.AccountManager;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -14,6 +18,12 @@ public class ChatStore {
     private HashMap<String,String> chatMap;
     private ChatStore() {
         chatMap = new HashMap<String, String>();
+        ArrayList<Account> accounts = AccountManager.getInstance().getAccountList();
+        Account[] accounts1 = accounts.toArray(new Account[accounts.size()]);
+        for (Account account : accounts1) {
+            chatMap.put(account.getAccountUid(),account.getAccountUid());
+        }
+
     }
 
     public static ChatStore getInstance() {
@@ -21,10 +31,10 @@ public class ChatStore {
     }
 
     public void addEntry(String from, String accountUID) {
-        chatMap.put(from,accountUID);
+        chatMap.put(from.split("@")[0],accountUID);
     }
 
     public String getAcctUID(String jid) {
-        return chatMap.get(jid);
+        return chatMap.get(jid.split("@")[0]);
     }
 }
