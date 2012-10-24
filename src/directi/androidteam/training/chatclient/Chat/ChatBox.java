@@ -52,7 +52,8 @@ public class ChatBox extends FragmentActivity {
         viewPager.setAdapter(frag_adaptor);
         String from =  (String) getIntent().getExtras().get("buddyid");
         if(from != null) {
-            ChatStore.getInstance().addEntry(from,(String) getIntent().getExtras().get("accountUID"));
+            if((String) getIntent().getExtras().get("accountUID")!=null)
+                ChatStore.getInstance().addEntry(from,(String) getIntent().getExtras().get("accountUID"));
             MyFragmentManager.getInstance().addFragEntry(from);
         }
         viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context,fragmentManager));
@@ -143,6 +144,7 @@ public class ChatBox extends FragmentActivity {
         String from = (String)intent.getExtras().get("buddyid");
         if(from!=null)
         {
+            if((String) getIntent().getExtras().get("accountUID")!=null)
             ChatStore.getInstance().addEntry(from, (String) getIntent().getExtras().get("accountUID"));
             MyFragmentManager.getInstance().addFragEntry(from);
             switchFragment(from);
