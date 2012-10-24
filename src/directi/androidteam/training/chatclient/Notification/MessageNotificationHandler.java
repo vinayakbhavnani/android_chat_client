@@ -28,7 +28,7 @@ public class MessageNotificationHandler {
         targetIntent.putExtra(ChatBox.BUDDY_ID, messageSender);
         int index =  senderList.indexOf(messageSender);
         if( index == -1) {
-            senderList.add(messageSender);
+            senderList.add(0,messageSender);
         }
         int numberOfContacts = senderList.size();
         String contentTitle;
@@ -36,7 +36,7 @@ public class MessageNotificationHandler {
              contentTitle = "New messages from " + numberOfContacts + " contacts" ;
              int others = numberOfContacts - 1;
              if(others == 1) {
-                 message = messageSender + " and " + others + " other contact " ;
+                 message = messageSender + " and " + senderList.get(1) ;
              } else {
                  message = messageSender + " and " + others + " other contacts " ;
              }
