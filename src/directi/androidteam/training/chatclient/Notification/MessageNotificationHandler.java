@@ -7,6 +7,7 @@ import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,34 +16,26 @@ public class MessageNotificationHandler {
     private static int notificationID = 1 ;
     private Context context;
     private static final String LOGTAG = "MessageNotificationHandler";
-    private HashMap messageMap;
+    private ArrayList senderList;
 
     public MessageNotificationHandler(Context context) {
         this.context = context;
-        messageMap = new HashMap();
+        senderList = new ArrayList();
     }
 
     public TalkToNotification getNotification(String messageSender,String message ) {
         Intent targetIntent = new Intent(context,ChatBox.class);
         targetIntent.putExtra(ChatBox.BUDDY_ID, messageSender);
-        int ID;
-        int times;
-        if(messageMap.containsKey(messageSender) ) {
-            times = (Integer) messageMap.remove(messageSender);
-            times++;
-            messageMap.put(messageSender,times);
-
-        } else {
-            times = 1;
-            messageMap.put(messageSender,times);
+        if(!senderList.contains(messageSender) ) {
+            senderList.add(messageSender);
         }
-        times = messageMap.size();
+        int times = senderList.size();
         String contentTitle;
         if(times > 1) {
              contentTitle = "New messages from " + times + " contacts" ;
+            message = "Last message from " + messageSender + " : " + message ;
         }    else {
             contentTitle = messageSender;
-            message = "Last message from " + messageSender + " : " + message ;
         }
         TalkToNotification notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,contentTitle ,message,messageSender + " : " + message,notificationID,times);
         Log.d(LOGTAG,"notification created successfully");
