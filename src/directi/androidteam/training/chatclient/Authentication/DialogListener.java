@@ -34,12 +34,12 @@ public class DialogListener implements DialogInterface.OnClickListener {
             account.Logout();
         else if(option.equals("Edit Password")) {
             Log.d("editpass","TODO");
-            setAvail("dnd");
+            setAvail("available");
         }
         else if(option.equals("Remove Account"))
             AccountManager.getInstance().removeAccount(account);
         else if(option.equals("Set Status")){
-            setStatus("status9");
+            setStatus("status10");
 
         }
         adaptor.notifyDataSetChanged();
@@ -50,6 +50,7 @@ public class DialogListener implements DialogInterface.OnClickListener {
     private void setStatus(String status) {
         Presence presence = new Presence();
         presence.setStatus(status);
+        presence.setRecipientAccount(account.getAccountUid());
   //      presence.setShow("dnd");//account.getShow());
         account.setStatus(status);
         PacketWriter.addToWriteQueue(presence);
@@ -57,6 +58,7 @@ public class DialogListener implements DialogInterface.OnClickListener {
     private void setAvail(String avail) {
         Presence presence = new Presence();
         presence.setShow(avail);
+        presence.setRecipientAccount(account.getAccountUid());
 //        presence.setStatus("stat2");//account.getStatus());
         account.setShow(avail);
         PacketWriter.addToWriteQueue(presence);
