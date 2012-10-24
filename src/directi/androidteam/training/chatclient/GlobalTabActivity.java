@@ -76,7 +76,7 @@ public class GlobalTabActivity extends Activity {
 
 
     public void  accountSettings(View view){
-        Account account = AccountManager.getInstance().getAccount((String)view.getTag());
+        final Account account = AccountManager.getInstance().getAccount((String)view.getTag());
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Settings");
         final ArrayList<String> temp;
@@ -89,12 +89,14 @@ public class GlobalTabActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.d("presence","available");
+                account.sendAvail("available");
             }
         }) ;
         builder.setNegativeButton("Busy",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.d("presence","busy");
+                account.sendAvail("dnd");
             }
         });
 

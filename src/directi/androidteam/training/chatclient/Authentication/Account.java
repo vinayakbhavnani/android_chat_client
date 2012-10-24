@@ -43,6 +43,7 @@ public  abstract class Account implements Publisher{
 
     public void setShow(String show) {
         this.show = show;
+        publish();
     }
 
     public String getStatus() {
@@ -51,6 +52,7 @@ public  abstract class Account implements Publisher{
 
     public void setStatus(String status) {
         this.status = status;
+        publish();
     }
 
 
@@ -253,6 +255,25 @@ public  abstract class Account implements Publisher{
         Log.d("presenceSet","ok");
         this.setShow(presence.getShow());
         this.setStatus(presence.getStatus());
+    }
+
+    public void sendStatus(String status) {
+        Presence presence = new Presence();
+        presence.setStatus(status);
+        presence.setRecipientAccount(getAccountUid());
+        //      presence.setShow("dnd");//account.getShow());
+        setStatus(status);
+        PacketWriter.addToWriteQueue(presence);
+
+    }
+    public void sendAvail(String avail) {
+        Presence presence = new Presence();
+        presence.setShow(avail);
+        presence.setRecipientAccount(getAccountUid());
+//        presence.setStatus("stat2");//account.getStatus());
+        setShow(avail);
+        PacketWriter.addToWriteQueue(presence);
+
     }
 }
 

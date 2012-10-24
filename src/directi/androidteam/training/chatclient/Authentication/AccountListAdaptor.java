@@ -102,8 +102,11 @@ public class AccountListAdaptor extends BaseAdapter {
             holder.presence.setImageResource(R.color.Yellow);
         }
         if(cli.isLoginStatus().equals(LoginStatus.ONLINE)){
-            //holder.status.setText("online");
-            holder.status.setText(cli.getStatus());
+            if(cli.getStatus()==null || cli.getStatus().equals(""))
+                holder.status.setText("online");
+            else
+                holder.status.setText(cli.getStatus());
+
             holder.status.setTextColor(R.color.Black);
         }
         else if(cli.isLoginStatus().equals(LoginStatus.OFFLINE)){

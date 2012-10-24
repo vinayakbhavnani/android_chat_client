@@ -34,12 +34,12 @@ public class DialogListener implements DialogInterface.OnClickListener {
             account.Logout();
         else if(option.equals("Edit Password")) {
             Log.d("editpass","TODO");
-            setAvail("available");
+            account.sendAvail("available");
         }
         else if(option.equals("Remove Account"))
             AccountManager.getInstance().removeAccount(account);
         else if(option.equals("Set Status")){
-            setStatus("status10");
+            account.sendStatus("status10");
 
         }
         adaptor.notifyDataSetChanged();
