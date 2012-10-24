@@ -27,6 +27,8 @@ public class MessageManager {
             messageStore.put(s,new MsgGroupFormating().formatMsgList(messageStore.get(s)));
             Log.d("DBDB","key : "+s);
         }
+        Log.d("DBDB","size : "+messageStore.size());
+
     }
 
     public static MessageManager getInstance() {

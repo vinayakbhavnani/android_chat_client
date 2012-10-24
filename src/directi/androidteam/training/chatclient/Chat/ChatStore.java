@@ -23,7 +23,6 @@ public class ChatStore {
         for (Account account : accounts1) {
             chatMap.put(account.getAccountUid(),account.getAccountUid());
         }
-
     }
 
     public static ChatStore getInstance() {

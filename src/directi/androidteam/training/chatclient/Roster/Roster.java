@@ -24,7 +24,8 @@ public class Roster {
     }
 
     public RosterItem searchRosterItem(String accountUID, String bareJID) {
-        for (RosterItem rosterItem : this.roster) {
+        RosterItem[] roster1 = roster.toArray(new RosterItem[roster.size()]);
+        for (RosterItem rosterItem : roster1) {
            // Log.d("roster error","bareJID : "+rosterItem.getBareJID());
             if (rosterItem.getAccount().equals(accountUID) && rosterItem.getBareJID().equals(bareJID)) {
                 return rosterItem;
