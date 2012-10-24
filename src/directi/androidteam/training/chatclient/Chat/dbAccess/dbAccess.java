@@ -61,6 +61,7 @@ public class dbAccess {
             return messageStanzas;
         }
         cursor.close();
+        Log.d("dbdb","size - getalk msg :"+messageStanzas.size());
         return messageStanzas;
     }
 

@@ -25,7 +25,7 @@ public class MessageManager {
         messageStore = convertListToMap(new dbAccess().getAllMsg());
         for (String s : messageStore.keySet()) {
             messageStore.put(s,new MsgGroupFormating().formatMsgList(messageStore.get(s)));
-            Log.d("DBDB","key : "+s);
+            Log.d("DBDB","key : "+s + "size : "+ messageStore.get(s).size());
         }
         Log.d("DBDB","size : "+messageStore.size());
 
@@ -100,7 +100,7 @@ public class MessageManager {
     public Vector<MessageStanza> getMsgList(String from) {
         if(from==null || !messageStore.containsKey(from))
             return null;
-        return messageStore.get(from);
+        return messageStore.get(from.split("@")[0]);
     }
 
     public void insertEntry(String from) {
@@ -135,17 +135,19 @@ public class MessageManager {
         HashMap<String,Vector<MessageStanza>> map = new HashMap<String, Vector<MessageStanza>>();
         if(messageStanzas==null || messageStanzas.isEmpty())
             return map;
+        ArrayList<Account> accounts = AccountManager.getInstance().getAccountList();
+        Account[] accounts1 = accounts.toArray(new Account[accounts.size()]);int i=0;
         for (MessageStanza messageStanza : messageStanzas) {
             String from = messageStanza.getFrom().split("@")[0];
             String to = messageStanza.getTo().split("@")[0];
             String myJid ;
-            ArrayList<Account> accounts = AccountManager.getInstance().getAccountList();
-            Account[] accounts1 = accounts.toArray(new Account[accounts.size()]);
             for (Account account : accounts1) {
-                myJid = account.getAccountUid();
+                myJid = account.getAccountUid().split("@")[0];
                 if(from.equals(myJid)) {
                     if(map.containsKey(to)) {
-                        map.get(to).add(messageStanza);
+                        Vector<MessageStanza> arrayList = map.get(to);
+                        arrayList.add(messageStanza);
+                        map.put(to,arrayList);
                         break;
                     }
                     else {
@@ -157,7 +159,9 @@ public class MessageManager {
                 }
                 else {
                     if(map.containsKey(from)) {
-                        map.get(from).add(messageStanza);
+                        Vector<MessageStanza> arrayList = map.get(from);
+                        arrayList.add(messageStanza);
+                        map.put(from,arrayList);
                         break;
                     }
                     else {
