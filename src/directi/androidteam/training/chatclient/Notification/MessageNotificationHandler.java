@@ -7,42 +7,43 @@ import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MessageNotificationHandler  {
+public class MessageNotificationHandler {
 
     private static int notificationID = 1 ;
     private Context context;
     private static final String LOGTAG = "MessageNotificationHandler";
-    private HashMap idMap ;
-    private HashMap messageMap;
+    private ArrayList<String> senderList;
 
     public MessageNotificationHandler(Context context) {
         this.context = context;
-        idMap = new HashMap();
-        messageMap = new HashMap();
+        senderList = new ArrayList<String>();
     }
 
     public TalkToNotification getNotification(String messageSender,String message ) {
         Intent targetIntent = new Intent(context,ChatBox.class);
         targetIntent.putExtra(ChatBox.BUDDY_ID, messageSender);
-        int ID;
-        int times;
-        if(idMap.containsKey(messageSender)  ) {
-            ID = (Integer) idMap.get(messageSender);
-            times = (Integer) messageMap.remove(messageSender);
-            times++;
-            messageMap.put(messageSender,times);
-
-     } else {
-            notificationID++;
-            ID = notificationID;
-            times = 1;
-            idMap.put(messageSender, notificationID);
-            messageMap.put(messageSender,times);
+        int index =  senderList.indexOf(messageSender);
+        if( index == -1) {
+            senderList.add(0,messageSender);
         }
-        TalkToNotification notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender ,message,messageSender + " : " + message,ID,times);
+        int numberOfContacts = senderList.size();
+        String contentTitle;
+        if(numberOfContacts > 1) {
+             contentTitle = "New messages from " + numberOfContacts + " contacts" ;
+             int others = numberOfContacts - 1;
+             if(others == 1) {
+                 message = messageSender + " and " + senderList.get(1) ;
+             } else {
+                 message = messageSender + " and " + others + " other contacts " ;
+             }
+        }   else {
+             contentTitle = messageSender;
+        }
+        TalkToNotification notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,contentTitle ,message,messageSender + " : " + message,notificationID,numberOfContacts);
         Log.d(LOGTAG,"notification created successfully");
         return notification;
     }
