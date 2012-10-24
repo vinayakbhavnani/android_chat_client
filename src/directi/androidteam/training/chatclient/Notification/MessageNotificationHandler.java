@@ -15,12 +15,10 @@ public class MessageNotificationHandler {
     private static int notificationID = 1 ;
     private Context context;
     private static final String LOGTAG = "MessageNotificationHandler";
-    private HashMap idMap ;
     private HashMap messageMap;
 
     public MessageNotificationHandler(Context context) {
         this.context = context;
-        idMap = new HashMap();
         messageMap = new HashMap();
     }
 
@@ -29,20 +27,24 @@ public class MessageNotificationHandler {
         targetIntent.putExtra(ChatBox.BUDDY_ID, messageSender);
         int ID;
         int times;
-        if(idMap.containsKey(messageSender) ) {
-            ID = (Integer) idMap.get(messageSender);
+        if(messageMap.containsKey(messageSender) ) {
             times = (Integer) messageMap.remove(messageSender);
             times++;
             messageMap.put(messageSender,times);
 
         } else {
-            notificationID++;
-            ID = notificationID;
             times = 1;
-            idMap.put(messageSender, notificationID);
             messageMap.put(messageSender,times);
         }
-        TalkToNotification notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,messageSender ,message,messageSender + " : " + message,ID,times);
+        times = messageMap.size();
+        String contentTitle;
+        if(times > 1) {
+             contentTitle = "New messages from " + times + " contacts" ;
+        }    else {
+            contentTitle = messageSender;
+            message = "Last message from " + messageSender + " : " + message ;
+        }
+        TalkToNotification notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,contentTitle ,message,messageSender + " : " + message,notificationID,times);
         Log.d(LOGTAG,"notification created successfully");
         return notification;
     }
