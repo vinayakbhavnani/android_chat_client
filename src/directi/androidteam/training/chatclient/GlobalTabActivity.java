@@ -8,6 +8,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import directi.androidteam.training.chatclient.Authentication.*;
@@ -73,29 +76,7 @@ public class GlobalTabActivity extends Activity {
 
 
     public void  accountSettings(View view){
-        //Spinner spinner = (Spinner)findViewById(R.id.accountScreen_spinner);
         Account account = AccountManager.getInstance().getAccount((String)view.getTag());
-        /*ArrayAdapter<String> adapter = null;
-        if(account.isLoginStatus()){
-            adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,logoutList);
-        }
-        else
-            adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,loginList);*/
-        /*//spinner.setAdapter(adapter);
-        //spinner.setVisibility(0);
-        //spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                view.setVisibility(2);
-                Log.d("spinner",adapterView.getItemAtPosition(i).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        });
-*/
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Settings");
         final ArrayList<String> temp;
@@ -132,4 +113,22 @@ public class GlobalTabActivity extends Activity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.rostermenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.add_contact:
+                //TODO : add feature to ask for which account to add the contact to
+                // (new AddContactDialog()).show(getSupportFragmentManager(), "add_contact_dialog_box_tag");
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
+    }
 }

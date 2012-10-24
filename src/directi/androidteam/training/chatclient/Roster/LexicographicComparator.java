@@ -12,6 +12,6 @@ import java.util.Comparator;
 public class LexicographicComparator implements Comparator<RosterItem> {
     @Override
     public int compare(RosterItem rosterItem1, RosterItem rosterItem2) {
-        return rosterItem1.getBareJID().compareTo(rosterItem2.getBareJID());
+        return rosterItem1.getName().compareTo(rosterItem2.getName());
     }
 }
