@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient.Chat;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,18 +28,13 @@ public class ChatFragment extends ListFragment {
     private Vector<ChatListItem> chatListItems;
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
-    private String myAccountUID;
 
-    public String getMyAccountUID() {
-        return myAccountUID;
-    }
 
     public ChatFragment() {
     }
 
     public ChatFragment(String from) {
         this.buddyid = from;
-        this.myAccountUID = ChatStore.getInstance().getAcctUID(from);
     }
 
     @Override
@@ -48,7 +44,6 @@ public class ChatFragment extends ListFragment {
         if(getArguments()!=null){
             buddyid = (String)getArguments().get("from");
             chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));
-            myAccountUID = (String)getArguments().get("accountUID");
         }
         else if(!buddyid.equals(("talk.to")))
                 chatListItems = toChatListItemList(MyFragmentManager.getInstance().getFragList(buddyid));
@@ -70,9 +65,11 @@ public class ChatFragment extends ListFragment {
         tv.setText(buddyid);
         ImageView imageView = (ImageView) (header.findViewById(R.id.chatfragment_image));
         TextView status = (TextView)(header.findViewById(R.id.chatfragment_status));
-        RosterItem re = RosterManager.getInstance().getRosterItem(myAccountUID, buddyid);
+        RosterItem re = RosterManager.getInstance().getRosterItem(ChatStore.getInstance().getAcctUID(buddyid), buddyid);
         if(imageView!=null && re!=null)
             imageView.setImageBitmap(re.getAvatar());
+        if(re==null)
+            Log.d("roster error","re is null" + buddyid);
 
         ImageView presence = (ImageView)(header.findViewById(R.id.chatfragment_availability_image));
 
