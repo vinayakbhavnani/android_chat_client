@@ -29,4 +29,15 @@ public class TalkToNotifier {
         Log.d(LOGTAG,"finished request");
     }
 
+    public void cancelMessageNotification(String messageSender) {
+        if(messageHandler.containsSender(messageSender)) {
+            TalkToNotification notification = messageHandler.cancelNotification(messageSender);
+            if(notification == null) {
+                 notificationManager.cancelNotification(MessageNotificationHandler.getNotificationID());
+            } else {
+                 notificationManager.notify(notification);
+            }
+        }
+    }
+
 }

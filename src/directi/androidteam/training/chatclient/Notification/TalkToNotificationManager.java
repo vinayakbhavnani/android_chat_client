@@ -27,6 +27,10 @@ public class TalkToNotificationManager {
         Log.d(LOGTAG , " successfully exiting notify");
     }
 
+    public void cancelNotification(int notificationID) {
+         notificationManager.cancel(notificationID);
+    }
+
     private Notification getNotification ( int icon , String contentTitle , String contentText , String tickerText, int notificationID ,Intent targetIntent , Class homeActivityClass , int number) {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(notificationContext);
         notificationBuilder.setSmallIcon(icon);
