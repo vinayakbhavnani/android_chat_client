@@ -152,6 +152,8 @@ public class ChatFragment extends ListFragment {
 
     private synchronized Vector<ChatListItem> toChatListItemList(Vector<MessageStanza> list){
         Vector<ChatListItem> chatItemList = new Vector<ChatListItem>();
+        if(list==null)
+            return chatItemList;
         Object[] objects = list.toArray();
         for (Object object : objects) {
             ChatListItem cli = new ChatListItem((MessageStanza) object);
