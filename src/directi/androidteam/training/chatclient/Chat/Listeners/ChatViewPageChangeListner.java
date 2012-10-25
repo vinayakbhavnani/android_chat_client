@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import directi.androidteam.training.chatclient.Chat.ChatStore;
 import directi.androidteam.training.chatclient.Chat.MyFragmentManager;
 import directi.androidteam.training.chatclient.R;
+import directi.androidteam.training.chatclient.Roster.RosterItem;
+import directi.androidteam.training.chatclient.Roster.RosterManager;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,7 +34,6 @@ public class ChatViewPageChangeListner implements ViewPager.OnPageChangeListener
 
     @Override
     public void onPageSelected(int i) {
-        Log.d("qwqw", "page listener - index: " + i);
         updatePageUI(i);
     }
 
@@ -57,13 +57,29 @@ public class ChatViewPageChangeListner implements ViewPager.OnPageChangeListener
 
         String left = MyFragmentManager.getInstance().getJidByFragId(i - 1);
         String right = MyFragmentManager.getInstance().getJidByFragId(i + 1);
-        if(left!=null)
-            hleft.setText(left.split("@")[0]);
-        else
+        if(left!=null) {
+            RosterItem rosterItem = RosterManager.getInstance().getRosterItem(ChatStore.getInstance().getAcctUID(left), left);
+            if(rosterItem==null) {
+                hleft.setText(left.split("@")[0]);
+            }
+            else {
+                hleft.setText(rosterItem.getName());
+            }
+        }
+        else {
             hleft.setText("");
-        if(right!=null)
-            hright.setText(right.split("@")[0]);
-        else
+        }
+        if(right!=null) {
+                RosterItem rosterItem = RosterManager.getInstance().getRosterItem(ChatStore.getInstance().getAcctUID(right), right);
+            if(rosterItem==null) {
+                hright.setText(right.split("@")[0]);
+            }
+            else {
+                hright.setText(rosterItem.getName());
+            }
+        }
+        else {
             hright.setText("");
+        }
     }
 }

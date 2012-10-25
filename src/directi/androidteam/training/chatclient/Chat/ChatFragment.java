@@ -66,8 +66,10 @@ public class ChatFragment extends ListFragment {
         ImageView imageView = (ImageView) (header.findViewById(R.id.chatfragment_image));
         TextView status = (TextView)(header.findViewById(R.id.chatfragment_status));
         RosterItem re = RosterManager.getInstance().getRosterItem(ChatStore.getInstance().getAcctUID(buddyid), buddyid);
-        if(imageView!=null && re!=null)
+        if(imageView!=null && re!=null) {
             imageView.setImageBitmap(re.getAvatar());
+            tv.setText(re.getName());
+        }
         if(re==null)
             Log.d("roster error","re is null" + buddyid);
 
