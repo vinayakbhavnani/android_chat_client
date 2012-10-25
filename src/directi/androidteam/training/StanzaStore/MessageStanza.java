@@ -123,7 +123,7 @@ public class MessageStanza extends TagWrapper{
         if(from==null)
             return null;
         else
-            return from.split("@")[0];
+            return from.split("/")[0];
     }
 
     public String getTo(){

@@ -1,0 +1,1871 @@
+<html>
+<head>
+<title>Lint Report</title>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto"><link rel="stylesheet" type="text/css" href="lint_files/hololike.css">
+<script language="javascript"> 
+<!--
+function reveal(id) {
+if (document.getElementById) {
+document.getElementById(id).style.display = 'block';
+document.getElementById(id+'Link').style.display = 'none';
+}
+}
+//-->
+</script>
+</head>
+<body>
+<h1>Lint Report<div class="titleSeparator"></div></h1>
+Check performed at Thu Sep 27 18:41:00 IST 2012.<br/>1 errors and 195 warnings found:<br/><br/><table class="overview">
+<tr><td></td><td class="categoryColumn"><a href="#Lint">Lint</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-error.png" />
+<a href="#LintError">LintError</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-warning.png" />
+<a href="#ScrollViewSize">ScrollViewSize</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-warning.png" />
+<a href="#Deprecated">Deprecated</a>
+</td></tr>
+<tr>
+<td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-warning.png" />
+<a href="#PxUsage">PxUsage</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Security">Security</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-warning.png" />
+<a href="#ExportedReceiver">ExportedReceiver</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Performance">Performance</a>
+</td></tr>
+<tr>
+<td class="countColumn">6</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-warning.png" />
+<a href="#UseValueOf">UseValueOf</a>
+</td></tr>
+<tr>
+<td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-warning.png" />
+<a href="#InefficientWeight">InefficientWeight</a>
+</td></tr>
+<tr>
+<td class="countColumn">3</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-warning.png" />
+<a href="#Overdraw">Overdraw</a>
+</td></tr>
+<tr>
+<td class="countColumn">147</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-warning.png" />
+<a href="#UnusedResources">UnusedResources</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Usability:Typography">Usability:Typography</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-warning.png" />
+<a href="#TypographyEllipsis">TypographyEllipsis</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Usability:Icons">Usability:Icons</a>
+</td></tr>
+<tr>
+<td class="countColumn">7</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-warning.png" />
+<a href="#IconLocation">IconLocation</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Accessibility">Accessibility</a>
+</td></tr>
+<tr>
+<td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-warning.png" />
+<a href="#ContentDescription">ContentDescription</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Internationalization">Internationalization</a>
+</td></tr>
+<tr>
+<td class="countColumn">22</td><td class="issueColumn"><img border="0" align="top" src="lint_files/lint-warning.png" />
+<a href="#HardcodedText">HardcodedText</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (5)</a>
+</td></tr></table>
+<br/>
+<a name="Lint"></a>
+<div class="category">Lint<div class="categorySeparator"></div>
+</div>
+<a name="LintError"></a>
+<div class="issue">
+<div class="id">LintError<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client">android_chat_client</a></span>: <span class="message">No .class files were found in project "android_chat_client", so none of the classfile based checks could be run. Does the project need to be built first?</span><br />
+</div>
+<div class="metadata">Priority: 10 / 10<br/>
+Category: Lint</div>
+Severity: <span class="error">Error</span><div class="summary">
+Explanation: Isues related to running lint itself, such as failure to read files, etc.</div>
+<div class="explanation">
+This issue type represents a problem running lint itself. Examples include failure to find bytecode for source files (which means certain detectors could not be run), parsing errors in lint configuration files, etc.<br/>These errors are not errors in your own code, but they are shown to make it clear that some checks were not completed.
+</div>
+<br/>To suppress this error, use the issue id "LintError" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="Correctness"></a>
+<div class="category">Correctness<div class="categorySeparator"></div>
+</div>
+<a name="ScrollViewSize"></a>
+<div class="issue">
+<div class="id">ScrollViewSize<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/login.xml">res/layout/login.xml</a>:10</span>: <span class="message">This LinearLayout should use android:layout_height="wrap_content"</span><br /><pre class="errorlines">
+<span class="lineno">   7</span>               xmlns:tools="http://schemas.android.com/tools"
+<span class="lineno">   8</span>               android:orientation="vertical"
+<span class="lineno">   9</span>               android:layout_width="fill_parent"
+<span class="lineno">  10</span>               <span class="errorspan">android:layout_height="fill_parent"</span>
+<span class="lineno">  11</span>               android:background="#DDDDDD"
+<span class="lineno">  12</span>         >
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT&nbsp;<img border="0" align="top" src="lint_files/lint-run.png" />
+<br>
+Priority: 7 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Checks that ScrollViews use wrap_content in scrolling dimension.</div>
+<div class="explanation">
+ScrollView children must set their layout_width or layout_height attributes to wrap_content rather than fill_parent or match_parent in the scrolling dimension
+</div>
+<br/>To suppress this error, use the issue id "ScrollViewSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div><a name="Deprecated"></a>
+<div class="issue">
+<div class="id">Deprecated<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/login.xml">res/layout/login.xml</a>:40</span>: <span class="message">android:password is deprecated: Use inputType instead</span><br /><pre class="errorlines">
+<span class="lineno">  37</span>               android:hint="@string/username"
+<span class="lineno">  38</span>            />
+<span class="lineno">  39</span>     &lt;EditText android:id="@+id/password"
+<span class="lineno">  40</span>               <span class="errorspan">android:password="true"</span>
+<span class="lineno">  41</span>               android:layout_width="match_parent"
+<span class="lineno">  42</span>               android:layout_height="wrap_content"
+</pre>
+</div>
+<div class="metadata">Priority: 2 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Looks for usages of deprecated layouts, attributes, and so on.</div>
+<div class="explanation">
+Deprecated views, attributes and so on are deprecated because there is a better way to do something. Do it that new way. You've been warned.
+</div>
+<br/>To suppress this error, use the issue id "Deprecated" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div><a name="PxUsage"></a>
+<div class="issue">
+<div class="id">PxUsage<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chat.xml">res/layout/chat.xml</a>:44</span>: <span class="message">Avoid using "px" as units; use "dp" instead</span><br /><pre class="errorlines">
+<span class="lineno">  41</span>     &lt;LinearLayout
+<span class="lineno">  42</span>             android:id="@+id/widget38"
+<span class="lineno">  43</span>             android:layout_width="fill_parent"
+<span class="lineno">  44</span>             <span class="errorspan">android:layout_height="140px"</span>
+<span class="lineno">  45</span>             android:background="@color/White">
+<span class="lineno">  46</span>         &lt;EditText
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chat.xml">res/layout/chat.xml</a>:48</span>: <span class="message">Avoid using "px" as units; use "dp" instead</span><br /><pre class="errorlines">
+<span class="lineno">  45</span>             android:background="@color/White">
+<span class="lineno">  46</span>         &lt;EditText
+<span class="lineno">  47</span>                 android:id="@+id/message"
+<span class="lineno">  48</span>                 <span class="errorspan">android:layout_width="350px"</span>
+<span class="lineno">  49</span>                 android:layout_height="fill_parent"
+<span class="lineno">  50</span>                 android:hint="Enter Messsage"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT&nbsp;<img border="0" align="top" src="lint_files/lint-run.png" />
+<br>
+Priority: 2 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Looks for use of the "px" dimension.</div>
+<div class="explanation">
+For performance reasons and to keep the code simpler, the Android system uses pixels as the standard unit for expressing dimension or coordinate values. That means that the dimensions of a view are always expressed in the code using pixels, but always based on the current screen density. For instance, if myView.getWidth() returns 10, the view is 10 pixels wide on the current screen, but on a device with a higher density screen, the value returned might be 15. If you use pixel values in your application code to work with bitmaps that are not pre-scaled for the current screen density, you might need to scale the pixel values that you use in your code to match the un-scaled bitmap source.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/screens_support.html#screen-independence">http://developer.android.com/guide/practices/screens_support.html#screen-independence</a></div>
+<br/>To suppress this error, use the issue id "PxUsage" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="Security"></a>
+<div class="category">Security<div class="categorySeparator"></div>
+</div>
+<a name="ExportedReceiver"></a>
+<div class="issue">
+<div class="id">ExportedReceiver<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/AndroidManifest.xml">AndroidManifest.xml</a>:58</span>: <span class="message">Exported receiver does not require permission</span><br /><pre class="errorlines">
+<span class="lineno">  55</span>                     android:name="android.support.PARENT_ACTIVITY"
+<span class="lineno">  56</span>                     android:value="directi.androidteam.training.chatclient.Roster.DisplayRosterActivity" />
+<span class="lineno">  57</span>         &lt;/activity>
+<span class="lineno">  58</span>         <span class="errorspan">&lt;receiver android:name="directi.androidteam.training.chatclient.Util.NetworkConnectionChangeReceiver"</span>
+<span class="lineno">  59</span>                   android:label="NetworkConnection">
+<span class="lineno">  60</span>             &lt;intent-filter>
+</pre>
+</div>
+<div class="metadata">Priority: 5 / 10<br/>
+Category: Security</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Checks for exported receivers that do not require permissions.</div>
+<div class="explanation">
+Exported receivers (receivers which either set exported=true or contain an intent-filter and do not specify exported=false) should define a permission that an entity must have in order to launch the receiver or bind to it. Without this, any application can use this receiver.
+</div>
+<br/>To suppress this error, use the issue id "ExportedReceiver" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="Performance"></a>
+<div class="category">Performance<div class="categorySeparator"></div>
+</div>
+<a name="UseValueOf"></a>
+<div class="issue">
+<div class="id">UseValueOf<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/src/directi/androidteam/training/chatclient/Chat/ChatBox.java">src/directi/androidteam/training/chatclient/Chat/ChatBox.java</a>:188</span>: <span class="message">Use Integer.valueOf(frag) instead</span><br /><pre class="errorlines">
+<span class="lineno"> 185</span>     }
+<span class="lineno"> 186</span>     private void switchFragment(String from){
+<span class="lineno"> 187</span>         int frag = MessageHandler.getInstance().JidToFrag(from);
+<span class="lineno"> 188</span>         Log.d("indexreturned",<span class="errorspan">new Integer(frag).toString());</span>
+<span class="lineno"> 189</span>         viewPager.setCurrentItem(frag);
+<span class="lineno"> 190</span>         //frag_adaptor.notifyDataSetChanged();
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/src/directi/androidteam/training/chatclient/Chat/ChatListAdaptor.java">src/directi/androidteam/training/chatclient/Chat/ChatListAdaptor.java</a>:34</span>: <span class="message">Use Integer.valueOf(position) instead</span><br /><pre class="errorlines">
+<span class="lineno">  31</span> 
+<span class="lineno">  32</span>    @Override
+<span class="lineno">  33</span>     public View getView(int position,View view,ViewGroup viewg){
+<span class="lineno">  34</span>        Log.d("isSenderView","hey "+(<span class="errorspan">new Integer(position)).toString());</span>
+<span class="lineno">  35</span>        View row = view;
+<span class="lineno">  36</span> 
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/src/directi/androidteam/training/chatclient/Chat/ChatListAdaptor.java">src/directi/androidteam/training/chatclient/Chat/ChatListAdaptor.java</a>:43</span>: <span class="message">Use Integer.valueOf(position) instead</span><br /><pre class="errorlines">
+<span class="lineno">  40</span>        int layoutResourceId = cli.getResourceID();
+<span class="lineno">  41</span>       /* if(row == null)
+<span class="lineno">  42</span>        {*/
+<span class="lineno">  43</span>            Log.d("isSenderCli",cli.isSender()+""+cli.getMessage()+" "+(<span class="errorspan">new Integer(position)).toString());</span>
+<span class="lineno">  44</span>            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+<span class="lineno">  45</span>            row = inflater.inflate(layoutResourceId, viewg, false);
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/src/directi/androidteam/training/lib/TCPHandler/Dum.java">src/directi/androidteam/training/lib/TCPHandler/Dum.java</a>:52</span>: <span class="message">Use Long.valueOf(1) instead</span><br /><pre class="errorlines">
+<span class="lineno">  49</span>     }catch (IOException e) {
+<span class="lineno">  50</span>         e.printStackTrace();
+<span class="lineno">  51</span>     }
+<span class="lineno">  52</span>         return <span class="errorspan">new Long(1);</span>
+<span class="lineno">  53</span> 
+<span class="lineno">  54</span>     }
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/src/directi/androidteam/training/chatclient/PacketHandlers/MessageHandler.java">src/directi/androidteam/training/chatclient/PacketHandlers/MessageHandler.java</a>:42</span>: <span class="message">Use Integer.valueOf(chatLists.keySet().size()) instead</span><br /><pre class="errorlines">
+<span class="lineno">  39</span>      public int JidToFrag(String from){
+<span class="lineno">  40</span>          addChatcontact(from);
+<span class="lineno">  41</span>          String[] t=null;
+<span class="lineno">  42</span>          Log.d("arraysize",<span class="errorspan">new Integer(chatLists.keySet().size()).toString());</span>
+<span class="lineno">  43</span>          Object[]  set = chatLists.keySet().toArray();
+<span class="lineno">  44</span>          for(int i=0;i&lt;chatLists.size();i++){
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/src/directi/androidteam/training/chatclient/PacketHandlers/MessageHandler.java">src/directi/androidteam/training/chatclient/PacketHandlers/MessageHandler.java</a>:89</span>: <span class="message">Use Integer.valueOf(chatLists.get(from).size()) instead</span><br /><pre class="errorlines">
+<span class="lineno">  86</span>             return;
+<span class="lineno">  87</span>         addChat(from,ms);
+<span class="lineno">  88</span> 
+<span class="lineno">  89</span>         Log.d("chatsize",<span class="errorspan">new Integer(chatLists.get(from).size()).toString()+from);</span>
+<span class="lineno">  90</span>         //ChatBox.openChat(from);
+<span class="lineno">  91</span>         if(ChatBox.getContext()==null){
+</pre>
+</div>
+<div class="metadata">Priority: 4 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Looks for usages of "new" for wrapper classes which should use "valueOf" instead.</div>
+<div class="explanation">
+You should not call the constructor for wrapper classes directly, such as"new Integer(42)". Instead, call the "valueOf" factory method, such as Integer.valueOf(42). This will typically use less memory because common integers such as 0 and 1 will share a single instance.
+</div>
+<br/>To suppress this error, use the issue id "UseValueOf" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div><a name="InefficientWeight"></a>
+<div class="issue">
+<div class="id">InefficientWeight<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chat.xml">res/layout/chat.xml</a>:48</span>: <span class="message">Use a layout_width of 0dip instead of 350px for better performance</span><br /><pre class="errorlines">
+<span class="lineno">  45</span>             android:background="@color/White">
+<span class="lineno">  46</span>         &lt;EditText
+<span class="lineno">  47</span>                 android:id="@+id/message"
+<span class="lineno">  48</span>                 <span class="errorspan">android:layout_width="350px"</span>
+<span class="lineno">  49</span>                 android:layout_height="fill_parent"
+<span class="lineno">  50</span>                 android:hint="Enter Messsage"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/users.xml">res/layout/users.xml</a>:18</span>: <span class="message">Use a layout_height of 0dip instead of match_parent for better performance</span><br /><pre class="errorlines">
+<span class="lineno">  15</span>               android:text="@string/choose_account"/>
+<span class="lineno">  16</span>     &lt;ListView android:id="@android:id/list"
+<span class="lineno">  17</span>               android:layout_width="match_parent"
+<span class="lineno">  18</span>               <span class="errorspan">android:layout_height="match_parent"</span>
+<span class="lineno">  19</span>               android:background="#DDDDDD"
+<span class="lineno">  20</span>               android:layout_weight="1"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT&nbsp;<img border="0" align="top" src="lint_files/lint-run.png" />
+<br>
+Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Looks for inefficient weight declarations in LinearLayouts.</div>
+<div class="explanation">
+When only a single widget in a LinearLayout defines a weight, it is more efficient to assign a width/height of 0dp to it since it will absorb all the remaining space anyway. With a declared width/height of 0dp it does not have to measure its own size first.
+</div>
+<br/>To suppress this error, use the issue id "InefficientWeight" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div><a name="Overdraw"></a>
+<div class="issue">
+<div class="id">Overdraw<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistheader.xml">res/layout/chatlistheader.xml</a>:7</span>: <span class="message">Possible overdraw: Root element paints background @color/White with a theme that also paints a background (inferred theme is @android:style/Theme.Holo)</span><br /><pre class="errorlines">
+<span class="lineno">   4</span>               android:layout_width="fill_parent"
+<span class="lineno">   5</span>               android:layout_height="wrap_content"
+<span class="lineno">   6</span>               android:orientation="horizontal"
+<span class="lineno">   7</span>               <span class="errorspan">android:background="@color/White"</span>
+<span class="lineno">   8</span> 
+<span class="lineno">   9</span>         >
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/login_error.xml">res/layout/login_error.xml</a>:8</span>: <span class="message">Possible overdraw: Root element paints background #DDDDDD with a theme that also paints a background (inferred theme is @android:style/Theme.Holo)</span><br /><pre class="errorlines">
+<span class="lineno">   5</span>               android:orientation="vertical"
+<span class="lineno">   6</span>               android:layout_width="fill_parent"
+<span class="lineno">   7</span>               android:layout_height="fill_parent"
+<span class="lineno">   8</span>               <span class="errorspan">android:background="#DDDDDD"></span>
+<span class="lineno">   9</span>     &lt;TextView android:layout_width="fill_parent"
+<span class="lineno">  10</span>               android:layout_height="wrap_content"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/rosterlistitem.xml">res/layout/rosterlistitem.xml</a>:7</span>: <span class="message">Possible overdraw: Root element paints background #FFFFFF with a theme that also paints a background (inferred theme is @android:style/Theme.Holo)</span><br /><pre class="errorlines">
+<span class="lineno">   4</span>               android:layout_width="fill_parent"
+<span class="lineno">   5</span>               android:layout_height="wrap_content"
+<span class="lineno">   6</span>               android:orientation="horizontal"
+<span class="lineno">   7</span>               <span class="errorspan">android:background="#FFFFFF"</span>
+<span class="lineno">   8</span>               android:padding="10dp"
+<span class="lineno">   9</span>               android:id="@+id/roster_list_item"
+</pre>
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Looks for overdraw issues (where a view is painted only to be fully painted over)</div>
+<div class="explanation">
+If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called "overdraw".<br/><br/>NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it's currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.<br/><br/>If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.<br/><br/>Of course it's possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.<br/>
+</div>
+<br/>To suppress this error, use the issue id "Overdraw" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div><a name="UnusedResources"></a>
+<div class="issue">
+<div class="id">UnusedResources<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:4</span>: <span class="message">The resource R.color.Ivory appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   1</span> &lt;?xml version="1.0" encoding="utf-8"?>
+<span class="lineno">   2</span> &lt;resources>
+<span class="lineno">   3</span>     &lt;color name="White">#FFFFFF&lt;/color>
+<span class="lineno">   4</span>     <span class="errorspan">&lt;color name="Ivory">#FFFFF0&lt;/color></span>
+<span class="lineno">   5</span>     &lt;color name="LightYellow">#FFFFE0&lt;/color>
+<span class="lineno">   6</span>     &lt;color name="Yellow">#FFFF00&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:5</span>: <span class="message">The resource R.color.LightYellow appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   2</span> &lt;resources>
+<span class="lineno">   3</span>     &lt;color name="White">#FFFFFF&lt;/color>
+<span class="lineno">   4</span>     &lt;color name="Ivory">#FFFFF0&lt;/color>
+<span class="lineno">   5</span>     <span class="errorspan">&lt;color name="LightYellow">#FFFFE0&lt;/color></span>
+<span class="lineno">   6</span>     &lt;color name="Yellow">#FFFF00&lt;/color>
+<span class="lineno">   7</span>     &lt;color name="Snow">#FFFAFA&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:6</span>: <span class="message">The resource R.color.Yellow appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   3</span>     &lt;color name="White">#FFFFFF&lt;/color>
+<span class="lineno">   4</span>     &lt;color name="Ivory">#FFFFF0&lt;/color>
+<span class="lineno">   5</span>     &lt;color name="LightYellow">#FFFFE0&lt;/color>
+<span class="lineno">   6</span>     <span class="errorspan">&lt;color name="Yellow">#FFFF00&lt;/color></span>
+<span class="lineno">   7</span>     &lt;color name="Snow">#FFFAFA&lt;/color>
+<span class="lineno">   8</span>     &lt;color name="FloralWhite">#FFFAF0&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:7</span>: <span class="message">The resource R.color.Snow appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   4</span>     &lt;color name="Ivory">#FFFFF0&lt;/color>
+<span class="lineno">   5</span>     &lt;color name="LightYellow">#FFFFE0&lt;/color>
+<span class="lineno">   6</span>     &lt;color name="Yellow">#FFFF00&lt;/color>
+<span class="lineno">   7</span>     <span class="errorspan">&lt;color name="Snow">#FFFAFA&lt;/color></span>
+<span class="lineno">   8</span>     &lt;color name="FloralWhite">#FFFAF0&lt;/color>
+<span class="lineno">   9</span>     &lt;color name="LemonChiffon">#FFFACD&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:8</span>: <span class="message">The resource R.color.FloralWhite appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   5</span>     &lt;color name="LightYellow">#FFFFE0&lt;/color>
+<span class="lineno">   6</span>     &lt;color name="Yellow">#FFFF00&lt;/color>
+<span class="lineno">   7</span>     &lt;color name="Snow">#FFFAFA&lt;/color>
+<span class="lineno">   8</span>     <span class="errorspan">&lt;color name="FloralWhite">#FFFAF0&lt;/color></span>
+<span class="lineno">   9</span>     &lt;color name="LemonChiffon">#FFFACD&lt;/color>
+<span class="lineno">  10</span>     &lt;color name="Cornsilk">#FFF8DC&lt;/color>
+</pre>
+<button id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 142 More Occurrences...</button>
+<div id="UnusedResourcesDiv" style="display: none">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:9</span>: <span class="message">The resource R.color.LemonChiffon appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   6</span>     &lt;color name="Yellow">#FFFF00&lt;/color>
+<span class="lineno">   7</span>     &lt;color name="Snow">#FFFAFA&lt;/color>
+<span class="lineno">   8</span>     &lt;color name="FloralWhite">#FFFAF0&lt;/color>
+<span class="lineno">   9</span>     <span class="errorspan">&lt;color name="LemonChiffon">#FFFACD&lt;/color></span>
+<span class="lineno">  10</span>     &lt;color name="Cornsilk">#FFF8DC&lt;/color>
+<span class="lineno">  11</span>     &lt;color name="Seashell">#FFF5EE&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:10</span>: <span class="message">The resource R.color.Cornsilk appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   7</span>     &lt;color name="Snow">#FFFAFA&lt;/color>
+<span class="lineno">   8</span>     &lt;color name="FloralWhite">#FFFAF0&lt;/color>
+<span class="lineno">   9</span>     &lt;color name="LemonChiffon">#FFFACD&lt;/color>
+<span class="lineno">  10</span>     <span class="errorspan">&lt;color name="Cornsilk">#FFF8DC&lt;/color></span>
+<span class="lineno">  11</span>     &lt;color name="Seashell">#FFF5EE&lt;/color>
+<span class="lineno">  12</span>     &lt;color name="LavenderBlush">#FFF0F5&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:11</span>: <span class="message">The resource R.color.Seashell appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   8</span>     &lt;color name="FloralWhite">#FFFAF0&lt;/color>
+<span class="lineno">   9</span>     &lt;color name="LemonChiffon">#FFFACD&lt;/color>
+<span class="lineno">  10</span>     &lt;color name="Cornsilk">#FFF8DC&lt;/color>
+<span class="lineno">  11</span>     <span class="errorspan">&lt;color name="Seashell">#FFF5EE&lt;/color></span>
+<span class="lineno">  12</span>     &lt;color name="LavenderBlush">#FFF0F5&lt;/color>
+<span class="lineno">  13</span>     &lt;color name="PapayaWhip">#FFEFD5&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:12</span>: <span class="message">The resource R.color.LavenderBlush appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   9</span>     &lt;color name="LemonChiffon">#FFFACD&lt;/color>
+<span class="lineno">  10</span>     &lt;color name="Cornsilk">#FFF8DC&lt;/color>
+<span class="lineno">  11</span>     &lt;color name="Seashell">#FFF5EE&lt;/color>
+<span class="lineno">  12</span>     <span class="errorspan">&lt;color name="LavenderBlush">#FFF0F5&lt;/color></span>
+<span class="lineno">  13</span>     &lt;color name="PapayaWhip">#FFEFD5&lt;/color>
+<span class="lineno">  14</span>     &lt;color name="BlanchedAlmond">#FFEBCD&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:13</span>: <span class="message">The resource R.color.PapayaWhip appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  10</span>     &lt;color name="Cornsilk">#FFF8DC&lt;/color>
+<span class="lineno">  11</span>     &lt;color name="Seashell">#FFF5EE&lt;/color>
+<span class="lineno">  12</span>     &lt;color name="LavenderBlush">#FFF0F5&lt;/color>
+<span class="lineno">  13</span>     <span class="errorspan">&lt;color name="PapayaWhip">#FFEFD5&lt;/color></span>
+<span class="lineno">  14</span>     &lt;color name="BlanchedAlmond">#FFEBCD&lt;/color>
+<span class="lineno">  15</span>     &lt;color name="MistyRose">#FFE4E1&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:14</span>: <span class="message">The resource R.color.BlanchedAlmond appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  11</span>     &lt;color name="Seashell">#FFF5EE&lt;/color>
+<span class="lineno">  12</span>     &lt;color name="LavenderBlush">#FFF0F5&lt;/color>
+<span class="lineno">  13</span>     &lt;color name="PapayaWhip">#FFEFD5&lt;/color>
+<span class="lineno">  14</span>     <span class="errorspan">&lt;color name="BlanchedAlmond">#FFEBCD&lt;/color></span>
+<span class="lineno">  15</span>     &lt;color name="MistyRose">#FFE4E1&lt;/color>
+<span class="lineno">  16</span>     &lt;color name="Bisque">#FFE4C4&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:15</span>: <span class="message">The resource R.color.MistyRose appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  12</span>     &lt;color name="LavenderBlush">#FFF0F5&lt;/color>
+<span class="lineno">  13</span>     &lt;color name="PapayaWhip">#FFEFD5&lt;/color>
+<span class="lineno">  14</span>     &lt;color name="BlanchedAlmond">#FFEBCD&lt;/color>
+<span class="lineno">  15</span>     <span class="errorspan">&lt;color name="MistyRose">#FFE4E1&lt;/color></span>
+<span class="lineno">  16</span>     &lt;color name="Bisque">#FFE4C4&lt;/color>
+<span class="lineno">  17</span>     &lt;color name="Moccasin">#FFE4B5&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:16</span>: <span class="message">The resource R.color.Bisque appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  13</span>     &lt;color name="PapayaWhip">#FFEFD5&lt;/color>
+<span class="lineno">  14</span>     &lt;color name="BlanchedAlmond">#FFEBCD&lt;/color>
+<span class="lineno">  15</span>     &lt;color name="MistyRose">#FFE4E1&lt;/color>
+<span class="lineno">  16</span>     <span class="errorspan">&lt;color name="Bisque">#FFE4C4&lt;/color></span>
+<span class="lineno">  17</span>     &lt;color name="Moccasin">#FFE4B5&lt;/color>
+<span class="lineno">  18</span>     &lt;color name="NavajoWhite">#FFDEAD&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:17</span>: <span class="message">The resource R.color.Moccasin appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  14</span>     &lt;color name="BlanchedAlmond">#FFEBCD&lt;/color>
+<span class="lineno">  15</span>     &lt;color name="MistyRose">#FFE4E1&lt;/color>
+<span class="lineno">  16</span>     &lt;color name="Bisque">#FFE4C4&lt;/color>
+<span class="lineno">  17</span>     <span class="errorspan">&lt;color name="Moccasin">#FFE4B5&lt;/color></span>
+<span class="lineno">  18</span>     &lt;color name="NavajoWhite">#FFDEAD&lt;/color>
+<span class="lineno">  19</span>     &lt;color name="PeachPuff">#FFDAB9&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:18</span>: <span class="message">The resource R.color.NavajoWhite appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  15</span>     &lt;color name="MistyRose">#FFE4E1&lt;/color>
+<span class="lineno">  16</span>     &lt;color name="Bisque">#FFE4C4&lt;/color>
+<span class="lineno">  17</span>     &lt;color name="Moccasin">#FFE4B5&lt;/color>
+<span class="lineno">  18</span>     <span class="errorspan">&lt;color name="NavajoWhite">#FFDEAD&lt;/color></span>
+<span class="lineno">  19</span>     &lt;color name="PeachPuff">#FFDAB9&lt;/color>
+<span class="lineno">  20</span>     &lt;color name="Gold">#FFD700&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:19</span>: <span class="message">The resource R.color.PeachPuff appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  16</span>     &lt;color name="Bisque">#FFE4C4&lt;/color>
+<span class="lineno">  17</span>     &lt;color name="Moccasin">#FFE4B5&lt;/color>
+<span class="lineno">  18</span>     &lt;color name="NavajoWhite">#FFDEAD&lt;/color>
+<span class="lineno">  19</span>     <span class="errorspan">&lt;color name="PeachPuff">#FFDAB9&lt;/color></span>
+<span class="lineno">  20</span>     &lt;color name="Gold">#FFD700&lt;/color>
+<span class="lineno">  21</span>     &lt;color name="Pink">#FFC0CB&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:20</span>: <span class="message">The resource R.color.Gold appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  17</span>     &lt;color name="Moccasin">#FFE4B5&lt;/color>
+<span class="lineno">  18</span>     &lt;color name="NavajoWhite">#FFDEAD&lt;/color>
+<span class="lineno">  19</span>     &lt;color name="PeachPuff">#FFDAB9&lt;/color>
+<span class="lineno">  20</span>     <span class="errorspan">&lt;color name="Gold">#FFD700&lt;/color></span>
+<span class="lineno">  21</span>     &lt;color name="Pink">#FFC0CB&lt;/color>
+<span class="lineno">  22</span>     &lt;color name="LightPink">#FFB6C1&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:21</span>: <span class="message">The resource R.color.Pink appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  18</span>     &lt;color name="NavajoWhite">#FFDEAD&lt;/color>
+<span class="lineno">  19</span>     &lt;color name="PeachPuff">#FFDAB9&lt;/color>
+<span class="lineno">  20</span>     &lt;color name="Gold">#FFD700&lt;/color>
+<span class="lineno">  21</span>     <span class="errorspan">&lt;color name="Pink">#FFC0CB&lt;/color></span>
+<span class="lineno">  22</span>     &lt;color name="LightPink">#FFB6C1&lt;/color>
+<span class="lineno">  23</span>     &lt;color name="Orange">#FFA500&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:22</span>: <span class="message">The resource R.color.LightPink appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  19</span>     &lt;color name="PeachPuff">#FFDAB9&lt;/color>
+<span class="lineno">  20</span>     &lt;color name="Gold">#FFD700&lt;/color>
+<span class="lineno">  21</span>     &lt;color name="Pink">#FFC0CB&lt;/color>
+<span class="lineno">  22</span>     <span class="errorspan">&lt;color name="LightPink">#FFB6C1&lt;/color></span>
+<span class="lineno">  23</span>     &lt;color name="Orange">#FFA500&lt;/color>
+<span class="lineno">  24</span>     &lt;color name="LightSalmon">#FFA07A&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:23</span>: <span class="message">The resource R.color.Orange appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  20</span>     &lt;color name="Gold">#FFD700&lt;/color>
+<span class="lineno">  21</span>     &lt;color name="Pink">#FFC0CB&lt;/color>
+<span class="lineno">  22</span>     &lt;color name="LightPink">#FFB6C1&lt;/color>
+<span class="lineno">  23</span>     <span class="errorspan">&lt;color name="Orange">#FFA500&lt;/color></span>
+<span class="lineno">  24</span>     &lt;color name="LightSalmon">#FFA07A&lt;/color>
+<span class="lineno">  25</span>     &lt;color name="DarkOrange">#FF8C00&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:24</span>: <span class="message">The resource R.color.LightSalmon appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  21</span>     &lt;color name="Pink">#FFC0CB&lt;/color>
+<span class="lineno">  22</span>     &lt;color name="LightPink">#FFB6C1&lt;/color>
+<span class="lineno">  23</span>     &lt;color name="Orange">#FFA500&lt;/color>
+<span class="lineno">  24</span>     <span class="errorspan">&lt;color name="LightSalmon">#FFA07A&lt;/color></span>
+<span class="lineno">  25</span>     &lt;color name="DarkOrange">#FF8C00&lt;/color>
+<span class="lineno">  26</span>     &lt;color name="Coral">#FF7F50&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:25</span>: <span class="message">The resource R.color.DarkOrange appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  22</span>     &lt;color name="LightPink">#FFB6C1&lt;/color>
+<span class="lineno">  23</span>     &lt;color name="Orange">#FFA500&lt;/color>
+<span class="lineno">  24</span>     &lt;color name="LightSalmon">#FFA07A&lt;/color>
+<span class="lineno">  25</span>     <span class="errorspan">&lt;color name="DarkOrange">#FF8C00&lt;/color></span>
+<span class="lineno">  26</span>     &lt;color name="Coral">#FF7F50&lt;/color>
+<span class="lineno">  27</span>     &lt;color name="HotPink">#FF69B4&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:26</span>: <span class="message">The resource R.color.Coral appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  23</span>     &lt;color name="Orange">#FFA500&lt;/color>
+<span class="lineno">  24</span>     &lt;color name="LightSalmon">#FFA07A&lt;/color>
+<span class="lineno">  25</span>     &lt;color name="DarkOrange">#FF8C00&lt;/color>
+<span class="lineno">  26</span>     <span class="errorspan">&lt;color name="Coral">#FF7F50&lt;/color></span>
+<span class="lineno">  27</span>     &lt;color name="HotPink">#FF69B4&lt;/color>
+<span class="lineno">  28</span>     &lt;color name="Tomato">#FF6347&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:27</span>: <span class="message">The resource R.color.HotPink appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  24</span>     &lt;color name="LightSalmon">#FFA07A&lt;/color>
+<span class="lineno">  25</span>     &lt;color name="DarkOrange">#FF8C00&lt;/color>
+<span class="lineno">  26</span>     &lt;color name="Coral">#FF7F50&lt;/color>
+<span class="lineno">  27</span>     <span class="errorspan">&lt;color name="HotPink">#FF69B4&lt;/color></span>
+<span class="lineno">  28</span>     &lt;color name="Tomato">#FF6347&lt;/color>
+<span class="lineno">  29</span>     &lt;color name="OrangeRed">#FF4500&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:28</span>: <span class="message">The resource R.color.Tomato appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  25</span>     &lt;color name="DarkOrange">#FF8C00&lt;/color>
+<span class="lineno">  26</span>     &lt;color name="Coral">#FF7F50&lt;/color>
+<span class="lineno">  27</span>     &lt;color name="HotPink">#FF69B4&lt;/color>
+<span class="lineno">  28</span>     <span class="errorspan">&lt;color name="Tomato">#FF6347&lt;/color></span>
+<span class="lineno">  29</span>     &lt;color name="OrangeRed">#FF4500&lt;/color>
+<span class="lineno">  30</span>     &lt;color name="DeepPink">#FF1493&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:29</span>: <span class="message">The resource R.color.OrangeRed appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  26</span>     &lt;color name="Coral">#FF7F50&lt;/color>
+<span class="lineno">  27</span>     &lt;color name="HotPink">#FF69B4&lt;/color>
+<span class="lineno">  28</span>     &lt;color name="Tomato">#FF6347&lt;/color>
+<span class="lineno">  29</span>     <span class="errorspan">&lt;color name="OrangeRed">#FF4500&lt;/color></span>
+<span class="lineno">  30</span>     &lt;color name="DeepPink">#FF1493&lt;/color>
+<span class="lineno">  31</span>     &lt;color name="Fuchsia">#FF00FF&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:30</span>: <span class="message">The resource R.color.DeepPink appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  27</span>     &lt;color name="HotPink">#FF69B4&lt;/color>
+<span class="lineno">  28</span>     &lt;color name="Tomato">#FF6347&lt;/color>
+<span class="lineno">  29</span>     &lt;color name="OrangeRed">#FF4500&lt;/color>
+<span class="lineno">  30</span>     <span class="errorspan">&lt;color name="DeepPink">#FF1493&lt;/color></span>
+<span class="lineno">  31</span>     &lt;color name="Fuchsia">#FF00FF&lt;/color>
+<span class="lineno">  32</span>     &lt;color name="Magenta">#FF00FF&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:31</span>: <span class="message">The resource R.color.Fuchsia appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  28</span>     &lt;color name="Tomato">#FF6347&lt;/color>
+<span class="lineno">  29</span>     &lt;color name="OrangeRed">#FF4500&lt;/color>
+<span class="lineno">  30</span>     &lt;color name="DeepPink">#FF1493&lt;/color>
+<span class="lineno">  31</span>     <span class="errorspan">&lt;color name="Fuchsia">#FF00FF&lt;/color></span>
+<span class="lineno">  32</span>     &lt;color name="Magenta">#FF00FF&lt;/color>
+<span class="lineno">  33</span>     &lt;color name="Red">#FF0000&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:32</span>: <span class="message">The resource R.color.Magenta appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  29</span>     &lt;color name="OrangeRed">#FF4500&lt;/color>
+<span class="lineno">  30</span>     &lt;color name="DeepPink">#FF1493&lt;/color>
+<span class="lineno">  31</span>     &lt;color name="Fuchsia">#FF00FF&lt;/color>
+<span class="lineno">  32</span>     <span class="errorspan">&lt;color name="Magenta">#FF00FF&lt;/color></span>
+<span class="lineno">  33</span>     &lt;color name="Red">#FF0000&lt;/color>
+<span class="lineno">  34</span>     &lt;color name="OldLace">#FDF5E6&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:33</span>: <span class="message">The resource R.color.Red appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  30</span>     &lt;color name="DeepPink">#FF1493&lt;/color>
+<span class="lineno">  31</span>     &lt;color name="Fuchsia">#FF00FF&lt;/color>
+<span class="lineno">  32</span>     &lt;color name="Magenta">#FF00FF&lt;/color>
+<span class="lineno">  33</span>     <span class="errorspan">&lt;color name="Red">#FF0000&lt;/color></span>
+<span class="lineno">  34</span>     &lt;color name="OldLace">#FDF5E6&lt;/color>
+<span class="lineno">  35</span>     &lt;color name="LightGoldenrodYellow">#FAFAD2&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:34</span>: <span class="message">The resource R.color.OldLace appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  31</span>     &lt;color name="Fuchsia">#FF00FF&lt;/color>
+<span class="lineno">  32</span>     &lt;color name="Magenta">#FF00FF&lt;/color>
+<span class="lineno">  33</span>     &lt;color name="Red">#FF0000&lt;/color>
+<span class="lineno">  34</span>     <span class="errorspan">&lt;color name="OldLace">#FDF5E6&lt;/color></span>
+<span class="lineno">  35</span>     &lt;color name="LightGoldenrodYellow">#FAFAD2&lt;/color>
+<span class="lineno">  36</span>     &lt;color name="Linen">#FAF0E6&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:35</span>: <span class="message">The resource R.color.LightGoldenrodYellow appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  32</span>     &lt;color name="Magenta">#FF00FF&lt;/color>
+<span class="lineno">  33</span>     &lt;color name="Red">#FF0000&lt;/color>
+<span class="lineno">  34</span>     &lt;color name="OldLace">#FDF5E6&lt;/color>
+<span class="lineno">  35</span>     <span class="errorspan">&lt;color name="LightGoldenrodYellow">#FAFAD2&lt;/color></span>
+<span class="lineno">  36</span>     &lt;color name="Linen">#FAF0E6&lt;/color>
+<span class="lineno">  37</span>     &lt;color name="AntiqueWhite">#FAEBD7&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:36</span>: <span class="message">The resource R.color.Linen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  33</span>     &lt;color name="Red">#FF0000&lt;/color>
+<span class="lineno">  34</span>     &lt;color name="OldLace">#FDF5E6&lt;/color>
+<span class="lineno">  35</span>     &lt;color name="LightGoldenrodYellow">#FAFAD2&lt;/color>
+<span class="lineno">  36</span>     <span class="errorspan">&lt;color name="Linen">#FAF0E6&lt;/color></span>
+<span class="lineno">  37</span>     &lt;color name="AntiqueWhite">#FAEBD7&lt;/color>
+<span class="lineno">  38</span>     &lt;color name="Salmon">#FA8072&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:37</span>: <span class="message">The resource R.color.AntiqueWhite appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  34</span>     &lt;color name="OldLace">#FDF5E6&lt;/color>
+<span class="lineno">  35</span>     &lt;color name="LightGoldenrodYellow">#FAFAD2&lt;/color>
+<span class="lineno">  36</span>     &lt;color name="Linen">#FAF0E6&lt;/color>
+<span class="lineno">  37</span>     <span class="errorspan">&lt;color name="AntiqueWhite">#FAEBD7&lt;/color></span>
+<span class="lineno">  38</span>     &lt;color name="Salmon">#FA8072&lt;/color>
+<span class="lineno">  39</span>     &lt;color name="GhostWhite">#F8F8FF&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:38</span>: <span class="message">The resource R.color.Salmon appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  35</span>     &lt;color name="LightGoldenrodYellow">#FAFAD2&lt;/color>
+<span class="lineno">  36</span>     &lt;color name="Linen">#FAF0E6&lt;/color>
+<span class="lineno">  37</span>     &lt;color name="AntiqueWhite">#FAEBD7&lt;/color>
+<span class="lineno">  38</span>     <span class="errorspan">&lt;color name="Salmon">#FA8072&lt;/color></span>
+<span class="lineno">  39</span>     &lt;color name="GhostWhite">#F8F8FF&lt;/color>
+<span class="lineno">  40</span>     &lt;color name="MintCream">#F5FFFA&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:39</span>: <span class="message">The resource R.color.GhostWhite appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  36</span>     &lt;color name="Linen">#FAF0E6&lt;/color>
+<span class="lineno">  37</span>     &lt;color name="AntiqueWhite">#FAEBD7&lt;/color>
+<span class="lineno">  38</span>     &lt;color name="Salmon">#FA8072&lt;/color>
+<span class="lineno">  39</span>     <span class="errorspan">&lt;color name="GhostWhite">#F8F8FF&lt;/color></span>
+<span class="lineno">  40</span>     &lt;color name="MintCream">#F5FFFA&lt;/color>
+<span class="lineno">  41</span>     &lt;color name="WhiteSmoke">#F5F5F5&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:40</span>: <span class="message">The resource R.color.MintCream appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  37</span>     &lt;color name="AntiqueWhite">#FAEBD7&lt;/color>
+<span class="lineno">  38</span>     &lt;color name="Salmon">#FA8072&lt;/color>
+<span class="lineno">  39</span>     &lt;color name="GhostWhite">#F8F8FF&lt;/color>
+<span class="lineno">  40</span>     <span class="errorspan">&lt;color name="MintCream">#F5FFFA&lt;/color></span>
+<span class="lineno">  41</span>     &lt;color name="WhiteSmoke">#F5F5F5&lt;/color>
+<span class="lineno">  42</span>     &lt;color name="Beige">#F5F5DC&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:41</span>: <span class="message">The resource R.color.WhiteSmoke appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  38</span>     &lt;color name="Salmon">#FA8072&lt;/color>
+<span class="lineno">  39</span>     &lt;color name="GhostWhite">#F8F8FF&lt;/color>
+<span class="lineno">  40</span>     &lt;color name="MintCream">#F5FFFA&lt;/color>
+<span class="lineno">  41</span>     <span class="errorspan">&lt;color name="WhiteSmoke">#F5F5F5&lt;/color></span>
+<span class="lineno">  42</span>     &lt;color name="Beige">#F5F5DC&lt;/color>
+<span class="lineno">  43</span>     &lt;color name="Wheat">#F5DEB3&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:42</span>: <span class="message">The resource R.color.Beige appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  39</span>     &lt;color name="GhostWhite">#F8F8FF&lt;/color>
+<span class="lineno">  40</span>     &lt;color name="MintCream">#F5FFFA&lt;/color>
+<span class="lineno">  41</span>     &lt;color name="WhiteSmoke">#F5F5F5&lt;/color>
+<span class="lineno">  42</span>     <span class="errorspan">&lt;color name="Beige">#F5F5DC&lt;/color></span>
+<span class="lineno">  43</span>     &lt;color name="Wheat">#F5DEB3&lt;/color>
+<span class="lineno">  44</span>     &lt;color name="SandyBrown">#F4A460&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:43</span>: <span class="message">The resource R.color.Wheat appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  40</span>     &lt;color name="MintCream">#F5FFFA&lt;/color>
+<span class="lineno">  41</span>     &lt;color name="WhiteSmoke">#F5F5F5&lt;/color>
+<span class="lineno">  42</span>     &lt;color name="Beige">#F5F5DC&lt;/color>
+<span class="lineno">  43</span>     <span class="errorspan">&lt;color name="Wheat">#F5DEB3&lt;/color></span>
+<span class="lineno">  44</span>     &lt;color name="SandyBrown">#F4A460&lt;/color>
+<span class="lineno">  45</span>     &lt;color name="Azure">#F0FFFF&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:44</span>: <span class="message">The resource R.color.SandyBrown appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  41</span>     &lt;color name="WhiteSmoke">#F5F5F5&lt;/color>
+<span class="lineno">  42</span>     &lt;color name="Beige">#F5F5DC&lt;/color>
+<span class="lineno">  43</span>     &lt;color name="Wheat">#F5DEB3&lt;/color>
+<span class="lineno">  44</span>     <span class="errorspan">&lt;color name="SandyBrown">#F4A460&lt;/color></span>
+<span class="lineno">  45</span>     &lt;color name="Azure">#F0FFFF&lt;/color>
+<span class="lineno">  46</span>     &lt;color name="Honeydew">#F0FFF0&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:45</span>: <span class="message">The resource R.color.Azure appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  42</span>     &lt;color name="Beige">#F5F5DC&lt;/color>
+<span class="lineno">  43</span>     &lt;color name="Wheat">#F5DEB3&lt;/color>
+<span class="lineno">  44</span>     &lt;color name="SandyBrown">#F4A460&lt;/color>
+<span class="lineno">  45</span>     <span class="errorspan">&lt;color name="Azure">#F0FFFF&lt;/color></span>
+<span class="lineno">  46</span>     &lt;color name="Honeydew">#F0FFF0&lt;/color>
+<span class="lineno">  47</span>     &lt;color name="AliceBlue">#F0F8FF&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:46</span>: <span class="message">The resource R.color.Honeydew appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  43</span>     &lt;color name="Wheat">#F5DEB3&lt;/color>
+<span class="lineno">  44</span>     &lt;color name="SandyBrown">#F4A460&lt;/color>
+<span class="lineno">  45</span>     &lt;color name="Azure">#F0FFFF&lt;/color>
+<span class="lineno">  46</span>     <span class="errorspan">&lt;color name="Honeydew">#F0FFF0&lt;/color></span>
+<span class="lineno">  47</span>     &lt;color name="AliceBlue">#F0F8FF&lt;/color>
+<span class="lineno">  48</span>     &lt;color name="Khaki">#F0E68C&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:47</span>: <span class="message">The resource R.color.AliceBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  44</span>     &lt;color name="SandyBrown">#F4A460&lt;/color>
+<span class="lineno">  45</span>     &lt;color name="Azure">#F0FFFF&lt;/color>
+<span class="lineno">  46</span>     &lt;color name="Honeydew">#F0FFF0&lt;/color>
+<span class="lineno">  47</span>     <span class="errorspan">&lt;color name="AliceBlue">#F0F8FF&lt;/color></span>
+<span class="lineno">  48</span>     &lt;color name="Khaki">#F0E68C&lt;/color>
+<span class="lineno">  49</span>     &lt;color name="LightCoral">#F08080&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:48</span>: <span class="message">The resource R.color.Khaki appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  45</span>     &lt;color name="Azure">#F0FFFF&lt;/color>
+<span class="lineno">  46</span>     &lt;color name="Honeydew">#F0FFF0&lt;/color>
+<span class="lineno">  47</span>     &lt;color name="AliceBlue">#F0F8FF&lt;/color>
+<span class="lineno">  48</span>     <span class="errorspan">&lt;color name="Khaki">#F0E68C&lt;/color></span>
+<span class="lineno">  49</span>     &lt;color name="LightCoral">#F08080&lt;/color>
+<span class="lineno">  50</span>     &lt;color name="PaleGoldenrod">#EEE8AA&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:49</span>: <span class="message">The resource R.color.LightCoral appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  46</span>     &lt;color name="Honeydew">#F0FFF0&lt;/color>
+<span class="lineno">  47</span>     &lt;color name="AliceBlue">#F0F8FF&lt;/color>
+<span class="lineno">  48</span>     &lt;color name="Khaki">#F0E68C&lt;/color>
+<span class="lineno">  49</span>     <span class="errorspan">&lt;color name="LightCoral">#F08080&lt;/color></span>
+<span class="lineno">  50</span>     &lt;color name="PaleGoldenrod">#EEE8AA&lt;/color>
+<span class="lineno">  51</span>     &lt;color name="Violet">#EE82EE&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:50</span>: <span class="message">The resource R.color.PaleGoldenrod appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  47</span>     &lt;color name="AliceBlue">#F0F8FF&lt;/color>
+<span class="lineno">  48</span>     &lt;color name="Khaki">#F0E68C&lt;/color>
+<span class="lineno">  49</span>     &lt;color name="LightCoral">#F08080&lt;/color>
+<span class="lineno">  50</span>     <span class="errorspan">&lt;color name="PaleGoldenrod">#EEE8AA&lt;/color></span>
+<span class="lineno">  51</span>     &lt;color name="Violet">#EE82EE&lt;/color>
+<span class="lineno">  52</span>     &lt;color name="DarkSalmon">#E9967A&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:51</span>: <span class="message">The resource R.color.Violet appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  48</span>     &lt;color name="Khaki">#F0E68C&lt;/color>
+<span class="lineno">  49</span>     &lt;color name="LightCoral">#F08080&lt;/color>
+<span class="lineno">  50</span>     &lt;color name="PaleGoldenrod">#EEE8AA&lt;/color>
+<span class="lineno">  51</span>     <span class="errorspan">&lt;color name="Violet">#EE82EE&lt;/color></span>
+<span class="lineno">  52</span>     &lt;color name="DarkSalmon">#E9967A&lt;/color>
+<span class="lineno">  53</span>     &lt;color name="Lavender">#E6E6FA&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:52</span>: <span class="message">The resource R.color.DarkSalmon appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  49</span>     &lt;color name="LightCoral">#F08080&lt;/color>
+<span class="lineno">  50</span>     &lt;color name="PaleGoldenrod">#EEE8AA&lt;/color>
+<span class="lineno">  51</span>     &lt;color name="Violet">#EE82EE&lt;/color>
+<span class="lineno">  52</span>     <span class="errorspan">&lt;color name="DarkSalmon">#E9967A&lt;/color></span>
+<span class="lineno">  53</span>     &lt;color name="Lavender">#E6E6FA&lt;/color>
+<span class="lineno">  54</span>     &lt;color name="LightCyan">#E0FFFF&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:53</span>: <span class="message">The resource R.color.Lavender appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  50</span>     &lt;color name="PaleGoldenrod">#EEE8AA&lt;/color>
+<span class="lineno">  51</span>     &lt;color name="Violet">#EE82EE&lt;/color>
+<span class="lineno">  52</span>     &lt;color name="DarkSalmon">#E9967A&lt;/color>
+<span class="lineno">  53</span>     <span class="errorspan">&lt;color name="Lavender">#E6E6FA&lt;/color></span>
+<span class="lineno">  54</span>     &lt;color name="LightCyan">#E0FFFF&lt;/color>
+<span class="lineno">  55</span>     &lt;color name="BurlyWood">#DEB887&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:54</span>: <span class="message">The resource R.color.LightCyan appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  51</span>     &lt;color name="Violet">#EE82EE&lt;/color>
+<span class="lineno">  52</span>     &lt;color name="DarkSalmon">#E9967A&lt;/color>
+<span class="lineno">  53</span>     &lt;color name="Lavender">#E6E6FA&lt;/color>
+<span class="lineno">  54</span>     <span class="errorspan">&lt;color name="LightCyan">#E0FFFF&lt;/color></span>
+<span class="lineno">  55</span>     &lt;color name="BurlyWood">#DEB887&lt;/color>
+<span class="lineno">  56</span>     &lt;color name="Plum">#DDA0DD&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:55</span>: <span class="message">The resource R.color.BurlyWood appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  52</span>     &lt;color name="DarkSalmon">#E9967A&lt;/color>
+<span class="lineno">  53</span>     &lt;color name="Lavender">#E6E6FA&lt;/color>
+<span class="lineno">  54</span>     &lt;color name="LightCyan">#E0FFFF&lt;/color>
+<span class="lineno">  55</span>     <span class="errorspan">&lt;color name="BurlyWood">#DEB887&lt;/color></span>
+<span class="lineno">  56</span>     &lt;color name="Plum">#DDA0DD&lt;/color>
+<span class="lineno">  57</span>     &lt;color name="Gainsboro">#DCDCDC&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:56</span>: <span class="message">The resource R.color.Plum appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  53</span>     &lt;color name="Lavender">#E6E6FA&lt;/color>
+<span class="lineno">  54</span>     &lt;color name="LightCyan">#E0FFFF&lt;/color>
+<span class="lineno">  55</span>     &lt;color name="BurlyWood">#DEB887&lt;/color>
+<span class="lineno">  56</span>     <span class="errorspan">&lt;color name="Plum">#DDA0DD&lt;/color></span>
+<span class="lineno">  57</span>     &lt;color name="Gainsboro">#DCDCDC&lt;/color>
+<span class="lineno">  58</span>     &lt;color name="Crimson">#DC143C&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:57</span>: <span class="message">The resource R.color.Gainsboro appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  54</span>     &lt;color name="LightCyan">#E0FFFF&lt;/color>
+<span class="lineno">  55</span>     &lt;color name="BurlyWood">#DEB887&lt;/color>
+<span class="lineno">  56</span>     &lt;color name="Plum">#DDA0DD&lt;/color>
+<span class="lineno">  57</span>     <span class="errorspan">&lt;color name="Gainsboro">#DCDCDC&lt;/color></span>
+<span class="lineno">  58</span>     &lt;color name="Crimson">#DC143C&lt;/color>
+<span class="lineno">  59</span>     &lt;color name="PaleVioletRed">#DB7093&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:58</span>: <span class="message">The resource R.color.Crimson appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  55</span>     &lt;color name="BurlyWood">#DEB887&lt;/color>
+<span class="lineno">  56</span>     &lt;color name="Plum">#DDA0DD&lt;/color>
+<span class="lineno">  57</span>     &lt;color name="Gainsboro">#DCDCDC&lt;/color>
+<span class="lineno">  58</span>     <span class="errorspan">&lt;color name="Crimson">#DC143C&lt;/color></span>
+<span class="lineno">  59</span>     &lt;color name="PaleVioletRed">#DB7093&lt;/color>
+<span class="lineno">  60</span>     &lt;color name="Goldenrod">#DAA520&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:59</span>: <span class="message">The resource R.color.PaleVioletRed appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  56</span>     &lt;color name="Plum">#DDA0DD&lt;/color>
+<span class="lineno">  57</span>     &lt;color name="Gainsboro">#DCDCDC&lt;/color>
+<span class="lineno">  58</span>     &lt;color name="Crimson">#DC143C&lt;/color>
+<span class="lineno">  59</span>     <span class="errorspan">&lt;color name="PaleVioletRed">#DB7093&lt;/color></span>
+<span class="lineno">  60</span>     &lt;color name="Goldenrod">#DAA520&lt;/color>
+<span class="lineno">  61</span>     &lt;color name="Orchid">#DA70D6&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:60</span>: <span class="message">The resource R.color.Goldenrod appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  57</span>     &lt;color name="Gainsboro">#DCDCDC&lt;/color>
+<span class="lineno">  58</span>     &lt;color name="Crimson">#DC143C&lt;/color>
+<span class="lineno">  59</span>     &lt;color name="PaleVioletRed">#DB7093&lt;/color>
+<span class="lineno">  60</span>     <span class="errorspan">&lt;color name="Goldenrod">#DAA520&lt;/color></span>
+<span class="lineno">  61</span>     &lt;color name="Orchid">#DA70D6&lt;/color>
+<span class="lineno">  62</span>     &lt;color name="Thistle">#D8BFD8&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:61</span>: <span class="message">The resource R.color.Orchid appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  58</span>     &lt;color name="Crimson">#DC143C&lt;/color>
+<span class="lineno">  59</span>     &lt;color name="PaleVioletRed">#DB7093&lt;/color>
+<span class="lineno">  60</span>     &lt;color name="Goldenrod">#DAA520&lt;/color>
+<span class="lineno">  61</span>     <span class="errorspan">&lt;color name="Orchid">#DA70D6&lt;/color></span>
+<span class="lineno">  62</span>     &lt;color name="Thistle">#D8BFD8&lt;/color>
+<span class="lineno">  63</span>     &lt;color name="LightGrey">#D3D3D3&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:62</span>: <span class="message">The resource R.color.Thistle appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  59</span>     &lt;color name="PaleVioletRed">#DB7093&lt;/color>
+<span class="lineno">  60</span>     &lt;color name="Goldenrod">#DAA520&lt;/color>
+<span class="lineno">  61</span>     &lt;color name="Orchid">#DA70D6&lt;/color>
+<span class="lineno">  62</span>     <span class="errorspan">&lt;color name="Thistle">#D8BFD8&lt;/color></span>
+<span class="lineno">  63</span>     &lt;color name="LightGrey">#D3D3D3&lt;/color>
+<span class="lineno">  64</span>     &lt;color name="Tan">#D2B48C&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:63</span>: <span class="message">The resource R.color.LightGrey appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  60</span>     &lt;color name="Goldenrod">#DAA520&lt;/color>
+<span class="lineno">  61</span>     &lt;color name="Orchid">#DA70D6&lt;/color>
+<span class="lineno">  62</span>     &lt;color name="Thistle">#D8BFD8&lt;/color>
+<span class="lineno">  63</span>     <span class="errorspan">&lt;color name="LightGrey">#D3D3D3&lt;/color></span>
+<span class="lineno">  64</span>     &lt;color name="Tan">#D2B48C&lt;/color>
+<span class="lineno">  65</span>     &lt;color name="Chocolate">#D2691E&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:64</span>: <span class="message">The resource R.color.Tan appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  61</span>     &lt;color name="Orchid">#DA70D6&lt;/color>
+<span class="lineno">  62</span>     &lt;color name="Thistle">#D8BFD8&lt;/color>
+<span class="lineno">  63</span>     &lt;color name="LightGrey">#D3D3D3&lt;/color>
+<span class="lineno">  64</span>     <span class="errorspan">&lt;color name="Tan">#D2B48C&lt;/color></span>
+<span class="lineno">  65</span>     &lt;color name="Chocolate">#D2691E&lt;/color>
+<span class="lineno">  66</span>     &lt;color name="Peru">#CD853F&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:65</span>: <span class="message">The resource R.color.Chocolate appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  62</span>     &lt;color name="Thistle">#D8BFD8&lt;/color>
+<span class="lineno">  63</span>     &lt;color name="LightGrey">#D3D3D3&lt;/color>
+<span class="lineno">  64</span>     &lt;color name="Tan">#D2B48C&lt;/color>
+<span class="lineno">  65</span>     <span class="errorspan">&lt;color name="Chocolate">#D2691E&lt;/color></span>
+<span class="lineno">  66</span>     &lt;color name="Peru">#CD853F&lt;/color>
+<span class="lineno">  67</span>     &lt;color name="IndianRed">#CD5C5C&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:66</span>: <span class="message">The resource R.color.Peru appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  63</span>     &lt;color name="LightGrey">#D3D3D3&lt;/color>
+<span class="lineno">  64</span>     &lt;color name="Tan">#D2B48C&lt;/color>
+<span class="lineno">  65</span>     &lt;color name="Chocolate">#D2691E&lt;/color>
+<span class="lineno">  66</span>     <span class="errorspan">&lt;color name="Peru">#CD853F&lt;/color></span>
+<span class="lineno">  67</span>     &lt;color name="IndianRed">#CD5C5C&lt;/color>
+<span class="lineno">  68</span>     &lt;color name="MediumVioletRed">#C71585&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:67</span>: <span class="message">The resource R.color.IndianRed appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  64</span>     &lt;color name="Tan">#D2B48C&lt;/color>
+<span class="lineno">  65</span>     &lt;color name="Chocolate">#D2691E&lt;/color>
+<span class="lineno">  66</span>     &lt;color name="Peru">#CD853F&lt;/color>
+<span class="lineno">  67</span>     <span class="errorspan">&lt;color name="IndianRed">#CD5C5C&lt;/color></span>
+<span class="lineno">  68</span>     &lt;color name="MediumVioletRed">#C71585&lt;/color>
+<span class="lineno">  69</span>     &lt;color name="Silver">#C0C0C0&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:68</span>: <span class="message">The resource R.color.MediumVioletRed appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  65</span>     &lt;color name="Chocolate">#D2691E&lt;/color>
+<span class="lineno">  66</span>     &lt;color name="Peru">#CD853F&lt;/color>
+<span class="lineno">  67</span>     &lt;color name="IndianRed">#CD5C5C&lt;/color>
+<span class="lineno">  68</span>     <span class="errorspan">&lt;color name="MediumVioletRed">#C71585&lt;/color></span>
+<span class="lineno">  69</span>     &lt;color name="Silver">#C0C0C0&lt;/color>
+<span class="lineno">  70</span>     &lt;color name="DarkKhaki">#BDB76B&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:69</span>: <span class="message">The resource R.color.Silver appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  66</span>     &lt;color name="Peru">#CD853F&lt;/color>
+<span class="lineno">  67</span>     &lt;color name="IndianRed">#CD5C5C&lt;/color>
+<span class="lineno">  68</span>     &lt;color name="MediumVioletRed">#C71585&lt;/color>
+<span class="lineno">  69</span>     <span class="errorspan">&lt;color name="Silver">#C0C0C0&lt;/color></span>
+<span class="lineno">  70</span>     &lt;color name="DarkKhaki">#BDB76B&lt;/color>
+<span class="lineno">  71</span>     &lt;color name="RosyBrown">#BC8F8F&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:70</span>: <span class="message">The resource R.color.DarkKhaki appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  67</span>     &lt;color name="IndianRed">#CD5C5C&lt;/color>
+<span class="lineno">  68</span>     &lt;color name="MediumVioletRed">#C71585&lt;/color>
+<span class="lineno">  69</span>     &lt;color name="Silver">#C0C0C0&lt;/color>
+<span class="lineno">  70</span>     <span class="errorspan">&lt;color name="DarkKhaki">#BDB76B&lt;/color></span>
+<span class="lineno">  71</span>     &lt;color name="RosyBrown">#BC8F8F&lt;/color>
+<span class="lineno">  72</span>     &lt;color name="MediumOrchid">#BA55D3&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:71</span>: <span class="message">The resource R.color.RosyBrown appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  68</span>     &lt;color name="MediumVioletRed">#C71585&lt;/color>
+<span class="lineno">  69</span>     &lt;color name="Silver">#C0C0C0&lt;/color>
+<span class="lineno">  70</span>     &lt;color name="DarkKhaki">#BDB76B&lt;/color>
+<span class="lineno">  71</span>     <span class="errorspan">&lt;color name="RosyBrown">#BC8F8F&lt;/color></span>
+<span class="lineno">  72</span>     &lt;color name="MediumOrchid">#BA55D3&lt;/color>
+<span class="lineno">  73</span>     &lt;color name="DarkGoldenrod">#B8860B&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:72</span>: <span class="message">The resource R.color.MediumOrchid appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  69</span>     &lt;color name="Silver">#C0C0C0&lt;/color>
+<span class="lineno">  70</span>     &lt;color name="DarkKhaki">#BDB76B&lt;/color>
+<span class="lineno">  71</span>     &lt;color name="RosyBrown">#BC8F8F&lt;/color>
+<span class="lineno">  72</span>     <span class="errorspan">&lt;color name="MediumOrchid">#BA55D3&lt;/color></span>
+<span class="lineno">  73</span>     &lt;color name="DarkGoldenrod">#B8860B&lt;/color>
+<span class="lineno">  74</span>     &lt;color name="FireBrick">#B22222&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:73</span>: <span class="message">The resource R.color.DarkGoldenrod appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  70</span>     &lt;color name="DarkKhaki">#BDB76B&lt;/color>
+<span class="lineno">  71</span>     &lt;color name="RosyBrown">#BC8F8F&lt;/color>
+<span class="lineno">  72</span>     &lt;color name="MediumOrchid">#BA55D3&lt;/color>
+<span class="lineno">  73</span>     <span class="errorspan">&lt;color name="DarkGoldenrod">#B8860B&lt;/color></span>
+<span class="lineno">  74</span>     &lt;color name="FireBrick">#B22222&lt;/color>
+<span class="lineno">  75</span>     &lt;color name="PowderBlue">#B0E0E6&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:74</span>: <span class="message">The resource R.color.FireBrick appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  71</span>     &lt;color name="RosyBrown">#BC8F8F&lt;/color>
+<span class="lineno">  72</span>     &lt;color name="MediumOrchid">#BA55D3&lt;/color>
+<span class="lineno">  73</span>     &lt;color name="DarkGoldenrod">#B8860B&lt;/color>
+<span class="lineno">  74</span>     <span class="errorspan">&lt;color name="FireBrick">#B22222&lt;/color></span>
+<span class="lineno">  75</span>     &lt;color name="PowderBlue">#B0E0E6&lt;/color>
+<span class="lineno">  76</span>     &lt;color name="LightSteelBlue">#B0C4DE&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:75</span>: <span class="message">The resource R.color.PowderBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  72</span>     &lt;color name="MediumOrchid">#BA55D3&lt;/color>
+<span class="lineno">  73</span>     &lt;color name="DarkGoldenrod">#B8860B&lt;/color>
+<span class="lineno">  74</span>     &lt;color name="FireBrick">#B22222&lt;/color>
+<span class="lineno">  75</span>     <span class="errorspan">&lt;color name="PowderBlue">#B0E0E6&lt;/color></span>
+<span class="lineno">  76</span>     &lt;color name="LightSteelBlue">#B0C4DE&lt;/color>
+<span class="lineno">  77</span>     &lt;color name="PaleTurquoise">#AFEEEE&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:76</span>: <span class="message">The resource R.color.LightSteelBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  73</span>     &lt;color name="DarkGoldenrod">#B8860B&lt;/color>
+<span class="lineno">  74</span>     &lt;color name="FireBrick">#B22222&lt;/color>
+<span class="lineno">  75</span>     &lt;color name="PowderBlue">#B0E0E6&lt;/color>
+<span class="lineno">  76</span>     <span class="errorspan">&lt;color name="LightSteelBlue">#B0C4DE&lt;/color></span>
+<span class="lineno">  77</span>     &lt;color name="PaleTurquoise">#AFEEEE&lt;/color>
+<span class="lineno">  78</span>     &lt;color name="GreenYellow">#ADFF2F&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:77</span>: <span class="message">The resource R.color.PaleTurquoise appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  74</span>     &lt;color name="FireBrick">#B22222&lt;/color>
+<span class="lineno">  75</span>     &lt;color name="PowderBlue">#B0E0E6&lt;/color>
+<span class="lineno">  76</span>     &lt;color name="LightSteelBlue">#B0C4DE&lt;/color>
+<span class="lineno">  77</span>     <span class="errorspan">&lt;color name="PaleTurquoise">#AFEEEE&lt;/color></span>
+<span class="lineno">  78</span>     &lt;color name="GreenYellow">#ADFF2F&lt;/color>
+<span class="lineno">  79</span>     &lt;color name="LightBlue">#ADD8E6&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:78</span>: <span class="message">The resource R.color.GreenYellow appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  75</span>     &lt;color name="PowderBlue">#B0E0E6&lt;/color>
+<span class="lineno">  76</span>     &lt;color name="LightSteelBlue">#B0C4DE&lt;/color>
+<span class="lineno">  77</span>     &lt;color name="PaleTurquoise">#AFEEEE&lt;/color>
+<span class="lineno">  78</span>     <span class="errorspan">&lt;color name="GreenYellow">#ADFF2F&lt;/color></span>
+<span class="lineno">  79</span>     &lt;color name="LightBlue">#ADD8E6&lt;/color>
+<span class="lineno">  80</span>     &lt;color name="DarkGray">#A9A9A9&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:79</span>: <span class="message">The resource R.color.LightBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  76</span>     &lt;color name="LightSteelBlue">#B0C4DE&lt;/color>
+<span class="lineno">  77</span>     &lt;color name="PaleTurquoise">#AFEEEE&lt;/color>
+<span class="lineno">  78</span>     &lt;color name="GreenYellow">#ADFF2F&lt;/color>
+<span class="lineno">  79</span>     <span class="errorspan">&lt;color name="LightBlue">#ADD8E6&lt;/color></span>
+<span class="lineno">  80</span>     &lt;color name="DarkGray">#A9A9A9&lt;/color>
+<span class="lineno">  81</span>     &lt;color name="Brown">#A52A2A&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:80</span>: <span class="message">The resource R.color.DarkGray appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  77</span>     &lt;color name="PaleTurquoise">#AFEEEE&lt;/color>
+<span class="lineno">  78</span>     &lt;color name="GreenYellow">#ADFF2F&lt;/color>
+<span class="lineno">  79</span>     &lt;color name="LightBlue">#ADD8E6&lt;/color>
+<span class="lineno">  80</span>     <span class="errorspan">&lt;color name="DarkGray">#A9A9A9&lt;/color></span>
+<span class="lineno">  81</span>     &lt;color name="Brown">#A52A2A&lt;/color>
+<span class="lineno">  82</span>     &lt;color name="Sienna">#A0522D&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:81</span>: <span class="message">The resource R.color.Brown appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  78</span>     &lt;color name="GreenYellow">#ADFF2F&lt;/color>
+<span class="lineno">  79</span>     &lt;color name="LightBlue">#ADD8E6&lt;/color>
+<span class="lineno">  80</span>     &lt;color name="DarkGray">#A9A9A9&lt;/color>
+<span class="lineno">  81</span>     <span class="errorspan">&lt;color name="Brown">#A52A2A&lt;/color></span>
+<span class="lineno">  82</span>     &lt;color name="Sienna">#A0522D&lt;/color>
+<span class="lineno">  83</span>     &lt;color name="YellowGreen">#9ACD32&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:82</span>: <span class="message">The resource R.color.Sienna appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  79</span>     &lt;color name="LightBlue">#ADD8E6&lt;/color>
+<span class="lineno">  80</span>     &lt;color name="DarkGray">#A9A9A9&lt;/color>
+<span class="lineno">  81</span>     &lt;color name="Brown">#A52A2A&lt;/color>
+<span class="lineno">  82</span>     <span class="errorspan">&lt;color name="Sienna">#A0522D&lt;/color></span>
+<span class="lineno">  83</span>     &lt;color name="YellowGreen">#9ACD32&lt;/color>
+<span class="lineno">  84</span>     &lt;color name="DarkOrchid">#9932CC&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:83</span>: <span class="message">The resource R.color.YellowGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  80</span>     &lt;color name="DarkGray">#A9A9A9&lt;/color>
+<span class="lineno">  81</span>     &lt;color name="Brown">#A52A2A&lt;/color>
+<span class="lineno">  82</span>     &lt;color name="Sienna">#A0522D&lt;/color>
+<span class="lineno">  83</span>     <span class="errorspan">&lt;color name="YellowGreen">#9ACD32&lt;/color></span>
+<span class="lineno">  84</span>     &lt;color name="DarkOrchid">#9932CC&lt;/color>
+<span class="lineno">  85</span>     &lt;color name="PaleGreen">#98FB98&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:84</span>: <span class="message">The resource R.color.DarkOrchid appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  81</span>     &lt;color name="Brown">#A52A2A&lt;/color>
+<span class="lineno">  82</span>     &lt;color name="Sienna">#A0522D&lt;/color>
+<span class="lineno">  83</span>     &lt;color name="YellowGreen">#9ACD32&lt;/color>
+<span class="lineno">  84</span>     <span class="errorspan">&lt;color name="DarkOrchid">#9932CC&lt;/color></span>
+<span class="lineno">  85</span>     &lt;color name="PaleGreen">#98FB98&lt;/color>
+<span class="lineno">  86</span>     &lt;color name="DarkViolet">#9400D3&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:85</span>: <span class="message">The resource R.color.PaleGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  82</span>     &lt;color name="Sienna">#A0522D&lt;/color>
+<span class="lineno">  83</span>     &lt;color name="YellowGreen">#9ACD32&lt;/color>
+<span class="lineno">  84</span>     &lt;color name="DarkOrchid">#9932CC&lt;/color>
+<span class="lineno">  85</span>     <span class="errorspan">&lt;color name="PaleGreen">#98FB98&lt;/color></span>
+<span class="lineno">  86</span>     &lt;color name="DarkViolet">#9400D3&lt;/color>
+<span class="lineno">  87</span>     &lt;color name="MediumPurple">#9370DB&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:86</span>: <span class="message">The resource R.color.DarkViolet appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  83</span>     &lt;color name="YellowGreen">#9ACD32&lt;/color>
+<span class="lineno">  84</span>     &lt;color name="DarkOrchid">#9932CC&lt;/color>
+<span class="lineno">  85</span>     &lt;color name="PaleGreen">#98FB98&lt;/color>
+<span class="lineno">  86</span>     <span class="errorspan">&lt;color name="DarkViolet">#9400D3&lt;/color></span>
+<span class="lineno">  87</span>     &lt;color name="MediumPurple">#9370DB&lt;/color>
+<span class="lineno">  88</span>     &lt;color name="LightGreen">#90EE90&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:87</span>: <span class="message">The resource R.color.MediumPurple appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  84</span>     &lt;color name="DarkOrchid">#9932CC&lt;/color>
+<span class="lineno">  85</span>     &lt;color name="PaleGreen">#98FB98&lt;/color>
+<span class="lineno">  86</span>     &lt;color name="DarkViolet">#9400D3&lt;/color>
+<span class="lineno">  87</span>     <span class="errorspan">&lt;color name="MediumPurple">#9370DB&lt;/color></span>
+<span class="lineno">  88</span>     &lt;color name="LightGreen">#90EE90&lt;/color>
+<span class="lineno">  89</span>     &lt;color name="DarkSeaGreen">#8FBC8F&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:88</span>: <span class="message">The resource R.color.LightGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  85</span>     &lt;color name="PaleGreen">#98FB98&lt;/color>
+<span class="lineno">  86</span>     &lt;color name="DarkViolet">#9400D3&lt;/color>
+<span class="lineno">  87</span>     &lt;color name="MediumPurple">#9370DB&lt;/color>
+<span class="lineno">  88</span>     <span class="errorspan">&lt;color name="LightGreen">#90EE90&lt;/color></span>
+<span class="lineno">  89</span>     &lt;color name="DarkSeaGreen">#8FBC8F&lt;/color>
+<span class="lineno">  90</span>     &lt;color name="SaddleBrown">#8B4513&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:89</span>: <span class="message">The resource R.color.DarkSeaGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  86</span>     &lt;color name="DarkViolet">#9400D3&lt;/color>
+<span class="lineno">  87</span>     &lt;color name="MediumPurple">#9370DB&lt;/color>
+<span class="lineno">  88</span>     &lt;color name="LightGreen">#90EE90&lt;/color>
+<span class="lineno">  89</span>     <span class="errorspan">&lt;color name="DarkSeaGreen">#8FBC8F&lt;/color></span>
+<span class="lineno">  90</span>     &lt;color name="SaddleBrown">#8B4513&lt;/color>
+<span class="lineno">  91</span>     &lt;color name="DarkMagenta">#8B008B&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:90</span>: <span class="message">The resource R.color.SaddleBrown appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  87</span>     &lt;color name="MediumPurple">#9370DB&lt;/color>
+<span class="lineno">  88</span>     &lt;color name="LightGreen">#90EE90&lt;/color>
+<span class="lineno">  89</span>     &lt;color name="DarkSeaGreen">#8FBC8F&lt;/color>
+<span class="lineno">  90</span>     <span class="errorspan">&lt;color name="SaddleBrown">#8B4513&lt;/color></span>
+<span class="lineno">  91</span>     &lt;color name="DarkMagenta">#8B008B&lt;/color>
+<span class="lineno">  92</span>     &lt;color name="DarkRed">#8B0000&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:91</span>: <span class="message">The resource R.color.DarkMagenta appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  88</span>     &lt;color name="LightGreen">#90EE90&lt;/color>
+<span class="lineno">  89</span>     &lt;color name="DarkSeaGreen">#8FBC8F&lt;/color>
+<span class="lineno">  90</span>     &lt;color name="SaddleBrown">#8B4513&lt;/color>
+<span class="lineno">  91</span>     <span class="errorspan">&lt;color name="DarkMagenta">#8B008B&lt;/color></span>
+<span class="lineno">  92</span>     &lt;color name="DarkRed">#8B0000&lt;/color>
+<span class="lineno">  93</span>     &lt;color name="BlueViolet">#8A2BE2&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:92</span>: <span class="message">The resource R.color.DarkRed appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  89</span>     &lt;color name="DarkSeaGreen">#8FBC8F&lt;/color>
+<span class="lineno">  90</span>     &lt;color name="SaddleBrown">#8B4513&lt;/color>
+<span class="lineno">  91</span>     &lt;color name="DarkMagenta">#8B008B&lt;/color>
+<span class="lineno">  92</span>     <span class="errorspan">&lt;color name="DarkRed">#8B0000&lt;/color></span>
+<span class="lineno">  93</span>     &lt;color name="BlueViolet">#8A2BE2&lt;/color>
+<span class="lineno">  94</span>     &lt;color name="LightSkyBlue">#87CEFA&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:93</span>: <span class="message">The resource R.color.BlueViolet appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  90</span>     &lt;color name="SaddleBrown">#8B4513&lt;/color>
+<span class="lineno">  91</span>     &lt;color name="DarkMagenta">#8B008B&lt;/color>
+<span class="lineno">  92</span>     &lt;color name="DarkRed">#8B0000&lt;/color>
+<span class="lineno">  93</span>     <span class="errorspan">&lt;color name="BlueViolet">#8A2BE2&lt;/color></span>
+<span class="lineno">  94</span>     &lt;color name="LightSkyBlue">#87CEFA&lt;/color>
+<span class="lineno">  95</span>     &lt;color name="SkyBlue">#87CEEB&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:94</span>: <span class="message">The resource R.color.LightSkyBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  91</span>     &lt;color name="DarkMagenta">#8B008B&lt;/color>
+<span class="lineno">  92</span>     &lt;color name="DarkRed">#8B0000&lt;/color>
+<span class="lineno">  93</span>     &lt;color name="BlueViolet">#8A2BE2&lt;/color>
+<span class="lineno">  94</span>     <span class="errorspan">&lt;color name="LightSkyBlue">#87CEFA&lt;/color></span>
+<span class="lineno">  95</span>     &lt;color name="SkyBlue">#87CEEB&lt;/color>
+<span class="lineno">  96</span>     &lt;color name="Gray">#808080&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:95</span>: <span class="message">The resource R.color.SkyBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  92</span>     &lt;color name="DarkRed">#8B0000&lt;/color>
+<span class="lineno">  93</span>     &lt;color name="BlueViolet">#8A2BE2&lt;/color>
+<span class="lineno">  94</span>     &lt;color name="LightSkyBlue">#87CEFA&lt;/color>
+<span class="lineno">  95</span>     <span class="errorspan">&lt;color name="SkyBlue">#87CEEB&lt;/color></span>
+<span class="lineno">  96</span>     &lt;color name="Gray">#808080&lt;/color>
+<span class="lineno">  97</span>     &lt;color name="Olive">#808000&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:97</span>: <span class="message">The resource R.color.Olive appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  94</span>     &lt;color name="LightSkyBlue">#87CEFA&lt;/color>
+<span class="lineno">  95</span>     &lt;color name="SkyBlue">#87CEEB&lt;/color>
+<span class="lineno">  96</span>     &lt;color name="Gray">#808080&lt;/color>
+<span class="lineno">  97</span>     <span class="errorspan">&lt;color name="Olive">#808000&lt;/color></span>
+<span class="lineno">  98</span>     &lt;color name="Purple">#800080&lt;/color>
+<span class="lineno">  99</span>     &lt;color name="Maroon">#800000&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:98</span>: <span class="message">The resource R.color.Purple appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  95</span>     &lt;color name="SkyBlue">#87CEEB&lt;/color>
+<span class="lineno">  96</span>     &lt;color name="Gray">#808080&lt;/color>
+<span class="lineno">  97</span>     &lt;color name="Olive">#808000&lt;/color>
+<span class="lineno">  98</span>     <span class="errorspan">&lt;color name="Purple">#800080&lt;/color></span>
+<span class="lineno">  99</span>     &lt;color name="Maroon">#800000&lt;/color>
+<span class="lineno"> 100</span>     &lt;color name="Aquamarine">#7FFFD4&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:99</span>: <span class="message">The resource R.color.Maroon appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  96</span>     &lt;color name="Gray">#808080&lt;/color>
+<span class="lineno">  97</span>     &lt;color name="Olive">#808000&lt;/color>
+<span class="lineno">  98</span>     &lt;color name="Purple">#800080&lt;/color>
+<span class="lineno">  99</span>     <span class="errorspan">&lt;color name="Maroon">#800000&lt;/color></span>
+<span class="lineno"> 100</span>     &lt;color name="Aquamarine">#7FFFD4&lt;/color>
+<span class="lineno"> 101</span>     &lt;color name="Chartreuse">#7FFF00&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:100</span>: <span class="message">The resource R.color.Aquamarine appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  97</span>     &lt;color name="Olive">#808000&lt;/color>
+<span class="lineno">  98</span>     &lt;color name="Purple">#800080&lt;/color>
+<span class="lineno">  99</span>     &lt;color name="Maroon">#800000&lt;/color>
+<span class="lineno"> 100</span>     <span class="errorspan">&lt;color name="Aquamarine">#7FFFD4&lt;/color></span>
+<span class="lineno"> 101</span>     &lt;color name="Chartreuse">#7FFF00&lt;/color>
+<span class="lineno"> 102</span>     &lt;color name="LawnGreen">#7CFC00&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:101</span>: <span class="message">The resource R.color.Chartreuse appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  98</span>     &lt;color name="Purple">#800080&lt;/color>
+<span class="lineno">  99</span>     &lt;color name="Maroon">#800000&lt;/color>
+<span class="lineno"> 100</span>     &lt;color name="Aquamarine">#7FFFD4&lt;/color>
+<span class="lineno"> 101</span>     <span class="errorspan">&lt;color name="Chartreuse">#7FFF00&lt;/color></span>
+<span class="lineno"> 102</span>     &lt;color name="LawnGreen">#7CFC00&lt;/color>
+<span class="lineno"> 103</span>     &lt;color name="MediumSlateBlue">#7B68EE&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:102</span>: <span class="message">The resource R.color.LawnGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  99</span>     &lt;color name="Maroon">#800000&lt;/color>
+<span class="lineno"> 100</span>     &lt;color name="Aquamarine">#7FFFD4&lt;/color>
+<span class="lineno"> 101</span>     &lt;color name="Chartreuse">#7FFF00&lt;/color>
+<span class="lineno"> 102</span>     <span class="errorspan">&lt;color name="LawnGreen">#7CFC00&lt;/color></span>
+<span class="lineno"> 103</span>     &lt;color name="MediumSlateBlue">#7B68EE&lt;/color>
+<span class="lineno"> 104</span>     &lt;color name="LightSlateGray">#778899&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:103</span>: <span class="message">The resource R.color.MediumSlateBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 100</span>     &lt;color name="Aquamarine">#7FFFD4&lt;/color>
+<span class="lineno"> 101</span>     &lt;color name="Chartreuse">#7FFF00&lt;/color>
+<span class="lineno"> 102</span>     &lt;color name="LawnGreen">#7CFC00&lt;/color>
+<span class="lineno"> 103</span>     <span class="errorspan">&lt;color name="MediumSlateBlue">#7B68EE&lt;/color></span>
+<span class="lineno"> 104</span>     &lt;color name="LightSlateGray">#778899&lt;/color>
+<span class="lineno"> 105</span>     &lt;color name="SlateGray">#708090&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:104</span>: <span class="message">The resource R.color.LightSlateGray appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 101</span>     &lt;color name="Chartreuse">#7FFF00&lt;/color>
+<span class="lineno"> 102</span>     &lt;color name="LawnGreen">#7CFC00&lt;/color>
+<span class="lineno"> 103</span>     &lt;color name="MediumSlateBlue">#7B68EE&lt;/color>
+<span class="lineno"> 104</span>     <span class="errorspan">&lt;color name="LightSlateGray">#778899&lt;/color></span>
+<span class="lineno"> 105</span>     &lt;color name="SlateGray">#708090&lt;/color>
+<span class="lineno"> 106</span>     &lt;color name="OliveDrab">#6B8E23&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:105</span>: <span class="message">The resource R.color.SlateGray appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 102</span>     &lt;color name="LawnGreen">#7CFC00&lt;/color>
+<span class="lineno"> 103</span>     &lt;color name="MediumSlateBlue">#7B68EE&lt;/color>
+<span class="lineno"> 104</span>     &lt;color name="LightSlateGray">#778899&lt;/color>
+<span class="lineno"> 105</span>     <span class="errorspan">&lt;color name="SlateGray">#708090&lt;/color></span>
+<span class="lineno"> 106</span>     &lt;color name="OliveDrab">#6B8E23&lt;/color>
+<span class="lineno"> 107</span>     &lt;color name="SlateBlue">#6A5ACD&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:106</span>: <span class="message">The resource R.color.OliveDrab appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 103</span>     &lt;color name="MediumSlateBlue">#7B68EE&lt;/color>
+<span class="lineno"> 104</span>     &lt;color name="LightSlateGray">#778899&lt;/color>
+<span class="lineno"> 105</span>     &lt;color name="SlateGray">#708090&lt;/color>
+<span class="lineno"> 106</span>     <span class="errorspan">&lt;color name="OliveDrab">#6B8E23&lt;/color></span>
+<span class="lineno"> 107</span>     &lt;color name="SlateBlue">#6A5ACD&lt;/color>
+<span class="lineno"> 108</span>     &lt;color name="DimGray">#696969&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:107</span>: <span class="message">The resource R.color.SlateBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 104</span>     &lt;color name="LightSlateGray">#778899&lt;/color>
+<span class="lineno"> 105</span>     &lt;color name="SlateGray">#708090&lt;/color>
+<span class="lineno"> 106</span>     &lt;color name="OliveDrab">#6B8E23&lt;/color>
+<span class="lineno"> 107</span>     <span class="errorspan">&lt;color name="SlateBlue">#6A5ACD&lt;/color></span>
+<span class="lineno"> 108</span>     &lt;color name="DimGray">#696969&lt;/color>
+<span class="lineno"> 109</span>     &lt;color name="MediumAquamarine">#66CDAA&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:108</span>: <span class="message">The resource R.color.DimGray appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 105</span>     &lt;color name="SlateGray">#708090&lt;/color>
+<span class="lineno"> 106</span>     &lt;color name="OliveDrab">#6B8E23&lt;/color>
+<span class="lineno"> 107</span>     &lt;color name="SlateBlue">#6A5ACD&lt;/color>
+<span class="lineno"> 108</span>     <span class="errorspan">&lt;color name="DimGray">#696969&lt;/color></span>
+<span class="lineno"> 109</span>     &lt;color name="MediumAquamarine">#66CDAA&lt;/color>
+<span class="lineno"> 110</span>     &lt;color name="CornflowerBlue">#6495ED&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:109</span>: <span class="message">The resource R.color.MediumAquamarine appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 106</span>     &lt;color name="OliveDrab">#6B8E23&lt;/color>
+<span class="lineno"> 107</span>     &lt;color name="SlateBlue">#6A5ACD&lt;/color>
+<span class="lineno"> 108</span>     &lt;color name="DimGray">#696969&lt;/color>
+<span class="lineno"> 109</span>     <span class="errorspan">&lt;color name="MediumAquamarine">#66CDAA&lt;/color></span>
+<span class="lineno"> 110</span>     &lt;color name="CornflowerBlue">#6495ED&lt;/color>
+<span class="lineno"> 111</span>     &lt;color name="CadetBlue">#5F9EA0&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:110</span>: <span class="message">The resource R.color.CornflowerBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 107</span>     &lt;color name="SlateBlue">#6A5ACD&lt;/color>
+<span class="lineno"> 108</span>     &lt;color name="DimGray">#696969&lt;/color>
+<span class="lineno"> 109</span>     &lt;color name="MediumAquamarine">#66CDAA&lt;/color>
+<span class="lineno"> 110</span>     <span class="errorspan">&lt;color name="CornflowerBlue">#6495ED&lt;/color></span>
+<span class="lineno"> 111</span>     &lt;color name="CadetBlue">#5F9EA0&lt;/color>
+<span class="lineno"> 112</span>     &lt;color name="DarkOliveGreen">#556B2F&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:111</span>: <span class="message">The resource R.color.CadetBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 108</span>     &lt;color name="DimGray">#696969&lt;/color>
+<span class="lineno"> 109</span>     &lt;color name="MediumAquamarine">#66CDAA&lt;/color>
+<span class="lineno"> 110</span>     &lt;color name="CornflowerBlue">#6495ED&lt;/color>
+<span class="lineno"> 111</span>     <span class="errorspan">&lt;color name="CadetBlue">#5F9EA0&lt;/color></span>
+<span class="lineno"> 112</span>     &lt;color name="DarkOliveGreen">#556B2F&lt;/color>
+<span class="lineno"> 113</span>     &lt;color name="Indigo">#4B0082&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:112</span>: <span class="message">The resource R.color.DarkOliveGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 109</span>     &lt;color name="MediumAquamarine">#66CDAA&lt;/color>
+<span class="lineno"> 110</span>     &lt;color name="CornflowerBlue">#6495ED&lt;/color>
+<span class="lineno"> 111</span>     &lt;color name="CadetBlue">#5F9EA0&lt;/color>
+<span class="lineno"> 112</span>     <span class="errorspan">&lt;color name="DarkOliveGreen">#556B2F&lt;/color></span>
+<span class="lineno"> 113</span>     &lt;color name="Indigo">#4B0082&lt;/color>
+<span class="lineno"> 114</span>     &lt;color name="MediumTurquoise">#48D1CC&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:113</span>: <span class="message">The resource R.color.Indigo appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 110</span>     &lt;color name="CornflowerBlue">#6495ED&lt;/color>
+<span class="lineno"> 111</span>     &lt;color name="CadetBlue">#5F9EA0&lt;/color>
+<span class="lineno"> 112</span>     &lt;color name="DarkOliveGreen">#556B2F&lt;/color>
+<span class="lineno"> 113</span>     <span class="errorspan">&lt;color name="Indigo">#4B0082&lt;/color></span>
+<span class="lineno"> 114</span>     &lt;color name="MediumTurquoise">#48D1CC&lt;/color>
+<span class="lineno"> 115</span>     &lt;color name="DarkSlateBlue">#483D8B&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:114</span>: <span class="message">The resource R.color.MediumTurquoise appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 111</span>     &lt;color name="CadetBlue">#5F9EA0&lt;/color>
+<span class="lineno"> 112</span>     &lt;color name="DarkOliveGreen">#556B2F&lt;/color>
+<span class="lineno"> 113</span>     &lt;color name="Indigo">#4B0082&lt;/color>
+<span class="lineno"> 114</span>     <span class="errorspan">&lt;color name="MediumTurquoise">#48D1CC&lt;/color></span>
+<span class="lineno"> 115</span>     &lt;color name="DarkSlateBlue">#483D8B&lt;/color>
+<span class="lineno"> 116</span>     &lt;color name="SteelBlue">#4682B4&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:115</span>: <span class="message">The resource R.color.DarkSlateBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 112</span>     &lt;color name="DarkOliveGreen">#556B2F&lt;/color>
+<span class="lineno"> 113</span>     &lt;color name="Indigo">#4B0082&lt;/color>
+<span class="lineno"> 114</span>     &lt;color name="MediumTurquoise">#48D1CC&lt;/color>
+<span class="lineno"> 115</span>     <span class="errorspan">&lt;color name="DarkSlateBlue">#483D8B&lt;/color></span>
+<span class="lineno"> 116</span>     &lt;color name="SteelBlue">#4682B4&lt;/color>
+<span class="lineno"> 117</span>     &lt;color name="RoyalBlue">#4169E1&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:116</span>: <span class="message">The resource R.color.SteelBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 113</span>     &lt;color name="Indigo">#4B0082&lt;/color>
+<span class="lineno"> 114</span>     &lt;color name="MediumTurquoise">#48D1CC&lt;/color>
+<span class="lineno"> 115</span>     &lt;color name="DarkSlateBlue">#483D8B&lt;/color>
+<span class="lineno"> 116</span>     <span class="errorspan">&lt;color name="SteelBlue">#4682B4&lt;/color></span>
+<span class="lineno"> 117</span>     &lt;color name="RoyalBlue">#4169E1&lt;/color>
+<span class="lineno"> 118</span>     &lt;color name="Turquoise">#40E0D0&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:117</span>: <span class="message">The resource R.color.RoyalBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 114</span>     &lt;color name="MediumTurquoise">#48D1CC&lt;/color>
+<span class="lineno"> 115</span>     &lt;color name="DarkSlateBlue">#483D8B&lt;/color>
+<span class="lineno"> 116</span>     &lt;color name="SteelBlue">#4682B4&lt;/color>
+<span class="lineno"> 117</span>     <span class="errorspan">&lt;color name="RoyalBlue">#4169E1&lt;/color></span>
+<span class="lineno"> 118</span>     &lt;color name="Turquoise">#40E0D0&lt;/color>
+<span class="lineno"> 119</span>     &lt;color name="MediumSeaGreen">#3CB371&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:118</span>: <span class="message">The resource R.color.Turquoise appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 115</span>     &lt;color name="DarkSlateBlue">#483D8B&lt;/color>
+<span class="lineno"> 116</span>     &lt;color name="SteelBlue">#4682B4&lt;/color>
+<span class="lineno"> 117</span>     &lt;color name="RoyalBlue">#4169E1&lt;/color>
+<span class="lineno"> 118</span>     <span class="errorspan">&lt;color name="Turquoise">#40E0D0&lt;/color></span>
+<span class="lineno"> 119</span>     &lt;color name="MediumSeaGreen">#3CB371&lt;/color>
+<span class="lineno"> 120</span>     &lt;color name="LimeGreen">#32CD32&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:119</span>: <span class="message">The resource R.color.MediumSeaGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 116</span>     &lt;color name="SteelBlue">#4682B4&lt;/color>
+<span class="lineno"> 117</span>     &lt;color name="RoyalBlue">#4169E1&lt;/color>
+<span class="lineno"> 118</span>     &lt;color name="Turquoise">#40E0D0&lt;/color>
+<span class="lineno"> 119</span>     <span class="errorspan">&lt;color name="MediumSeaGreen">#3CB371&lt;/color></span>
+<span class="lineno"> 120</span>     &lt;color name="LimeGreen">#32CD32&lt;/color>
+<span class="lineno"> 121</span>     &lt;color name="DarkSlateGray">#2F4F4F&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:120</span>: <span class="message">The resource R.color.LimeGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 117</span>     &lt;color name="RoyalBlue">#4169E1&lt;/color>
+<span class="lineno"> 118</span>     &lt;color name="Turquoise">#40E0D0&lt;/color>
+<span class="lineno"> 119</span>     &lt;color name="MediumSeaGreen">#3CB371&lt;/color>
+<span class="lineno"> 120</span>     <span class="errorspan">&lt;color name="LimeGreen">#32CD32&lt;/color></span>
+<span class="lineno"> 121</span>     &lt;color name="DarkSlateGray">#2F4F4F&lt;/color>
+<span class="lineno"> 122</span>     &lt;color name="SeaGreen">#2E8B57&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:121</span>: <span class="message">The resource R.color.DarkSlateGray appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 118</span>     &lt;color name="Turquoise">#40E0D0&lt;/color>
+<span class="lineno"> 119</span>     &lt;color name="MediumSeaGreen">#3CB371&lt;/color>
+<span class="lineno"> 120</span>     &lt;color name="LimeGreen">#32CD32&lt;/color>
+<span class="lineno"> 121</span>     <span class="errorspan">&lt;color name="DarkSlateGray">#2F4F4F&lt;/color></span>
+<span class="lineno"> 122</span>     &lt;color name="SeaGreen">#2E8B57&lt;/color>
+<span class="lineno"> 123</span>     &lt;color name="ForestGreen">#228B22&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:122</span>: <span class="message">The resource R.color.SeaGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 119</span>     &lt;color name="MediumSeaGreen">#3CB371&lt;/color>
+<span class="lineno"> 120</span>     &lt;color name="LimeGreen">#32CD32&lt;/color>
+<span class="lineno"> 121</span>     &lt;color name="DarkSlateGray">#2F4F4F&lt;/color>
+<span class="lineno"> 122</span>     <span class="errorspan">&lt;color name="SeaGreen">#2E8B57&lt;/color></span>
+<span class="lineno"> 123</span>     &lt;color name="ForestGreen">#228B22&lt;/color>
+<span class="lineno"> 124</span>     &lt;color name="LightSeaGreen">#20B2AA&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:123</span>: <span class="message">The resource R.color.ForestGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 120</span>     &lt;color name="LimeGreen">#32CD32&lt;/color>
+<span class="lineno"> 121</span>     &lt;color name="DarkSlateGray">#2F4F4F&lt;/color>
+<span class="lineno"> 122</span>     &lt;color name="SeaGreen">#2E8B57&lt;/color>
+<span class="lineno"> 123</span>     <span class="errorspan">&lt;color name="ForestGreen">#228B22&lt;/color></span>
+<span class="lineno"> 124</span>     &lt;color name="LightSeaGreen">#20B2AA&lt;/color>
+<span class="lineno"> 125</span>     &lt;color name="DodgerBlue">#1E90FF&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:124</span>: <span class="message">The resource R.color.LightSeaGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 121</span>     &lt;color name="DarkSlateGray">#2F4F4F&lt;/color>
+<span class="lineno"> 122</span>     &lt;color name="SeaGreen">#2E8B57&lt;/color>
+<span class="lineno"> 123</span>     &lt;color name="ForestGreen">#228B22&lt;/color>
+<span class="lineno"> 124</span>     <span class="errorspan">&lt;color name="LightSeaGreen">#20B2AA&lt;/color></span>
+<span class="lineno"> 125</span>     &lt;color name="DodgerBlue">#1E90FF&lt;/color>
+<span class="lineno"> 126</span>     &lt;color name="MidnightBlue">#191970&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:125</span>: <span class="message">The resource R.color.DodgerBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 122</span>     &lt;color name="SeaGreen">#2E8B57&lt;/color>
+<span class="lineno"> 123</span>     &lt;color name="ForestGreen">#228B22&lt;/color>
+<span class="lineno"> 124</span>     &lt;color name="LightSeaGreen">#20B2AA&lt;/color>
+<span class="lineno"> 125</span>     <span class="errorspan">&lt;color name="DodgerBlue">#1E90FF&lt;/color></span>
+<span class="lineno"> 126</span>     &lt;color name="MidnightBlue">#191970&lt;/color>
+<span class="lineno"> 127</span>     &lt;color name="Aqua">#00FFFF&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:126</span>: <span class="message">The resource R.color.MidnightBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 123</span>     &lt;color name="ForestGreen">#228B22&lt;/color>
+<span class="lineno"> 124</span>     &lt;color name="LightSeaGreen">#20B2AA&lt;/color>
+<span class="lineno"> 125</span>     &lt;color name="DodgerBlue">#1E90FF&lt;/color>
+<span class="lineno"> 126</span>     <span class="errorspan">&lt;color name="MidnightBlue">#191970&lt;/color></span>
+<span class="lineno"> 127</span>     &lt;color name="Aqua">#00FFFF&lt;/color>
+<span class="lineno"> 128</span>     &lt;color name="Cyan">#00FFFF&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:127</span>: <span class="message">The resource R.color.Aqua appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 124</span>     &lt;color name="LightSeaGreen">#20B2AA&lt;/color>
+<span class="lineno"> 125</span>     &lt;color name="DodgerBlue">#1E90FF&lt;/color>
+<span class="lineno"> 126</span>     &lt;color name="MidnightBlue">#191970&lt;/color>
+<span class="lineno"> 127</span>     <span class="errorspan">&lt;color name="Aqua">#00FFFF&lt;/color></span>
+<span class="lineno"> 128</span>     &lt;color name="Cyan">#00FFFF&lt;/color>
+<span class="lineno"> 129</span>     &lt;color name="SpringGreen">#00FF7F&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:128</span>: <span class="message">The resource R.color.Cyan appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 125</span>     &lt;color name="DodgerBlue">#1E90FF&lt;/color>
+<span class="lineno"> 126</span>     &lt;color name="MidnightBlue">#191970&lt;/color>
+<span class="lineno"> 127</span>     &lt;color name="Aqua">#00FFFF&lt;/color>
+<span class="lineno"> 128</span>     <span class="errorspan">&lt;color name="Cyan">#00FFFF&lt;/color></span>
+<span class="lineno"> 129</span>     &lt;color name="SpringGreen">#00FF7F&lt;/color>
+<span class="lineno"> 130</span>     &lt;color name="Lime">#00FF00&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:129</span>: <span class="message">The resource R.color.SpringGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 126</span>     &lt;color name="MidnightBlue">#191970&lt;/color>
+<span class="lineno"> 127</span>     &lt;color name="Aqua">#00FFFF&lt;/color>
+<span class="lineno"> 128</span>     &lt;color name="Cyan">#00FFFF&lt;/color>
+<span class="lineno"> 129</span>     <span class="errorspan">&lt;color name="SpringGreen">#00FF7F&lt;/color></span>
+<span class="lineno"> 130</span>     &lt;color name="Lime">#00FF00&lt;/color>
+<span class="lineno"> 131</span>     &lt;color name="MediumSpringGreen">#00FA9A&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:130</span>: <span class="message">The resource R.color.Lime appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 127</span>     &lt;color name="Aqua">#00FFFF&lt;/color>
+<span class="lineno"> 128</span>     &lt;color name="Cyan">#00FFFF&lt;/color>
+<span class="lineno"> 129</span>     &lt;color name="SpringGreen">#00FF7F&lt;/color>
+<span class="lineno"> 130</span>     <span class="errorspan">&lt;color name="Lime">#00FF00&lt;/color></span>
+<span class="lineno"> 131</span>     &lt;color name="MediumSpringGreen">#00FA9A&lt;/color>
+<span class="lineno"> 132</span>     &lt;color name="DarkTurquoise">#00CED1&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:131</span>: <span class="message">The resource R.color.MediumSpringGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 128</span>     &lt;color name="Cyan">#00FFFF&lt;/color>
+<span class="lineno"> 129</span>     &lt;color name="SpringGreen">#00FF7F&lt;/color>
+<span class="lineno"> 130</span>     &lt;color name="Lime">#00FF00&lt;/color>
+<span class="lineno"> 131</span>     <span class="errorspan">&lt;color name="MediumSpringGreen">#00FA9A&lt;/color></span>
+<span class="lineno"> 132</span>     &lt;color name="DarkTurquoise">#00CED1&lt;/color>
+<span class="lineno"> 133</span>     &lt;color name="DeepSkyBlue">#00BFFF&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:132</span>: <span class="message">The resource R.color.DarkTurquoise appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 129</span>     &lt;color name="SpringGreen">#00FF7F&lt;/color>
+<span class="lineno"> 130</span>     &lt;color name="Lime">#00FF00&lt;/color>
+<span class="lineno"> 131</span>     &lt;color name="MediumSpringGreen">#00FA9A&lt;/color>
+<span class="lineno"> 132</span>     <span class="errorspan">&lt;color name="DarkTurquoise">#00CED1&lt;/color></span>
+<span class="lineno"> 133</span>     &lt;color name="DeepSkyBlue">#00BFFF&lt;/color>
+<span class="lineno"> 134</span>     &lt;color name="DarkCyan">#008B8B&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:133</span>: <span class="message">The resource R.color.DeepSkyBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 130</span>     &lt;color name="Lime">#00FF00&lt;/color>
+<span class="lineno"> 131</span>     &lt;color name="MediumSpringGreen">#00FA9A&lt;/color>
+<span class="lineno"> 132</span>     &lt;color name="DarkTurquoise">#00CED1&lt;/color>
+<span class="lineno"> 133</span>     <span class="errorspan">&lt;color name="DeepSkyBlue">#00BFFF&lt;/color></span>
+<span class="lineno"> 134</span>     &lt;color name="DarkCyan">#008B8B&lt;/color>
+<span class="lineno"> 135</span>     &lt;color name="Teal">#008080&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:134</span>: <span class="message">The resource R.color.DarkCyan appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 131</span>     &lt;color name="MediumSpringGreen">#00FA9A&lt;/color>
+<span class="lineno"> 132</span>     &lt;color name="DarkTurquoise">#00CED1&lt;/color>
+<span class="lineno"> 133</span>     &lt;color name="DeepSkyBlue">#00BFFF&lt;/color>
+<span class="lineno"> 134</span>     <span class="errorspan">&lt;color name="DarkCyan">#008B8B&lt;/color></span>
+<span class="lineno"> 135</span>     &lt;color name="Teal">#008080&lt;/color>
+<span class="lineno"> 136</span>     &lt;color name="Green">#008000&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:135</span>: <span class="message">The resource R.color.Teal appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 132</span>     &lt;color name="DarkTurquoise">#00CED1&lt;/color>
+<span class="lineno"> 133</span>     &lt;color name="DeepSkyBlue">#00BFFF&lt;/color>
+<span class="lineno"> 134</span>     &lt;color name="DarkCyan">#008B8B&lt;/color>
+<span class="lineno"> 135</span>     <span class="errorspan">&lt;color name="Teal">#008080&lt;/color></span>
+<span class="lineno"> 136</span>     &lt;color name="Green">#008000&lt;/color>
+<span class="lineno"> 137</span>     &lt;color name="DarkGreen">#006400&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:137</span>: <span class="message">The resource R.color.DarkGreen appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 134</span>     &lt;color name="DarkCyan">#008B8B&lt;/color>
+<span class="lineno"> 135</span>     &lt;color name="Teal">#008080&lt;/color>
+<span class="lineno"> 136</span>     &lt;color name="Green">#008000&lt;/color>
+<span class="lineno"> 137</span>     <span class="errorspan">&lt;color name="DarkGreen">#006400&lt;/color></span>
+<span class="lineno"> 138</span>     &lt;color name="Blue">#0000FF&lt;/color>
+<span class="lineno"> 139</span>     &lt;color name="MediumBlue">#0000CD&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:138</span>: <span class="message">The resource R.color.Blue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 135</span>     &lt;color name="Teal">#008080&lt;/color>
+<span class="lineno"> 136</span>     &lt;color name="Green">#008000&lt;/color>
+<span class="lineno"> 137</span>     &lt;color name="DarkGreen">#006400&lt;/color>
+<span class="lineno"> 138</span>     <span class="errorspan">&lt;color name="Blue">#0000FF&lt;/color></span>
+<span class="lineno"> 139</span>     &lt;color name="MediumBlue">#0000CD&lt;/color>
+<span class="lineno"> 140</span>     &lt;color name="DarkBlue">#00008B&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:139</span>: <span class="message">The resource R.color.MediumBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 136</span>     &lt;color name="Green">#008000&lt;/color>
+<span class="lineno"> 137</span>     &lt;color name="DarkGreen">#006400&lt;/color>
+<span class="lineno"> 138</span>     &lt;color name="Blue">#0000FF&lt;/color>
+<span class="lineno"> 139</span>     <span class="errorspan">&lt;color name="MediumBlue">#0000CD&lt;/color></span>
+<span class="lineno"> 140</span>     &lt;color name="DarkBlue">#00008B&lt;/color>
+<span class="lineno"> 141</span>     &lt;color name="Navy">#000080&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:140</span>: <span class="message">The resource R.color.DarkBlue appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 137</span>     &lt;color name="DarkGreen">#006400&lt;/color>
+<span class="lineno"> 138</span>     &lt;color name="Blue">#0000FF&lt;/color>
+<span class="lineno"> 139</span>     &lt;color name="MediumBlue">#0000CD&lt;/color>
+<span class="lineno"> 140</span>     <span class="errorspan">&lt;color name="DarkBlue">#00008B&lt;/color></span>
+<span class="lineno"> 141</span>     &lt;color name="Navy">#000080&lt;/color>
+<span class="lineno"> 142</span>     &lt;color name="Black">#000000&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:141</span>: <span class="message">The resource R.color.Navy appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 138</span>     &lt;color name="Blue">#0000FF&lt;/color>
+<span class="lineno"> 139</span>     &lt;color name="MediumBlue">#0000CD&lt;/color>
+<span class="lineno"> 140</span>     &lt;color name="DarkBlue">#00008B&lt;/color>
+<span class="lineno"> 141</span>     <span class="errorspan">&lt;color name="Navy">#000080&lt;/color></span>
+<span class="lineno"> 142</span>     &lt;color name="Black">#000000&lt;/color>
+<span class="lineno"> 143</span>     &lt;color name="Send">#CEFBA9&lt;/color>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/Color.xml">res/values/Color.xml</a>:144</span>: <span class="message">The resource R.color.Receive appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 141</span>     &lt;color name="Navy">#000080&lt;/color>
+<span class="lineno"> 142</span>     &lt;color name="Black">#000000&lt;/color>
+<span class="lineno"> 143</span>     &lt;color name="Send">#CEFBA9&lt;/color>
+<span class="lineno"> 144</span>     <span class="errorspan">&lt;color name="Receive">#FAF7A7&lt;/color></span>
+<span class="lineno"> 145</span> &lt;/resources>
+
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatfragment.xml">res/layout/chatfragment.xml</a></span>: <span class="message">The resource R.layout.chatfragment appears to be unused</span><br />
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/default_profile_l.png">res/drawable/default_profile_l.png</a></span>: <img class="embedimage" align="right" src="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/default_profile_l.png" /><span class="message">The resource R.drawable.default_profile_l appears to be unused</span><br clear="right"/>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/green.png">res/drawable/green.png</a></span>: <img class="embedimage" align="right" src="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/green.png" /><span class="message">The resource R.drawable.green appears to be unused</span><br clear="right"/>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/main.xml">res/layout/main.xml</a></span>: <span class="message">The resource R.layout.main appears to be unused</span><br />
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/orange.jpg">res/drawable/orange.jpg</a></span>: <span class="message">The resource R.drawable.orange appears to be unused</span><br />
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/red.jpg">res/drawable/red.jpg</a></span>: <span class="message">The resource R.drawable.red appears to be unused</span><br />
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/roster_rounded_buttons.xml">res/drawable/roster_rounded_buttons.xml</a></span>: <span class="message">The resource R.drawable.roster_rounded_buttons appears to be unused</span><br />
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/strings.xml">res/values/strings.xml</a>:7</span>: <span class="message">The resource R.string.start_chatting appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   4</span>     &lt;string name="username">Username&lt;/string>
+<span class="lineno">   5</span>     &lt;string name="password">Password&lt;/string>
+<span class="lineno">   6</span>     &lt;string name="button_login">Login via Gtalk&lt;/string>
+<span class="lineno">   7</span>     <span class="errorspan">&lt;string name="start_chatting">Chat &lt;/string></span>
+<span class="lineno">   8</span>     &lt;string name="login_error">Username does not match password. Try Again.&lt;/string>
+<span class="lineno">   9</span>     &lt;string name="button_try_again">Try Again&lt;/string>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/strings.xml">res/values/strings.xml</a>:12</span>: <span class="message">The resource R.string.sign_out appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   9</span>     &lt;string name="button_try_again">Try Again&lt;/string>
+<span class="lineno">  10</span>     &lt;string name="choose_account">Choose an account to sign in with&lt;/string>
+<span class="lineno">  11</span>     &lt;string name="add_account">Add Account&lt;/string>
+<span class="lineno">  12</span>     <span class="errorspan">&lt;string name="sign_out">Sign Out&lt;/string></span>
+<span class="lineno">  13</span>     &lt;string name="accounts">Accounts&lt;/string>
+<span class="lineno">  14</span>     &lt;string name="enter_jid">Enter email-id&lt;/string>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/strings.xml">res/values/strings.xml</a>:13</span>: <span class="message">The resource R.string.accounts appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  10</span>     &lt;string name="choose_account">Choose an account to sign in with&lt;/string>
+<span class="lineno">  11</span>     &lt;string name="add_account">Add Account&lt;/string>
+<span class="lineno">  12</span>     &lt;string name="sign_out">Sign Out&lt;/string>
+<span class="lineno">  13</span>     <span class="errorspan">&lt;string name="accounts">Accounts&lt;/string></span>
+<span class="lineno">  14</span>     &lt;string name="enter_jid">Enter email-id&lt;/string>
+<span class="lineno">  15</span>     &lt;string name="enter_status">Enter Status&lt;/string>
+</pre>
+</div>
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Looks for unused resources.</div>
+<div class="explanation">
+Unused resources make applications larger and slow down builds.
+</div>
+<br/>To suppress this error, use the issue id "UnusedResources" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="Usability:Typography"></a>
+<div class="category">Usability:Typography<div class="categorySeparator"></div>
+</div>
+<a name="TypographyEllipsis"></a>
+<div class="issue">
+<div class="id">TypographyEllipsis<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/values/strings.xml">res/values/strings.xml</a>:17</span>: <span class="message">Replace "..." with ellipsis character (&#8230;, &amp;#8230;) ?</span><br /><pre class="errorlines">
+<span class="lineno">  14</span>     &lt;string name="enter_jid">Enter email-id&lt;/string>
+<span class="lineno">  15</span>     &lt;string name="enter_status">Enter Status&lt;/string>
+<span class="lineno">  16</span>     &lt;string name="enter_search">Enter email&lt;/string>
+<span class="lineno">  17</span>     <span class="errorspan">&lt;string name="loading">Loading...&lt;/string></span>
+<span class="lineno">  18</span>     &lt;string name="OK">OK&lt;/string>
+<span class="lineno">  19</span>     &lt;string name="typeToSearch">Type To Search&lt;/string>
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT&nbsp;<img border="0" align="top" src="lint_files/lint-run.png" />
+<br>
+Priority: 5 / 10<br/>
+Category: Usability:Typography</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Looks for ellipsis strings (...) which can be replaced with an ellipsis character.</div>
+<div class="explanation">
+You can replace the string "..." with a dedicated ellipsis character, ellipsis character (&#8230;, &amp;#8230;). This can help make the text more readable.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://en.wikipedia.org/wiki/Ellipsis">http://en.wikipedia.org/wiki/Ellipsis</a></div>
+<br/>To suppress this error, use the issue id "TypographyEllipsis" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="Usability:Icons"></a>
+<div class="category">Usability:Icons<div class="categorySeparator"></div>
+</div>
+<a name="IconLocation"></a>
+<div class="issue">
+<div class="id">IconLocation<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/android.jpg">res/drawable/android.jpg</a></span>: <span class="message">Found bitmap drawable res/drawable/android.jpg in densityless folder</span><br />
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/cross.jpg">res/drawable/cross.jpg</a></span>: <span class="message">Found bitmap drawable res/drawable/cross.jpg in densityless folder</span><br />
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/default_profile_l.png">res/drawable/default_profile_l.png</a></span>: <img class="embedimage" align="right" src="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/default_profile_l.png" /><span class="message">Found bitmap drawable res/drawable/default_profile_l.png in densityless folder</span><br clear="right"/>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/green.png">res/drawable/green.png</a></span>: <img class="embedimage" align="right" src="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/green.png" /><span class="message">Found bitmap drawable res/drawable/green.png in densityless folder</span><br clear="right"/>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/images.jpg">res/drawable/images.jpg</a></span>: <span class="message">Found bitmap drawable res/drawable/images.jpg in densityless folder</span><br />
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/orange.jpg">res/drawable/orange.jpg</a></span>: <span class="message">Found bitmap drawable res/drawable/orange.jpg in densityless folder</span><br />
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/drawable/red.jpg">res/drawable/red.jpg</a></span>: <span class="message">Found bitmap drawable res/drawable/red.jpg in densityless folder</span><br />
+</div>
+<div class="metadata">Priority: 5 / 10<br/>
+Category: Usability:Icons</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Ensures that images are not defined in the density-independent drawable folder.</div>
+<div class="explanation">
+The res/drawable folder is intended for density-independent graphics such as shapes defined in XML. For bitmaps, move it to drawable-mdpi and consider providing higher and lower resolution versions in drawable-ldpi, drawable-hdpi and drawable-xhdpi. If the icon *really* is density independent (for example a solid color) you can place it in drawable-nodpi.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/screens_support.html">http://developer.android.com/guide/practices/screens_support.html</a></div>
+<br/>To suppress this error, use the issue id "IconLocation" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="Accessibility"></a>
+<div class="category">Accessibility<div class="categorySeparator"></div>
+</div>
+<a name="ContentDescription"></a>
+<div class="issue">
+<div class="id">ContentDescription<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistheader.xml">res/layout/chatlistheader.xml</a>:10</span>: <span class="message">[Accessibility] Missing contentDescription attribute on image</span><br /><pre class="errorlines">
+<span class="lineno">   7</span>               android:background="@color/White"
+<span class="lineno">   8</span> 
+<span class="lineno">   9</span>         >
+<span class="lineno">  10</span>     <span class="errorspan">&lt;ImageButton</span>
+<span class="lineno">  11</span>         android:id="@+id/chatfragment_image"
+<span class="lineno">  12</span>         android:paddingTop="5dp"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistheader.xml">res/layout/chatlistheader.xml</a>:56</span>: <span class="message">[Accessibility] Missing contentDescription attribute on image</span><br /><pre class="errorlines">
+<span class="lineno">  53</span>             android:textSize="10dp"
+<span class="lineno">  54</span>             android:text="hey"
+<span class="lineno">  55</span>             />
+<span class="lineno">  56</span>     <span class="errorspan">&lt;ImageView</span>
+<span class="lineno">  57</span>         android:id="@+id/chatlistheader_close"
+<span class="lineno">  58</span>         android:layout_height="20dp"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT&nbsp;<img border="0" align="top" src="lint_files/lint-run.png" />
+<br>
+Priority: 3 / 10<br/>
+Category: Accessibility</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Ensures that image widgets provide a contentDescription.</div>
+<div class="explanation">
+Non-textual widgets like ImageViews and ImageButtons should use the contentDescription attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.
+</div>
+<br/>To suppress this error, use the issue id "ContentDescription" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="Internationalization"></a>
+<div class="category">Internationalization<div class="categorySeparator"></div>
+</div>
+<a name="HardcodedText"></a>
+<div class="issue">
+<div class="id">HardcodedText<div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chat.xml">res/layout/chat.xml</a>:18</span>: <span class="message">[I18N] Hardcoded string "Roster", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  15</span>             android:id="@+id/chat_gotoroster"
+<span class="lineno">  16</span>             android:layout_height="fill_parent"
+<span class="lineno">  17</span>             android:layout_width="80dp"
+<span class="lineno">  18</span>             <span class="errorspan">android:text="Roster"</span>
+<span class="lineno">  19</span>             android:textSize="20dp"
+<span class="lineno">  20</span>             android:textColor="@color/Green"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chat.xml">res/layout/chat.xml</a>:37</span>: <span class="message">[I18N] Hardcoded string "Connection Lost - retrying ", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  34</span>         android:id="@+id/chatbox_networknotification"
+<span class="lineno">  35</span>         android:layout_height="20dp"
+<span class="lineno">  36</span>         android:layout_width="fill_parent"
+<span class="lineno">  37</span>         <span class="errorspan">android:text="Connection Lost - retrying "</span>
+<span class="lineno">  38</span>         android:background="@color/Green"
+<span class="lineno">  39</span>         android:visibility="gone"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chat.xml">res/layout/chat.xml</a>:50</span>: <span class="message">[I18N] Hardcoded string "Enter Messsage", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  47</span>                 android:id="@+id/message"
+<span class="lineno">  48</span>                 android:layout_width="350px"
+<span class="lineno">  49</span>                 android:layout_height="fill_parent"
+<span class="lineno">  50</span>                 <span class="errorspan">android:hint="Enter Messsage"</span>
+<span class="lineno">  51</span>                 android:textColor="@color/Black"
+<span class="lineno">  52</span>                 android:layout_weight="1"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chat.xml">res/layout/chat.xml</a>:58</span>: <span class="message">[I18N] Hardcoded string "Send", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  55</span>                 android:id="@+id/sendmessage"
+<span class="lineno">  56</span>                 android:layout_width="100dp"
+<span class="lineno">  57</span>                 android:layout_height="fill_parent"
+<span class="lineno">  58</span>                 <span class="errorspan">android:text="Send"</span>
+<span class="lineno">  59</span> 
+<span class="lineno">  60</span>                 android:onClick="SendChat"/>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistheader.xml">res/layout/chatlistheader.xml</a>:29</span>: <span class="message">[I18N] Hardcoded string "hey", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  26</span>             android:id="@+id/chatfragment_jid"
+<span class="lineno">  27</span>             android:layout_height="wrap_content"
+<span class="lineno">  28</span>             android:layout_width="wrap_content"
+<span class="lineno">  29</span>             <span class="errorspan">android:text="hey"</span>
+<span class="lineno">  30</span>             android:paddingLeft="10dp"
+<span class="lineno">  31</span>             android:paddingTop="5dp"
+</pre>
+<button id="HardcodedTextDivLink" onclick="reveal('HardcodedTextDiv');" />+ 17 More Occurrences...</button>
+<div id="HardcodedTextDiv" style="display: none">
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistheader.xml">res/layout/chatlistheader.xml</a>:42</span>: <span class="message">[I18N] Hardcoded string "This is my status message", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  39</span>             android:layout_width="wrap_content"
+<span class="lineno">  40</span>             android:paddingLeft="5dp"
+<span class="lineno">  41</span>             android:paddingTop="2dp"
+<span class="lineno">  42</span>             <span class="errorspan">android:text="This is my status message"</span>
+<span class="lineno">  43</span>             />
+<span class="lineno">  44</span> 
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistheader.xml">res/layout/chatlistheader.xml</a>:54</span>: <span class="message">[I18N] Hardcoded string "hey", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  51</span>             android:paddingLeft="20dp"
+<span class="lineno">  52</span> 
+<span class="lineno">  53</span>             android:textSize="10dp"
+<span class="lineno">  54</span>             <span class="errorspan">android:text="hey"</span>
+<span class="lineno">  55</span>             />
+<span class="lineno">  56</span>     &lt;ImageView
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistitem.xml">res/layout/chatlistitem.xml</a>:19</span>: <span class="message">[I18N] Hardcoded string "me : ", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  16</span>               android:layout_height="wrap_content"
+<span class="lineno">  17</span>               android:layout_width="wrap_content"
+<span class="lineno">  18</span>               android:paddingLeft="5dp"
+<span class="lineno">  19</span>               <span class="errorspan">android:text="me : "</span>
+<span class="lineno">  20</span>               android:textSize="15dp"
+<span class="lineno">  21</span>               android:textStyle="italic"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistitem.xml">res/layout/chatlistitem.xml</a>:31</span>: <span class="message">[I18N] Hardcoded string "helllo", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  28</span>           android:layout_width="wrap_content"
+<span class="lineno">  29</span>           android:textSize="10dp"
+<span class="lineno">  30</span>           android:paddingLeft="60dp"
+<span class="lineno">  31</span>           <span class="errorspan">android:text="helllo"</span>
+<span class="lineno">  32</span> 
+<span class="lineno">  33</span>           />
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistitem.xml">res/layout/chatlistitem.xml</a>:41</span>: <span class="message">[I18N] Hardcoded string "failed", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  38</span>             android:textSize="10dp"
+<span class="lineno">  39</span>             android:paddingLeft="10dp"
+<span class="lineno">  40</span>             android:textColor="@color/Green"
+<span class="lineno">  41</span>             <span class="errorspan">android:text="failed"</span>
+<span class="lineno">  42</span>             android:clickable="true"
+<span class="lineno">  43</span>             android:onClick="resendMessage"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistitem.xml">res/layout/chatlistitem.xml</a>:51</span>: <span class="message">[I18N] Hardcoded string "hellosdsdsdsdsdsdsd", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  48</span>     &lt;TextView android:id="@+id/send_mess_body"
+<span class="lineno">  49</span>               android:layout_height="wrap_content"
+<span class="lineno">  50</span>               android:layout_width="wrap_content"
+<span class="lineno">  51</span>               <span class="errorspan">android:text="hellosdsdsdsdsdsdsd"</span>
+<span class="lineno">  52</span> 
+<span class="lineno">  53</span>               android:textSize="15dp"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistitem_r.xml">res/layout/chatlistitem_r.xml</a>:20</span>: <span class="message">[I18N] Hardcoded string "hey ", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  17</span>               android:layout_height="wrap_content"
+<span class="lineno">  18</span>               android:layout_width="wrap_content"
+<span class="lineno">  19</span>               android:paddingLeft="5dp"
+<span class="lineno">  20</span>               <span class="errorspan">android:text="hey "</span>
+<span class="lineno">  21</span>               android:textSize="15dp"
+<span class="lineno">  22</span>               android:textStyle="italic"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistitem_r.xml">res/layout/chatlistitem_r.xml</a>:33</span>: <span class="message">[I18N] Hardcoded string "helllo", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  30</span>                 android:textSize="10dp"
+<span class="lineno">  31</span>                 android:paddingLeft="60dp"
+<span class="lineno">  32</span>                 android:paddingRight="10dp"
+<span class="lineno">  33</span>                 <span class="errorspan">android:text="helllo"</span>
+<span class="lineno">  34</span> 
+<span class="lineno">  35</span>                 />
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/chatlistitem_r.xml">res/layout/chatlistitem_r.xml</a>:40</span>: <span class="message">[I18N] Hardcoded string "hellosdsdsdsdsdsdsd", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  37</span>     &lt;TextView android:id="@+id/receive_mess_body"
+<span class="lineno">  38</span>               android:layout_height="wrap_content"
+<span class="lineno">  39</span>               android:layout_width="wrap_content"
+<span class="lineno">  40</span>               <span class="errorspan">android:text="hellosdsdsdsdsdsdsd"</span>
+<span class="lineno">  41</span> 
+<span class="lineno">  42</span>               android:textSize="15dp"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/roster.xml">res/layout/roster.xml</a>:19</span>: <span class="message">[I18N] Hardcoded string "Image", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  16</span>             >
+<span class="lineno">  17</span>         &lt;ImageView
+<span class="lineno">  18</span>                    android:id="@+id/Roster_myimage"
+<span class="lineno">  19</span>                    <span class="errorspan">android:contentDescription="Image"</span>
+<span class="lineno">  20</span>                    android:layout_height="wrap_content"
+<span class="lineno">  21</span>                    android:layout_width="wrap_content"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/roster.xml">res/layout/roster.xml</a>:84</span>: <span class="message">[I18N] Hardcoded string "Search", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  81</span>                 android:layout_width="fill_parent"
+<span class="lineno">  82</span>                 android:layout_height="wrap_content"
+<span class="lineno">  83</span>                 android:layout_weight="50"
+<span class="lineno">  84</span>                 <span class="errorspan">android:text="Search"</span>
+<span class="lineno">  85</span>                 android:onClick="searchRosterEntry"
+<span class="lineno">  86</span>                 >
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/roster.xml">res/layout/roster.xml</a>:93</span>: <span class="message">[I18N] Hardcoded string "Add Contact", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  90</span>                 android:layout_width="fill_parent"
+<span class="lineno">  91</span>                 android:layout_height="wrap_content"
+<span class="lineno">  92</span>                 android:layout_weight="50"
+<span class="lineno">  93</span>                 <span class="errorspan">android:text="Add Contact"</span>
+<span class="lineno">  94</span>                 android:onClick="addRosterEntry"
+<span class="lineno">  95</span>                 >
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/roster.xml">res/layout/roster.xml</a>:102</span>: <span class="message">[I18N] Hardcoded string "Groups", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  99</span>                 android:layout_width="fill_parent"
+<span class="lineno"> 100</span>                 android:layout_height="wrap_content"
+<span class="lineno"> 101</span>                 android:layout_weight="50"
+<span class="lineno"> 102</span>                 <span class="errorspan">android:text="Groups"></span>
+<span class="lineno"> 103</span>         &lt;/Button>
+<span class="lineno"> 104</span>     &lt;/LinearLayout>
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/roster_search_entry.xml">res/layout/roster_search_entry.xml</a>:19</span>: <span class="message">[I18N] Hardcoded string "Search", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  16</span>             android:layout_width="fill_parent"
+<span class="lineno">  17</span>             android:layout_height="wrap_content"
+<span class="lineno">  18</span> 
+<span class="lineno">  19</span>             <span class="errorspan">android:text="Search"></span>
+<span class="lineno">  20</span>     &lt;/Button>
+<span class="lineno">  21</span> 
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/rosterlistitem.xml">res/layout/rosterlistitem.xml</a>:16</span>: <span class="message">[I18N] Hardcoded string "Image", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  13</span>         >
+<span class="lineno">  14</span>     &lt;ImageView
+<span class="lineno">  15</span>                android:id="@+id/roster_image"
+<span class="lineno">  16</span>                <span class="errorspan">android:contentDescription="Image"</span>
+<span class="lineno">  17</span>                android:layout_height="fill_parent"
+<span class="lineno">  18</span>                android:layout_width="wrap_content"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/rosterlistitem.xml">res/layout/rosterlistitem.xml</a>:42</span>: <span class="message">[I18N] Hardcoded string "TEXT", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  39</span>               android:layout_height="fill_parent"
+<span class="lineno">  40</span>               android:layout_width="wrap_content"
+<span class="lineno">  41</span>               android:paddingLeft="5dp"
+<span class="lineno">  42</span>               <span class="errorspan">android:text="TEXT"</span>
+<span class="lineno">  43</span>               android:textSize="10dp"
+<span class="lineno">  44</span>               android:textStyle="italic"
+</pre>
+<span class="location"><a href="file:///home/vinayak/work/android-sdk-linux/tools/../../code/android_chat_client/res/layout/rostet_add_status.xml">res/layout/rostet_add_status.xml</a>:19</span>: <span class="message">[I18N] Hardcoded string "OK", should use @string resource</span><br /><pre class="errorlines">
+<span class="lineno">  16</span>             android:layout_width="fill_parent"
+<span class="lineno">  17</span>             android:layout_height="wrap_content"
+<span class="lineno">  18</span> 
+<span class="lineno">  19</span>             <span class="errorspan">android:text="OK"></span>
+<span class="lineno">  20</span>     &lt;/Button>
+<span class="lineno">  21</span> 
+</pre>
+</div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT&nbsp;<img border="0" align="top" src="lint_files/lint-run.png" />
+<br>
+Priority: 5 / 10<br/>
+Category: Internationalization</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Looks for hardcoded text attributes which should be converted to resource lookup.</div>
+<div class="explanation">
+Hardcoding text attributes directly in layout files is bad for several reasons:<br/><br/>* When creating configuration variations (for example for landscape or portrait)you have to repeat the actual text (and keep it up to date when making changes)<br/><br/>* The application cannot be translated to other languages by just adding new translations for existing string resources.
+</div>
+<br/>To suppress this error, use the issue id "HardcodedText" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="MissingIssues"></a>
+<div class="category">Disabled Checks<div class="categorySeparator"></div>
+</div>
+The following issues were not run by lint, either because the check is not enabled by default, or because it was disabled with a command line flag or via one or more lint.xml configuration files in the project directories.
+<br/><br/>
+<a name="BackButton"></a>
+<div class="issue">
+<div class="id">BackButton<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 6 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Looks for Back buttons, which are not common on the Android platform.</div>
+<div class="explanation">
+According to the Android Design Guide,<br/><br/>"Other platforms use an explicit back button with label to allow the user to navigate up the application's hierarchy. Instead, Android uses the main action bar's app icon for hierarchical navigation and the navigation bar's back button for temporal navigation."<br/>This check is not very sophisticated (it just looks for buttons with the label "Back"), so it is disabled by default to not trigger on common scenarios like pairs of Back/Next buttons to paginate through screens.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/design/patterns/pure-android.html">http://developer.android.com/design/patterns/pure-android.html</a></div>
+<br/>To suppress this error, use the issue id "BackButton" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div><a name="FieldGetter"></a>
+<div class="issue">
+<div class="id">FieldGetter<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 4 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Suggests replacing uses of getters with direct field access within a class.</div>
+<div class="explanation">
+Accessing a field within the class that defines a getter for that field is at least 3 times faster than calling the getter. For simple getters that do nothing other than return the field, you might want to just reference the local field directly instead.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/design/performance.html#internal_get_set">http://developer.android.com/guide/practices/design/performance.html#internal_get_set</a></div>
+<br/>To suppress this error, use the issue id "FieldGetter" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div><a name="IconExpectedSize"></a>
+<div class="issue">
+<div class="id">IconExpectedSize<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Usability:Icons</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Ensures that launcher icons, notification icons etc have the correct size.</div>
+<div class="explanation">
+There are predefined sizes (for each density) for launcher icons. You should follow these conventions to make sure your icons fit in with the overall look of the platform.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/design/style/iconography.html">http://developer.android.com/design/style/iconography.html</a></div>
+<br/>To suppress this error, use the issue id "IconExpectedSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div><a name="TypographyQuotes"></a>
+<div class="issue">
+<div class="id">TypographyQuotes<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT&nbsp;<img border="0" align="top" src="lint_files/lint-run.png" />
+<br>
+Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Usability:Typography</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Looks for straight quotes which can be replaced by curvy quotes.</div>
+<div class="explanation">
+Straight single quotes and double quotes, when used as a pair, can be replaced by "curvy quotes" (or directional quotes). This can make the text more readable.<br/><br/>Note that you should never use grave accents and apostrophes to quote, `like this'.<br/><br/>(Also note that you should not use curvy quotes for code fragments.)
+</div>
+<br/><div class="moreinfo">More info: <a href="http://en.wikipedia.org/wiki/Quotation_mark">http://en.wikipedia.org/wiki/Quotation_mark</a></div>
+<br/>To suppress this error, use the issue id "TypographyQuotes" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div><a name="UnusedIds"></a>
+<div class="issue">
+<div class="id">UnusedIds<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 1 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Looks for unused id's.</div>
+<div class="explanation">
+This resource id definition appears not to be needed since it is not referenced from anywhere. Having id definitions, even if unused, is not necessarily a bad idea since they make working on layouts and menus easier, so there is not a strong reason to delete these.
+</div>
+<br/>To suppress this error, use the issue id "UnusedIds" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="SuppressInfo"></a>
+<div class="category">Suppressing Warnings and Errors<div class="categorySeparator"></div>
+</div>
+Lint errors can be suppressed in a variety of ways:<br/><br/>1. With a @SuppressLint annotation in the Java code<br/>2. With a tools:ignore attribute in the XML file<br/>3. With a lint.xml configuration file in the project<br/>4. With a lint.xml configuration file passed to lint via the --config flag<br/>5. With the --ignore flag passed to lint.<br/><br/>To suppress a lint warning with an annotation, add a @SuppressLint("id") annotation on the class, method or variable declaration closest to the warning instance you want to disable. The id can be one or more issue id's, such as "UnusedResources" or {"UnusedResources","UnusedIds"}, or it can be "all" to suppress all lint warnings in the given scope.<br/><br/>To suppress a lint warning in an XML file, add a tools:ignore="id" attribute on the element containing the error, or one of its surrounding elements. You also need to define the namespace for the tools prefix on the root element in your document, next to the xmlns:android declaration:<br/>* xmlns:tools="http://schemas.android.com/tools"<br/><br/>To suppress lint warnings with a configuration XML file, create a file named lint.xml and place it at the root directory of the project in which it applies. (If you use the Eclipse plugin's Lint view, you can suppress errors there via the toolbar and Eclipse will create the lint.xml file for you.).<br/><br/>The format of the lint.xml file is something like the following:<br/><br/>&lt;?xml version="1.0" encoding="UTF-8"?><br/>&lt;lint><br/>    &lt;!-- Disable this given check in this project --><br/>    &lt;issue id="IconMissingDensityFolder" severity="ignore" /><br/><br/>    &lt;!-- Ignore the ObsoleteLayoutParam issue in the given files --><br/>    &lt;issue id="ObsoleteLayoutParam"><br/>        &lt;ignore path="res/layout/activation.xml" /><br/>        &lt;ignore path="res/layout-xlarge/activation.xml" /><br/>    &lt;/issue><br/><br/>    &lt;!-- Ignore the UselessLeaf issue in the given file --><br/>    &lt;issue id="UselessLeaf"><br/>        &lt;ignore path="res/layout/main.xml" /><br/>    &lt;/issue><br/><br/>    &lt;!-- Change the severity of hardcoded strings to "error" --><br/>    &lt;issue id="HardcodedText" severity="error" /><br/>&lt;/lint><br/><br/>To suppress lint checks from the command line, pass the --ignore flag with a comma separated list of ids to be suppressed, such as:<br/>"lint --ignore UnusedResources,UselessLeaf /my/project/path"<br/>
+
+</body>
+</html>
