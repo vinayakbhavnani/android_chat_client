@@ -30,12 +30,7 @@ public class MessageNotificationHandler {
     public TalkToNotification getNotification(String messageSender,String message ) {
         Intent targetIntent = new Intent(context,ChatBox.class);
         targetIntent.putExtra(ChatBox.BUDDY_ID, messageSender);
-        int index = -1;
-        for(int i = 0 ; i < messageList.size() ;i++) {
-            if(messageList.get(i).messageSender.equalsIgnoreCase(messageSender) ) {
-                index = i;
-            }
-        }
+        int index = getIndex(messageSender);
         Message m = new Message(messageSender,message);
         if( index == -1) {
             messageList.add(0,m);
@@ -62,12 +57,7 @@ public class MessageNotificationHandler {
     }
 
     public TalkToNotification cancelNotification(String messageSender) {
-        int index = -1;
-        for(int i = 0 ; i < messageList.size() ;i++) {
-            if(messageList.get(i).messageSender.equalsIgnoreCase(messageSender) ) {
-                index = i;
-            }
-        }
+        int index = getIndex(messageSender);
          messageList.remove(index);
          if(messageList.size() == 0) {
              return null;
@@ -77,12 +67,7 @@ public class MessageNotificationHandler {
     }
 
     public boolean containsSender(String messageSender) {
-        int index = -1;
-        for(int i = 0 ; i < messageList.size() ;i++) {
-            if(messageList.get(i).messageSender.equalsIgnoreCase(messageSender) ) {
-                index = i;
-            }
-        }
+        int index = getIndex(messageSender);
         if(index == -1) {
             return false;
         } else {
@@ -97,6 +82,16 @@ public class MessageNotificationHandler {
             this.messageSender = messageSender ;
             this.message = message;
         }
+    }
+
+    private int getIndex(String messageSender) {
+        int index = -1;
+        for(int i = 0 ; i < messageList.size() ;i++) {
+            if(messageList.get(i).messageSender.equalsIgnoreCase(messageSender) ) {
+                index = i;
+            }
+        }
+        return index;
     }
 
 }
