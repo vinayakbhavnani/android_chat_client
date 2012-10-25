@@ -20,7 +20,6 @@ import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.Chat.Listeners.ChatViewPageChangeListner;
-import directi.androidteam.training.chatclient.Chat.dbAccess.dbAccess;
 import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.GlobalTabActivity;
 import directi.androidteam.training.chatclient.R;
@@ -63,10 +62,12 @@ public class ChatBox extends FragmentActivity {
         sendDiscoInfoQuery(from);
     }
 
+/*
     @Override
     protected void onSaveInstanceState(Bundle bundle) {
         return;
     }
+*/
 
     @Override
     protected void onRestoreInstanceState(Bundle bundle) {
@@ -115,17 +116,26 @@ public class ChatBox extends FragmentActivity {
         );
     }
 
-    public static void notifyChat(MessageStanza ms, String from){
+    public static void notifyChat(final MessageStanza ms, final String from){
         if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("@")[0])) {
             ChatNotifier cn = new ChatNotifier(context);
             cn.notifyChat(ms);
         }
-        dbAccess db =  new dbAccess(); db.addMessage(ms);
-
-        MyFragmentManager.getInstance().addFragEntry(from);
 /*
-        MessageManager.getInstance().insertMessage(from,ms);
+        dbAccess db =  new dbAccess(); db.addMessage(ms);
+        MyFragmentManager.getInstance().addFragEntry(from);
+        MessageManager.getInstance().appendMessageStore(from,ms);
+        if(viewPager.getCurrentItem()== MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("@")[0])){
+            notifyFragmentAdaptorInSameThread();
+        }
 */
+        if(context!=null)
+        ((Activity)context).runOnUiThread(new Runnable() {
+            public void run() {
+                MessageManager.getInstance().insertMessage(from, ms);
+            }
+        });
+
     }
 
     public static void cancelNotification(){
