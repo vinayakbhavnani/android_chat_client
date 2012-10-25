@@ -197,8 +197,7 @@ public final class R {
         public static final int accountitem_jid=0x7f090002;
         public static final int accountitem_presence=0x7f090004;
         public static final int accountitem_status=0x7f090003;
-        public static final int add_account=0x7f090040;
-        public static final int add_contact=0x7f09003f;
+        public static final int add_account=0x7f09003f;
         public static final int addaccount_gtalk=0x7f090027;
         public static final int addaccount_pingpong=0x7f090028;
         public static final int addaccount_radio=0x7f090026;

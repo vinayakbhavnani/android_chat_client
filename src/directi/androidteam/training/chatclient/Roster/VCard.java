@@ -46,6 +46,34 @@ public class VCard {
         if (FNTag != null) {
             this.name = FNTag.getContent();
         }
+        Tag NTag = tag.getChildTag("N");
+        if (NTag != null) {
+            String fullName = "";
+            Tag givenTag = NTag.getChildTag("GIVEN");
+            if (givenTag != null) {
+                String givenName = givenTag.getContent();
+                if (givenName != null) {
+                    fullName += (givenName + " ");
+                }
+            }
+            Tag middleTag = NTag.getChildTag("MIDDLE");
+            if (middleTag != null) {
+                String middleName = middleTag.getContent();
+                if (middleName != null) {
+                    fullName += (middleName + " ");
+                }
+            }
+            Tag familyTag = NTag.getChildTag("FAMILY");
+            if (familyTag != null) {
+                String familyName = familyTag.getContent();
+                if (familyName != null) {
+                    fullName += familyName;
+                }
+            }
+            if (!(fullName.equals(""))) {
+                this.name = fullName;
+            }
+        }
         Tag PHOTOTag = tag.getChildTag("PHOTO");
         if (PHOTOTag != null) {
             Tag TYPETag = PHOTOTag.getChildTag("TYPE");
