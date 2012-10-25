@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ListView;
 import directi.androidteam.training.chatclient.Authentication.*;
@@ -111,12 +113,13 @@ public class GlobalTabActivity extends Activity {
         rosterItemAdapter.setRosterItems(new ArrayList<RosterItem>(rosterList));
         rosterItemAdapter.notifyDataSetChanged();
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.rostermenu, menu);
-//        return true;
-//    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.rostermenu, menu);
+        return true;
+    }
 //
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem menuItem) {

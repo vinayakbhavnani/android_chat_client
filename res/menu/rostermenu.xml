@@ -6,8 +6,10 @@
           android:icon="@drawable/search"
           android:showAsAction="ifRoom|collapseActionView"
           android:actionViewClass="android.widget.SearchView"/>
+<!--
     <item android:id="@+id/add_contact"
               android:title="@string/add_contact"
               android:icon="@drawable/add_contact"
               android:showAsAction="always"/>
+-->
 </menu>
