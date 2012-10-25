@@ -33,7 +33,7 @@ public class ChatNotifier {
 
         Intent notificationIntent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
         notificationIntent.putExtra("buddyid",stanza.getFrom().split("@")[0]);
-        notificationIntent.putExtra("accountUID",stanza.getTo().split("@")[0]);
+        notificationIntent.putExtra("accountUID",stanza.getTag().getRecipientAccount());
         notificationIntent.putExtra("notification",true);
 
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
