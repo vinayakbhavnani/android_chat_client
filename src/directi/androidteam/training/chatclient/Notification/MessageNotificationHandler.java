@@ -6,6 +6,7 @@ import android.util.Log;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
+import org.jivesoftware.smack.MessageListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +65,10 @@ public class MessageNotificationHandler {
          } else {
              return getNotification(messageList.get(0).messageSender , messageList.get(0).message);
          }
+    }
+
+    public void cancelAllNotifications() {
+        messageList = new ArrayList<Message>();
     }
 
     public boolean containsSender(String messageSender) {

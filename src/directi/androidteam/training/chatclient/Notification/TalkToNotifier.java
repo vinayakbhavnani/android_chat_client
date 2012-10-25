@@ -40,4 +40,9 @@ public class TalkToNotifier {
         }
     }
 
+    public void cancelAllMessageNotifications() {
+        messageHandler.cancelAllNotifications();
+        notificationManager.cancelNotification(MessageNotificationHandler.getNotificationID());
+    }
+
 }

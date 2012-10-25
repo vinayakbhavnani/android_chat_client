@@ -17,18 +17,12 @@ import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
 import directi.androidteam.training.chatclient.Authentication.UserDatabaseHandler;
 import directi.androidteam.training.chatclient.Authentication.UserListActivity;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
+import directi.androidteam.training.chatclient.Notification.TalkToNotifier;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
 
-/**
- * Created with IntelliJ IDEA.
- * User: rajat
- * Date: 9/3/12
- * Time: 1:56 PM
- * To change this template use File | Settings | File Templates.
- */
 public class DisplayRosterActivity extends FragmentActivity {
     private Account currentAccount;
 
@@ -43,6 +37,8 @@ public class DisplayRosterActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TalkToNotifier ttn = TalkToNotifier.getInstance(this.getApplicationContext());
+        ttn.cancelAllMessageNotifications();
         setContentView(R.layout.roster);
         ((ListView)findViewById(R.id.roster_list)).setAdapter(new RosterItemAdapter(this, R.layout.rosterlistitem, new ArrayList<RosterItem>()));
         ((ListView)findViewById(R.id.roster_list)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
