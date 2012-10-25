@@ -1,5 +1,6 @@
 package directi.androidteam.training.chatclient.Authentication;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 import directi.androidteam.training.TagStore.Presence;
@@ -18,10 +19,12 @@ public class DialogListener implements DialogInterface.OnClickListener {
     ArrayList<String> options;
     Account account;
     AccountListAdaptor adaptor;
-    public DialogListener(ArrayList<String> list , Account account,AccountListAdaptor adaptor){
+    Context context;
+    public DialogListener(ArrayList<String> list , Account account,AccountListAdaptor adaptor,Context context){
         this.account = account;
         this.options = list;
         this.adaptor = adaptor;
+        this.context = context;
     }
 
     @Override
@@ -34,12 +37,12 @@ public class DialogListener implements DialogInterface.OnClickListener {
             account.Logout();
         else if(option.equals("Edit Password")) {
             Log.d("editpass","TODO");
-            account.sendAvail("available");
+            //account.sendAvail("available");
         }
         else if(option.equals("Remove Account"))
             AccountManager.getInstance().removeAccount(account);
         else if(option.equals("Set Status")){
-            account.sendStatus("status10");
+            DialogBuilder.createSetStatusDialog(context,account);
 
         }
         adaptor.notifyDataSetChanged();
@@ -47,20 +50,5 @@ public class DialogListener implements DialogInterface.OnClickListener {
 
     }
 
-    private void setStatus(String status) {
-        Presence presence = new Presence();
-        presence.setStatus(status);
-        presence.setRecipientAccount(account.getAccountUid());
-  //      presence.setShow("dnd");//account.getShow());
-        account.setStatus(status);
-        PacketWriter.addToWriteQueue(presence);
-    }
-    private void setAvail(String avail) {
-        Presence presence = new Presence();
-        presence.setShow(avail);
-        presence.setRecipientAccount(account.getAccountUid());
-//        presence.setStatus("stat2");//account.getStatus());
-        account.setShow(avail);
-        PacketWriter.addToWriteQueue(presence);
-    }
+
 }
