@@ -45,7 +45,6 @@ public class ChatBox extends FragmentActivity {
         super.onCreate(savedInstanceState);
         BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
         setContentView(R.layout.chat);
-
         context=this;
         fragmentManager = getSupportFragmentManager();
         frag_adaptor = new FragmentSwipeAdaptor(fragmentManager);
