@@ -20,6 +20,7 @@ import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.Chat.Listeners.ChatViewPageChangeListner;
+import directi.androidteam.training.chatclient.Chat.dbAccess.dbAccess;
 import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.GlobalTabActivity;
 import directi.androidteam.training.chatclient.R;
@@ -120,8 +121,12 @@ public class ChatBox extends FragmentActivity {
             ChatNotifier cn = new ChatNotifier(context);
             cn.notifyChat(ms);
         }
+        dbAccess db =  new dbAccess(); db.addMessage(ms);
+
         MyFragmentManager.getInstance().addFragEntry(from);
+/*
         MessageManager.getInstance().insertMessage(from,ms);
+*/
     }
 
     public static void cancelNotification(){
