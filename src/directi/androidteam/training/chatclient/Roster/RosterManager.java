@@ -10,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class RosterManager {
     private Roster roster = new Roster(new LexicalCumPresenceComparator());
-    private GlobalTabActivity displayRosterActivity;
+    private GlobalTabActivity globalTabActivity;
     private static RosterManager rosterManager = new RosterManager();
     private final Lock lock = new ReentrantLock();
 
@@ -22,8 +22,8 @@ public class RosterManager {
         return roster.searchRosterItem(accountUID, bareJID);
     }
 
-    public void setDisplayRosterActivity(GlobalTabActivity displayRosterActivity) {
-        this.displayRosterActivity = displayRosterActivity;
+    public void setGlobalTabActivity(GlobalTabActivity globalTabActivity) {
+        this.globalTabActivity = globalTabActivity;
     }
 
     public ArrayList<RosterItem> getRoster() {
@@ -76,10 +76,10 @@ public class RosterManager {
     }
 
     private void updateRosterDisplay() {
-        if (this.displayRosterActivity != null) {
-            this.displayRosterActivity.runOnUiThread(new Runnable() {
+        if (this.globalTabActivity != null) {
+            this.globalTabActivity.runOnUiThread(new Runnable() {
                 public void run() {
-                    displayRosterActivity.updateRosterList(roster.getRoster());
+                    globalTabActivity.updateRosterList(roster.getRoster());
                 }
             });
         }

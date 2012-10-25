@@ -41,8 +41,7 @@ public class RosterHandler implements Handler {
 
     private void processIqPacket(final IQTag tag) {
         Account account = AccountManager.getInstance().getAccount(tag.getRecipientAccount());
-        //account.setFullJID(tag.getAttribute("to"));
-        //account.setQueryTag(tag);
+        account.setFullJID(tag.getAttribute("to"));
         if (tag.contains("query")) {
             processQueryPacket(new Query(tag.getChildTag("query").setRecipientAccount(tag.getRecipientAccount())), account);
         } else if (tag.contains("vCard")) {
@@ -71,7 +70,7 @@ public class RosterHandler implements Handler {
         RosterManager.getInstance().updatePhoto(vCard, vCardTag.getRecipientAccount(), senderBareJID);
         VCardDatabaseHandler db = new VCardDatabaseHandler(ChatApplication.getAppContext());
         String key = vCardTag.getRecipientAccount() + "_" + senderBareJID;
-        if (vCardTag.getChildTag("PHOTO") == null || vCardTag.getChildTag("PHOTO").getChildTags() == null) {
+        if (vCardTag.getChildTag("PHOTO") == null || vCardTag.getChildTag("PHOTO").getChildTags() == null || vCardTag.getChildTag("PHOTO").getChildTag("BINVAL") == null) {
             db.addVCard(key, vCard.getName(), VCardDatabaseHandler.AVATAR_DOES_NOT_EXIST);
         } else {
             db.addVCard(key, vCard.getName(), VCardDatabaseHandler.AVATAR_EXISTS);
@@ -93,7 +92,7 @@ public class RosterHandler implements Handler {
             if (tag.getAttribute("subscription").equals("both")) {
                 VCard vCard = getCachedVCard(rosterResult.getRecipientAccount(), tag.getAttribute("jid"));
                 if (vCard == null) {
-                    PacketWriter.addToWriteQueue(new IQTag(UUID.randomUUID().toString(), tag.getAttribute("jid"), "get", new VCardTag("vcard-temp")).setRecipientAccount(rosterResult.getRecipientAccount()));
+                    PacketWriter.addToWriteQueue(new IQTag("getVCard", tag.getAttribute("jid"), "get", new VCardTag("vcard-temp")).setRecipientAccount(rosterResult.getRecipientAccount()));
                 } else {
                     RosterManager.getInstance().updatePhoto(vCard, rosterResult.getRecipientAccount(), tag.getAttribute("jid"));
                 }

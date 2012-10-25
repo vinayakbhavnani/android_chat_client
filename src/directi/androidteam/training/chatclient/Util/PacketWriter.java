@@ -40,7 +40,6 @@ public class PacketWriter implements ServiceThread{
             Log.d("packetwriter","streamfound " +str );
             out.flush();
             if(out.checkError()){
-
                 String id = tag.getAttribute("id");
                 PacketStatusManager.getInstance().setFailure(id);
             }
@@ -48,8 +47,6 @@ public class PacketWriter implements ServiceThread{
                 AccountManager.getInstance().getAccount(tag.getRecipientAccount()).freeResources();
             }
         }
-
-
     }
     @Override
     public void execute() {
