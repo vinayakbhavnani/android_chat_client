@@ -3,6 +3,7 @@ package directi.androidteam.training.StanzaStore;
 import directi.androidteam.training.TagStore.IQTag;
 import directi.androidteam.training.TagStore.Query;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Chat.ChatStore;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.UUID;
@@ -39,8 +40,8 @@ public class RosterGet extends TagWrapper {
         return this;
     }
 
-    public void send() {
-    //    tag.setRecipientAccount(JID.getBareJid());
+    public void send(String from) {
+        tag.setRecipientAccount(ChatStore.getInstance().getAcctUID(from));
         setID(UUID.randomUUID().toString());
         PacketWriter.addToWriteQueue(getTag());
     }

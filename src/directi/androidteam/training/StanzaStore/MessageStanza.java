@@ -161,6 +161,8 @@ public class MessageStanza extends TagWrapper{
 
     public void send(String jid) {
         Account account = AccountManager.getInstance().getAccount(ChatStore.getInstance().getAcctUID(jid));
+        if(account==null)
+            return;
         tag.addAttribute("from", account.getFullJID());
         tag.setRecipientAccount(account.getAccountUid());
         setID(UUID.randomUUID().toString());

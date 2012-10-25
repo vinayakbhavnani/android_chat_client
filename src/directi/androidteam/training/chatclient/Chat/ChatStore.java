@@ -36,4 +36,8 @@ public class ChatStore {
     public String getAcctUID(String jid) {
         return chatMap.get(jid.split("@")[0]);
     }
+
+    public String[] getAllAcctUID() {
+        return chatMap.keySet().toArray(new String[chatMap.keySet().size()]);
+    }
 }
