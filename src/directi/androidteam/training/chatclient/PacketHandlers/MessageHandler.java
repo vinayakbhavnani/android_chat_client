@@ -7,6 +7,7 @@ import directi.androidteam.training.TagStore.Query;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.Chat.ChatNotifier;
+import directi.androidteam.training.chatclient.Chat.dbAccess.dbAccess;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class MessageHandler implements Handler{
         if(tag==null || tag.getTagname()==null)
             return;
         if(tag.getTagname().equals("message")) {
-            MessageStanza ms = new MessageStanza(tag);
+            final MessageStanza ms = new MessageStanza(tag);
             String from = ms.getTag().getAttribute("from").split("/")[0];
             String chatState = ms.getChatState();
            // if(chatLists.containsKey(from) && chatState.equals("composing")) {
@@ -40,6 +41,11 @@ public class MessageHandler implements Handler{
             else if(ms.getBody()!=null) {
                 if(ChatBox.getContext()==null){
                     ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
+/*
+                    Thread t = new Thread() {public void run() { dbAccess db =  new dbAccess(); db.addMessage(ms);}};
+                    t.start();
+*/
+                    dbAccess db =  new dbAccess(); db.addMessage(ms);
                     cn.notifyChat(ms);
                 }
                 else {
