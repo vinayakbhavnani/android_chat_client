@@ -93,7 +93,7 @@ public class RosterHandler implements Handler {
             if (tag.getAttribute("subscription").equals("both")) {
                 VCard vCard = getCachedVCard(rosterResult.getRecipientAccount(), tag.getAttribute("jid"));
                 if (vCard == null) {
-                    PacketWriter.addToWriteQueue(new IQTag("getVCard", tag.getAttribute("jid"), "get", new VCardTag("vcard-temp")).setRecipientAccount(rosterResult.getRecipientAccount()));
+                    PacketWriter.addToWriteQueue(new IQTag(UUID.randomUUID().toString(), tag.getAttribute("jid"), "get", new VCardTag("vcard-temp")).setRecipientAccount(rosterResult.getRecipientAccount()));
                 } else {
                     RosterManager.getInstance().updatePhoto(vCard, rosterResult.getRecipientAccount(), tag.getAttribute("jid"));
                 }
