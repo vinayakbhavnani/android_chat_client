@@ -8,9 +8,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import directi.androidteam.training.chatclient.Authentication.*;
@@ -107,33 +104,29 @@ public class GlobalTabActivity extends Activity {
 
     }
 
-
     public void updateRosterList(ArrayList<RosterItem> rosterList) {
-        ListView lv  = (((ListView)findViewById(R.id.roster_list)));
-        if(lv==null)
-            return;
+        ListView lv = (((ListView)findViewById(R.id.roster_list)));
+        if(lv == null) {return;}
         RosterItemAdapter rosterItemAdapter = (RosterItemAdapter)lv.getAdapter();
         rosterItemAdapter.setRosterItems(new ArrayList<RosterItem>(rosterList));
         rosterItemAdapter.notifyDataSetChanged();
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.rostermenu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.add_contact:
-                //TODO : add feature to ask for which account to add the contact to
-                // (new AddContactDialog()).show(getSupportFragmentManager(), "add_contact_dialog_box_tag");
-                return true;
-            default:
-                return super.onOptionsItemSelected(menuItem);
-        }
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.rostermenu, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem menuItem) {
+//        switch (menuItem.getItemId()) {
+//            case R.id.add_contact:
+//                //TODO : add feature to ask for which account to add the contact to
+//                // (new AddContactDialog()).show(getSupportFragmentManager(), "add_contact_dialog_box_tag");
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(menuItem);
+//        }
+//    }
 }
