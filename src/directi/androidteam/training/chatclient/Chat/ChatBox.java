@@ -43,6 +43,8 @@ public class ChatBox extends FragmentActivity {
         Bundle bundle = intent.getExtras();
         String from =  (String) bundle.get(BUDDY_ID);
         if(from != null) {
+            TalkToNotifier ttn = TalkToNotifier.getInstance(this.getApplicationContext());
+            ttn.cancelMessageNotification(from);
             MyFragmentManager.getInstance().addFragEntry(from);
             EditText editText = (EditText) findViewById(R.id.enter_message);
             editText.addTextChangedListener(new MsgTextChangeListener(from));
