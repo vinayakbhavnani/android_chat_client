@@ -1,10 +1,8 @@
-package directi.androidteam.training.chatclient.Util;
-
+package directi.androidteam.training.chatclient.Authentication.android_chat_client.src.directi.androidteam.training.chatclient.Util;
 
 import android.util.Log;
-import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.Authentication.AccountManager;
-import directi.androidteam.training.chatclient.Chat.PacketStatusManager;
+import directi.androidteam.training.chatclient.Authentication.android_chat_client.src.directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Authentication.android_chat_client.src.directi.androidteam.training.chatclient.Chat.PacketStatusManager;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ import java.util.HashMap;
  * Time: 2:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PacketWriter implements ServiceThread{
+public class PacketWriter implements ServiceThread {
     private static PrintWriter writer;
     private static ArrayList<Tag> list =  new ArrayList<Tag>();
     private static HashMap<String,PrintWriter> outputStreams = new HashMap<String, PrintWriter>();
@@ -31,22 +29,34 @@ public class PacketWriter implements ServiceThread{
     }
 
     public void write(Tag tag){
+        if (tag == null) return;
+        Log.d("QQQQ","tagname"+tag.getTagname() + "body" + tag.toXml());
+        if(tag.getRecipientAccount()==null)
+            return;
+        if (tag.getRecipientAccount().contains("@")) {
+            tag.setRecipientAccount(tag.getRecipientAccount().split("@")[0]);
+        }
         PrintWriter out = outputStreams.get(tag.getRecipientAccount());
-        Log.d("packetwriter","entry "+tag.toXml());
+
+        for (String s : outputStreams.keySet()) {
+        }
+
         if(out!=null){
 
             String str = tag.toXml();
             out.write(tag.toXml());
             Log.d("packetwriter","streamfound " +str );
             out.flush();
-            if(out.checkError()){
-                String id = tag.getAttribute("id");
-                PacketStatusManager.getInstance().setFailure(id);
-            }
-            if(tag.getTagId()!=null && tag.getTagId().equals("streamclose")){
-                AccountManager.getInstance().getAccount(tag.getRecipientAccount()).freeResources();
-            }
         }
+        //writer.write(tag.toXml());
+        //writer.flush();
+        if(out.checkError()){
+
+            String id = tag.getAttribute("id");
+            PacketStatusManager.getInstance().setFailure(id);
+        }
+
+
     }
     @Override
     public void execute() {
@@ -62,7 +72,7 @@ public class PacketWriter implements ServiceThread{
     }
 
     public static void addStream(PrintWriter out , String account){
-        outputStreams.put(account,out);
+        outputStreams.put(account, out);
     }
     public static boolean removeStream(String account){
         if(outputStreams.containsKey(account)){
