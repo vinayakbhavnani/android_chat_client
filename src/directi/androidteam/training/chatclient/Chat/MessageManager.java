@@ -35,6 +35,10 @@ public class MessageManager {
         return messageManager;
     }
 
+    public void appendMessageStore(String jid,MessageStanza ms) {
+        messageStore.get(jid).add(ms);
+    }
+
     public void insertMessage(String from, MessageStanza ms) {
         addToDB(ms);
         if(!messageStore.containsKey(from)) {
