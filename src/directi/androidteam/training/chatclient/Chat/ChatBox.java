@@ -8,9 +8,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -64,16 +61,6 @@ public class ChatBox extends FragmentActivity {
 
 /*
     @Override
-    protected void onSaveInstanceState(Bundle bundle) {
-        return;
-    }
-*/
-
-    @Override
-    protected void onRestoreInstanceState(Bundle bundle) {
-        super.onRestoreInstanceState(bundle);
-    }
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.global_navigation_menu, menu);
@@ -96,6 +83,7 @@ public class ChatBox extends FragmentActivity {
                 return super.onOptionsItemSelected(menuItem);
         }
     }
+*/
 
 
     private void sendDiscoInfoQuery(String from) {
@@ -117,7 +105,7 @@ public class ChatBox extends FragmentActivity {
     }
 
     public static void notifyChat(final MessageStanza ms, final String from){
-        if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("@")[0])) {
+        if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("/")[0])) {
             ChatNotifier cn = new ChatNotifier(context);
             cn.notifyChat(ms);
         }
@@ -222,7 +210,7 @@ public class ChatBox extends FragmentActivity {
     }
 
     private void GotoRoster(){
-        Intent intent = new Intent(ChatApplication.getAppContext(), GlobalTabActivity.class); //DisplayRosterActivity.class);
+        Intent intent = new Intent(ChatApplication.getAppContext(), GlobalTabActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
 /*
@@ -277,34 +265,6 @@ public class ChatBox extends FragmentActivity {
         frag_adaptor = new FragmentSwipeAdaptor(fragmentManager);
         viewPager.setAdapter(frag_adaptor);
 
-/*
-        Fragment fragment = fragmentManager.findFragmentByTag(jid);
-        if(fragment==null)
-            return;
-        Log.d(Constants.DEBUG_CHATBOX,"frag to be removed : "+jid);
-        int itemNumber = viewPager.getCurrentItem();
-        String next_jid_to_be_shown;
-        int n;
-        if(itemNumber>0) {
-            next_jid_to_be_shown = MyFragmentManager.getInstance().getJidByFragId(0);//itemNumber-1);
-            //n = itemNumber-1;
-            n=0;
-        }
-        else {
-            next_jid_to_be_shown =MyFragmentManager.getInstance().getJidByFragId(0);
-            n=0;
-        }
-        Log.d(Constants.DEBUG_CHATBOX,"frag to be shown : "+next_jid_to_be_shown);
-        Fragment newFragment = fragmentManager.findFragmentByTag(next_jid_to_be_shown);
-        fragmentManager.beginTransaction().remove(fragment).commit();
-        if(newFragment==null) {
-            MyFragmentManager manager = MyFragmentManager.getInstance();
-            newFragment = manager.getFragByJID(next_jid_to_be_shown);
-            fragmentManager.beginTransaction().addSubscriber(newFragment, next_jid_to_be_shown).commit();
-        }
-        fragmentManager.beginTransaction().show(newFragment).commit();
-      //       viewPager.setCurrentItem(n);
-*/
     }
 
 }
