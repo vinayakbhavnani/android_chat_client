@@ -41,7 +41,8 @@ public class PacketWriter implements ServiceThread{
             out.flush();
             if(out.checkError()){
                 String id = tag.getAttribute("id");
-                PacketStatusManager.getInstance().setFailure(id);
+                if(id!=null)
+                    PacketStatusManager.getInstance().setFailure(id);
             }
             if(tag.getTagId()!=null && tag.getTagId().equals("streamclose")){
                 AccountManager.getInstance().getAccount(tag.getRecipientAccount()).freeResources();
