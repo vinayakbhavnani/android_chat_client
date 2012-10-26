@@ -41,10 +41,6 @@ public class MessageHandler implements Handler{
             else if(ms.getBody()!=null) {
                 if(ChatBox.getContext()==null){
                     ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
-/*
-                    Thread t = new Thread() {public void run() { dbAccess db =  new dbAccess(); db.addMessage(ms);}};
-                    t.start();
-*/
                     dbAccess db =  new dbAccess(); db.addMessage(ms);
                     cn.notifyChat(ms);
                 }
