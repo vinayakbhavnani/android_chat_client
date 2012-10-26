@@ -45,7 +45,7 @@ public class MessageHandler implements Handler{
                     cn.notifyChat(ms);
                 }
                 else {
-                    ChatBox.notifyChat(ms,from);
+                    ChatBox.notifyChat(ms);
                 }
 
             }

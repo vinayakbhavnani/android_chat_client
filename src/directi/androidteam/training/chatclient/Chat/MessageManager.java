@@ -39,8 +39,9 @@ public class MessageManager {
         messageStore.get(jid).add(ms);
     }
 
-    public void insertMessage(String from, MessageStanza ms) {
+    public void insertMessage(MessageStanza ms) {
         addToDB(ms);
+        String from = ms.getTag().getAttribute("from").split("/")[0];
         if(!messageStore.containsKey(from)) {
             Vector<MessageStanza> arrayList = new Vector<MessageStanza>();
             arrayList.add(ms);
