@@ -57,6 +57,13 @@ public class MyFragmentManager {
             return;
         Log.d("xcxc","addFragEntry : jid : "+jid);
         JIDOrderOfFragments.remove(jid);
+/*
+        for (String s : JIDOrderOfFragments) {
+            if(s.equals(jid)) {
+                JIDOrderOfFragments.remove(s);
+            }
+        }
+*/
     }
 
     public ChatFragment getFragByJID(String jid) {
