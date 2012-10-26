@@ -68,9 +68,11 @@ public class AccountManager {
         Collection<Account> collection = userAccounts.values();
         if(collection.size()==0)
             ret = -1;
+        if(!NetworkManager.connected)
+            return ret;
         for(Account acc:collection){
             Log.d("loginstatus", acc.getPersistedLoginStatus().toString());
-            if(acc.getPersistedLoginStatus().equals(LoginStatus.ONLINE)){
+            if(acc.getPersistedLoginStatus().equals(LoginStatus.ONLINE) && acc.isLoginStatus().equals(LoginStatus.OFFLINE)){
                 new LoginTask(acc).execute();
                 ret++;
             }

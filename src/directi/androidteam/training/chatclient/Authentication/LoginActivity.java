@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient.Authentication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -61,6 +62,10 @@ public class LoginActivity extends Activity {
             case R.id.addaccount_signin:
                 addAccount(new View(this));
                 return true;
+            case R.id.addaccount_import:
+                Log.d("entering","optionsselected");
+                importAccount(new View(this));
+                return true;
             default:
                 return super.onOptionsItemSelected(menuItem);
         }
@@ -113,5 +118,12 @@ public class LoginActivity extends Activity {
             Intent intent = new Intent(this,GlobalTabActivity.class);
             startActivity(intent);
         }
+    }
+
+    public void importAccount(View view){
+        ImportGoogleAccount iga = new ImportGoogleAccount(this);
+        //iga.execute();
+        Log.d("entering","fromlogin");
+        DialogBuilder.createImportAccountDialog(this);
     }
 }

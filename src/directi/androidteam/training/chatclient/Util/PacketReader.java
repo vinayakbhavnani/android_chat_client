@@ -3,9 +3,7 @@ package directi.androidteam.training.chatclient.Util;
 import android.content.Intent;
 import android.util.Log;
 import directi.androidteam.training.ChatApplication;
-import directi.androidteam.training.chatclient.Authentication.AccountManager;
-import directi.androidteam.training.chatclient.Authentication.LoginStatus;
-import directi.androidteam.training.chatclient.Authentication.LoginTask;
+import directi.androidteam.training.chatclient.Authentication.*;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
@@ -41,7 +39,9 @@ public class PacketReader implements ServiceThread{
                 //Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
                 //intent.putExtra("error","connection");
 //                ChatBox.getContext().startActivity(intent);
-                if(AccountManager.getInstance().getAccount(accountjid).isLoginStatus().equals(LoginStatus.ONLINE)){
+                Account account  = AccountManager.getInstance().getAccount(accountjid);
+                account.setLoginStatus(LoginStatus.OFFLINE);
+                if(account.getPersistedLoginStatus().equals(LoginStatus.ONLINE) && NetworkManager.connected){
                     new LoginTask(AccountManager.getInstance().getAccount(accountjid));
                 }
                 }

@@ -15,14 +15,17 @@ public class GtalkAccount extends Account {
         this.serviceIcon = R.drawable.gtalk;
         this.serverURL = "talk.google.com";
         this.serverPort = 5223;
-        this.service="gtalk";
+
         this.passwd = passwd;
         loginStatus = LoginStatus.OFFLINE;
-        if(pwdbased)
+        if(pwdbased){
             this.xmppLogin = new GtalkLogin(username,passwd);
-        else
+            this.service="gtalk";
+        }
+        else{
             this.xmppLogin = new GtalkOauthLogin(username,passwd);
-
+            this.service="gtalkauth";
+        }
         //AccountManager.getInstance().addAccount(this);
         //this.Login();
     }

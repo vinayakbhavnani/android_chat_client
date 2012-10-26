@@ -145,6 +145,10 @@ public  abstract class Account implements Publisher{
             ret = new GtalkAccount(username,password,true);
             ret.setPersistedLoginStatus(status);
         }
+        else if(service.equals("gtalkauth")){
+            ret = new GtalkAccount(username,password,false);
+            ret.setPersistedLoginStatus(status);
+        }
         else if(service.equals("pingpong")){
             ret = new PingPongAccount(username,password);
             ret.setPersistedLoginStatus(status);
@@ -192,11 +196,14 @@ public  abstract class Account implements Publisher{
             this.socket = createSocket();
             BufferedReader reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             setupReaderWriter(launchInNewThread(new PacketReader(reader, accountUid)));
+            xmppLogin.initiateLogin();
+            setLoginStatus(LoginStatus.CONNECTING);
+            setPersistedLoginStatus(LoginStatus.ONLINE);
         } catch (IOException e) {
+            setLoginStatus(LoginStatus.UNABLETOCONNECT);
             e.printStackTrace();
         }
-        xmppLogin.initiateLogin();
-       setLoginStatus(LoginStatus.CONNECTING);
+
     }
 
     public void postLogin(){
@@ -215,6 +222,7 @@ public  abstract class Account implements Publisher{
         close.setRecipientAccount(accountUid);
         PacketWriter.addToWriteQueue(close);
         setLoginStatus(LoginStatus.OFFLINE);
+        setPersistedLoginStatus(LoginStatus.OFFLINE);
 
 
     }

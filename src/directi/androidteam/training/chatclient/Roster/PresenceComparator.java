@@ -1,5 +1,7 @@
 package directi.androidteam.training.chatclient.Roster;
 
+import android.util.Log;
+
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -20,6 +22,7 @@ public class PresenceComparator implements Comparator<RosterItem> {
         this.presencePriorityMap.put("away", 3);
         this.presencePriorityMap.put("xa", 3);
         this.presencePriorityMap.put("unavailable", 4);
+        this.presencePriorityMap.put("offline", 4);
     }
 
     @Override

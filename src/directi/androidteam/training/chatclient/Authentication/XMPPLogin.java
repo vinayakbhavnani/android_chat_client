@@ -24,6 +24,7 @@ public abstract class XMPPLogin {
     protected String accountJID;
     protected Socket socket;
     protected int port;
+
     public XMPPLogin(String accountjid,String passwd){
 
         this.accountJID=accountjid;
