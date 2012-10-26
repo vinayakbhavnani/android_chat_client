@@ -78,7 +78,7 @@ public class MyFragmentManager {
                 return i;
             i++;
         }
-        return -1;
+        return -200;
     }
 
     public  Vector<MessageStanza> getFragList(String from){
