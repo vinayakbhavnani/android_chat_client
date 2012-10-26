@@ -22,10 +22,6 @@ public class MyFragmentManager {
         JIDOrderOfFragments = new Vector<String>();
     }
 
-    public static void flush() {
-        MyFragmentManager fragmentManager  = new MyFragmentManager();
-    }
-
     public static MyFragmentManager getInstance() {
         return fragmentManager;
     }
@@ -71,7 +67,7 @@ public class MyFragmentManager {
 
     public int JidToFragId(String from){
         if(from==null)
-            return -100;
+            return -1;
         int i =0;
         for (String s : JIDOrderOfFragments) {
             if(s.equals(from))

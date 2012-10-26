@@ -105,9 +105,8 @@ public class ChatBox extends FragmentActivity {
         );
     }
 
-    public static void notifyChat(final MessageStanza ms){
-        Log.d("chat notify","viewpager : "+viewPager.getCurrentItem()+" frag manager : "+ MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("@")[0]) + " from : " + ms.getFrom().split("@")[0]);
-        if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("/")[0])) {
+    public static void notifyChat(final MessageStanza ms, final String from){
+        if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("@")[0])) {
             ChatNotifier cn = new ChatNotifier(context);
             cn.notifyChat(ms);
         }
@@ -122,7 +121,7 @@ public class ChatBox extends FragmentActivity {
         if(context!=null)
         ((Activity)context).runOnUiThread(new Runnable() {
             public void run() {
-                MessageManager.getInstance().insertMessage(ms);
+                MessageManager.getInstance().insertMessage(from, ms);
             }
         });
 
@@ -194,7 +193,7 @@ public class ChatBox extends FragmentActivity {
 
         PacketStatusManager.getInstance().pushMsPacket(msgStanza);
         MyFragmentManager.getInstance().addFragEntry(jid);
-        MessageManager.getInstance().insertMessage(msgStanza);
+        MessageManager.getInstance().insertMessage(jid, msgStanza);
 
         viewPager.setCurrentItem(currentItem);
 
