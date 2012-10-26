@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import directi.androidteam.training.chatclient.Authentication.AccountManager;
 import directi.androidteam.training.chatclient.Authentication.NetworkManager;
 
 /**
@@ -20,6 +21,8 @@ public class NetworkConnectionChangeReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
           NetworkManager.setConnected(context);
+
+          AccountManager.getInstance().loginAccounts();
 //        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
 //        NetworkInfo mobNetInfo = connectivityManager.getNetworkInfo( ConnectivityManager.TYPE_MOBILE );
 //        if ( activeNetInfo != null ) {

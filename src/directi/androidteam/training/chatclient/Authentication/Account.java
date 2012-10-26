@@ -200,7 +200,8 @@ public  abstract class Account implements Publisher{
             e.printStackTrace();
         }
         xmppLogin.initiateLogin();
-       setLoginStatus(LoginStatus.CONNECTING);
+        setLoginStatus(LoginStatus.CONNECTING);
+        setPersistedLoginStatus(LoginStatus.ONLINE);
     }
 
     public void postLogin(){
@@ -219,6 +220,7 @@ public  abstract class Account implements Publisher{
         close.setRecipientAccount(accountUid);
         PacketWriter.addToWriteQueue(close);
         setLoginStatus(LoginStatus.OFFLINE);
+        setPersistedLoginStatus(LoginStatus.OFFLINE);
 
 
     }
