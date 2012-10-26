@@ -197,12 +197,14 @@ public final class R {
         public static final int accountitem_jid=0x7f090002;
         public static final int accountitem_presence=0x7f090004;
         public static final int accountitem_status=0x7f090003;
-        public static final int add_account=0x7f090040;
-        public static final int add_contact=0x7f09003f;
+        public static final int add_account=0x7f090042;
+        public static final int add_contact=0x7f090041;
+        public static final int addaccount=0x7f09003a;
         public static final int addaccount_gtalk=0x7f090027;
+        public static final int addaccount_import=0x7f09003f;
         public static final int addaccount_pingpong=0x7f090028;
         public static final int addaccount_radio=0x7f090026;
-        public static final int addaccount_signin=0x7f09003d;
+        public static final int addaccount_signin=0x7f09003e;
         public static final int canvas_roster=0x7f09000b;
         public static final int chatbox_networknotification=0x7f090010;
         public static final int chatboxheader_left=0x7f09000c;
@@ -218,9 +220,9 @@ public final class R {
         public static final int chatlistitem_time=0x7f09001a;
         public static final int choose_account=0x7f090038;
         public static final int enter_message=0x7f090012;
-        public static final int global_navigation_account=0x7f09003a;
-        public static final int global_navigation_chat=0x7f09003c;
-        public static final int global_navigation_contact=0x7f09003b;
+        public static final int global_navigation_account=0x7f09003b;
+        public static final int global_navigation_chat=0x7f09003d;
+        public static final int global_navigation_contact=0x7f09003c;
         public static final int global_tab_root=0x7f090029;
         public static final int gtalk_icon=0x7f090021;
         public static final int list_availability_image=0x7f090031;
@@ -241,7 +243,7 @@ public final class R {
         public static final int roster_root=0x7f09002c;
         public static final int roster_status=0x7f090033;
         public static final int rostersearchlist=0x7f090036;
-        public static final int search=0x7f09003e;
+        public static final int search=0x7f090040;
         public static final int searchrosterentryedittext=0x7f090035;
         public static final int send_mess_body=0x7f09001c;
         public static final int send_mess_name=0x7f090019;
@@ -275,10 +277,11 @@ public final class R {
         public static final int users=0x7f030012;
     }
     public static final class menu {
-        public static final int global_navigation_menu=0x7f080000;
-        public static final int login_menu=0x7f080001;
-        public static final int rostermenu=0x7f080002;
-        public static final int userlist_menu=0x7f080003;
+        public static final int accountscreen_menu=0x7f080000;
+        public static final int global_navigation_menu=0x7f080001;
+        public static final int login_menu=0x7f080002;
+        public static final int rostermenu=0x7f080003;
+        public static final int userlist_menu=0x7f080004;
     }
     public static final class string {
         public static final int OK=0x7f060011;

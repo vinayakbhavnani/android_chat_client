@@ -4,4 +4,7 @@
     <item android:id="@+id/addaccount_signin"
           android:title="@string/button_login"
           android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/addaccount_import"
+          android:title="Import Account"
+          android:showAsAction="ifRoom|withText" />
 </menu>
