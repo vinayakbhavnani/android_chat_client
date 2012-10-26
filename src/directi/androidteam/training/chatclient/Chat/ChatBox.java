@@ -8,6 +8,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -59,7 +62,6 @@ public class ChatBox extends FragmentActivity {
         sendDiscoInfoQuery(from);
     }
 
-/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -83,7 +85,6 @@ public class ChatBox extends FragmentActivity {
                 return super.onOptionsItemSelected(menuItem);
         }
     }
-*/
 
 
     private void sendDiscoInfoQuery(String from) {
@@ -105,19 +106,19 @@ public class ChatBox extends FragmentActivity {
     }
 
     public static void notifyChat(final MessageStanza ms){
-        Log.d("chat notify","viewpager : "+viewPager.getCurrentItem()+" frag manager : "+ MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("/")[0]) + " from : " + ms.getFrom().split("@")[0]);
+        Log.d("chat notify","viewpager : "+viewPager.getCurrentItem()+" frag manager : "+ MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("@")[0]) + " from : " + ms.getFrom().split("@")[0]);
         if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("/")[0])) {
             ChatNotifier cn = new ChatNotifier(context);
             cn.notifyChat(ms);
         }
 /*
         dbAccess db =  new dbAccess(); db.addMessage(ms);
+        MyFragmentManager.getInstance().addFragEntry(from);
         MessageManager.getInstance().appendMessageStore(from,ms);
         if(viewPager.getCurrentItem()== MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("@")[0])){
             notifyFragmentAdaptorInSameThread();
         }
 */
-//        MyFragmentManager.getInstance().addFragEntry(ms.getFrom().split("/")[0]);
         if(context!=null)
         ((Activity)context).runOnUiThread(new Runnable() {
             public void run() {
