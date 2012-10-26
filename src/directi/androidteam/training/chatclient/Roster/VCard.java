@@ -8,8 +8,14 @@ import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.TagStore.VCardTag;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.Base64;
+import org.apache.http.util.ByteArrayBuffer;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -84,6 +90,10 @@ public class VCard {
             if (BINVALTag != null) {
                 this.avatar = decodeAvatar(BINVALTag.getContent());
             }
+            Tag EXTVALTag = PHOTOTag.getChildTag("EXTVAL");
+            if (EXTVALTag != null) {
+                this.avatar = fetchAvatarFromUrl(EXTVALTag.getContent());
+            }
         }
     }
 
@@ -95,5 +105,28 @@ public class VCard {
             Log.d("IOException", e.toString());
         }
         return null;
+    }
+
+    private Bitmap fetchAvatarFromUrl(String url) {
+        byte [] avatarBinval = new byte[0];
+        try {
+            URL u = new URL(url);
+            URLConnection ucon = u.openConnection();
+            InputStream is = ucon.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            ByteArrayBuffer baf = new ByteArrayBuffer(128);
+            int current = 0;
+            while ((current = bis.read()) != -1) {
+                baf.append((byte)current);
+            }
+            avatarBinval = baf.toByteArray();
+            bis.close();
+            is.close();
+        } catch (MalformedURLException e) {
+            Log.d("MalformedURLException", e.toString());
+        } catch (IOException e) {
+            Log.d("IOException", e.toString());
+        }
+        return BitmapFactory.decodeByteArray(avatarBinval, 0, avatarBinval.length);
     }
 }
