@@ -8,9 +8,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -62,6 +59,7 @@ public class ChatBox extends FragmentActivity {
         sendDiscoInfoQuery(from);
     }
 
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -85,6 +83,7 @@ public class ChatBox extends FragmentActivity {
                 return super.onOptionsItemSelected(menuItem);
         }
     }
+*/
 
 
     private void sendDiscoInfoQuery(String from) {
