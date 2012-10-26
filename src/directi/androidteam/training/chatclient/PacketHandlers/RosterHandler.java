@@ -16,9 +16,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class RosterHandler implements Handler {
     private static RosterHandler rosterHandler = new RosterHandler();
+    private Lock lock = new ReentrantLock();
 
     public static RosterHandler getInstance() {
         return rosterHandler;
@@ -68,6 +71,7 @@ public class RosterHandler implements Handler {
         VCard vCard = new VCard(senderBareJID);
         vCard.populateFromTag(vCardTag);
         RosterManager.getInstance().updatePhoto(vCard, vCardTag.getRecipientAccount(), senderBareJID);
+        lock.lock();
         VCardDatabaseHandler db = new VCardDatabaseHandler(ChatApplication.getAppContext());
         String key = vCardTag.getRecipientAccount() + "_" + senderBareJID;
         if (vCardTag.getChildTag("PHOTO") == null || vCardTag.getChildTag("PHOTO").getChildTags() == null || vCardTag.getChildTag("PHOTO").getChildTag("BINVAL") == null) {
@@ -85,6 +89,7 @@ public class RosterHandler implements Handler {
             }
         }
         db.close();
+        lock.unlock();
     }
 
     private void requestVCards(Tag rosterResult) {
@@ -102,6 +107,7 @@ public class RosterHandler implements Handler {
 
     private VCard getCachedVCard(String accountUID, String itemBareJID) {
         String key = accountUID + "_" + itemBareJID;
+        lock.lock();
         VCardDatabaseHandler db = new VCardDatabaseHandler(ChatApplication.getAppContext());
         String fullName = db.getFullName(key);
         if (fullName == null) {db.close(); return null;}
@@ -113,6 +119,7 @@ public class RosterHandler implements Handler {
             }
         }
         db.close();
+        lock.unlock();
         return vCard;
     }
 
