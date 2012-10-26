@@ -75,7 +75,7 @@ public class GlobalTabActivity extends Activity {
             }
         });
 
-        builder.setItems(temp.toArray(new CharSequence[temp.size()]),new DialogListener(temp,account,AccountsFragment.getAdaptor()));
+        builder.setItems(temp.toArray(new CharSequence[temp.size()]),new DialogListener(temp,account,AccountsFragment.getAdaptor(),this));
 
         AlertDialog dialog = builder.create();
         dialog.show();

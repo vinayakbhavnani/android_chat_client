@@ -145,6 +145,10 @@ public  abstract class Account implements Publisher{
             ret = new GtalkAccount(username,password,true);
             ret.setPersistedLoginStatus(status);
         }
+        else if(service.equals("gtalkauth")){
+            ret = new GtalkAccount(username,password,false);
+            ret.setPersistedLoginStatus(status);
+        }
         else if(service.equals("pingpong")){
             ret = new PingPongAccount(username,password);
             ret.setPersistedLoginStatus(status);
