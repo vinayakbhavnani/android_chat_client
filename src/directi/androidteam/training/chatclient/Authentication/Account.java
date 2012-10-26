@@ -196,12 +196,14 @@ public  abstract class Account implements Publisher{
             this.socket = createSocket();
             BufferedReader reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             setupReaderWriter(launchInNewThread(new PacketReader(reader, accountUid)));
+            xmppLogin.initiateLogin();
+            setLoginStatus(LoginStatus.CONNECTING);
+            setPersistedLoginStatus(LoginStatus.ONLINE);
         } catch (IOException e) {
+            setLoginStatus(LoginStatus.UNABLETOCONNECT);
             e.printStackTrace();
         }
-        xmppLogin.initiateLogin();
-        setLoginStatus(LoginStatus.CONNECTING);
-        setPersistedLoginStatus(LoginStatus.ONLINE);
+
     }
 
     public void postLogin(){

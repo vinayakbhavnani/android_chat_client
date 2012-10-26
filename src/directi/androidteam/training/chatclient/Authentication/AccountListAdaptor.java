@@ -93,7 +93,7 @@ public class AccountListAdaptor extends BaseAdapter {
         //holder.settings.setImageResource(R.drawable.settings);
         //holder.settings.setTag(cli.getAccountUid());
         String show = cli.getShow();
-        if(show!=null){
+        if(show!=null && cli.isLoginStatus().equals(LoginStatus.ONLINE)){
         if(show.equals("dnd"))
             holder.presence.setImageResource(R.color.Red);
         else if(show.equals("available"))
@@ -101,6 +101,8 @@ public class AccountListAdaptor extends BaseAdapter {
         else if(show.equals("away"))
             holder.presence.setImageResource(R.color.Yellow);
         }
+        else
+            holder.presence.setImageResource(R.color.Gray);
         if(cli.isLoginStatus().equals(LoginStatus.ONLINE)){
             if(cli.getStatus()==null || cli.getStatus().equals(""))
                 holder.status.setText("online");
@@ -108,11 +110,13 @@ public class AccountListAdaptor extends BaseAdapter {
                 holder.status.setText(cli.getStatus());
 
             holder.status.setTextColor(R.color.Black);
+            if(show==null)
+                holder.presence.setImageResource(R.color.Green);
         }
         else if(cli.isLoginStatus().equals(LoginStatus.OFFLINE)){
             holder.status.setText("offline");
             holder.status.setTextColor(R.color.Gray);
-            holder.presence.setImageResource(R.color.Gray);
+
         }
         else if(cli.isLoginStatus().equals(LoginStatus.CONNECTING)){
             holder.status.setText("connecting");
@@ -121,6 +125,11 @@ public class AccountListAdaptor extends BaseAdapter {
         else if(cli.isLoginStatus().equals(LoginStatus.INVALIDCREDENTIALS)){
             holder.status.setText("wrong password");
             holder.status.setTextColor(R.color.Red);
+        }
+        else if(cli.isLoginStatus().equals(LoginStatus.UNABLETOCONNECT)){
+            holder.status.setTextColor(R.color.Red);
+            holder.status.setText("Unable to Connect");
+
         }
         holder.icon.setImageResource(cli.getServiceIcon());
 
