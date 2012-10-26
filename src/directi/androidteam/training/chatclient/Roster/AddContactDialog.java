@@ -21,14 +21,20 @@ import directi.androidteam.training.chatclient.Util.PacketWriter;
  * To change this template use File | Settings | File Templates.
  */
 public class AddContactDialog extends DialogFragment {
-    public void sendChatInvitation(String invitedJID) {
+    private String accountUID;
+
+    public AddContactDialog(String accountUID) {
+        this.accountUID = accountUID;
+    }
+
+    private void sendChatInvitation(String invitedJID) {
         RosterSet rosterSet = new RosterSet();
         rosterSet.addQuery(invitedJID);
-        PacketWriter.addToWriteQueue(rosterSet.getTag().setRecipientAccount("".split("/")[0]));
+        PacketWriter.addToWriteQueue(rosterSet.getTag().setRecipientAccount(accountUID));
         Presence presence = new Presence();
         presence.setTo(invitedJID);
         presence.setType("subscribe");
-        PacketWriter.addToWriteQueue(presence.setRecipientAccount("".split("/")[0]));
+        PacketWriter.addToWriteQueue(presence.setRecipientAccount(accountUID));
     }
 
     @Override
