@@ -42,8 +42,9 @@ public class TalkToNotificationManager {
         notificationBuilder.setAutoCancel(true);
         notificationBuilder.setNumber(number);
         Intent deleteIntent = new Intent(CancellationReceiver.CANCEL);
+        deleteIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
         deleteIntent.putExtra(NOTIFICATION_ID,notificationID);
-        notificationBuilder.setDeleteIntent(TaskStackBuilder.create(notificationContext).addNextIntent(deleteIntent).getPendingIntent(0,PendingIntent.FLAG_CANCEL_CURRENT));
+        notificationBuilder.setDeleteIntent(PendingIntent.getActivity(notificationContext,0,deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT));
         notificationBuilder.setContentIntent( TaskStackBuilder.create(notificationContext).addParentStack(homeActivityClass).addNextIntent(new Intent(notificationContext,homeActivityClass)).addNextIntent(targetIntent).getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT));
         Notification notification = notificationBuilder.build();
         Log.d(LOGTAG,"successfully created android notification") ;
