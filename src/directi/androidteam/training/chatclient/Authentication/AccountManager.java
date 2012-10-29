@@ -63,6 +63,14 @@ public class AccountManager {
         return accounts.get(i);
     }
 
+    public boolean isGoogleAccountAdded(String username){
+        for (Account account : userAccounts.values()) {
+            if(username.equals(account.accountUid))
+                return true;
+        }
+        return false;
+    }
+
     public int loginAccounts(){
         int ret = 0;
         Collection<Account> collection = userAccounts.values();

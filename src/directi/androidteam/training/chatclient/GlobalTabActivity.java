@@ -5,10 +5,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.chatclient.Authentication.*;
 import directi.androidteam.training.chatclient.Roster.RosterFragment;
 import directi.androidteam.training.chatclient.Roster.RosterItem;
@@ -108,4 +113,27 @@ public class GlobalTabActivity extends Activity {
 //                return super.onOptionsItemSelected(menuItem);
 //        }
 //    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.accountscreen_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.addaccount:
+                Intent intent = new Intent(this,LoginActivity.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
+    }
+
+
 }

@@ -49,8 +49,8 @@ public class AccountsFragment extends Fragment implements Subscriber{
         adaptor = new AccountListAdaptor(getActivity());
         lv.setAdapter(adaptor);
 
-        Button accountAddButton = (Button) view.findViewById(R.id.accountScreen_add);
-        accountAddButton.setOnClickListener(new AcctScreenAddOnClickListener(getActivity()));
+       /* Button accountAddButton = (Button) view.findViewById(R.id.accountScreen_add);
+        accountAddButton.setOnClickListener(new AcctScreenAddOnClickListener(getActivity()));*/
         setLoginList();
         setLogoutList();
         Log.d("ioio","pppp");
@@ -79,16 +79,14 @@ public class AccountsFragment extends Fragment implements Subscriber{
     public void setLoginList(){
         loginList = new ArrayList<String>();
         loginList.add("Login");
-        loginList.add("Edit Password");
-        loginList.add("Remove Account");
+        //loginList.add("Edit Password");
         loginList.add("Remove Account");
         loginList.add("Set Status");
     }
     public void setLogoutList(){
         logoutList = new ArrayList<String>();
         logoutList.add("Logout");
-        logoutList.add("Edit Password");
-        logoutList.add("Remove Account");
+        //logoutList.add("Edit Password");
         logoutList.add("Remove Account");
         logoutList.add("Set Status");
     }

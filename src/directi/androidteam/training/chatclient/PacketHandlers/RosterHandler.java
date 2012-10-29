@@ -73,7 +73,7 @@ public class RosterHandler implements Handler {
         VCard vCard = new VCard(senderBareJID);
         vCard.populateFromTag(vCardTag);
         RosterManager.getInstance().updatePhoto(vCard, vCardTag.getRecipientAccount(), senderBareJID);
-//        lock.lock();
+        lock.lock();
         VCardDatabaseHandler db = new VCardDatabaseHandler(ChatApplication.getAppContext());
         String key = vCardTag.getRecipientAccount() + "_" + senderBareJID;
         if (vCardTag.getChildTag("PHOTO") == null || vCardTag.getChildTag("PHOTO").getChildTags() == null || vCardTag.getChildTag("PHOTO").getChildTag("BINVAL") == null) {
@@ -93,7 +93,7 @@ public class RosterHandler implements Handler {
             }
         }
         db.close();
-//        lock.unlock();
+        lock.unlock();
     }
 
     private void requestVCards(Tag rosterResult) {
@@ -111,7 +111,7 @@ public class RosterHandler implements Handler {
 
     private VCard getCachedVCard(String accountUID, String itemBareJID) {
         String key = accountUID + "_" + itemBareJID;
-//        lock.lock();
+        lock.lock();
         VCardDatabaseHandler db = new VCardDatabaseHandler(ChatApplication.getAppContext());
         String fullName = db.getFullName(key);
         if (fullName == null) {db.close(); return null;}
@@ -123,7 +123,7 @@ public class RosterHandler implements Handler {
             }
         }
         db.close();
-//        lock.unlock();
+        lock.unlock();
         return vCard;
     }
 

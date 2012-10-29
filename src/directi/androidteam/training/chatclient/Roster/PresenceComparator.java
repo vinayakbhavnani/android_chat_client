@@ -27,6 +27,8 @@ public class PresenceComparator implements Comparator<RosterItem> {
 
     @Override
     public int compare(RosterItem rosterItem1, RosterItem rosterItem2) {
+        Log.d("presenceCom",rosterItem1.getPresence());
+        Log.d("presenceCom",rosterItem2.getPresence());
         return this.presencePriorityMap.get(rosterItem1.getPresence()).compareTo(this.presencePriorityMap.get(rosterItem2.getPresence()));
     }
 }

@@ -44,7 +44,9 @@ public class DialogBuilder {
         final ArrayList<android.accounts.Account> selectedAccounts = new ArrayList<android.accounts.Account>();
         CharSequence[] accountnames = new CharSequence[accounts.length];
         for(int i=0;i<accounts.length;i++){
-            accountnames[i] = accounts[i].name;
+            String temp = accounts[i].name;
+            //if(!AccountManager.getInstance().isGoogleAccountAdded(temp))
+                accountnames[i] = accounts[i].name;
         }
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);

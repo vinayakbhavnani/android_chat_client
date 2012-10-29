@@ -21,15 +21,6 @@
 
             />
 
-    <Button
-        android:id="@+id/accountScreen_add"
-        android:layout_height="40dp"
-        android:layout_width="100dp"
 
-        android:layout_gravity="center"
-        android:background="@color/Gray"
-        android:text="Add "
-        android:textStyle="bold"
-        />
 
 </LinearLayout>
