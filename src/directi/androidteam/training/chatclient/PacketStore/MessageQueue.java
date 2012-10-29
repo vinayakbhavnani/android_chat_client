@@ -6,6 +6,7 @@ import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.PacketHandlers.RosterHandler;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,11 +19,11 @@ public class MessageQueue {
     MessageHandler mhandler;
     RosterHandler rhandler;
     LoginHandler loginHandler;
-    private final ArrayList<Tag> tagQueue;
+    private final Vector<Tag> tagQueue;
     private static final MessageQueue mqueue = new MessageQueue();
 
     private MessageQueue(){
-        tagQueue = new ArrayList<Tag>();
+        tagQueue = new Vector<Tag>();
         mhandler = new MessageHandler();
         rhandler = RosterHandler.getInstance();
         loginHandler = LoginHandler.getInstance();

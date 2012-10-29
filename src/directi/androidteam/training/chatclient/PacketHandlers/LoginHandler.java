@@ -53,6 +53,9 @@ public class LoginHandler implements Handler {
 
     @Override
     public void processPacket(Tag tag) {
+
+        if(tag==null)
+            return;
         Log.d("packetrec",tag.toXml());
         if(tag.getTagname().equals("message")){
         } else if (tag.getTagname().equals("stream:stream") || tag.getTagname().equals("success") || tag.getTagname().equals("failure")) {
