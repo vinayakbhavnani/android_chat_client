@@ -24,6 +24,7 @@ public abstract class XMPPLogin {
     protected String accountJID;
     protected Socket socket;
     protected int port;
+
     public XMPPLogin(String accountjid,String passwd){
 
         this.accountJID=accountjid;
@@ -38,6 +39,7 @@ public abstract class XMPPLogin {
     }
     private void sendInitStream(){
         StreamTag streamTag = new StreamTag("stream:stream",serviceName,"jabber:client","http://etherx.jabber.org/streams","1.0");
+        //streamTag.addAttribute("from",accountJID);
         streamTag.setRecipientAccount(accountJID);
         PacketWriter.addToWriteQueue(streamTag);
     }
@@ -56,6 +58,9 @@ public abstract class XMPPLogin {
         iqTag.setRecipientAccount(accountJID);
         PacketWriter.addToWriteQueue(iqTag);
     }
+
+
+
 
 
 }

@@ -49,19 +49,15 @@ public class RosterItemAdapter extends ArrayAdapter<RosterItem> {
         }
         RosterItem rosterItem = rosterItems.get(position);
         if (rosterItem != null) {
-            TextView JIDTextView = (TextView)view.findViewById(R.id.roster_jid);
-            JIDTextView.setText(rosterItem.getBareJID());
-            TextView statusTextView = (TextView)view.findViewById(R.id.roster_status);
-            statusTextView.setText(rosterItem.getStatus());
-            ImageView avatarImageView = (ImageView)view.findViewById(R.id.roster_image);
-            avatarImageView.setImageBitmap(rosterItem.getAvatar());
-            ImageView availabilityImageView = (ImageView)view.findViewById(R.id.list_availability_image);
-            this.setAvailabilityImage(availabilityImageView, rosterItem.getPresence());
+            ((TextView)view.findViewById(R.id.roster_name)).setText(rosterItem.getName());
+            ((TextView)view.findViewById(R.id.roster_status)).setText(rosterItem.getStatus());
+            ((ImageView)view.findViewById(R.id.roster_image)).setImageBitmap(rosterItem.getAvatar());
+            this.setAvailabilityImage((ImageView)view.findViewById(R.id.list_availability_image), rosterItem.getPresence());
         }
         return view;
     }
 
-    public void setAvailabilityImage(ImageView imageView, String presenceAvailability) {
+    private void setAvailabilityImage(ImageView imageView, String presenceAvailability) {
         if (presenceAvailability.equals("chat")) {
             imageView.setImageResource(R.drawable.green);
         } else if (presenceAvailability.equals("dnd")) {

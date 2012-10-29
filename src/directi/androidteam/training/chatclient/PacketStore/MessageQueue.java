@@ -1,7 +1,6 @@
 package directi.androidteam.training.chatclient.PacketStore;
 
 import directi.androidteam.training.TagStore.Tag;
-import directi.androidteam.training.chatclient.PacketHandlers.Handler;
 import directi.androidteam.training.chatclient.PacketHandlers.LoginHandler;
 import directi.androidteam.training.chatclient.PacketHandlers.MessageHandler;
 import directi.androidteam.training.chatclient.PacketHandlers.RosterHandler;
@@ -40,15 +39,17 @@ public class MessageQueue {
         while(true){
             if(tagQueue.size()!=0){
                 Tag temp = tagQueue.remove(0);
-                launchInNewThread(mhandler, temp);
-                launchInNewThread(loginHandler,temp);
-                launchInNewThread(rhandler,temp);
+                launchInNewThread(temp);
             }
         }
     }
 
-    private void launchInNewThread(final Handler handler, final Tag tag) {
-        Thread thread = new Thread(){public void run() {handler.processPacket(tag);}};
+    private void launchInNewThread(final Tag tag) {
+        Thread thread = new Thread(){public void run() {
+            mhandler.processPacket(tag);
+            loginHandler.processPacket(tag);
+            rhandler.processPacket(tag);
+        }};
         thread.start();
     }
 }

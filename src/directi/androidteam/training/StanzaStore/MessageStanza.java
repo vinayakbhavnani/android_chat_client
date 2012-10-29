@@ -2,6 +2,9 @@ package directi.androidteam.training.StanzaStore;
 
 import directi.androidteam.training.TagStore.MessageTag;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Authentication.Account;
+import directi.androidteam.training.chatclient.Authentication.AccountManager;
+import directi.androidteam.training.chatclient.Chat.ChatStore;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.ArrayList;
@@ -116,11 +119,15 @@ public class MessageStanza extends TagWrapper{
         return tag;
     }
     public String getFrom(){
-        return tag.getAttribute("from").split("/")[0];
+        String from  = tag.getAttribute("from");
+        if(from==null)
+            return null;
+        else
+            return from.split("/")[0];
     }
 
     public String getTo(){
-        return tag.getAttribute("to").split("/")[0];
+        return tag.getAttribute("to").split("@")[0];
     }
     public String getID(){
         return tag.getAttribute("id");
@@ -152,9 +159,12 @@ public class MessageStanza extends TagWrapper{
         tag.addAttribute("from",from);
     }
 
-    public void send() {
-        setFrom(JID.getJid());
-        tag.setRecipientAccount(JID.getBareJid());
+    public void send(String jid) {
+        Account account = AccountManager.getInstance().getAccount(ChatStore.getInstance().getAcctUID(jid));
+        if(account==null)
+            return;
+        tag.addAttribute("from", account.getFullJID());
+        tag.setRecipientAccount(account.getAccountUid());
         setID(UUID.randomUUID().toString());
         PacketWriter.addToWriteQueue(getTag());
     }

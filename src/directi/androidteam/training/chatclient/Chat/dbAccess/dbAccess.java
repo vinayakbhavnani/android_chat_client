@@ -21,7 +21,7 @@ public class dbAccess {
 
     public void addMessage(MessageStanza messageStanza) {
         ContentValues values = new ContentValues();
-        values.put(DBManager.KEY_1_JID_SENDER,messageStanza.getFrom());
+        values.put(DBManager.KEY_1_JID_SENDER,messageStanza.getFrom().split("/")[0]);
         values.put(DBManager.KEY_1_JID_RECEIVER,messageStanza.getTo());
         values.put(DBManager.KEY_1_MESSAGE,messageStanza.getBody());
         values.put(DBManager.KEY_1_ID,messageStanza.getID());
@@ -61,6 +61,7 @@ public class dbAccess {
             return messageStanzas;
         }
         cursor.close();
+        Log.d("dbdb","size - getalk msg :"+messageStanzas.size());
         return messageStanzas;
     }
 

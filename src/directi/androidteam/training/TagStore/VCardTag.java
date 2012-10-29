@@ -12,4 +12,12 @@ public class VCardTag extends Tag {
         this.tagname = "vCard";
         this.addAttribute("xmlns", XMLNameSpace);
     }
+
+    public VCardTag(Tag tag) {
+        this.tagname = "vCard";
+        this.attributes = tag.getAttributes();
+        this.childTags = tag.getChildTags();
+        this.content = tag.getContent();
+        this.setRecipientAccount(tag.getRecipientAccount());
+    }
 }

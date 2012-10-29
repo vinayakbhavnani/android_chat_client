@@ -11,9 +11,20 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS"></uses-permission>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
     <application android:name="directi.androidteam.training.ChatApplication"
                  android:label="@string/app_name"
                  android:icon="@drawable/app_icon">
+        <activity android:name="directi.androidteam.training.chatclient.GlobalTabActivity"
+                  android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data
+                    android:name="android.app.searchable"
+                    android:resource="@xml/searchable"/>
+        </activity>
+
         <activity android:name="directi.androidteam.training.chatclient.InitialActivity"
                   android:label="@string/app_name">
             <intent-filter>
@@ -27,19 +38,9 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="directi.androidteam.training.chatclient.InitialActivity" /> -->
         </activity>
-        <activity android:name=".Roster.DisplayRosterActivity"
-                  android:label="@string/app_name"
-                  android:launchMode="singleTask">
-<!--            <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="directi.androidteam.training.chatclient.Authentication.LoginActivity" /> -->
-        </activity>
 
         <activity android:name="directi.androidteam.training.chatclient.Authentication.UserListActivity"
                   android:label="@string/app_name">
-<!--            <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="directi.androidteam.training.chatclient.Roster.DisplayRosterActivity" /> -->
         </activity>
         <activity android:name="directi.androidteam.training.chatclient.Authentication.LoginErrorActivity"
                   android:label="@string/app_name">
@@ -48,6 +49,7 @@
                   android:label="@string/app_name"
                   android:launchMode="singleTask">
         </activity>
+        <service android:name=".Authentication.BackgroundService"></service>
         <receiver android:name="directi.androidteam.training.chatclient.Util.NetworkConnectionChangeReceiver"
                   android:label="NetworkConnection">
             <intent-filter>

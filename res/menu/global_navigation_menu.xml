@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/global_navigation_account"
+          android:showAsAction="ifRoom|withText"
+          android:title="Accounts"/>
+
+    <item android:id="@+id/global_navigation_contact"
+          android:showAsAction="ifRoom|withText"
+          android:title="Contacts"/>
+
+    <item android:id="@+id/global_navigation_chat"
+          android:showAsAction="ifRoom|withText"
+          android:title="Chat"/>
+
+</menu>

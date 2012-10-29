@@ -1,7 +1,9 @@
 package directi.androidteam.training.chatclient.Util;
 
+
 import android.util.Log;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Authentication.AccountManager;
 import directi.androidteam.training.chatclient.Chat.PacketStatusManager;
 
 import java.io.PrintWriter;
@@ -29,34 +31,23 @@ public class PacketWriter implements ServiceThread{
     }
 
     public void write(Tag tag){
-        if (tag == null) return;
-        Log.d("QQQQ","tagname"+tag.getTagname() + "body" + tag.toXml());
-        if(tag.getRecipientAccount()==null)
-            return;
-        if (tag.getRecipientAccount().contains("@")) {
-            tag.setRecipientAccount(tag.getRecipientAccount().split("@")[0]);
-        }
         PrintWriter out = outputStreams.get(tag.getRecipientAccount());
-
-        for (String s : outputStreams.keySet()) {
-        }
-
+        Log.d("packetwriter","entry "+tag.toXml());
         if(out!=null){
 
             String str = tag.toXml();
             out.write(tag.toXml());
             Log.d("packetwriter","streamfound " +str );
             out.flush();
+            if(out.checkError()){
+                String id = tag.getAttribute("id");
+                if(id!=null)
+                    PacketStatusManager.getInstance().setFailure(id);
+            }
+            if(tag.getTagId()!=null && tag.getTagId().equals("streamclose")){
+                AccountManager.getInstance().getAccount(tag.getRecipientAccount()).freeResources();
+            }
         }
-        //writer.write(tag.toXml());
-        //writer.flush();
-        if(out.checkError()){
-
-            String id = tag.getAttribute("id");
-            PacketStatusManager.getInstance().setFailure(id);
-        }
-
-
     }
     @Override
     public void execute() {

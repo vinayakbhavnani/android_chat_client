@@ -1,44 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+    >
+<LinearLayout
+              android:id="@+id/accountitem_group"
               android:layout_width="fill_parent"
-              android:layout_height="50dp"
+              android:layout_height="wrap_content"
               android:orientation="horizontal"
               android:background="@color/White"
+              android:clickable="true"
+              android:onClick="accountSettings"
+
+
         >
     <ImageView
         android:id="@+id/accountitem_icon"
         android:layout_height="fill_parent"
         android:layout_width="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center_vertical"
         android:src="@drawable/pingpong_icon"
         />
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/White"
+            android:orientation="vertical"
+            android:layout_marginLeft="5dp"
+        >
     <TextView
         android:id="@+id/accountitem_jid"
-        android:layout_height="fill_parent"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:textSize="20dp"
         android:textStyle="italic"
         android:textColor="@color/Black"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:text="vinayak.bhavnani@gmail.com"
         />
-    <ImageView
-        android:id="@+id/accountitem_presence"
-        android:layout_height="fill_parent"
-        android:layout_width="10dp"
-        android:src="@drawable/green"
-        android:scaleType="center"
-        />
-    <ImageView
-        android:id="@+id/accountitem_settings"
-        android:layout_height="fill_parent"
-        android:layout_width="20dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:src="@drawable/settings"
-        android:clickable="true"
-        android:onClick="accountSettings"
-        />
+        <TextView
+                android:id="@+id/accountitem_status"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="15dp"
+                android:text="my status"
+                android:layout_marginBottom="5dp"
+            />
+    </LinearLayout>
+    <ImageView android:id="@+id/accountitem_presence"
+               android:layout_height="match_parent"
+               android:layout_width="5dp"
+               android:scaleType="centerCrop"
+               android:src="@drawable/green"
+
+               android:clickable="false"
+               android:focusable="false"
+               android:focusableInTouchMode="false"/>
+
 
 
 </LinearLayout>
+    <ImageView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:src="@android:drawable/divider_horizontal_dark"
+            android:layout_width="fill_parent"
+            android:layout_height="10dp"
+            android:scaleType="fitXY"
+            android:background="@color/Gray"
+            android:layout_below="@id/accountitem_group"
+            />
+</RelativeLayout>

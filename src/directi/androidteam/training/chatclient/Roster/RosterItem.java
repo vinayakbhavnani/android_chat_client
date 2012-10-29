@@ -16,6 +16,14 @@ public class RosterItem {
     private String presence;
     private VCard vCard;
 
+    public String getAccount() {
+        return this.account;
+    }
+
+    public void setAccount(String accountJID) {
+        this.account = accountJID;
+    }
+
     public String getBareJID() {
         return this.bareJID;
     }

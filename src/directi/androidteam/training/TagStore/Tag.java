@@ -19,6 +19,15 @@ public class Tag {
     protected ArrayList<Tag> childTags;
     protected String content;
     protected String recipientAccount;
+    protected String tagId;
+
+    public String getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(String tagId) {
+        this.tagId = tagId;
+    }
 
     public String getRecipientAccount() {
         return recipientAccount;
@@ -107,12 +116,13 @@ public class Tag {
         return attributes.get(key);
     }
     public Tag getChildTag(String childTagName) {
+        if (this.childTags == null) {return null;}
         for (int i = 0; i < this.getChildTags().size(); i++) {
             if (this.getChildTags().get(i).getTagname().equals(childTagName)) {
                 return this.getChildTags().get(i);
             }
         }
-        return new Tag();
+        return null;
     }
     public Tag getChildTag(String childTagName, String showValue) {
         Log.d("xxxxxxxxx", showValue);

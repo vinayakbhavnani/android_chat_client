@@ -20,6 +20,8 @@ public class ComboMessage {
         this.cli=cli;
     }
     public void setFailure(){
+        if(cli==null)
+            return;
         cli.setStatus(false);
         ms.setStatus(false);
     }
