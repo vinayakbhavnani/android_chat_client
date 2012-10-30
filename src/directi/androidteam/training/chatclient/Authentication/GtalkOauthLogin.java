@@ -17,6 +17,10 @@ public class GtalkOauthLogin extends XMPPLogin {
         this.serviceName = "gmail.com";
     }
 
+    private void getAuthToken(){
+
+    }
+
     @Override
     void generateAuthString(String username, String passwd) {
        this.authString = '\0'+username+'\0'+passwd;

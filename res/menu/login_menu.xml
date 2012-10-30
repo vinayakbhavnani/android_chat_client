@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/login_via_gtalk"
+    <item android:id="@+id/addaccount_signin"
           android:title="@string/button_login"
+          android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/addaccount_import"
+          android:title="Import Account"
           android:showAsAction="ifRoom|withText" />
 </menu>

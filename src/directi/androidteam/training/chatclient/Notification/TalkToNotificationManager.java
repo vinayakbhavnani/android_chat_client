@@ -15,6 +15,7 @@ public class TalkToNotificationManager {
 
     private Context notificationContext ;
     private static final String LOGTAG = "TalkToNotificationManager";
+    public static final String NOTIFICATION_ID = "NotificationID";
 
     public TalkToNotificationManager(Context currentContext) {
         notificationContext = currentContext;
@@ -40,6 +41,10 @@ public class TalkToNotificationManager {
         notificationBuilder.setWhen(System.currentTimeMillis());
         notificationBuilder.setAutoCancel(true);
         notificationBuilder.setNumber(number);
+        Intent deleteIntent = new Intent(CancellationReceiver.CANCEL);
+        deleteIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+        deleteIntent.putExtra(NOTIFICATION_ID,notificationID);
+        notificationBuilder.setDeleteIntent(PendingIntent.getActivity(notificationContext,0,deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT));
         notificationBuilder.setContentIntent( TaskStackBuilder.create(notificationContext).addParentStack(homeActivityClass).addNextIntent(new Intent(notificationContext,homeActivityClass)).addNextIntent(targetIntent).getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT));
         Notification notification = notificationBuilder.build();
         Log.d(LOGTAG,"successfully created android notification") ;

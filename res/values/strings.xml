@@ -3,7 +3,7 @@
     <string name="app_name">Talk.to</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="button_login">Login via Gtalk</string>
+    <string name="button_login">Sign In</string>
     <string name="start_chatting">Chat </string>
     <string name="login_error">Username does not match password. Try Again.</string>
     <string name="button_try_again">Try Again</string>
@@ -22,6 +22,7 @@
     <string name="cancel">Cancel</string>
     <string name="search">Search</string>
     <string name="add_contact">Add Contact</string>
+    <string name="search_hint">Search Contacts</string>
     <string-array name="roster_availability_array">
         <item>Available</item>
         <item>Busy</item>

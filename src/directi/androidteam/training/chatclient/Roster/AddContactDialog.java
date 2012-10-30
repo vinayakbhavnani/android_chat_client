@@ -8,9 +8,8 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import directi.androidteam.training.StanzaStore.JID;
-import directi.androidteam.training.StanzaStore.PresenceS;
 import directi.androidteam.training.StanzaStore.RosterSet;
+import directi.androidteam.training.TagStore.Presence;
 import directi.androidteam.training.chatclient.R;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
@@ -22,14 +21,20 @@ import directi.androidteam.training.chatclient.Util.PacketWriter;
  * To change this template use File | Settings | File Templates.
  */
 public class AddContactDialog extends DialogFragment {
-    public void sendChatInvitation(String invitedJID) {
+    private String accountUID;
+
+    public AddContactDialog(String accountUID) {
+        this.accountUID = accountUID;
+    }
+
+    private void sendChatInvitation(String invitedJID) {
         RosterSet rosterSet = new RosterSet();
         rosterSet.addQuery(invitedJID);
-        PacketWriter.addToWriteQueue(rosterSet.getTag().setRecipientAccount(JID.getJid().split("/")[0]));
-        PresenceS presenceS = new PresenceS();
-        presenceS.addReceiver(invitedJID);
-        presenceS.addType("subscribe");
-        PacketWriter.addToWriteQueue(presenceS.getTag().setRecipientAccount(JID.getJid().split("/")[0]));
+        PacketWriter.addToWriteQueue(rosterSet.getTag().setRecipientAccount(accountUID));
+        Presence presence = new Presence();
+        presence.setTo(invitedJID);
+        presence.setType("subscribe");
+        PacketWriter.addToWriteQueue(presence.setRecipientAccount(accountUID));
     }
 
     @Override

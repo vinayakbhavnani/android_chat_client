@@ -1,8 +1,6 @@
 package directi.androidteam.training.chatclient.Authentication;
 
-import android.util.Log;
-
-import java.io.IOException;
+import directi.androidteam.training.chatclient.R;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,22 +11,22 @@ import java.io.IOException;
  */
 public class GtalkAccount extends Account {
     public GtalkAccount(String username , String passwd , boolean pwdbased){
-        this.accountJid=username;
-
+        this.accountUid =username;
+        this.serviceIcon = R.drawable.gtalk;
         this.serverURL = "talk.google.com";
         this.serverPort = 5223;
-        if(pwdbased)
+
+        this.passwd = passwd;
+        loginStatus = LoginStatus.OFFLINE;
+        if(pwdbased){
             this.xmppLogin = new GtalkLogin(username,passwd);
-        else
-            this.xmppLogin = new GtalkOauthLogin(username,passwd);
-        try {
-            //setupReaderWriter();
-            this.socket = createSocket();
-            Log.d("accountinfo","created");
-        } catch (IOException e) {
-            e.printStackTrace();
+            this.service="gtalk";
         }
-        AccountManager.getInstance().addAccount(this);
+        else{
+            this.xmppLogin = new GtalkOauthLogin(username,passwd);
+            this.service="gtalkauth";
+        }
+        //AccountManager.getInstance().addAccount(this);
         //this.Login();
     }
 }

@@ -3,6 +3,7 @@ package directi.androidteam.training.chatclient.Util;
 import android.content.Intent;
 import android.util.Log;
 import directi.androidteam.training.ChatApplication;
+import directi.androidteam.training.chatclient.Authentication.*;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
@@ -35,9 +36,14 @@ public class PacketReader implements ServiceThread{
             XMLHelper helper = new XMLHelper();
 
             if(helper.tearxmlPacket(reader,accountjid)==null){
-                Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
-                intent.putExtra("error","connection");
+                //Intent intent = new Intent(ChatApplication.getAppContext(), ChatBox.class);
+                //intent.putExtra("error","connection");
 //                ChatBox.getContext().startActivity(intent);
+                Account account  = AccountManager.getInstance().getAccount(accountjid);
+                account.setLoginStatus(LoginStatus.OFFLINE);
+                if(account.getPersistedLoginStatus().equals(LoginStatus.ONLINE) && NetworkManager.connected){
+                    new LoginTask(AccountManager.getInstance().getAccount(accountjid));
+                }
                 }
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

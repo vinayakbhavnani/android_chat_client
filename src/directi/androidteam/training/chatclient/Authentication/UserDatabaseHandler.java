@@ -29,7 +29,7 @@ public class UserDatabaseHandler  {
     }
 
     public void addUser(User user) {
-        if (!(getPassword(user.getUsername()).equals("NO_SUCH_USER"))) {
+        /*if (!(getPassword(user.getUsername()).equals("NO_SUCH_USER"))) {
             updateState(user.getUsername(), LOGGED_IN);
             return;
         } else {
@@ -42,7 +42,7 @@ public class UserDatabaseHandler  {
 
             db.insert(TABLE_USERS, null, values);
             db.close();
-        }
+        }*/
     }
 
     public String getPassword(String username) {
@@ -67,7 +67,7 @@ public class UserDatabaseHandler  {
     }
 
     public ArrayList<User> getAllUsers() {
-        ArrayList<User> userList = new ArrayList<User>();
+        /*ArrayList<User> userList = new ArrayList<User>();
 
         String selectQuery = "SELECT * FROM " + TABLE_USERS;
 
@@ -80,12 +80,13 @@ public class UserDatabaseHandler  {
                 user.setUsername(cursor.getString(0));
                 user.setPassword(cursor.getString(1));
                 user.setState(cursor.getString(2));
-                userList.add(user);
+                userList.addSubscriber(user);
             } while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
-        return userList;
+        return userList;*/
+        return new ArrayList<User>();
     }
 
     public int updateState(String username, String state) {

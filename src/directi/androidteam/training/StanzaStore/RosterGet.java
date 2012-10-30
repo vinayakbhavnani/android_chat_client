@@ -3,6 +3,7 @@ package directi.androidteam.training.StanzaStore;
 import directi.androidteam.training.TagStore.IQTag;
 import directi.androidteam.training.TagStore.Query;
 import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Chat.ChatStore;
 import directi.androidteam.training.chatclient.Util.PacketWriter;
 
 import java.util.UUID;
@@ -15,17 +16,7 @@ import java.util.UUID;
  * To change this template use File | Settings | File Templates.
  */
 public class RosterGet extends TagWrapper {
-
-    public RosterGet(String from, String id) {
-        tag = new IQTag();
-        tag.addAttribute("from",from);
-        tag.addAttribute("id",id);
-        tag.addAttribute("type","get");
-        Query query = new Query();
-        tag.addChildTag(query);
-        setSender(JID.getJid());
-    }
-    public RosterGet(){
+    public RosterGet() {
         tag = new IQTag();
         tag.addAttribute("type","get");
         Query query = new Query();
@@ -49,9 +40,8 @@ public class RosterGet extends TagWrapper {
         return this;
     }
 
-    public void send() {
-        setSender(JID.getJid());
-        tag.setRecipientAccount(JID.getBareJid());
+    public void send(String from) {
+        tag.setRecipientAccount(ChatStore.getInstance().getAcctUID(from));
         setID(UUID.randomUUID().toString());
         PacketWriter.addToWriteQueue(getTag());
     }

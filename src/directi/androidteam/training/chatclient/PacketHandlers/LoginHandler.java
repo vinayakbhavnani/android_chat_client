@@ -3,16 +3,16 @@ package directi.androidteam.training.chatclient.PacketHandlers;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 import directi.androidteam.training.ChatApplication;
-import directi.androidteam.training.StanzaStore.MessageStanza;
-import directi.androidteam.training.TagStore.*;
-import directi.androidteam.training.chatclient.Authentication.*;
-import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
-import directi.androidteam.training.chatclient.Util.Base64;
-import directi.androidteam.training.chatclient.Util.PacketWriter;
+import directi.androidteam.training.TagStore.JIDTag;
+import directi.androidteam.training.TagStore.Presence;
+import directi.androidteam.training.TagStore.Tag;
+import directi.androidteam.training.chatclient.Authentication.AccountManager;
+import directi.androidteam.training.chatclient.Authentication.ConnectGTalk;
+import directi.androidteam.training.chatclient.Authentication.LoginStatus;
+import directi.androidteam.training.chatclient.GlobalTabActivity;
+import directi.androidteam.training.chatclient.Roster.RemoveRoster;
+import directi.androidteam.training.chatclient.Roster.RequestRoster;
 import directi.androidteam.training.lib.xml.XMLHelper;
 
 /**
@@ -36,7 +36,7 @@ public class LoginHandler implements Handler {
     private String extractJID(Tag iqTag) {
         JIDTag jidTag  = new JIDTag(iqTag.getChildTags().get(0).getChildTags().get(0));
         Log.d("JID intialize", jidTag.getContent());
-        return jidTag.getContent().split("/")[0];
+        return jidTag.getContent();
     }
 
     private boolean contains(Tag parent, String childTagName) {
@@ -59,7 +59,11 @@ public class LoginHandler implements Handler {
             processPacketAux(tag);
         } else if (tag.getTagname().equals("iq") && contains(tag, "bind")) {
             processPacketAux(tag);
-        } else {
+        } else if(tag.getTagname().equals("presence")){
+            AccountManager.getInstance().getAccount(tag.getRecipientAccount()).initPresence(new Presence(tag));
+        }
+        else {
+
         }
     }
 
@@ -78,7 +82,8 @@ public class LoginHandler implements Handler {
             }
         } else if (tag.getTagname().equals("success")) {
             Log.d("Login Flow", "Success tag received.");
-
+            AccountManager.getInstance().addSubscribers(new RequestRoster());
+            AccountManager.getInstance().addSubscribers(new RemoveRoster());
             //PacketWriter.addToWriteQueue(new StreamTag("stream:stream","gmail.com","jabber:client","http://etherx.jabber.org/streams","1.0"));
             AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().restartStream();
         } else if (tag.getTagname().equals("failure")) {
@@ -95,28 +100,34 @@ public class LoginHandler implements Handler {
                 AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().sendAuthPacket();
                 return;
             }
-            ConnectGTalk.callerActivity.runOnUiThread(new Runnable() {
-                public void run() {
-                    ConnectGTalk.callerActivity.findViewById(R.id.progress_bar).setVisibility(View.GONE);
-                    (Toast.makeText(ConnectGTalk.callerActivity, "Wrong username or password. Please try again.", Toast.LENGTH_LONG)).show();
-                }
-            });
+            else {
+                Log.d("not authorized","invalid credentials");
+                AccountManager.getInstance().getAccount(tag.getRecipientAccount()).Logout();
+                AccountManager.getInstance().getAccount(tag.getRecipientAccount()).setLoginStatus(LoginStatus.INVALIDCREDENTIALS);
+            }
         } else if (tag.getTagname().equals("iq")) {
             Log.d("Login Flow", "Iq tag with a child bind tag received.");
             String bareJID = extractJID(tag);
             //PacketWriter.addToWriteQueue(new IQTag("sess_1", "talk.google.com", "set", new SessionTag("urn:ietf:params:xml:ns:xmpp-session")));
             AccountManager.getInstance().getAccount(tag.getRecipientAccount()).getXmppLogin().sendStartSession();
+            AccountManager.getInstance().getAccount(tag.getRecipientAccount()).setFullJID(bareJID);
             /*MessageStanza ms = new MessageStanza("dummy.android.chat@gmail.com","testerauth");
             ms.getTag().setRecipientAccount("vinayak.bhavnani@gmail.com");
             PacketWriter.addToWriteQueue(ms.getTag());*/
-            UserDatabaseHandler db = new UserDatabaseHandler(ChatApplication.getAppContext());
-            db.addUser(new User(ConnectGTalk.username, ConnectGTalk.password));
-
-            Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
+            AccountManager.getInstance().getAccount(tag.getRecipientAccount()).setLoginStatus(LoginStatus.ONLINE);
+/*
+            if(AccountManager.getInstance().initialActivity!=null){
+                AccountManager.getInstance().initialActivity.finish();
+            }
+*/
+            /*Intent intent = new Intent(ChatApplication.getAppContext(), DisplayRosterActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(LoginActivity.USERNAME, ConnectGTalk.username);
             intent.putExtra("bareJID", bareJID);
-           ChatApplication.getAppContext().startActivity(intent);
+           ChatApplication.getAppContext().startActivity(intent);*/
+            Intent intent = new Intent(ChatApplication.getAppContext(),GlobalTabActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            ChatApplication.getAppContext().startActivity(intent);
             if (ConnectGTalk.callerActivity != null) {
                 ConnectGTalk.callerActivity.setResult(Activity.RESULT_OK);
                 ConnectGTalk.callerActivity.finish();

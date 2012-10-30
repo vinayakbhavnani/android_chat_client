@@ -4,13 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
+import directi.androidteam.training.chatclient.GlobalTabActivity;
 import directi.androidteam.training.chatclient.R;
-import directi.androidteam.training.chatclient.Roster.DisplayRosterActivity;
-import org.jivesoftware.smack.MessageListener;
+import directi.androidteam.training.chatclient.Roster.RosterFragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MessageNotificationHandler {
 
@@ -28,11 +26,12 @@ public class MessageNotificationHandler {
         return notificationID;
     }
 
-    public TalkToNotification getNotification(String messageSender,String message ) {
+    public TalkToNotification getNotification(String messageSender,String message ,String accountUID) {
         Intent targetIntent = new Intent(context,ChatBox.class);
         targetIntent.putExtra(ChatBox.BUDDY_ID, messageSender);
+        targetIntent.putExtra(ChatBox.ACCOUNT_UID,accountUID);
         int index = getIndex(messageSender);
-        Message m = new Message(messageSender,message);
+        Message m = new Message(messageSender,message,accountUID);
         if( index == -1) {
             messageList.add(0,m);
         } else {
@@ -52,7 +51,7 @@ public class MessageNotificationHandler {
         }   else {
              contentTitle = messageSender;
         }
-        TalkToNotification notification = new TalkToNotification(targetIntent,DisplayRosterActivity.class,R.drawable.ic_launcher,contentTitle ,message,messageSender + " : " + message,notificationID,numberOfContacts);
+        TalkToNotification notification = new TalkToNotification(targetIntent,GlobalTabActivity.class,R.drawable.ic_launcher,contentTitle ,message,messageSender + " : " + message,notificationID,numberOfContacts);
         Log.d(LOGTAG,"notification created successfully");
         return notification;
     }
@@ -63,7 +62,7 @@ public class MessageNotificationHandler {
          if(messageList.size() == 0) {
              return null;
          } else {
-             return getNotification(messageList.get(0).messageSender , messageList.get(0).message);
+             return getNotification(messageList.get(0).messageSender , messageList.get(0).message,messageList.get(0).accountUID);
          }
     }
 
@@ -83,9 +82,11 @@ public class MessageNotificationHandler {
     public class Message {
         public String messageSender;
         public String message;
-        public Message(String messageSender,String message) {
+        public String accountUID;
+        public Message(String messageSender,String message,String accountUID) {
             this.messageSender = messageSender ;
             this.message = message;
+            this.accountUID = accountUID;
         }
     }
 

@@ -41,7 +41,7 @@ public class PacketStatusManager {
     }
 
     public void setFailure(String id){
-        if(!packetqueue.containsKey(id))
+        if(packetqueue==null || !packetqueue.containsKey(id))
             return;
         ComboMessage cm = packetqueue.remove(id);
         cm.setFailure();

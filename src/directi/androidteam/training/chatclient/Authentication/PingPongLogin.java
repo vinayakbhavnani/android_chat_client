@@ -21,7 +21,7 @@ public class PingPongLogin extends XMPPLogin {
 
     @Override
     void generateAuthString(String username, String passwd) {
-        this.authString = '\0'+username+'\0'+passwd+'\0'+"arbit";
+        this.authString = '\0'+username.split("@")[0]+'\0'+passwd+'\0'+"arbit";
     }
 
     @Override

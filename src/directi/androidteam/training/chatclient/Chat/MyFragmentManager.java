@@ -36,7 +36,9 @@ public class MyFragmentManager {
                 return;
         }
         Log.d("xcxc","addFragEntry : jid : "+jid + "actual insert");
-        Context context = ChatBox.getContext();
+
+       // Context context = ChatBox.getContext();
+        Context context =  ChatBox.getContext();
         if(context!=null) {
             Activity application = (Activity) context;
                 application.runOnUiThread(new Runnable() {
@@ -46,17 +48,14 @@ public class MyFragmentManager {
                     }
                 });
         }
+
     }
 
-    public void removeFragEntry(String jid) {
+    public synchronized void removeFragEntry(String jid) {
         if(jid==null)
             return;
         Log.d("xcxc","addFragEntry : jid : "+jid);
-        for (String s : JIDOrderOfFragments) {
-            if(s.equals(jid)) {
-                JIDOrderOfFragments.remove(s);
-            }
-        }
+        JIDOrderOfFragments.remove(jid);
     }
 
     public ChatFragment getFragByJID(String jid) {

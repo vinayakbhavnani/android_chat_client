@@ -99,7 +99,6 @@ public class XMLHelper {
         int event;
         try{
             String name = xpp.getName();
-            Log.d("XML : Name",name);
             String content = null;
             HashMap<String,String> map = null;
             if(xpp.getAttributeCount()!=0){
@@ -155,7 +154,7 @@ public class XMLHelper {
                 if(event==XmlPullParser.START_TAG){
                     temptag =  tearTag(xpp);
                     temptag.setRecipientAccount(jid);
-                    Log.d("packetxml",buildPacket(temptag));
+                    Log.d("packetxml",buildPacket(temptag) + " jid "+temptag.getRecipientAccount());
                     MessageQueue.getInstance().pushPacket(temptag);
                     Log.d("packet","packetpushed");
                 }

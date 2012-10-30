@@ -22,9 +22,9 @@ public class TalkToNotifier {
         return instance;
     }
 
-    public void sendMessageNotification(String messageSender , String message )  {
+    public void sendMessageNotification(String messageSender , String message ,String accountUID)  {
         Log.d(LOGTAG , "received request");
-        TalkToNotification notification = messageHandler.getNotification(messageSender, message);
+        TalkToNotification notification = messageHandler.getNotification(messageSender, message,accountUID);
         notificationManager.notify(notification);
         Log.d(LOGTAG,"finished request");
     }
