@@ -70,7 +70,7 @@ public class ChatViewPageChangeListner implements ViewPager.OnPageChangeListener
             hleft.setText("");
         }
         if(right!=null) {
-                RosterItem rosterItem = RosterManager.getInstance().getRosterItem(ChatStore.getInstance().getAcctUID(right), right);
+            RosterItem rosterItem = RosterManager.getInstance().getRosterItem(ChatStore.getInstance().getAcctUID(right), right);
             if(rosterItem==null) {
                 hright.setText(right.split("@")[0]);
             }

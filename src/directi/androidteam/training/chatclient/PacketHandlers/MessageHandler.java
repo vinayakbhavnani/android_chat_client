@@ -6,8 +6,8 @@ import directi.androidteam.training.StanzaStore.MessageStanza;
 import directi.androidteam.training.TagStore.Query;
 import directi.androidteam.training.TagStore.Tag;
 import directi.androidteam.training.chatclient.Chat.ChatBox;
-import directi.androidteam.training.chatclient.Chat.ChatNotifier;
 import directi.androidteam.training.chatclient.Chat.dbAccess.dbAccess;
+import directi.androidteam.training.chatclient.Notification.TalkToNotifier;
 
 import java.util.ArrayList;
 
@@ -25,27 +25,26 @@ public class MessageHandler implements Handler{
 
     @Override
     public void processPacket(Tag tag){
-      //  HashMap<String,Vector<MessageStanza>> chatLists = MessageManager.getInstance().getMessageStore();
+        // HashMap<String,Vector<MessageStanza>> chatLists = MessageManager.getInstance().getMessageStore();
         if(tag==null || tag.getTagname()==null)
             return;
         if(tag.getTagname().equals("message")) {
             final MessageStanza ms = new MessageStanza(tag);
             String from = ms.getTag().getAttribute("from").split("/")[0];
             String chatState = ms.getChatState();
-           // if(chatLists.containsKey(from) && chatState.equals("composing")) {
-                if(chatState.equals("composing")) {
-                    Log.d("CHAT STATE","Compose received from :" + from);
+            // if(chatLists.containsKey(from) && chatState.equals("composing")) {
+            if(chatState.equals("composing")) {
+                Log.d("CHAT STATE","Compose received from :" + from);
                 ChatBox.composeToast(from +" is composing");
                 return;
             }
             else if(ms.getBody()!=null) {
                 if(ChatBox.getContext()==null){
-                    ChatNotifier cn = new ChatNotifier(ChatApplication.getAppContext());
-                    dbAccess db =  new dbAccess(); db.addMessage(ms);
-                    cn.notifyChat(ms);
+                    dbAccess db = new dbAccess(); db.addMessage(ms);
                 }
                 else {
-                    ChatBox.notifyChat(ms,from);
+                    TalkToNotifier ttn = TalkToNotifier.getInstance(ChatBox.getContext()) ;
+                    ttn.sendMessageNotification(from,ms.getBody(),ms.getTag().getRecipientAccount());
                 }
 
             }
@@ -72,5 +71,5 @@ public class MessageHandler implements Handler{
                 }
             }
         }
-   }
+    }
 }

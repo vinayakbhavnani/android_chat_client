@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ListView;
 import directi.androidteam.training.ChatApplication;
 import directi.androidteam.training.chatclient.Authentication.*;
+import directi.androidteam.training.chatclient.Chat.ChatBox;
 import directi.androidteam.training.chatclient.Roster.RosterFragment;
 import directi.androidteam.training.chatclient.Roster.RosterItem;
 import directi.androidteam.training.chatclient.Roster.RosterItemAdapter;
@@ -41,6 +42,8 @@ public class GlobalTabActivity extends Activity {
         actionbar.addTab(accountsTab);
         tabs.add(accountsTab);
 
+        RosterFragment.setContext(this.getApplicationContext());
+        ChatBox.setContext(this.getApplicationContext());
         ActionBar.Tab contactsTab = actionbar.newTab().setText("Contacts");
         Fragment contactsFragment = new RosterFragment();
         contactsTab.setTabListener(new MyTabListener(contactsFragment, this, RosterFragment.class.getName()));

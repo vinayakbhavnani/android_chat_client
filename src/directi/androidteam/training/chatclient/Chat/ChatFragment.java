@@ -28,6 +28,7 @@ public class ChatFragment extends ListFragment {
     private Vector<ChatListItem> chatListItems;
     private ChatListAdaptor adaptor;
     private String buddyid="talk.to";
+    private static final String LOGTAG = "ChatFragment";
 
 
     public ChatFragment() {
@@ -116,10 +117,13 @@ public class ChatFragment extends ListFragment {
     }
 
     public void addChatItem(MessageStanza message, boolean b){
+        Log.d(LOGTAG,"entered add chat item");
         if(chatListItems==null) {
             return;
         }
+        Log.d(LOGTAG,"chatListItems was not null");
         ChatListItem cli = new ChatListItem(message);
+        Log.d(LOGTAG,"chat list items constructor successfully called");
         if(b && chatListItems.size()>0)
             chatListItems.remove(chatListItems.size()-1);
         chatListItems.add(cli);

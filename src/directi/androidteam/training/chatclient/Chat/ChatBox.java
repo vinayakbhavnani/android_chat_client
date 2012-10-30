@@ -19,6 +19,7 @@ import directi.androidteam.training.StanzaStore.RosterGet;
 import directi.androidteam.training.chatclient.Chat.Listeners.ChatViewPageChangeListner;
 import directi.androidteam.training.chatclient.Constants;
 import directi.androidteam.training.chatclient.GlobalTabActivity;
+import directi.androidteam.training.chatclient.Notification.TalkToNotifier;
 import directi.androidteam.training.chatclient.R;
 
 
@@ -31,58 +32,89 @@ import directi.androidteam.training.chatclient.R;
  */
 public class ChatBox extends FragmentActivity {
     private static Context context;
+    private static Context applicContext;
     private static FragmentSwipeAdaptor frag_adaptor;
     private static ViewPager viewPager;
     private static Toast toast;
     private static FragmentManager fragmentManager;
+    public static final String BUDDY_ID = "buddyid";
+    public static final String ACCOUNT_UID = "accountUID";
+    private static final String LOGTAG = "ChatBox";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d(LOGTAG,"inside oncreate");
         super.onCreate(savedInstanceState);
+        Log.d(LOGTAG, "called super");
         BugSenseHandler.initAndStartSession(this, Constants.BUGSENSE_API_KEY);
+        Log.d(LOGTAG, "setting content view");
         setContentView(R.layout.chat);
-        context=this;
+        Log.d(LOGTAG, "set content view");
+        applicContext=this.getApplicationContext();
+        context = this;
+        Log.d(LOGTAG,"got app context");
         fragmentManager = getSupportFragmentManager();
+        Log.d(LOGTAG,"got fragment manager");
         frag_adaptor = new FragmentSwipeAdaptor(fragmentManager);
+        Log.d(LOGTAG,"got frag adaptor");
         viewPager = (ViewPager)findViewById(R.id.pager);
+        if(viewPager == null) {
+        Log.d(LOGTAG,"viewPager is null")  ;
+        }
+
         viewPager.setAdapter(frag_adaptor);
-        String from =  (String) getIntent().getExtras().get("buddyid");
+        Intent intent = getIntent();
+        Log.d(LOGTAG,"got intent");
+        String from = intent.getStringExtra(BUDDY_ID);
+        /*
+        Bundle extras = intent.getExtras();
+        Log.d(LOGTAG,"got extras");
+        String from = (String) extras.get(BUDDY_ID);
+        */
+        Log.d(LOGTAG,"can read from string = " + from);
         if(from != null) {
-            if((String) getIntent().getExtras().get("accountUID")!=null)
-                ChatStore.getInstance().addEntry(from,(String) getIntent().getExtras().get("accountUID"));
+            String accountUID = intent.getStringExtra(ACCOUNT_UID);
+            if(accountUID!=null)
+                ChatStore.getInstance().addEntry(from,accountUID);
+
+            Log.d(LOGTAG,"pass if");
             MyFragmentManager.getInstance().addFragEntry(from);
+            Log.d(LOGTAG,"cancelling notification");
+            cancelNotification(from);
+            Log.d(LOGTAG,"cancelled notification");
         }
         viewPager.setOnPageChangeListener(new ChatViewPageChangeListner(context,fragmentManager));
-        if(getIntent().getExtras().containsKey("notification"))
-            cancelNotification();
+        Log.d(LOGTAG,"switching fragment");
         switchFragment(from);
+        Log.d(LOGTAG,"switched fragment");
         sendDiscoInfoQuery(from);
+        Log.d(LOGTAG,"successfully exiting");
     }
 
 /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.global_navigation_menu, menu);
-        return true;
-    }
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+MenuInflater inflater = getMenuInflater();
+inflater.inflate(R.menu.global_navigation_menu, menu);
+return true;
+}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.global_navigation_account:
-                Log.d(Constants.DEBUG_CHATBOX,"account clicked");
-                return true;
-            case R.id.global_navigation_chat:
-                Log.d(Constants.DEBUG_CHATBOX,"chat clicked");
-                return true;
-            case R.id.global_navigation_contact:
-                Log.d(Constants.DEBUG_CHATBOX,"contact clicked");
-                return true;
-            default:
-                return super.onOptionsItemSelected(menuItem);
-        }
-    }
+@Override
+public boolean onOptionsItemSelected(MenuItem menuItem) {
+switch (menuItem.getItemId()) {
+case R.id.global_navigation_account:
+Log.d(Constants.DEBUG_CHATBOX,"account clicked");
+return true;
+case R.id.global_navigation_chat:
+Log.d(Constants.DEBUG_CHATBOX,"chat clicked");
+return true;
+case R.id.global_navigation_contact:
+Log.d(Constants.DEBUG_CHATBOX,"contact clicked");
+return true;
+default:
+return super.onOptionsItemSelected(menuItem);
+}
+}
 */
 
 
@@ -96,39 +128,45 @@ public class ChatBox extends FragmentActivity {
     public static void adaptorNotify(final ChatFragment cfrag){
         Activity a = (Activity) context;
         if(context!=null && cfrag!=null)
-        a.runOnUiThread(new Runnable() {
-            public void run() {
-                cfrag.notifyAdaptor();
+            a.runOnUiThread(new Runnable() {
+                public void run() {
+                    cfrag.notifyAdaptor();
+                }
             }
-        }
-        );
+            );
+    }
+
+    public static Context getApplicContext() {
+        return applicContext;
     }
 
     public static void notifyChat(final MessageStanza ms, final String from){
+        TalkToNotifier ttn = TalkToNotifier.getInstance(applicContext) ;
+        ttn.sendMessageNotification(from,ms.getBody(),ms.getTag().getRecipientAccount());
         if(viewPager.getCurrentItem()!= MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("/")[0])) {
-            ChatNotifier cn = new ChatNotifier(context);
-            cn.notifyChat(ms);
+
         }
 /*
-        dbAccess db =  new dbAccess(); db.addMessage(ms);
-        MyFragmentManager.getInstance().addFragEntry(from);
-        MessageManager.getInstance().appendMessageStore(from,ms);
-        if(viewPager.getCurrentItem()== MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("@")[0])){
-            notifyFragmentAdaptorInSameThread();
-        }
+
+dbAccess db = new dbAccess(); db.addMessage(ms);
+MyFragmentManager.getInstance().addFragEntry(from);
+MessageManager.getInstance().appendMessageStore(from,ms);
+if(viewPager.getCurrentItem()== MyFragmentManager.getInstance().JidToFragId(ms.getFrom().split("@")[0])){
+notifyFragmentAdaptorInSameThread();
+}
 */
         if(context!=null)
-        ((Activity)context).runOnUiThread(new Runnable() {
-            public void run() {
-                MessageManager.getInstance().insertMessage(from, ms);
-            }
-        });
+            ((Activity)context).runOnUiThread(new Runnable() {
+                public void run() {
+                    MessageManager.getInstance().insertMessage(from, ms);
+                }
+            });
 
     }
 
-    public static void cancelNotification(){
-        ChatNotifier cn = new ChatNotifier(context);
-        cn.cancelNotification();
+    public static void cancelNotification(String from){
+        TalkToNotifier ttn = TalkToNotifier.getInstance(applicContext) ;
+        ttn.cancelMessageNotification(from);
     }
 
     @Override
@@ -141,13 +179,13 @@ public class ChatBox extends FragmentActivity {
         if (intent.getExtras().containsKey("finish")){
             this.finish();
         }
-        if(intent.getExtras().containsKey("notification"))
-            cancelNotification();
+
         String from = (String)intent.getExtras().get("buddyid");
+        cancelNotification(from);
         if(from!=null)
         {
             if((String) getIntent().getExtras().get("accountUID")!=null)
-            ChatStore.getInstance().addEntry(from, (String) getIntent().getExtras().get("accountUID"));
+                ChatStore.getInstance().addEntry(from, (String) getIntent().getExtras().get("accountUID"));
             MyFragmentManager.getInstance().addFragEntry(from);
             switchFragment(from);
             sendDiscoInfoQuery(from);
@@ -168,7 +206,7 @@ public class ChatBox extends FragmentActivity {
     public void onClick(View view) {
         int id = view.getId();
         if(id==R.id.sendmessage_button) {
-             sendChat();
+            sendChat();
         }
         else if(id==R.id.chatlistitem_status) {
             resendMessage();
@@ -209,25 +247,29 @@ public class ChatBox extends FragmentActivity {
         return context;
     }
 
+    public static void setContext(Context myContext ) {
+        context = myContext;
+    }
+
     private void GotoRoster(){
         Intent intent = new Intent(ChatApplication.getAppContext(), GlobalTabActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
 /*
-        Object[] objects = MessageManager.getInstance().getMessageStore().keySet().toArray();
-        for (Object object : objects) {
-            MessageStanza messageStanza = new MessageStanza((String) object);
-            messageStanza.formInActiveMsg();
-            //messageStanza.send();
-        }
+Object[] objects = MessageManager.getInstance().getMessageStore().keySet().toArray();
+for (Object object : objects) {
+MessageStanza messageStanza = new MessageStanza((String) object);
+messageStanza.formInActiveMsg();
+//messageStanza.send();
+}
 */
 /*
-        String[] jids = ChatStore.getInstance().getAllAcctUID();
-        for (String jid : jids) {
-            MessageStanza messageStanza = new MessageStanza(jid);
-            messageStanza.formInActiveMsg();
-            messageStanza.send(jid);
-        }
+String[] jids = ChatStore.getInstance().getAllAcctUID();
+for (String jid : jids) {
+MessageStanza messageStanza = new MessageStanza(jid);
+messageStanza.formInActiveMsg();
+messageStanza.send(jid);
+}
 */
 
     }
@@ -249,15 +291,15 @@ public class ChatBox extends FragmentActivity {
     public static void composeToast(final String s) {
         Activity application = (Activity) context;
         if(context!=null)
-        application.runOnUiThread(new Runnable() {
-            public void run() {
-                if(toast!=null)
-                    toast.cancel();
-                toast = Toast.makeText(ChatApplication.getAppContext(), s, Toast.LENGTH_SHORT);
-                toast.show();
+            application.runOnUiThread(new Runnable() {
+                public void run() {
+                    if(toast!=null)
+                        toast.cancel();
+                    toast = Toast.makeText(ChatApplication.getAppContext(), s, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
-        }
-        );
+            );
     }
 
     public static void removeFragmentviaFragManager(String jid) {
@@ -268,3 +310,6 @@ public class ChatBox extends FragmentActivity {
     }
 
 }
+
+
+
