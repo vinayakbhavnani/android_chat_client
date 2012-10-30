@@ -1,6 +1,7 @@
 package directi.androidteam.training.chatclient.Roster;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,10 +19,13 @@ import java.util.ArrayList;
 
 public class RosterFragment extends Fragment {
     private View view;
+    private static Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        TalkToNotifier ttn = TalkToNotifier.getInstance(context);
+        ttn.cancelAllMessageNotifications();
         RosterManager.getInstance().setGlobalTabActivity((GlobalTabActivity)getActivity());
     }
 
@@ -46,6 +50,10 @@ public class RosterFragment extends Fragment {
         RosterItemAdapter rosterItemAdapter = ((RosterItemAdapter)(((ListView)view.findViewById(R.id.roster_list)).getAdapter()));
         rosterItemAdapter.setRosterItems(new ArrayList<RosterItem>(rosterList));
         rosterItemAdapter.notifyDataSetChanged();
+    }
+
+    public static void setContext(Context myContext){
+        context = myContext;
     }
 
     public void onListItemClick(ListView view, View v, int position, long id) {

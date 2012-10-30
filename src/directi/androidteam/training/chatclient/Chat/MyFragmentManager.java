@@ -36,7 +36,9 @@ public class MyFragmentManager {
                 return;
         }
         Log.d("xcxc","addFragEntry : jid : "+jid + "actual insert");
-        Context context = ChatBox.getContext();
+
+       // Context context = ChatBox.getContext();
+        Context context =  ChatBox.getContext();
         if(context!=null) {
             Activity application = (Activity) context;
                 application.runOnUiThread(new Runnable() {
@@ -46,6 +48,7 @@ public class MyFragmentManager {
                     }
                 });
         }
+
     }
 
     public synchronized void removeFragEntry(String jid) {

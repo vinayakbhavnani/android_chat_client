@@ -10,6 +10,8 @@ import android.widget.ProgressBar;
 import directi.androidteam.training.chatclient.Authentication.AccountManager;
 import directi.androidteam.training.chatclient.Authentication.LoginActivity;
 import directi.androidteam.training.chatclient.Authentication.NetworkManager;
+import directi.androidteam.training.chatclient.Chat.ChatBox;
+import directi.androidteam.training.chatclient.Roster.RosterFragment;
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,6 +43,8 @@ public class InitialActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RosterFragment.setContext(this.getApplicationContext());
+        ChatBox.setContext(this.getApplicationContext());
         NetworkManager.setConnected((Context)this);
         Integer option = AccountManager.getInstance().loginAccounts();
         Log.d("initialActivity Option",option.toString());
